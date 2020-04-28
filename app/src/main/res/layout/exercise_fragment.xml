@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@{model.exercise.practicePhrase}"
+            android:text="@{model.currentExercise.practicePhrase}"
             tools:text="Hello" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@{model.exercise.translatedPhrase}"
+            android:text="@{model.currentExercise.translatedPhrase}"
             tools:text="Hola" />
 
         <LinearLayout

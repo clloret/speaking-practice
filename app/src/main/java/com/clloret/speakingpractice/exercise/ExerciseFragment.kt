@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.exercise_fragment.*
 import timber.log.Timber
 import java.util.*
 
-
 class ExerciseFragment : Fragment() {
 
     companion object {
@@ -48,7 +47,15 @@ class ExerciseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.loadNextExercise()
+        viewModel.allExercises.observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer { exercises ->
+                exercises?.let {
+                    Timber.d("Set exercise data")
+                    viewModel.phrases = it
+                    viewModel.loadNextExercise()
+                }
+            })
 
         fab.setOnClickListener {
             startRecognizeSpeech()

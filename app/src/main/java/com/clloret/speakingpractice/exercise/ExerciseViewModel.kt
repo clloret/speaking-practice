@@ -1,22 +1,41 @@
 package com.clloret.speakingpractice.exercise
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.clloret.speakingpractice.db.ExerciseRepository
+import com.clloret.speakingpractice.db.ExercisesDatabase
 import timber.log.Timber
 
-class ExerciseViewModel : ViewModel() {
-    private val phrases = listOf(
-        Exercise("What is your name", "¿Cómo te llamas?"),
-        Exercise("What do you do", "¿Qué haces?"),
-        Exercise("How old are you", "¿Cuantos años tienes?")
-    )
-    private val phrasesIterator = phrases.listIterator()
+
+class ExerciseViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: ExerciseRepository
+
+    var phrases: List<Exercise> = listOf()
+        set(value) {
+            field = value
+            phrasesIterator = phrases.listIterator()
+        }
+    private var phrasesIterator: ListIterator<Exercise> = phrases.listIterator()
+
+    val allExercises: LiveData<List<Exercise>>
+    val currentExercise: MutableLiveData<Exercise> by lazy {
+        MutableLiveData<Exercise>()
+    }
+
+    init {
+        val exerciseDao = ExercisesDatabase.getDatabase(application, viewModelScope).exerciseDao()
+        repository = ExerciseRepository(exerciseDao)
+        allExercises = repository.allExercises
+    }
 
     fun loadNextExercise() {
         Timber.d("loadNextExercise")
 
         if (phrasesIterator.hasNext()) {
-            exercise.value = phrasesIterator.next()
+            currentExercise.value = phrasesIterator.next()
         }
     }
 
@@ -24,16 +43,12 @@ class ExerciseViewModel : ViewModel() {
         Timber.d("loadPreviousExercise")
 
         if (phrasesIterator.hasPrevious()) {
-            exercise.value = phrasesIterator.previous()
+            currentExercise.value = phrasesIterator.previous()
         }
     }
 
     fun validatePhrase(text: String): Boolean {
-        return exercise.value?.practicePhrase.equals(text, true)
-    }
-
-    val exercise: MutableLiveData<Exercise> by lazy {
-        MutableLiveData<Exercise>()
+        return currentExercise.value?.practicePhrase.equals(text, true)
     }
 
 }

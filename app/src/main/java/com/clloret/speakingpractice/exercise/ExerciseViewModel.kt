@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
+import com.clloret.speakingpractice.domain.ExerciseValidator
 import timber.log.Timber
 
 
@@ -48,7 +49,10 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun validatePhrase(text: String): Boolean {
-        return currentExercise.value?.practicePhrase.equals(text, true)
+        return ExerciseValidator.validatePhrase(
+            text,
+            currentExercise.value?.practicePhrase ?: return false
+        )
     }
 
 }

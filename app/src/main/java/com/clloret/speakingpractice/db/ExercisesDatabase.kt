@@ -59,6 +59,9 @@ abstract class ExercisesDatabase : RoomDatabase() {
 
             exercise = Exercise(2, "What do you do", "¿Qué haces?")
             exerciseDao.insert(exercise)
+
+            exercise = Exercise(3, "I don’t understand", "No entiendo")
+            exerciseDao.insert(exercise)
         }
     }
 }

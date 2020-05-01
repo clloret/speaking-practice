@@ -10,10 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.clloret.speakingpractice.MainViewModel
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseFragmentBinding
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.exercise_fragment.*
 import timber.log.Timber
 import java.util.*
@@ -27,6 +28,7 @@ class ExerciseFragment : Fragment() {
         private const val REQUEST_CODE_SPEECH_INPUT = 0x01
     }
 
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel: ExerciseViewModel by viewModels()
 
     override fun onCreateView(
@@ -60,7 +62,6 @@ class ExerciseFragment : Fragment() {
         fab.setOnClickListener {
             startRecognizeSpeech()
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -71,7 +72,6 @@ class ExerciseFragment : Fragment() {
                 processRecognizedText(data)
             }
         }
-
     }
 
     private fun processRecognizedText(data: Intent) {
@@ -83,15 +83,11 @@ class ExerciseFragment : Fragment() {
         val validatePhrase = viewModel.validatePhrase(recognizedText)
 
         val message = if (validatePhrase) "Great!!!" else "Oops, something didn't go right"
-        showSnackBar(message)
+        showMessage(message)
     }
 
-    private fun showSnackBar(message: String) {
-        val snackBar = Snackbar.make(
-            requireActivity().findViewById(android.R.id.content),
-            message, Snackbar.LENGTH_LONG
-        )
-        snackBar.show()
+    private fun showMessage(message: String) {
+        mainViewModel.showMessage(message)
     }
 
     private fun startRecognizeSpeech() {
@@ -109,7 +105,7 @@ class ExerciseFragment : Fragment() {
         try {
             startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT)
         } catch (a: ActivityNotFoundException) {
-            showSnackBar(getString(R.string.msg_error_voice_recognition_not_supported))
+            showMessage(getString(R.string.msg_error_voice_recognition_not_supported))
         }
     }
 

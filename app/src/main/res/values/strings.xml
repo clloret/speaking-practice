@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Speaking Practice</string>
     <string name="action_settings">Settings</string>
+    <string name="action_import_exercises">Import exercises</string>
     <string name="msg_error_voice_recognition_not_supported">Voice recognition is not supported</string>
     <string name="msg_read_exercise_sentence">Read the exercise sentence</string>
     <!-- Strings used for fragments for navigation -->

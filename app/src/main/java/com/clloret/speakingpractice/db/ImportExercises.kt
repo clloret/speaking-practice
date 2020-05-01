@@ -13,9 +13,12 @@ class ImportExercises(
     private val contentResolver: ContentResolver
 ) {
 
-    fun import(uri: Uri, completion: (Int) -> Unit) {
+    fun import(uri: Uri, deleteAll: Boolean = true, completion: (Int) -> Unit) {
         val exercises = readCsvFile(uri, contentResolver)
         runBlocking {
+            if (deleteAll) {
+                repository.deleteAll()
+            }
             for (exercise in exercises) {
                 repository.insert(exercise)
             }

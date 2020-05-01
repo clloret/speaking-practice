@@ -10,4 +10,9 @@ class ExerciseRepository(private val exerciseDao: ExerciseDao) {
     suspend fun insert(exercise: Exercise) {
         exerciseDao.insert(exercise)
     }
+
+    suspend fun deleteAll() {
+        exerciseDao.deleteAll()
+    }
+
 }

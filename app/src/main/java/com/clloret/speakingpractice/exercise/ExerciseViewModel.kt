@@ -12,8 +12,13 @@ import timber.log.Timber
 
 
 class ExerciseViewModel(application: Application) : AndroidViewModel(application) {
+    enum class ExerciseResult {
+        HIDDEN, CORRECT, INCORRECT
+    }
+
     private val repository: ExerciseRepository
 
+    var exerciseResult: MutableLiveData<ExerciseResult> = MutableLiveData(ExerciseResult.HIDDEN)
     var phrases: List<Exercise> = listOf()
         set(value) {
             field = value
@@ -38,6 +43,8 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         if (phrasesIterator.hasNext()) {
             currentExercise.value = phrasesIterator.next()
         }
+
+        exerciseResult.postValue(ExerciseResult.HIDDEN)
     }
 
     fun loadPreviousExercise() {
@@ -46,13 +53,19 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         if (phrasesIterator.hasPrevious()) {
             currentExercise.value = phrasesIterator.previous()
         }
+
+        exerciseResult.postValue(ExerciseResult.HIDDEN)
     }
 
-    fun validatePhrase(text: String): Boolean {
-        return ExerciseValidator.validatePhrase(
-            text,
-            currentExercise.value?.practicePhrase ?: return false
-        )
+    fun validatePhrase(text: String) {
+        val result =
+            currentExercise.value?.practicePhrase?.let {
+                ExerciseValidator.validatePhrase(
+                    text,
+                    it
+                )
+            }
+        exerciseResult.postValue(if (result!!) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
     }
 
 }

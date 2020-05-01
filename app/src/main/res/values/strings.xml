@@ -8,4 +8,5 @@
     <string name="exercise_fragment_label">Exercise Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="exercise_result_description">Exercise result</string>
 </resources>

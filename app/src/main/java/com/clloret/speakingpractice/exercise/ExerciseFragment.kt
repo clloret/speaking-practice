@@ -59,6 +59,13 @@ class ExerciseFragment : Fragment() {
                 }
             })
 
+        viewModel.exerciseResult.observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer {
+                showExerciseResult(it)
+            }
+        )
+
         fab.setOnClickListener {
             startRecognizeSpeech()
         }
@@ -80,14 +87,29 @@ class ExerciseFragment : Fragment() {
 
         Timber.i(recognizedText)
 
-        val validatePhrase = viewModel.validatePhrase(recognizedText)
-
-        val message = if (validatePhrase) "Great!!!" else "Oops, something didn't go right"
-        showMessage(message)
+        viewModel.validatePhrase(recognizedText)
     }
 
     private fun showMessage(message: String) {
         mainViewModel.showMessage(message)
+    }
+
+    private fun showExerciseResult(result: ExerciseViewModel.ExerciseResult) {
+        if (result == ExerciseViewModel.ExerciseResult.HIDDEN) {
+            exerciseResultView.visibility = View.GONE
+            return
+        } else {
+            exerciseResultView.visibility = View.VISIBLE
+        }
+
+        val image =
+            when (result) {
+                ExerciseViewModel.ExerciseResult.CORRECT -> R.drawable.ic_check_circle_green_24dp
+                ExerciseViewModel.ExerciseResult.INCORRECT -> R.drawable.ic_error_red_24dp
+                else -> R.drawable.ic_error_red_24dp
+            }
+        exerciseResultView.setImageResource(image)
+        exerciseResultView.visibility = View.VISIBLE
     }
 
     private fun startRecognizeSpeech() {

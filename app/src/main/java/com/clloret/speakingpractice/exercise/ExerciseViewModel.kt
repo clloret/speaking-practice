@@ -30,11 +30,13 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     val currentExercise: MutableLiveData<Exercise> by lazy {
         MutableLiveData<Exercise>()
     }
+    val speakText: MutableLiveData<String> = MutableLiveData()
 
     init {
         val exerciseDao = ExercisesDatabase.getDatabase(application, viewModelScope).exerciseDao()
         repository = ExerciseRepository(exerciseDao)
         allExercises = repository.allExercises
+        loadNextExercise()
     }
 
     fun loadNextExercise() {
@@ -66,6 +68,10 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
                 )
             }
         exerciseResult.postValue(if (result!!) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
+    }
+
+    fun speakText() {
+        speakText.postValue(currentExercise.value?.practicePhrase)
     }
 
 }

@@ -4,6 +4,8 @@
     <string name="action_import_exercises">Import exercises</string>
     <string name="msg_error_voice_recognition_not_supported">Voice recognition is not supported</string>
     <string name="msg_read_exercise_sentence">Read the exercise sentence</string>
+    <string name="msg_error_tts">Error in converting Text to Speech!</string>
+    <string name="msg_error_initialization_failed">TTS Initialization failed!</string>
     <!-- Strings used for fragments for navigation -->
     <string name="exercise_fragment_label">Exercise Fragment</string>
     <string name="next">Next</string>

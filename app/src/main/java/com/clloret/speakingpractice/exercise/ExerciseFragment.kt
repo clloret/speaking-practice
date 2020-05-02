@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import timber.log.Timber
 import java.util.*
 
 class ExerciseFragment : Fragment() {
+    private var tts: TextToSpeech? = null
 
     companion object {
         fun newInstance() =
@@ -55,7 +57,10 @@ class ExerciseFragment : Fragment() {
                 exercises?.let {
                     Timber.d("Set exercise data")
                     viewModel.phrases = it
-                    viewModel.loadNextExercise()
+
+                    if (savedInstanceState == null) {
+                        viewModel.loadNextExercise()
+                    }
                 }
             })
 
@@ -66,9 +71,24 @@ class ExerciseFragment : Fragment() {
             }
         )
 
-        fab.setOnClickListener {
+        viewModel.speakText.observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer {
+                textToSpeech(it)
+            }
+        )
+
+        initTts()
+
+        fabRecognizeSpeech.setOnClickListener {
             startRecognizeSpeech()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        stopTts()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -131,5 +151,41 @@ class ExerciseFragment : Fragment() {
         }
     }
 
+    private fun initTts() {
+        val appContext = this.requireActivity().applicationContext
+        val googleTtsPackage = "com.google.android.tts"
+
+        tts = TextToSpeech(appContext, TextToSpeech.OnInitListener { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                val ttsLang = tts?.setLanguage(Locale.US)
+                if (ttsLang == TextToSpeech.LANG_MISSING_DATA
+                    || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED
+                ) {
+                    Timber.e("The language is not supported!")
+                } else {
+                    Timber.i("Language supported.")
+                }
+                tts?.setPitch(1.0f)
+                tts?.setSpeechRate(1.0f)
+                Timber.i("TTS initialization success.")
+            } else {
+
+                showMessage(getString(R.string.msg_error_initialization_failed))
+            }
+        }, googleTtsPackage)
+    }
+
+    private fun stopTts() {
+        tts?.stop()
+        tts?.shutdown()
+    }
+
+    private fun textToSpeech(text: String) {
+        val speechStatus = tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
+
+        if (speechStatus == TextToSpeech.ERROR) {
+            showMessage(getString(R.string.msg_error_tts))
+        }
+    }
 
 }

@@ -34,7 +34,6 @@
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="0dp"
             android:gravity="center"
             android:text="@{model.currentExercise.practicePhrase}"
             app:layout_constraintBottom_toTopOf="@+id/translatedPhrase"
@@ -42,6 +41,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Hello" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabTextToSpeech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-14dp"
+            android:layout_marginBottom="-14dp"
+            android:onClick="@{() -> model.speakText()}"
+            app:layout_constraintBottom_toTopOf="@+id/translatedPhrase"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/practicePhrase"
+            app:srcCompat="@drawable/ic_record_voice_over_black_24dp" />
 
         <TextView
             android:id="@+id/translatedPhrase"
@@ -57,7 +69,6 @@
             app:layout_constraintTop_toBottomOf="@+id/practicePhrase"
             tools:text="Hola" />
 
-
         <Button
             android:id="@+id/btnPrevious"
             android:layout_width="0dp"
@@ -68,11 +79,11 @@
             android:onClick="@{() -> model.loadPreviousExercise()}"
             android:text="@string/previous"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/fab"
+            app:layout_constraintEnd_toStartOf="@+id/fabRecognizeSpeech"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/fabRecognizeSpeech"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -96,7 +107,7 @@
             android:text="@string/next"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/fab" />
+            app:layout_constraintStart_toEndOf="@+id/fabRecognizeSpeech" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -51,6 +51,16 @@ class ExerciseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        observeData(savedInstanceState)
+
+        initTts()
+
+        fabRecognizeSpeech.setOnClickListener {
+            startRecognizeSpeech()
+        }
+    }
+
+    private fun observeData(savedInstanceState: Bundle?) {
         viewModel.allExercises.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer { exercises ->
@@ -77,12 +87,6 @@ class ExerciseFragment : Fragment() {
                 textToSpeech(it)
             }
         )
-
-        initTts()
-
-        fabRecognizeSpeech.setOnClickListener {
-            startRecognizeSpeech()
-        }
     }
 
     override fun onDestroyView() {

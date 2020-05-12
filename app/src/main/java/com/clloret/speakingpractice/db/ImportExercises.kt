@@ -41,8 +41,8 @@ class ImportExercises(
                         if (tokens.isNotEmpty()) {
                             val exercise = Exercise(
                                 id = null,
-                                practicePhrase = tokens[CUSTOMER_NAME_IDX],
-                                translatedPhrase = tokens[CUSTOMER_ADDRESS_IDX]
+                                practicePhrase = tokens[PRACTICE_PHRASE_IDX],
+                                translatedPhrase = tokens[TRANSLATED_PHRASE_IDX]
                             )
                             exercises.add(exercise)
                         }
@@ -60,8 +60,8 @@ class ImportExercises(
     }
 
     companion object {
-        private const val CUSTOMER_NAME_IDX = 0
-        private const val CUSTOMER_ADDRESS_IDX = 1
+        private const val PRACTICE_PHRASE_IDX = 0
+        private const val TRANSLATED_PHRASE_IDX = 1
     }
 }
 

@@ -6,7 +6,8 @@
     <string name="msg_read_exercise_sentence">Read the exercise sentence</string>
     <string name="msg_error_tts">Error in converting Text to Speech!</string>
     <string name="msg_error_initialization_failed">TTS Initialization failed!</string>
-    <!-- Strings used for fragments for navigation -->
+    <string name="title_confirmation">Confirmation</string>
+    <string name="msg_replace_previous_exercises">Do you want to replace all the previous exercises?</string>
     <string name="exercise_fragment_label">Exercise Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>

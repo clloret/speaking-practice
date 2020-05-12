@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.db.ImportExercises
+import com.clloret.speakingpractice.utils.Dialogs
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -39,12 +40,15 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
 
-        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == FILE_READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             resultData?.data?.also { uri ->
-                val importExercises = ImportExercises(repository, contentResolver)
-                importExercises.import(uri) {
-                    showSnackBar("$it exercises imported successfully")
-                }
+                Dialogs(this)
+                    .showConfirmation(messageId = R.string.msg_replace_previous_exercises) { result ->
+                        val importExercises = ImportExercises(repository, contentResolver)
+                        importExercises.import(uri, result) { count ->
+                            showSnackBar("$count exercises imported successfully")
+                        }
+                    }
             }
         }
     }
@@ -78,7 +82,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             type = "text/csv"
         }
 
-        startActivityForResult(intent, READ_REQUEST_CODE)
+        startActivityForResult(intent, FILE_READ_REQUEST_CODE)
 
         return true
     }
@@ -91,7 +95,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     }
 
     companion object {
-        private const val READ_REQUEST_CODE: Int = 0x01
+        private const val FILE_READ_REQUEST_CODE: Int = 0x01
     }
 
 }

@@ -16,13 +16,14 @@ class Dialogs(private val context: Context) {
             .apply {
                 setTitle(titleId)
                 setMessage(messageId)
-                setPositiveButton("Yes") { _, _ -> onCompletion.invoke(true) }
-                setNegativeButton("No") { _, _ -> onCompletion.invoke(false) }
+                setPositiveButton(context.getString(R.string.yes)) { _, _ ->
+                    onCompletion.invoke(true)
+                }
+                setNegativeButton(context.getString(R.string.no)) { _, _ ->
+                    onCompletion.invoke(false)
+                }
             }
 
         builder.create().show()
-    }
-
-    companion object {
     }
 }

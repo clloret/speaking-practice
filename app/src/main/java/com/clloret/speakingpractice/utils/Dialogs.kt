@@ -2,28 +2,32 @@ package com.clloret.speakingpractice.utils
 
 import android.content.Context
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AlertDialog
 import com.clloret.speakingpractice.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Dialogs(private val context: Context) {
 
-    fun showConfirmation(
+    enum class Button {
+        NEUTRAL, NEGATIVE, POSITIVE
+    }
+
+    fun showConfirmationWithCancel(
         @StringRes titleId: Int = R.string.title_confirmation,
         @StringRes messageId: Int,
-        onCompletion: (Boolean) -> Unit
+        onCompletion: (Button) -> Unit
     ) {
-        val builder = AlertDialog.Builder(context)
-            .apply {
-                setTitle(titleId)
-                setMessage(messageId)
-                setPositiveButton(context.getString(R.string.yes)) { _, _ ->
-                    onCompletion.invoke(true)
-                }
-                setNegativeButton(context.getString(R.string.no)) { _, _ ->
-                    onCompletion.invoke(false)
-                }
+        MaterialAlertDialogBuilder(context)
+            .setTitle(titleId)
+            .setMessage(messageId)
+            .setNeutralButton(R.string.cancel) { _, _ ->
+                onCompletion.invoke(Button.NEUTRAL)
             }
-
-        builder.create().show()
+            .setNegativeButton(R.string.no) { _, _ ->
+                onCompletion.invoke(Button.NEGATIVE)
+            }
+            .setPositiveButton(R.string.yes) { _, _ ->
+                onCompletion.invoke(Button.POSITIVE)
+            }
+            .show()
     }
 }

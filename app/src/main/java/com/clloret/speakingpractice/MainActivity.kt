@@ -43,10 +43,15 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         if (requestCode == FILE_READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             resultData?.data?.also { uri ->
                 Dialogs(this)
-                    .showConfirmation(messageId = R.string.msg_replace_previous_exercises) { result ->
-                        val importExercises = ImportExercises(repository, contentResolver)
-                        importExercises.import(uri, result) { count ->
-                            showSnackBar("$count exercises imported successfully")
+                    .showConfirmationWithCancel(messageId = R.string.msg_replace_previous_exercises) { result ->
+                        if (result != Dialogs.Button.NEUTRAL) {
+                            val importExercises = ImportExercises(repository, contentResolver)
+                            importExercises.import(
+                                uri,
+                                result == Dialogs.Button.POSITIVE
+                            ) { count ->
+                                showSnackBar("$count exercises imported successfully")
+                            }
                         }
                     }
             }

@@ -9,6 +9,7 @@
     <string name="title_confirmation">Confirmation</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="cancel">Cancel</string>
     <string name="msg_replace_previous_exercises">Do you want to replace all the previous exercises?</string>
     <string name="exercise_fragment_label">Exercise Fragment</string>
     <string name="next">Next</string>

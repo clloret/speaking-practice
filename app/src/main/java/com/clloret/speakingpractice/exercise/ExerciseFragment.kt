@@ -6,16 +6,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.clloret.speakingpractice.MainViewModel
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseFragmentBinding
+import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
+import com.clloret.speakingpractice.utils.Dialogs
 import kotlinx.android.synthetic.main.exercise_fragment.*
 import timber.log.Timber
 import java.util.*
@@ -38,6 +39,8 @@ class ExerciseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        setHasOptionsMenu(true)
+
         val binding: ExerciseFragmentBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.exercise_fragment, container, false
@@ -57,6 +60,24 @@ class ExerciseFragment : Fragment() {
 
         fabRecognizeSpeech.setOnClickListener {
             startRecognizeSpeech()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.menu_exercise, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        return when (item.itemId) {
+            R.id.action_add -> addExercise()
+            R.id.action_edit -> editExercise()
+            R.id.action_delete -> deleteExercise()
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -190,6 +211,45 @@ class ExerciseFragment : Fragment() {
         if (speechStatus == TextToSpeech.ERROR) {
             showMessage(getString(R.string.msg_error_tts))
         }
+    }
+
+    private fun addExercise(): Boolean {
+
+        val action =
+            ExerciseFragmentDirections.actionExerciseFragmentToAddExerciseFragment(
+                AddExerciseViewModel.DEFAULT_ID,
+                getString(R.string.title_add)
+            )
+
+        findNavController()
+            .navigate(action)
+
+        return true
+    }
+
+    private fun editExercise(): Boolean {
+
+        val exerciseId = viewModel.currentExercise.value?.id ?: return true
+        val action =
+            ExerciseFragmentDirections.actionExerciseFragmentToAddExerciseFragment(
+                exerciseId,
+                getString(R.string.title_edit)
+            )
+
+        findNavController()
+            .navigate(action)
+
+        return true
+    }
+
+    private fun deleteExercise(): Boolean {
+        Dialogs(requireContext())
+            .showConfirmation(messageId = R.string.msg_delete_exercise_confirmation) { result ->
+                if (result == Dialogs.Button.POSITIVE) {
+                    viewModel.deleteCurrentExercise()
+                }
+            }
+        return true
     }
 
 }

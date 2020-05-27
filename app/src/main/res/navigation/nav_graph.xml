@@ -3,12 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/exerciseFragment"
+    tools:ignore="UnusedNavigation">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/exerciseFragment"
         android:name="com.clloret.speakingpractice.exercise.ExerciseFragment"
         android:label="@string/exercise_fragment_label"
-        tools:layout="@layout/exercise_fragment" />
+        tools:layout="@layout/exercise_fragment">
+        <action
+            android:id="@+id/action_exerciseFragment_to_addExerciseFragment"
+            app:destination="@id/addExerciseFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addExerciseFragment"
+        android:name="com.clloret.speakingpractice.exercise.add.AddExerciseFragment"
+        android:label="{title}"
+        tools:layout="@layout/add_exercise_fragment">
+        <argument
+            android:name="exerciseId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

@@ -30,4 +30,22 @@ class Dialogs(private val context: Context) {
             }
             .show()
     }
+
+    fun showConfirmation(
+        @StringRes titleId: Int = R.string.title_confirmation,
+        @StringRes messageId: Int,
+        onCompletion: (Button) -> Unit
+    ) {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(titleId)
+            .setMessage(messageId)
+            .setNegativeButton(R.string.no) { _, _ ->
+                onCompletion.invoke(Button.NEGATIVE)
+            }
+            .setPositiveButton(R.string.yes) { _, _ ->
+                onCompletion.invoke(Button.POSITIVE)
+            }
+            .show()
+    }
+
 }

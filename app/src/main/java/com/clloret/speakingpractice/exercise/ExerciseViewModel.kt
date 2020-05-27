@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.domain.ExerciseValidator
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
 
@@ -72,6 +73,14 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
 
     fun speakText() {
         speakText.postValue(currentExercise.value?.practicePhrase)
+    }
+
+    fun deleteCurrentExercise() {
+        currentExercise.value?.let {
+            runBlocking {
+                repository.delete(it)
+            }
+        }
     }
 
 }

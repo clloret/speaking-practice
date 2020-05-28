@@ -1,5 +1,6 @@
 package com.clloret.speakingpractice.exercise.add
 
+import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.exercise.Exercise
 import kotlinx.coroutines.runBlocking
+import timber.log.Timber
 
 
 class AddExerciseViewModel(
@@ -19,7 +21,12 @@ class AddExerciseViewModel(
 
     private val saveData = MutableLiveData<Boolean>()
 
-    fun getSaveData(): LiveData<Boolean> = saveData
+    enum class FormErrors {
+        EMPTY_PRACTICE_PHRASE,
+        EMPTY_TRANSLATED_PHRASE
+    }
+
+    val formErrors = ObservableArrayList<FormErrors>()
 
     init {
         repository.getExerciseById(exerciseId).apply {
@@ -36,8 +43,36 @@ class AddExerciseViewModel(
         translatedPhrase.set(exercise.translatedPhrase)
     }
 
+    private fun isFormValid(): Boolean {
+        formErrors.clear()
+        if (practicePhrase.get().isNullOrBlank()) {
+            formErrors.add(FormErrors.EMPTY_PRACTICE_PHRASE)
+        }
+        if (translatedPhrase.get().isNullOrBlank()) {
+            formErrors.add(FormErrors.EMPTY_TRANSLATED_PHRASE)
+        }
+        return formErrors.isEmpty()
+    }
+
+    fun getErrorMessage(
+        formError: FormErrors,
+        errorMessage: String,
+        errors: ObservableArrayList<FormErrors>
+    ): String {
+        Timber.d("FormError: $formError, ErrorMessage: $errorMessage")
+        Timber.d("FormErrors: $errors")
+        Timber.d("FormErrors: $formErrors")
+        return if (errors.contains(formError)) {
+            errorMessage
+        } else {
+            EMPTY_STRING
+        }
+    }
+
+    fun getSaveData(): LiveData<Boolean> = saveData
+
     fun saveExercise() {
-        if (canSave()) {
+        if (isFormValid()) {
             val practicePhrase: String = practicePhrase.get()!!
             val translatedPhrase: String = translatedPhrase.get()!!
             val isNew = exerciseId == DEFAULT_ID
@@ -57,14 +92,8 @@ class AddExerciseViewModel(
         }
     }
 
-    private fun canSave(): Boolean {
-        val practicePhrase = this.practicePhrase.get()
-        val translatedPhrase = this.translatedPhrase.get()
-
-        return !practicePhrase.isNullOrBlank() && !translatedPhrase.isNullOrBlank()
-    }
-
     companion object {
         const val DEFAULT_ID = -1
+        const val EMPTY_STRING = ""
     }
 }

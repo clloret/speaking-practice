@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".exercise.ExerciseFragment">
 
     <data>
+
+        <import type="com.clloret.speakingpractice.exercise.add.AddExerciseViewModel.FormErrors" />
 
         <variable
             name="model"
@@ -17,9 +20,12 @@
         android:padding="16dp">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutPracticePhrase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            app:errorEnabled="true"
+            app:errorText="@{model.getErrorMessage(FormErrors.EMPTY_PRACTICE_PHRASE, @string/msg_error_cannot_be_empty, model.formErrors)}">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPracticePhrase"
@@ -33,7 +39,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            app:errorEnabled="true"
+            app:errorText="@{model.getErrorMessage(FormErrors.EMPTY_TRANSLATED_PHRASE, @string/msg_error_cannot_be_empty, model.formErrors)}">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextTranslatedPhase"
@@ -41,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/add_exercise_translated_phrase"
                 android:text="@={model.translatedPhrase}" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

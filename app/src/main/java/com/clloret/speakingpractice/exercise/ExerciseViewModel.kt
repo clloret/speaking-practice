@@ -19,7 +19,18 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
 
     private val repository: ExerciseRepository
 
-    var exerciseResult: MutableLiveData<ExerciseResult> = MutableLiveData(ExerciseResult.HIDDEN)
+    private var _exerciseResult: MutableLiveData<ExerciseResult> =
+        MutableLiveData(ExerciseResult.HIDDEN)
+    val exerciseResult: LiveData<ExerciseResult> get() = _exerciseResult
+
+    private val _currentExercise: MutableLiveData<Exercise> by lazy {
+        MutableLiveData<Exercise>()
+    }
+    val currentExercise: LiveData<Exercise> get() = _currentExercise
+
+    private val _speakText: MutableLiveData<String> = MutableLiveData()
+    val speakText: LiveData<String> get() = _speakText
+
     var phrases: List<Exercise> = listOf()
         set(value) {
             field = value
@@ -28,10 +39,6 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     private var phrasesIterator: ListIterator<Exercise> = phrases.listIterator()
 
     val allExercises: LiveData<List<Exercise>>
-    val currentExercise: MutableLiveData<Exercise> by lazy {
-        MutableLiveData<Exercise>()
-    }
-    val speakText: MutableLiveData<String> = MutableLiveData()
 
     init {
         val exerciseDao = ExercisesDatabase.getDatabase(application, viewModelScope).exerciseDao()
@@ -44,39 +51,39 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         Timber.d("loadNextExercise")
 
         if (phrasesIterator.hasNext()) {
-            currentExercise.value = phrasesIterator.next()
+            _currentExercise.value = phrasesIterator.next()
         }
 
-        exerciseResult.postValue(ExerciseResult.HIDDEN)
+        _exerciseResult.postValue(ExerciseResult.HIDDEN)
     }
 
     fun loadPreviousExercise() {
         Timber.d("loadPreviousExercise")
 
         if (phrasesIterator.hasPrevious()) {
-            currentExercise.value = phrasesIterator.previous()
+            _currentExercise.value = phrasesIterator.previous()
         }
 
-        exerciseResult.postValue(ExerciseResult.HIDDEN)
+        _exerciseResult.postValue(ExerciseResult.HIDDEN)
     }
 
     fun validatePhrase(text: String) {
         val result =
-            currentExercise.value?.practicePhrase?.let {
+            _currentExercise.value?.practicePhrase?.let {
                 ExerciseValidator.validatePhrase(
                     text,
                     it
                 )
             }
-        exerciseResult.postValue(if (result!!) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
+        _exerciseResult.postValue(if (result!!) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
     }
 
     fun speakText() {
-        speakText.postValue(currentExercise.value?.practicePhrase)
+        _speakText.postValue(_currentExercise.value?.practicePhrase)
     }
 
     fun deleteCurrentExercise() {
-        currentExercise.value?.let {
+        _currentExercise.value?.let {
             runBlocking {
                 repository.delete(it)
             }

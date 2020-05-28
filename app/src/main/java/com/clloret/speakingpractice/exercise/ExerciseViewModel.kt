@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.domain.ExerciseValidator
+import com.clloret.speakingpractice.domain.entities.Exercise
+import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
@@ -41,9 +43,13 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     val allExercises: LiveData<List<Exercise>>
 
     init {
-        val exerciseDao = ExercisesDatabase.getDatabase(application, viewModelScope).exerciseDao()
-        repository = ExerciseRepository(exerciseDao)
+        val db = ExercisesDatabase.getDatabase(application, viewModelScope)
+        repository =
+            ExerciseRepository(
+                db
+            )
         allExercises = repository.allExercises
+
         loadNextExercise()
     }
 
@@ -75,6 +81,17 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
                     it
                 )
             }
+
+        runBlocking {
+            ExerciseAttempt(
+                exerciseId = currentExercise.value?.id!!,
+                result = result!!,
+                recognizedText = text
+            ).apply {
+                repository.insertAttempt(this)
+            }
+        }
+
         _exerciseResult.postValue(if (result!!) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
     }
 
@@ -85,7 +102,7 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     fun deleteCurrentExercise() {
         _currentExercise.value?.let {
             runBlocking {
-                repository.delete(it)
+                repository.deleteExercise(it)
             }
         }
     }

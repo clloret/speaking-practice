@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.clloret.speakingpractice.db.ExerciseRepository
-import com.clloret.speakingpractice.exercise.Exercise
+import com.clloret.speakingpractice.domain.entities.Exercise
 import kotlinx.coroutines.runBlocking
 
 
@@ -73,13 +73,17 @@ class AddExerciseViewModel(
             val translatedPhrase: String = translatedPhrase.get()!!
             val isNew = exerciseId == DEFAULT_ID
             val id = if (isNew) null else exerciseId
-            val exercise = Exercise(id, practicePhrase, translatedPhrase)
+            val exercise = Exercise(
+                id,
+                practicePhrase,
+                translatedPhrase
+            )
 
             runBlocking {
                 if (isNew) {
-                    repository.insert(exercise)
+                    repository.insertExercise(exercise)
                 } else {
-                    repository.update(exercise)
+                    repository.updateExercise(exercise)
                 }
             }
             saveData.postValue(true)

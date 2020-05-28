@@ -12,7 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
-import com.clloret.speakingpractice.db.ImportExercises
+import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.utils.Dialogs
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -54,7 +54,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 Dialogs(this)
                     .showConfirmationWithCancel(messageId = R.string.msg_replace_previous_exercises) { result ->
                         if (result != Dialogs.Button.NEUTRAL) {
-                            val importExercises = ImportExercises(repository, contentResolver)
+                            val importExercises =
+                                ImportExercises(
+                                    repository,
+                                    contentResolver
+                                )
                             importExercises.import(
                                 uri,
                                 result == Dialogs.Button.POSITIVE
@@ -85,8 +89,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     }
 
     private fun initRepository(): ExerciseRepository {
-        val exerciseDao = ExercisesDatabase.getDatabase(application, this).exerciseDao()
-        return ExerciseRepository(exerciseDao)
+        val db = ExercisesDatabase.getDatabase(application, this)
+        return ExerciseRepository(db)
     }
 
     private fun performFileSearch(): Boolean {

@@ -1,9 +1,9 @@
-package com.clloret.speakingpractice.db
+package com.clloret.speakingpractice.db.dao
 
 import androidx.lifecycle.LiveData
 
 import androidx.room.*
-import com.clloret.speakingpractice.exercise.Exercise
+import com.clloret.speakingpractice.domain.entities.Exercise
 
 @Dao
 interface ExerciseDao {

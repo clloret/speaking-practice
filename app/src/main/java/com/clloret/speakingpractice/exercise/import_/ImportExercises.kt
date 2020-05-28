@@ -1,8 +1,9 @@
-package com.clloret.speakingpractice.db
+package com.clloret.speakingpractice.exercise.import_
 
 import android.content.ContentResolver
 import android.net.Uri
-import com.clloret.speakingpractice.exercise.Exercise
+import com.clloret.speakingpractice.db.ExerciseRepository
+import com.clloret.speakingpractice.domain.entities.Exercise
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import java.io.BufferedReader
@@ -17,10 +18,10 @@ class ImportExercises(
         val exercises = readCsvFile(uri, contentResolver)
         runBlocking {
             if (deleteAll) {
-                repository.deleteAll()
+                repository.deleteAllExercises()
             }
             for (exercise in exercises) {
-                repository.insert(exercise)
+                repository.insertExercise(exercise)
             }
         }
         completion(exercises.count())
@@ -39,11 +40,12 @@ class ImportExercises(
                     while (line != null) {
                         val tokens = line.split(",")
                         if (tokens.isNotEmpty()) {
-                            val exercise = Exercise(
-                                id = null,
-                                practicePhrase = tokens[PRACTICE_PHRASE_IDX],
-                                translatedPhrase = tokens[TRANSLATED_PHRASE_IDX]
-                            )
+                            val exercise =
+                                Exercise(
+                                    id = null,
+                                    practicePhrase = tokens[PRACTICE_PHRASE_IDX],
+                                    translatedPhrase = tokens[TRANSLATED_PHRASE_IDX]
+                                )
                             exercises.add(exercise)
                         }
 

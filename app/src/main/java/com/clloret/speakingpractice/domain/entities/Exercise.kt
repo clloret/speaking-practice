@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.exercise
+package com.clloret.speakingpractice.domain.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

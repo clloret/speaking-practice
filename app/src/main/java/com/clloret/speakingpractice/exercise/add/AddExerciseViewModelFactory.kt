@@ -16,8 +16,5 @@ class AddExerciseViewModelFactory(
         } else {
             throw IllegalArgumentException("ViewModel not found")
         }
-        //return AddExerciseViewModel(db, exerciseId) as T
-//        return modelClass.getConstructor(ExercisesDatabase::class.java, Int::class.java)
-//            .newInstance(db, exerciseId)
     }
 }

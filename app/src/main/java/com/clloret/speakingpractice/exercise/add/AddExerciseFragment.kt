@@ -55,8 +55,10 @@ class AddExerciseFragment : Fragment(), CoroutineScope by MainScope() {
     }
 
     private fun initRepository(): ExerciseRepository {
-        val exerciseDao = ExercisesDatabase.getDatabase(requireContext(), this).exerciseDao()
-        return ExerciseRepository(exerciseDao)
+        val db = ExercisesDatabase.getDatabase(requireContext(), this)
+        return ExerciseRepository(
+            db
+        )
     }
 
     private fun observeData() {

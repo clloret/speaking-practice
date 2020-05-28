@@ -1,14 +1,18 @@
 <resources>
     <string name="action_add_exercise">Add</string>
+    <string name="action_cancel">Cancel</string>
     <string name="action_delete_exercise">Delete</string>
     <string name="action_edit_exercise">Edit</string>
     <string name="action_import_exercises">Import exercises</string>
+    <string name="action_next">Next</string>
+    <string name="action_no">No</string>
+    <string name="action_previous">Previous</string>
     <string name="action_settings">Settings</string>
+    <string name="action_yes">Yes</string>
     <string name="add_exercise_practice_phrase">Practice Phrase</string>
     <string name="add_exercise_save">Save</string>
     <string name="add_exercise_translated_phrase">Translated Phrase</string>
     <string name="app_name">Speaking Practice</string>
-    <string name="cancel">Cancel</string>
     <string name="exercise_fragment_label">Exercises</string>
     <string name="exercise_result_description">Exercise result</string>
     <string name="msg_delete_exercise_confirmation">Are you sure you want to delete the exercise?</string>
@@ -18,11 +22,7 @@
     <string name="msg_error_voice_recognition_not_supported">Voice recognition is not supported</string>
     <string name="msg_read_exercise_sentence">Read the exercise sentence</string>
     <string name="msg_replace_previous_exercises">Do you want to replace all the previous exercises?</string>
-    <string name="next">Next</string>
-    <string name="no">No</string>
-    <string name="previous">Previous</string>
     <string name="title_add">Add</string>
     <string name="title_confirmation">Confirmation</string>
     <string name="title_edit">Edit</string>
-    <string name="yes">Yes</string>
 </resources>

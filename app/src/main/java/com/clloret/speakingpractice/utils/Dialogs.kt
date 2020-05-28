@@ -19,13 +19,13 @@ class Dialogs(private val context: Context) {
         MaterialAlertDialogBuilder(context)
             .setTitle(titleId)
             .setMessage(messageId)
-            .setNeutralButton(R.string.cancel) { _, _ ->
+            .setNeutralButton(R.string.action_cancel) { _, _ ->
                 onCompletion.invoke(Button.NEUTRAL)
             }
-            .setNegativeButton(R.string.no) { _, _ ->
+            .setNegativeButton(R.string.action_no) { _, _ ->
                 onCompletion.invoke(Button.NEGATIVE)
             }
-            .setPositiveButton(R.string.yes) { _, _ ->
+            .setPositiveButton(R.string.action_yes) { _, _ ->
                 onCompletion.invoke(Button.POSITIVE)
             }
             .show()
@@ -39,10 +39,10 @@ class Dialogs(private val context: Context) {
         MaterialAlertDialogBuilder(context)
             .setTitle(titleId)
             .setMessage(messageId)
-            .setNegativeButton(R.string.no) { _, _ ->
+            .setNegativeButton(R.string.action_no) { _, _ ->
                 onCompletion.invoke(Button.NEGATIVE)
             }
-            .setPositiveButton(R.string.yes) { _, _ ->
+            .setPositiveButton(R.string.action_yes) { _, _ ->
                 onCompletion.invoke(Button.POSITIVE)
             }
             .show()

@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.exercise.Exercise
 import kotlinx.coroutines.runBlocking
-import timber.log.Timber
 
 
 class AddExerciseViewModel(
@@ -59,9 +58,6 @@ class AddExerciseViewModel(
         errorMessage: String,
         errors: ObservableArrayList<FormErrors>
     ): String {
-        Timber.d("FormError: $formError, ErrorMessage: $errorMessage")
-        Timber.d("FormErrors: $errors")
-        Timber.d("FormErrors: $formErrors")
         return if (errors.contains(formError)) {
             errorMessage
         } else {

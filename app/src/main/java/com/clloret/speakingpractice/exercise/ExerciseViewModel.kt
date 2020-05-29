@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.clloret.speakingpractice.App
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.domain.ExerciseValidator
@@ -19,7 +20,9 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         HIDDEN, CORRECT, INCORRECT
     }
 
-    private val repository: ExerciseRepository
+    private val repository: ExerciseRepository by lazy {
+        initRepository()
+    }
 
     private var _exerciseResult: MutableLiveData<ExerciseResult> =
         MutableLiveData(ExerciseResult.HIDDEN)
@@ -37,9 +40,6 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     private var exerciseIndex: Int = 0
 
     init {
-        val db = ExercisesDatabase.getDatabase(application, viewModelScope)
-        repository = ExerciseRepository(db)
-
         repository.allExercises.apply {
             observeForever {
                 Timber.d("Exercises: $it")
@@ -48,6 +48,12 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
                 showCurrentExercise()
             }
         }
+    }
+
+    private fun initRepository(): ExerciseRepository {
+        val application = getApplication<App>()
+        val db = ExercisesDatabase.getDatabase(application, viewModelScope)
+        return ExerciseRepository(db)
     }
 
     private fun showCurrentExercise() {

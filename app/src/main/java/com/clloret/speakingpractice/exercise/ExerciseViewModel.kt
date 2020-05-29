@@ -33,47 +33,58 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     private val _speakText: MutableLiveData<String> = MutableLiveData()
     val speakText: LiveData<String> get() = _speakText
 
-    private var phrases: List<Exercise> = listOf()
-        set(value) {
-            field = value
-            phrasesIterator = phrases.listIterator()
-        }
-    private var phrasesIterator: ListIterator<Exercise> = phrases.listIterator()
+    private var exercises: List<Exercise> = listOf()
+    private var exerciseIndex: Int = 0
 
     init {
         val db = ExercisesDatabase.getDatabase(application, viewModelScope)
-        repository =
-            ExerciseRepository(
-                db
-            )
+        repository = ExerciseRepository(db)
 
         repository.allExercises.apply {
             observeForever {
                 Timber.d("Exercises: $it")
-                phrases = it
-                loadNextExercise()
+
+                exercises = it
+                showCurrentExercise()
             }
         }
+    }
 
+    private fun showCurrentExercise() {
+        if (exercises.isEmpty()) {
+            return
+        }
+
+        Timber.d("Index: $exerciseIndex")
+
+        val exercise = exercises.getOrElse(exerciseIndex) {
+            exercises.last()
+        }
+        showExercise(exercise)
     }
 
     fun loadNextExercise() {
         Timber.d("loadNextExercise")
 
-        if (phrasesIterator.hasNext()) {
-            _currentExercise.value = phrasesIterator.next()
+        val exercise = exercises.getOrElse(++exerciseIndex) {
+            exerciseIndex = exercises.lastIndex
+            exercises.last()
         }
-
-        _exerciseResult.postValue(ExerciseResult.HIDDEN)
+        showExercise(exercise)
     }
 
     fun loadPreviousExercise() {
         Timber.d("loadPreviousExercise")
 
-        if (phrasesIterator.hasPrevious()) {
-            _currentExercise.value = phrasesIterator.previous()
+        val exercise = exercises.getOrElse(--exerciseIndex) {
+            exerciseIndex = 0
+            exercises.first()
         }
+        showExercise(exercise)
+    }
 
+    private fun showExercise(exercise: Exercise) {
+        _currentExercise.postValue(exercise)
         _exerciseResult.postValue(ExerciseResult.HIDDEN)
     }
 

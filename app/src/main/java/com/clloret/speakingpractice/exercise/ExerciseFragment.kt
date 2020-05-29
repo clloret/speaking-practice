@@ -54,7 +54,7 @@ class ExerciseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        observeData(savedInstanceState)
+        observeData()
 
         initTts()
 
@@ -81,20 +81,7 @@ class ExerciseFragment : Fragment() {
         }
     }
 
-    private fun observeData(savedInstanceState: Bundle?) {
-        viewModel.allExercises.observe(
-            viewLifecycleOwner,
-            androidx.lifecycle.Observer { exercises ->
-                exercises?.let {
-                    Timber.d("Set exercise data")
-                    viewModel.phrases = it
-
-                    if (savedInstanceState == null) {
-                        viewModel.loadNextExercise()
-                    }
-                }
-            })
-
+    private fun observeData() {
         viewModel.exerciseResult.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer {

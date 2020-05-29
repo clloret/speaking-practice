@@ -33,14 +33,12 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     private val _speakText: MutableLiveData<String> = MutableLiveData()
     val speakText: LiveData<String> get() = _speakText
 
-    var phrases: List<Exercise> = listOf()
+    private var phrases: List<Exercise> = listOf()
         set(value) {
             field = value
             phrasesIterator = phrases.listIterator()
         }
     private var phrasesIterator: ListIterator<Exercise> = phrases.listIterator()
-
-    val allExercises: LiveData<List<Exercise>>
 
     init {
         val db = ExercisesDatabase.getDatabase(application, viewModelScope)
@@ -48,9 +46,15 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
             ExerciseRepository(
                 db
             )
-        allExercises = repository.allExercises
 
-        loadNextExercise()
+        repository.allExercises.apply {
+            observeForever {
+                Timber.d("Exercises: $it")
+                phrases = it
+                loadNextExercise()
+            }
+        }
+
     }
 
     fun loadNextExercise() {

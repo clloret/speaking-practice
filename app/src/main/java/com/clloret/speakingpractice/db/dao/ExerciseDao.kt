@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 
 import androidx.room.*
 import com.clloret.speakingpractice.domain.entities.Exercise
+import com.clloret.speakingpractice.domain.entities.ExerciseResultTuple
 
 @Dao
 interface ExerciseDao {
@@ -13,6 +14,9 @@ interface ExerciseDao {
 
     @Query("SELECT * FROM exercises WHERE id = :id")
     fun getExerciseById(id: Int): LiveData<Exercise>
+
+    @Query("SELECT SUM(result) AS correct, COUNT(*) - SUM(result) AS incorrect FROM exercises INNER JOIN exercise_attempts ON exercises.id = exercise_attempts.exercise_id GROUP BY exercise_id HAVING exercise_id=:exerciseId")
+    fun getResultValues(exerciseId: Int): LiveData<ExerciseResultTuple>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(exercise: Exercise)

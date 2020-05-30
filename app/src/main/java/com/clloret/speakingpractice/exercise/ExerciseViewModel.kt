@@ -1,10 +1,7 @@
 package com.clloret.speakingpractice.exercise
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.clloret.speakingpractice.App
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
@@ -13,7 +10,6 @@ import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
-
 
 class ExerciseViewModel(application: Application) : AndroidViewModel(application) {
     enum class ExerciseResult {
@@ -28,10 +24,14 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         MutableLiveData(ExerciseResult.HIDDEN)
     val exerciseResult: LiveData<ExerciseResult> get() = _exerciseResult
 
-    private val _currentExercise: MutableLiveData<Exercise> by lazy {
-        MutableLiveData<Exercise>()
-    }
+    private val _currentExercise = MutableLiveData<Exercise>()
     val currentExercise: LiveData<Exercise> get() = _currentExercise
+
+    private val currentExerciseId = MutableLiveData<Int>()
+    val resultValues = Transformations.switchMap(currentExerciseId) {
+        Timber.d("switchMap: exerciseId=$it")
+        repository.getResultValues(it)
+    }
 
     private val _speakText: MutableLiveData<String> = MutableLiveData()
     val speakText: LiveData<String> get() = _speakText
@@ -90,8 +90,15 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     }
 
     private fun showExercise(exercise: Exercise) {
+        Timber.d("showExercise: exercise.id=${exercise.id}")
+        Timber.d("showExercise: currentExerciseId.value=${currentExerciseId.value}")
+
         _currentExercise.postValue(exercise)
         _exerciseResult.postValue(ExerciseResult.HIDDEN)
+        if (currentExerciseId.value != exercise.id) {
+            Timber.d("showExercise: change")
+            currentExerciseId.postValue(exercise.id)
+        }
     }
 
     fun validatePhrase(text: String) {

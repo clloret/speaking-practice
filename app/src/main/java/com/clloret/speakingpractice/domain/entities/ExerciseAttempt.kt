@@ -3,6 +3,7 @@ package com.clloret.speakingpractice.domain.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 import java.util.*
 
@@ -11,7 +12,8 @@ import java.util.*
     foreignKeys = [ForeignKey(
         entity = Exercise::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("exercise_id")
+        childColumns = arrayOf("exercise_id"),
+        onDelete = CASCADE
     )]
 )
 data class ExerciseAttempt(

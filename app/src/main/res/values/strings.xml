@@ -26,4 +26,5 @@
     <string name="title_confirmation">Confirmation</string>
     <string name="title_edit">Edit</string>
     <string name="title_slash">/</string>
+    <string name="action_exercise_list">Exercise list</string>
 </resources>

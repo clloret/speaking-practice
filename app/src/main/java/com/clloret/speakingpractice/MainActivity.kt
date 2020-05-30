@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
+import com.clloret.speakingpractice.exercise.PracticeFragmentDirections
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.utils.Dialogs
 import com.google.android.material.snackbar.Snackbar
@@ -83,9 +84,24 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_import -> performFileSearch()
+            R.id.action_exercise_list -> showExerciseList()
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showExerciseList(): Boolean {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        val action =
+            PracticeFragmentDirections.actionExerciseFragmentToExerciseListFragment()
+
+        navController
+            .navigate(action)
+
+        return true
     }
 
     private fun initRepository(): ExerciseRepository {

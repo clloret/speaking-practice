@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 
 import androidx.room.*
 import com.clloret.speakingpractice.domain.entities.Exercise
+import com.clloret.speakingpractice.domain.entities.ExerciseDetail
 import com.clloret.speakingpractice.domain.entities.ExerciseResultTuple
 
 @Dao
@@ -11,6 +12,9 @@ interface ExerciseDao {
 
     @Query("SELECT * FROM exercises")
     fun getAllExercises(): LiveData<List<Exercise>>
+
+    @Query("SELECT * FROM ExerciseDetail")
+    fun getAllExercisesDetail(): LiveData<List<ExerciseDetail>>
 
     @Query("SELECT * FROM exercises WHERE id = :id")
     fun getExerciseById(id: Int): LiveData<Exercise>

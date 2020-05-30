@@ -10,10 +10,14 @@ import com.clloret.speakingpractice.db.dao.ExerciseAttemptDao
 import com.clloret.speakingpractice.db.dao.ExerciseDao
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
+import com.clloret.speakingpractice.domain.entities.ExerciseDetail
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Exercise::class, ExerciseAttempt::class], version = 1, exportSchema = false)
+@Database(
+    entities = [Exercise::class, ExerciseAttempt::class],
+    views = [ExerciseDetail::class], version = 1, exportSchema = false
+)
 @TypeConverters(DbConverters::class)
 abstract class ExercisesDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao

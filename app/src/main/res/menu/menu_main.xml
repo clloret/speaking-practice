@@ -12,4 +12,10 @@
         android:orderInCategory="101"
         android:title="@string/action_import_exercises"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_exercise_list"
+        android:orderInCategory="102"
+        android:title="@string/action_exercise_list"
+        app:showAsAction="never" />
 </menu>

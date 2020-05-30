@@ -11,7 +11,7 @@ import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
-class ExerciseViewModel(application: Application) : AndroidViewModel(application) {
+class PracticeViewModel(application: Application) : AndroidViewModel(application) {
     enum class ExerciseResult {
         HIDDEN, CORRECT, INCORRECT
     }

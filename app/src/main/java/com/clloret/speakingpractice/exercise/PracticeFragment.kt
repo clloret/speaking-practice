@@ -14,25 +14,25 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.clloret.speakingpractice.MainViewModel
 import com.clloret.speakingpractice.R
-import com.clloret.speakingpractice.databinding.ExerciseFragmentBinding
+import com.clloret.speakingpractice.databinding.PracticeFragmentBinding
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.utils.Dialogs
-import kotlinx.android.synthetic.main.exercise_fragment.*
+import kotlinx.android.synthetic.main.practice_fragment.*
 import timber.log.Timber
 import java.util.*
 
-class ExerciseFragment : Fragment() {
+class PracticeFragment : Fragment() {
     private var tts: TextToSpeech? = null
 
     companion object {
         fun newInstance() =
-            ExerciseFragment()
+            PracticeFragment()
 
         private const val REQUEST_CODE_SPEECH_INPUT = 0x01
     }
 
     private val mainViewModel: MainViewModel by activityViewModels()
-    private val viewModel: ExerciseViewModel by viewModels()
+    private val viewModel: PracticeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +41,9 @@ class ExerciseFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        val binding: ExerciseFragmentBinding = DataBindingUtil.inflate(
+        val binding: PracticeFragmentBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.exercise_fragment, container, false
+            R.layout.practice_fragment, container, false
         )
         binding.model = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -126,8 +126,8 @@ class ExerciseFragment : Fragment() {
         mainViewModel.showMessage(message)
     }
 
-    private fun showExerciseResult(result: ExerciseViewModel.ExerciseResult) {
-        if (result == ExerciseViewModel.ExerciseResult.HIDDEN) {
+    private fun showExerciseResult(result: PracticeViewModel.ExerciseResult) {
+        if (result == PracticeViewModel.ExerciseResult.HIDDEN) {
             exerciseResultView.visibility = View.GONE
             return
         } else {
@@ -136,8 +136,8 @@ class ExerciseFragment : Fragment() {
 
         val image =
             when (result) {
-                ExerciseViewModel.ExerciseResult.CORRECT -> R.drawable.ic_check_circle_green_24dp
-                ExerciseViewModel.ExerciseResult.INCORRECT -> R.drawable.ic_error_red_24dp
+                PracticeViewModel.ExerciseResult.CORRECT -> R.drawable.ic_check_circle_green_24dp
+                PracticeViewModel.ExerciseResult.INCORRECT -> R.drawable.ic_error_red_24dp
                 else -> R.drawable.ic_error_red_24dp
             }
         exerciseResultView.setImageResource(image)
@@ -203,7 +203,7 @@ class ExerciseFragment : Fragment() {
     private fun addExercise(): Boolean {
 
         val action =
-            ExerciseFragmentDirections.actionExerciseFragmentToAddExerciseFragment(
+            PracticeFragmentDirections.actionExerciseFragmentToAddExerciseFragment(
                 AddExerciseViewModel.DEFAULT_ID,
                 getString(R.string.title_add)
             )
@@ -218,7 +218,7 @@ class ExerciseFragment : Fragment() {
 
         val exerciseId = viewModel.currentExercise.value?.id ?: return true
         val action =
-            ExerciseFragmentDirections.actionExerciseFragmentToAddExerciseFragment(
+            PracticeFragmentDirections.actionExerciseFragmentToAddExerciseFragment(
                 exerciseId,
                 getString(R.string.title_edit)
             )

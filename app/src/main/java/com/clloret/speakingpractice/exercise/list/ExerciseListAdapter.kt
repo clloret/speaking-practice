@@ -3,14 +3,15 @@ package com.clloret.speakingpractice.exercise.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListItemBinding
 import com.clloret.speakingpractice.domain.entities.ExerciseDetail
 
-class ExerciseListAdapter :
-    ListAdapter<ExerciseDetail, ExerciseListViewHolder>(ExerciseListDiffCallback()) {
+class ExerciseListAdapter(private val findNavController: NavController) :
+    ListAdapter<ExerciseDetail, ExerciseListViewHolder>(ExerciseListDiffCallback()), Handlers {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -24,7 +25,14 @@ class ExerciseListAdapter :
 
     override fun onBindViewHolder(holder: ExerciseListViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, this)
+    }
+
+    override fun onClick(exerciseDetail: ExerciseDetail) {
+        val action = ExerciseListFragmentDirections.actionExerciseListFragmentToAttemptListFragment(
+            exerciseId = exerciseDetail.id
+        )
+        findNavController.navigate(action)
     }
 }
 

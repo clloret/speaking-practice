@@ -8,14 +8,20 @@
         <variable
             name="exercise"
             type="com.clloret.speakingpractice.domain.entities.ExerciseDetail" />
+
+        <variable
+            name="handlers"
+            type="com.clloret.speakingpractice.exercise.list.Handlers" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{()->handlers.onClick(exercise)}">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/recognizedText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -41,7 +47,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/resultsCorrect"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/recognizedText"
             tools:text="@string/add_exercise_practice_phrase" />
 
         <TextView

@@ -37,6 +37,20 @@
         android:id="@+id/exerciseListFragment"
         android:name="com.clloret.speakingpractice.exercise.list.ExerciseListFragment"
         android:label="Exercise List"
-        tools:layout="@layout/exercise_list_fragment" />
+        tools:layout="@layout/exercise_list_fragment">
+        <action
+            android:id="@+id/action_exerciseListFragment_to_attemptListFragment"
+            app:destination="@id/attemptListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/attemptListFragment"
+        android:name="com.clloret.speakingpractice.attempt.list.AttemptListFragment"
+        android:label="Exercise Attempts"
+        tools:layout="@layout/attempt_list_fragment">
+        <argument
+            android:name="exerciseId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

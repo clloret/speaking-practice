@@ -21,6 +21,10 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
         return db.exerciseDao().getResultValues(exerciseId)
     }
 
+    fun getExerciseAttemptsByExerciseId(id: Int): LiveData<List<ExerciseAttempt>> {
+        return db.exerciseAttemptDao().getExerciseAttemptsByExerciseId(id)
+    }
+
     suspend fun insertExercise(exercise: Exercise) {
         db.exerciseDao().insert(exercise)
     }

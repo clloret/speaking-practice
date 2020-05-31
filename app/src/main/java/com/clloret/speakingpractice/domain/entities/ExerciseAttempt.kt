@@ -17,8 +17,8 @@ import java.util.*
     )]
 )
 data class ExerciseAttempt(
-    @PrimaryKey(autoGenerate = true) val id: Int? = null,
-    @ColumnInfo(name = "exercise_id") val exerciseId: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @ColumnInfo(name = "exercise_id", index = true) val exerciseId: Int,
     @ColumnInfo(name = "time") val time: Date = Date(),
     @ColumnInfo(name = "result") val result: Boolean,
     @ColumnInfo(name = "recognized_text") val recognizedText: String

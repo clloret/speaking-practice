@@ -34,13 +34,15 @@ class PracticeFragment : Fragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel: PracticeViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        setHasOptionsMenu(true)
-
         val binding: PracticeFragmentBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.practice_fragment, container, false

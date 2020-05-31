@@ -42,7 +42,6 @@ class ImportExercises(
                         if (tokens.isNotEmpty()) {
                             val exercise =
                                 Exercise(
-                                    id = null,
                                     practicePhrase = tokens[PRACTICE_PHRASE_IDX],
                                     translatedPhrase = tokens[TRANSLATED_PHRASE_IDX]
                                 )

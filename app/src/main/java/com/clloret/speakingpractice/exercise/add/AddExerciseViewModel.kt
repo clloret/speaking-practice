@@ -72,7 +72,7 @@ class AddExerciseViewModel(
             val practicePhrase: String = practicePhrase.get()!!
             val translatedPhrase: String = translatedPhrase.get()!!
             val isNew = exerciseId == DEFAULT_ID
-            val id = if (isNew) null else exerciseId
+            val id = if (isNew) 0 else exerciseId
             val exercise = Exercise(
                 id,
                 practicePhrase,

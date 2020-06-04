@@ -12,8 +12,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
-import com.clloret.speakingpractice.exercise.PracticeFragmentDirections
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
+import com.clloret.speakingpractice.exercise.practice.PracticeFragmentDirections
 import com.clloret.speakingpractice.utils.Dialogs
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*

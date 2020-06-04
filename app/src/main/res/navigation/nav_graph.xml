@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/exerciseFragment"
-        android:name="com.clloret.speakingpractice.exercise.PracticeFragment"
+        android:name="com.clloret.speakingpractice.exercise.practice.PracticeFragment"
         android:label="@string/exercise_fragment_label"
         tools:layout="@layout/practice_fragment">
         <action

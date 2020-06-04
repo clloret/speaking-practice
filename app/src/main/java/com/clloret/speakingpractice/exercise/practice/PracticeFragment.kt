@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.exercise
+package com.clloret.speakingpractice.exercise.practice
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
@@ -94,6 +94,7 @@ class PracticeFragment : Fragment() {
         viewModel.speakText.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer {
+                Timber.d("speakText: $it")
                 textToSpeech(it)
             }
         )
@@ -159,7 +160,10 @@ class PracticeFragment : Fragment() {
             getString(R.string.msg_read_exercise_sentence)
         )
         try {
-            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT)
+            startActivityForResult(
+                intent,
+                REQUEST_CODE_SPEECH_INPUT
+            )
         } catch (a: ActivityNotFoundException) {
             showMessage(getString(R.string.msg_error_voice_recognition_not_supported))
         }

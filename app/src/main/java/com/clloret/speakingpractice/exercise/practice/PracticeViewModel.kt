@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.exercise
+package com.clloret.speakingpractice.exercise.practice
 
 import android.app.Application
 import androidx.lifecycle.*

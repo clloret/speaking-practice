@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".exercise.PracticeFragment">
+    tools:context=".exercise.practice.PracticeFragment">
 
     <data>
 
         <variable
             name="model"
-            type="com.clloret.speakingpractice.exercise.PracticeViewModel" />
+            type="com.clloret.speakingpractice.exercise.practice.PracticeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

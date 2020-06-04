@@ -17,6 +17,7 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeFragmentBinding
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.utils.Dialogs
+import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import kotlinx.android.synthetic.main.practice_fragment.*
 import timber.log.Timber
 import java.util.*
@@ -91,13 +92,11 @@ class PracticeFragment : Fragment() {
             }
         )
 
-        viewModel.speakText.observe(
-            viewLifecycleOwner,
-            androidx.lifecycle.Observer {
+        viewModel.speakText.observe(viewLifecycleOwner,
+            EventObserver {
                 Timber.d("speakText: $it")
                 textToSpeech(it)
-            }
-        )
+            })
     }
 
     override fun onDestroyView() {

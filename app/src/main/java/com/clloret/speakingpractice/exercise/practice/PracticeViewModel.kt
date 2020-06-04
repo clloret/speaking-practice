@@ -8,6 +8,7 @@ import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.domain.ExerciseValidator
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
+import com.clloret.speakingpractice.utils.lifecycle.Event
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
@@ -33,8 +34,8 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         repository.getResultValues(it)
     }
 
-    private val _speakText: MutableLiveData<String> = MutableLiveData()
-    val speakText: LiveData<String> get() = _speakText
+    private val _speakText: MutableLiveData<Event<String>> = MutableLiveData()
+    val speakText: LiveData<Event<String>> get() = _speakText
 
     private var exercises: List<Exercise> = listOf()
     private var exerciseIndex: Int = 0
@@ -124,7 +125,9 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun speakText() {
-        _speakText.postValue(_currentExercise.value?.practicePhrase)
+        _currentExercise.value?.let {
+            _speakText.postValue(Event(it.practicePhrase))
+        }
     }
 
     fun deleteCurrentExercise() {

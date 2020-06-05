@@ -37,6 +37,10 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
         db.exerciseDao().delete(exercise)
     }
 
+    suspend fun deleteExerciseById(exerciseId: Int) {
+        db.exerciseDao().deleteById(exerciseId)
+    }
+
     suspend fun deleteAllExercises() {
         db.exerciseDao().deleteAll()
     }

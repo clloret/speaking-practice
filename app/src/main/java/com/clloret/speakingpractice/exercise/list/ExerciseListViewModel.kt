@@ -19,5 +19,4 @@ class ExerciseListViewModel(application: Application) : AndroidViewModel(applica
         val db = ExercisesDatabase.getDatabase(application, viewModelScope)
         return ExerciseRepository(db)
     }
-
 }

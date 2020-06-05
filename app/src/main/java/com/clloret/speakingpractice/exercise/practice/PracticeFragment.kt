@@ -11,7 +11,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.clloret.speakingpractice.MainViewModel
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeFragmentBinding
@@ -23,15 +25,14 @@ import timber.log.Timber
 import java.util.*
 
 class PracticeFragment : Fragment() {
-    private var tts: TextToSpeech? = null
 
     companion object {
-        fun newInstance() =
-            PracticeFragment()
+        fun newInstance() = PracticeFragment()
 
         private const val REQUEST_CODE_SPEECH_INPUT = 0x01
     }
 
+    private var tts: TextToSpeech? = null
     private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel: PracticeViewModel by viewModels()
 
@@ -44,26 +45,68 @@ class PracticeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        requireActivity().window.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        )
+
         val binding: PracticeFragmentBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.practice_fragment, container, false
         )
-        binding.model = viewModel
+
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.model = viewModel
+        setupViewPager(binding.viewPager)
+
+        observeData()
 
         return binding.root
+    }
+
+    private fun setupViewPager(viewPager: ViewPager2) {
+        val listAdapter = PracticeAdapter(viewModel)
+        viewPager.adapter = listAdapter
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                Timber.d("Page: $position")
+                viewModel.resetExercise()
+            }
+        })
+
+        viewModel.exercises.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                listAdapter.submitList(it)
+            }
+        })
+    }
+
+    private fun observeData() {
+        viewModel.speakText.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                Timber.d("speakText: $it")
+                textToSpeech(it)
+            })
+
+        viewModel.onClickRecognizeSpeechBtn = {
+            startRecognizeSpeech()
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        observeData()
-
         initTts()
+    }
 
-        fabRecognizeSpeech.setOnClickListener {
-            startRecognizeSpeech()
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        stopTts()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -84,25 +127,8 @@ class PracticeFragment : Fragment() {
         }
     }
 
-    private fun observeData() {
-        viewModel.exerciseResult.observe(
-            viewLifecycleOwner,
-            androidx.lifecycle.Observer {
-                showExerciseResult(it)
-            }
-        )
-
-        viewModel.speakText.observe(viewLifecycleOwner,
-            EventObserver {
-                Timber.d("speakText: $it")
-                textToSpeech(it)
-            })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        stopTts()
+    private fun showMessage(message: String) {
+        mainViewModel.showMessage(message)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -122,28 +148,6 @@ class PracticeFragment : Fragment() {
         Timber.i(recognizedText)
 
         viewModel.validatePhrase(recognizedText)
-    }
-
-    private fun showMessage(message: String) {
-        mainViewModel.showMessage(message)
-    }
-
-    private fun showExerciseResult(result: PracticeViewModel.ExerciseResult) {
-        if (result == PracticeViewModel.ExerciseResult.HIDDEN) {
-            exerciseResultView.visibility = View.GONE
-            return
-        } else {
-            exerciseResultView.visibility = View.VISIBLE
-        }
-
-        val image =
-            when (result) {
-                PracticeViewModel.ExerciseResult.CORRECT -> R.drawable.ic_check_circle_green_24dp
-                PracticeViewModel.ExerciseResult.INCORRECT -> R.drawable.ic_error_red_24dp
-                else -> R.drawable.ic_error_red_24dp
-            }
-        exerciseResultView.setImageResource(image)
-        exerciseResultView.visibility = View.VISIBLE
     }
 
     private fun startRecognizeSpeech() {
@@ -220,17 +224,23 @@ class PracticeFragment : Fragment() {
     }
 
     private fun editExercise(): Boolean {
+        viewPager.apply {
+            val currentItem = this.currentItem
+            val listAdapter: PracticeAdapter = this.adapter as PracticeAdapter
+            listAdapter.currentList[currentItem]?.let {
+                Timber.d("Edit: $it")
 
-        val exerciseId = viewModel.currentExercise.value?.id ?: return true
-        val action =
-            PracticeFragmentDirections.actionExerciseFragmentToAddExerciseFragment(
-                exerciseId,
-                getString(R.string.title_edit)
-            )
+                val exerciseId = it.id
+                val action =
+                    PracticeFragmentDirections.actionExerciseFragmentToAddExerciseFragment(
+                        exerciseId,
+                        getString(R.string.title_edit)
+                    )
 
-        findNavController()
-            .navigate(action)
-
+                findNavController()
+                    .navigate(action)
+            }
+        }
         return true
     }
 
@@ -238,7 +248,16 @@ class PracticeFragment : Fragment() {
         Dialogs(requireContext())
             .showConfirmation(messageId = R.string.msg_delete_exercise_confirmation) { result ->
                 if (result == Dialogs.Button.POSITIVE) {
-                    viewModel.deleteCurrentExercise()
+                    viewPager.apply {
+                        val currentItem = this.currentItem
+                        val listAdapter: PracticeAdapter = this.adapter as PracticeAdapter
+                        listAdapter.currentList[currentItem]?.let {
+                            Timber.d("Edit: $it")
+
+                            val exerciseId = it.id
+                            viewModel.deleteExercise(exerciseId)
+                        }
+                    }
                 }
             }
         return true

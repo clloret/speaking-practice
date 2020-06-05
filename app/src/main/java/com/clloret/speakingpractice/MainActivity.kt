@@ -15,6 +15,7 @@ import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.practice.PracticeFragmentDirections
 import com.clloret.speakingpractice.utils.Dialogs
+import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -38,12 +39,14 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         toolbar.setupWithNavController(navController, appBarConfiguration)
 
+        observeData()
+    }
+
+    private fun observeData() {
         mainViewModel.message.observe(
             this,
-            androidx.lifecycle.Observer { message ->
-                message?.let {
-                    showSnackBar(message)
-                }
+            EventObserver {
+                showSnackBar(it)
             })
     }
 

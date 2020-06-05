@@ -10,16 +10,9 @@ class ExerciseListViewHolder(private val binding: ExerciseListItemBinding) :
         binding.apply {
             exercise = item
             handlers = onClickHandlers
-            //handlers = Handlers()
         }
     }
 }
-
-//class Handlers {
-//    fun onClick(exerciseDetail: ExerciseDetail) {
-//        Timber.d("Clicked! - ${exerciseDetail.id}")
-//    }
-//}
 
 interface Handlers {
     fun onClick(exerciseDetail: ExerciseDetail)

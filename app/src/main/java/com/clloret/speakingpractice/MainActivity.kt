@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.clloret.speakingpractice.exercise.practice.PracticeFragmentDirections
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -55,24 +54,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_exercise_list -> showExerciseList()
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun showExerciseList(): Boolean {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-
-        val action =
-            PracticeFragmentDirections.actionExerciseFragmentToExerciseListFragment()
-
-        navController
-            .navigate(action)
-
-        return true
     }
 
     private fun showSnackBar(message: String) {

@@ -9,9 +9,4 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_exercise_list"
-        android:orderInCategory="101"
-        android:title="@string/action_exercise_list"
-        app:showAsAction="never" />
 </menu>

@@ -1,7 +1,9 @@
 package com.clloret.speakingpractice.exercise.list
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -60,10 +62,5 @@ class ExerciseListFragment : Fragment() {
                 listAdapter.submitList(it)
             }
         })
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.findItem(R.id.action_exercise_list).isVisible = false
-        super.onCreateOptionsMenu(menu, inflater)
     }
 }

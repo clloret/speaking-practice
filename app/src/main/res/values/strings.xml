@@ -27,4 +27,5 @@
     <string name="title_edit">Edit</string>
     <string name="title_slash">/</string>
     <string name="action_exercise_list">Exercise list</string>
+    <string name="action_practice_speaking">Practice Speaking</string>
 </resources>

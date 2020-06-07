@@ -30,6 +30,14 @@ class HomeFragment : Fragment() {
                 .navigate(action)
         }
 
+        btnExerciseList.setOnClickListener {
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToExerciseListFragment()
+
+            findNavController()
+                .navigate(action)
+        }
+
     }
 
 }

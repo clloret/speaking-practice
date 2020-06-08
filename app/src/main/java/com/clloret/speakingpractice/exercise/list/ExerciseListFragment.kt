@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListFragmentBinding
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
+import com.clloret.speakingpractice.utils.Dialogs
 import timber.log.Timber
 
 
@@ -135,7 +136,12 @@ class ExerciseListFragment : Fragment() {
         selectionTracker?.selection?.apply {
             val list = this.map { it.toInt() }
 
-            viewModel.deleteExerciseList(list)
+            Dialogs(requireContext())
+                .showConfirmation(messageId = R.string.msg_delete_exercise_confirmation) { result ->
+                    if (result == Dialogs.Button.POSITIVE) {
+                        viewModel.deleteExerciseList(list)
+                    }
+                }
         }
     }
 

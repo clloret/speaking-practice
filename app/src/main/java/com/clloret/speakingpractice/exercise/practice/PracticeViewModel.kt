@@ -77,10 +77,4 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         currentExerciseDetail = null
     }
 
-    fun deleteExercise(exerciseId: Int) {
-        runBlocking {
-            repository.deleteExerciseById(exerciseId)
-        }
-    }
-
 }

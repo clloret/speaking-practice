@@ -6,21 +6,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.clloret.speakingpractice.MainViewModel
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeFragmentBinding
-import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
-import com.clloret.speakingpractice.utils.Dialogs
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
-import kotlinx.android.synthetic.main.practice_fragment.*
 import timber.log.Timber
 import java.util.*
 
@@ -109,24 +108,6 @@ class PracticeFragment : Fragment() {
         stopTts()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-
-        inflater.inflate(R.menu.menu_exercise, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_add -> addExercise()
-            R.id.action_edit -> editExercise()
-            R.id.action_delete -> deleteExercise()
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     private fun showMessage(message: String) {
         mainViewModel.showMessage(message)
     }
@@ -208,59 +189,4 @@ class PracticeFragment : Fragment() {
             showMessage(getString(R.string.msg_error_tts))
         }
     }
-
-    private fun addExercise(): Boolean {
-
-        val action =
-            PracticeFragmentDirections.actionExerciseFragmentToAddExerciseFragment(
-                AddExerciseViewModel.DEFAULT_ID,
-                getString(R.string.title_add)
-            )
-
-        findNavController()
-            .navigate(action)
-
-        return true
-    }
-
-    private fun editExercise(): Boolean {
-        viewPager.apply {
-            val currentItem = this.currentItem
-            val listAdapter: PracticeAdapter = this.adapter as PracticeAdapter
-            listAdapter.currentList[currentItem]?.let {
-                Timber.d("Edit: $it")
-
-                val exerciseId = it.id
-                val action =
-                    PracticeFragmentDirections.actionExerciseFragmentToAddExerciseFragment(
-                        exerciseId,
-                        getString(R.string.title_edit)
-                    )
-
-                findNavController()
-                    .navigate(action)
-            }
-        }
-        return true
-    }
-
-    private fun deleteExercise(): Boolean {
-        Dialogs(requireContext())
-            .showConfirmation(messageId = R.string.msg_delete_exercise_confirmation) { result ->
-                if (result == Dialogs.Button.POSITIVE) {
-                    viewPager.apply {
-                        val currentItem = this.currentItem
-                        val listAdapter: PracticeAdapter = this.adapter as PracticeAdapter
-                        listAdapter.currentList[currentItem]?.let {
-                            Timber.d("Edit: $it")
-
-                            val exerciseId = it.id
-                            viewModel.deleteExercise(exerciseId)
-                        }
-                    }
-                }
-            }
-        return true
-    }
-
 }

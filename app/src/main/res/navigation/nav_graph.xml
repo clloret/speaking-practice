@@ -23,14 +23,7 @@
         android:id="@+id/exerciseFragment"
         android:name="com.clloret.speakingpractice.exercise.practice.PracticeFragment"
         android:label="@string/exercise_fragment_label"
-        tools:layout="@layout/practice_fragment">
-        <action
-            android:id="@+id/action_exerciseFragment_to_addExerciseFragment"
-            app:destination="@id/addExerciseFragment" />
-        <action
-            android:id="@+id/action_exerciseFragment_to_exerciseListFragment"
-            app:destination="@id/exerciseListFragment" />
-    </fragment>
+        tools:layout="@layout/practice_fragment" />
 
     <fragment
         android:id="@+id/addExerciseFragment"
@@ -54,6 +47,9 @@
         <action
             android:id="@+id/action_exerciseListFragment_to_attemptListFragment"
             app:destination="@id/attemptListFragment" />
+        <action
+            android:id="@+id/action_exerciseListFragment_to_addExerciseFragment"
+            app:destination="@id/addExerciseFragment" />
     </fragment>
 
     <fragment

@@ -1,6 +1,5 @@
 package com.clloret.speakingpractice.exercise.list
 
-import android.graphics.Color
 import android.view.MotionEvent
 import androidx.recyclerview.selection.ItemDetailsLookup.ItemDetails
 import androidx.recyclerview.widget.RecyclerView
@@ -27,12 +26,6 @@ class ExerciseListViewHolder(private val binding: ExerciseListItemBinding) :
             itemDetails.identifier = item.id.toLong()
 
             itemView.isActivated = isSelected
-
-            if (isSelected) {
-                binding.practicePhrase.setTextColor(Color.RED)
-            } else {
-                binding.practicePhrase.setTextColor(Color.BLACK)
-            }
         }
     }
 

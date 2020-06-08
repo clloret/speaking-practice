@@ -85,7 +85,7 @@ class ExerciseListFragment : Fragment() {
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
             mode.title = "Selection"
             val inflater: MenuInflater = mode.menuInflater
-            inflater.inflate(R.menu.context_menu, menu)
+            inflater.inflate(R.menu.menu_exercise_list_selected, menu)
             return true
         }
 

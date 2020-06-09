@@ -86,7 +86,7 @@ class ImportExercises(
 
                     var line: String? = reader.readLine()
                     while (line != null) {
-                        val tokens = line.split(",")
+                        val tokens = line.split(CSV_DELIMITER)
                         if (tokens.isNotEmpty()) {
                             val exercise =
                                 Exercise(
@@ -112,6 +112,7 @@ class ImportExercises(
         private const val PRACTICE_PHRASE_IDX = 0
         private const val TRANSLATED_PHRASE_IDX = 1
         private const val FILE_READ_REQUEST_CODE: Int = 0x01
+        private const val CSV_DELIMITER = ";"
     }
 }
 

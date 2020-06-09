@@ -13,7 +13,7 @@
     <string name="add_exercise_save">Save</string>
     <string name="add_exercise_translated_phrase">Translated Phrase</string>
     <string name="app_name">Speaking Practice</string>
-    <string name="exercise_fragment_label">Exercises</string>
+    <string name="practice_fragment_label">Speaking Practice</string>
     <string name="exercise_result_description">Exercise result</string>
     <string name="msg_delete_exercise_confirmation">Are you sure you want to delete the selected exercises?</string>
     <string name="msg_error_cannot_be_empty">Cannot be empty</string>
@@ -26,6 +26,6 @@
     <string name="title_confirmation">Confirmation</string>
     <string name="title_edit">Edit</string>
     <string name="title_slash">/</string>
-    <string name="action_exercise_list">Exercise list</string>
-    <string name="action_practice_speaking">Practice Speaking</string>
+    <string name="action_exercise_list">Exercise List</string>
+    <string name="action_speaking_practice">Speaking Practice</string>
 </resources>

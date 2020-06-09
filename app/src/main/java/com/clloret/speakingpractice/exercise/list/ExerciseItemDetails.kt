@@ -16,7 +16,7 @@ internal class ExerciseItemDetails : ItemDetailsLookup.ItemDetails<Long>() {
     }
 
     override fun inSelectionHotspot(e: MotionEvent): Boolean {
-        return true
+        return false
     }
 
     override fun inDragRegion(e: MotionEvent): Boolean {

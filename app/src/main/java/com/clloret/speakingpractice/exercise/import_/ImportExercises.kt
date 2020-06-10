@@ -88,12 +88,15 @@ class ImportExercises(
                     while (line != null) {
                         val tokens = line.split(TSV_DELIMITER)
                         if (tokens.isNotEmpty()) {
-                            val exercise =
-                                Exercise(
-                                    practicePhrase = tokens[PRACTICE_PHRASE_IDX],
-                                    translatedPhrase = tokens[TRANSLATED_PHRASE_IDX]
-                                )
-                            exercises.add(exercise)
+                            val import = tokens[IMPORT_IDX].toBoolean()
+                            if (import) {
+                                val exercise =
+                                    Exercise(
+                                        practicePhrase = tokens[PRACTICE_PHRASE_IDX],
+                                        translatedPhrase = tokens[TRANSLATED_PHRASE_IDX]
+                                    )
+                                exercises.add(exercise)
+                            }
                         }
 
                         line = reader.readLine()
@@ -111,6 +114,7 @@ class ImportExercises(
     companion object {
         private const val PRACTICE_PHRASE_IDX = 0
         private const val TRANSLATED_PHRASE_IDX = 1
+        private const val IMPORT_IDX = 2
         private const val FILE_READ_REQUEST_CODE: Int = 0x01
         private const val TSV_DELIMITER = "\t"
     }

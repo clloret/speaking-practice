@@ -33,7 +33,7 @@ class ImportExercises(
     var onCompletion: ((Int) -> Unit)? = null
 
     fun import(uri: Uri, deleteAll: Boolean = true, completion: ((Int) -> Unit)?) {
-        val exercises = readCsvFile(uri)
+        val exercises = readTsvFile(uri)
         runBlocking {
             if (deleteAll) {
                 repository.deleteAllExercises()
@@ -49,7 +49,7 @@ class ImportExercises(
 
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
-            type = "text/csv"
+            type = "text/tab-separated-values"
         }
 
         fragment.startActivityForResult(intent, FILE_READ_REQUEST_CODE)
@@ -74,7 +74,7 @@ class ImportExercises(
         }
     }
 
-    private fun readCsvFile(uri: Uri): List<Exercise> {
+    private fun readTsvFile(uri: Uri): List<Exercise> {
         try {
             val exercises = ArrayList<Exercise>()
             val contentResolver = context.contentResolver
@@ -86,7 +86,7 @@ class ImportExercises(
 
                     var line: String? = reader.readLine()
                     while (line != null) {
-                        val tokens = line.split(CSV_DELIMITER)
+                        val tokens = line.split(TSV_DELIMITER)
                         if (tokens.isNotEmpty()) {
                             val exercise =
                                 Exercise(
@@ -103,7 +103,7 @@ class ImportExercises(
 
             return exercises
         } catch (e: Exception) {
-            Timber.e(e, "Reading CSV Error!")
+            Timber.e(e, "Reading TSV Error!")
         }
         return listOf()
     }
@@ -112,7 +112,7 @@ class ImportExercises(
         private const val PRACTICE_PHRASE_IDX = 0
         private const val TRANSLATED_PHRASE_IDX = 1
         private const val FILE_READ_REQUEST_CODE: Int = 0x01
-        private const val CSV_DELIMITER = ";"
+        private const val TSV_DELIMITER = "\t"
     }
 }
 

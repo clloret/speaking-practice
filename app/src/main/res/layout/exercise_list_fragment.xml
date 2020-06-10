@@ -14,7 +14,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:itemCount="10"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/exercise_list_item"
+            tools:orientation="vertical"
+            tools:scrollbars="vertical" />
 
     </FrameLayout>
 </layout>

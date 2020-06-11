@@ -11,11 +11,12 @@ import com.clloret.speakingpractice.db.dao.ExerciseDao
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
 import com.clloret.speakingpractice.domain.entities.ExerciseDetail
+import com.clloret.speakingpractice.domain.entities.Tag
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [Exercise::class, ExerciseAttempt::class],
+    entities = [Exercise::class, ExerciseAttempt::class, Tag::class],
     views = [ExerciseDetail::class], version = 1, exportSchema = false
 )
 @TypeConverters(DbConverters::class)

@@ -8,15 +8,12 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.clloret.speakingpractice.db.dao.ExerciseAttemptDao
 import com.clloret.speakingpractice.db.dao.ExerciseDao
-import com.clloret.speakingpractice.domain.entities.Exercise
-import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
-import com.clloret.speakingpractice.domain.entities.ExerciseDetail
-import com.clloret.speakingpractice.domain.entities.Tag
+import com.clloret.speakingpractice.domain.entities.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [Exercise::class, ExerciseAttempt::class, Tag::class],
+    entities = [Exercise::class, ExerciseAttempt::class, Tag::class, TagExerciseJoin::class],
     views = [ExerciseDetail::class], version = 1, exportSchema = false
 )
 @TypeConverters(DbConverters::class)

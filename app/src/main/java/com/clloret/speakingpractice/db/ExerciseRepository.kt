@@ -1,10 +1,7 @@
 package com.clloret.speakingpractice.db
 
 import androidx.lifecycle.LiveData
-import com.clloret.speakingpractice.domain.entities.Exercise
-import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
-import com.clloret.speakingpractice.domain.entities.ExerciseDetail
-import com.clloret.speakingpractice.domain.entities.ExerciseResultTuple
+import com.clloret.speakingpractice.domain.entities.*
 
 class ExerciseRepository(private val db: ExercisesDatabase) {
 
@@ -23,6 +20,10 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
 
     fun getExerciseAttemptsByExerciseId(id: Int): LiveData<List<ExerciseAttempt>> {
         return db.exerciseAttemptDao().getExerciseAttemptsByExerciseId(id)
+    }
+
+    fun getTagsForExercise(id: Int): LiveData<List<Tag>> {
+        return db.tagExerciseJoinDao().getTagsForExercise(id)
     }
 
     suspend fun insertExercise(exercise: Exercise) {

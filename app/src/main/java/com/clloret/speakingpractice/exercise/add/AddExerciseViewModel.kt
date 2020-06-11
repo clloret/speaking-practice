@@ -17,6 +17,7 @@ class AddExerciseViewModel(
 
     var practicePhrase: ObservableField<String> = ObservableField()
     var translatedPhrase: ObservableField<String> = ObservableField()
+    val exerciseTags = repository.getTagsForExercise(exerciseId)
 
     private val saveData = MutableLiveData<Boolean>()
 

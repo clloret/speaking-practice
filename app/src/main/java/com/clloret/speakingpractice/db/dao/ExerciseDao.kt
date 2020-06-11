@@ -23,7 +23,7 @@ interface ExerciseDao {
     fun getResultValues(exerciseId: Int): LiveData<ExerciseResultTuple>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(exercise: Exercise)
+    suspend fun insert(exercise: Exercise): Long
 
     @Update
     suspend fun update(exercise: Exercise)

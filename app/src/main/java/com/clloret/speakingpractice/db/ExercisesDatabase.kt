@@ -8,9 +8,12 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.clloret.speakingpractice.db.dao.ExerciseAttemptDao
 import com.clloret.speakingpractice.db.dao.ExerciseDao
+import com.clloret.speakingpractice.db.dao.TagDao
+import com.clloret.speakingpractice.db.dao.TagExerciseJoinDao
 import com.clloret.speakingpractice.domain.entities.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @Database(
     entities = [Exercise::class, ExerciseAttempt::class, Tag::class, TagExerciseJoin::class],
@@ -20,6 +23,8 @@ import kotlinx.coroutines.launch
 abstract class ExercisesDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao
     abstract fun exerciseAttemptDao(): ExerciseAttemptDao
+    abstract fun tagDao(): TagDao
+    abstract fun tagExerciseJoinDao(): TagExerciseJoinDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
@@ -52,22 +57,35 @@ abstract class ExercisesDatabase : RoomDatabase() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
-            INSTANCE?.let { database ->
+            INSTANCE?.let {
                 scope.launch {
-                    populateDatabase(database.exerciseDao())
+                    populateDatabase(it.exerciseDao(), it.tagDao(), it.tagExerciseJoinDao())
                 }
             }
         }
 
-        suspend fun populateDatabase(exerciseDao: ExerciseDao) {
+        suspend fun populateDatabase(
+            exerciseDao: ExerciseDao,
+            tagDao: TagDao,
+            tagExerciseJoinDao: TagExerciseJoinDao
+        ) {
+            tagExerciseJoinDao.deleteAll()
             exerciseDao.deleteAll()
+            tagDao.deleteAll()
+
+            val tag = Tag(1, "Samples")
+            tagDao.insert(tag)
 
             var exercise = Exercise(
                 1,
                 "What is your name",
                 "¿Cómo te llamas?"
             )
-            exerciseDao.insert(exercise)
+            val insert = exerciseDao.insert(exercise)
+
+            Timber.d("ExerciseId: $insert")
+
+            tagExerciseJoinDao.insert(TagExerciseJoin(1, insert.toInt()))
 
             exercise = Exercise(
                 2,
@@ -82,6 +100,7 @@ abstract class ExercisesDatabase : RoomDatabase() {
                 "No entiendo"
             )
             exerciseDao.insert(exercise)
+
         }
     }
 }

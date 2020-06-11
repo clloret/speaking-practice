@@ -1,5 +1,6 @@
 package com.clloret.speakingpractice.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -10,25 +11,28 @@ import com.clloret.speakingpractice.domain.entities.TagExerciseJoin
 @Dao
 interface TagExerciseJoinDao {
     @Insert
-    fun insert(tagExerciseJoin: TagExerciseJoin)
+    suspend fun insert(tagExerciseJoin: TagExerciseJoin)
 
     @Query(
         """
-               SELECT * FROM tags
+               SELECT id, name FROM tags
                INNER JOIN tag_exercise_join
-               ON tags.id=tag_exercise_join.tagId
-               WHERE tag_exercise_join.exerciseId=:exerciseId
+               ON tags.id=tag_exercise_join.tag_id
+               WHERE tag_exercise_join.exercise_id=:exerciseId
                """
     )
-    fun getTagsForExercise(exerciseId: Int): Array<Exercise>
+    fun getTagsForExercise(exerciseId: Int): LiveData<List<Tag>>
 
     @Query(
         """
-               SELECT * FROM exercises
+               SELECT id, practice_phrase, translated_phrase FROM exercises
                INNER JOIN tag_exercise_join
-               ON exercises.id=tag_exercise_join.exerciseId
-               WHERE tag_exercise_join.tagId=:tagId
+               ON exercises.id=tag_exercise_join.tag_id
+               WHERE tag_exercise_join.tag_id=:tagId
                """
     )
-    fun getExercisesForTag(tagId: Int): Array<Tag>
+    fun getExercisesForTag(tagId: Int): LiveData<List<Exercise>>
+
+    @Query("DELETE FROM tag_exercise_join")
+    suspend fun deleteAll()
 }

@@ -9,7 +9,6 @@ import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
 import kotlinx.coroutines.runBlocking
 
-
 class AddExerciseViewModel(
     private val repository: ExerciseRepository,
     private val exerciseId: Int
@@ -17,7 +16,7 @@ class AddExerciseViewModel(
 
     var practicePhrase: ObservableField<String> = ObservableField()
     var translatedPhrase: ObservableField<String> = ObservableField()
-    val exerciseTags = repository.getTagsForExercise(exerciseId)
+    var exerciseTags: ObservableField<List<ChipBindingEntry>> = ObservableField()
 
     private val saveData = MutableLiveData<Boolean>()
 
@@ -33,6 +32,14 @@ class AddExerciseViewModel(
             observeForever { value ->
                 value?.let {
                     showData(it)
+                }
+            }
+        }
+
+        repository.getSelectedTagsForExercise(exerciseId).apply {
+            observeForever { value ->
+                value?.let {
+                    exerciseTags.set(it)
                 }
             }
         }

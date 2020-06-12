@@ -7,6 +7,7 @@ import androidx.room.Query
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.Tag
 import com.clloret.speakingpractice.domain.entities.TagExerciseJoin
+import com.clloret.speakingpractice.domain.entities.TagSelectedTuple
 
 @Dao
 interface TagExerciseJoinDao {
@@ -22,6 +23,17 @@ interface TagExerciseJoinDao {
                """
     )
     fun getTagsForExercise(exerciseId: Int): LiveData<List<Tag>>
+
+    @Query(
+        """
+              SELECT id, name, CASE WHEN exercise_id IS NULL THEN 0 ELSE 1 END AS selected 
+              FROM tags 
+              LEFT OUTER JOIN tag_exercise_join
+              ON tags.id=tag_exercise_join.tag_id
+              AND tag_exercise_join.exercise_id=:exerciseId
+               """
+    )
+    fun getSelectedTagsForExercise(exerciseId: Int): LiveData<List<TagSelectedTuple>>
 
     @Query(
         """

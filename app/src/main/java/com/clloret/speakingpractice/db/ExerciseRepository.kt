@@ -26,6 +26,10 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
         return db.tagExerciseJoinDao().getTagsForExercise(id)
     }
 
+    fun getSelectedTagsForExercise(exerciseId: Int): LiveData<List<TagSelectedTuple>> {
+        return db.tagExerciseJoinDao().getSelectedTagsForExercise(exerciseId)
+    }
+
     suspend fun insertExercise(exercise: Exercise) {
         db.exerciseDao().insert(exercise)
     }

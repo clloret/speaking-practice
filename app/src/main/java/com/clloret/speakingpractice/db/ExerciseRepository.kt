@@ -58,4 +58,7 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
         db.exerciseAttemptDao().insert(exerciseResult)
     }
 
+    suspend fun insertOrUpdateExerciseAndTags(exercise: Exercise, tagsIds: List<Int>) {
+        db.exerciseDao().insertOrUpdateExerciseAndTags(exercise, tagsIds)
+    }
 }

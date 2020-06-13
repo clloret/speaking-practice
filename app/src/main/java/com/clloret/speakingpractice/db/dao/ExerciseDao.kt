@@ -1,11 +1,11 @@
 package com.clloret.speakingpractice.db.dao
 
 import androidx.lifecycle.LiveData
-
 import androidx.room.*
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.ExerciseDetail
 import com.clloret.speakingpractice.domain.entities.ExerciseResultTuple
+import com.clloret.speakingpractice.domain.entities.TagExerciseJoin
 
 @Dao
 interface ExerciseDao {
@@ -25,7 +25,7 @@ interface ExerciseDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(exercise: Exercise): Long
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(exercise: Exercise)
 
     @Delete
@@ -39,4 +39,27 @@ interface ExerciseDao {
 
     @Query("DELETE FROM exercises")
     suspend fun deleteAll()
+
+    @Query("DELETE FROM tag_exercise_join WHERE exercise_id=:exerciseId")
+    suspend fun deleteAllFrom(exerciseId: Int)
+
+    @Insert
+    suspend fun insertAll(tagExerciseJoins: List<TagExerciseJoin>)
+
+    @Transaction
+    suspend fun insertOrUpdateExerciseAndTags(exercise: Exercise, tagsIds: List<Int>) {
+        val id = insert(exercise)
+        if (id == -1L) {
+            update(exercise)
+            deleteAllFrom(exercise.id)
+        }
+
+        val exerciseId: Int = if (id == -1L) exercise.id else id.toInt()
+        val tagExerciseJoins = arrayListOf<TagExerciseJoin>()
+        tagsIds.forEach {
+            tagExerciseJoins.add(TagExerciseJoin(it, exerciseId))
+        }
+        insertAll(tagExerciseJoins)
+    }
+
 }

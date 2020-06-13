@@ -47,4 +47,5 @@ interface TagExerciseJoinDao {
 
     @Query("DELETE FROM tag_exercise_join")
     suspend fun deleteAll()
+
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
 import kotlinx.coroutines.runBlocking
+import timber.log.Timber
 
 class AddExerciseViewModel(
     private val repository: ExerciseRepository,
@@ -61,6 +62,17 @@ class AddExerciseViewModel(
         return formErrors.isEmpty()
     }
 
+    private fun getSelectedTagsIds(selectedTags: List<ChipBindingEntry>): ArrayList<Int> {
+        val selectedTagIds = arrayListOf<Int>()
+        selectedTags.forEach {
+            Timber.d("Tag: $it")
+            if (it.selected) {
+                selectedTagIds.add(it.id)
+            }
+        }
+        return selectedTagIds
+    }
+
     fun getErrorMessage(
         formError: FormErrors,
         errorMessage: String,
@@ -79,6 +91,7 @@ class AddExerciseViewModel(
         if (isFormValid()) {
             val practicePhrase: String = practicePhrase.get()!!
             val translatedPhrase: String = translatedPhrase.get()!!
+            val selectedTagIds = getSelectedTagsIds(exerciseTags.get()!!)
             val isNew = exerciseId == DEFAULT_ID
             val id = if (isNew) 0 else exerciseId
             val exercise = Exercise(
@@ -88,12 +101,9 @@ class AddExerciseViewModel(
             )
 
             runBlocking {
-                if (isNew) {
-                    repository.insertExercise(exercise)
-                } else {
-                    repository.updateExercise(exercise)
-                }
+                repository.insertOrUpdateExerciseAndTags(exercise, selectedTagIds)
             }
+
             saveData.postValue(true)
         } else {
             saveData.postValue(false)

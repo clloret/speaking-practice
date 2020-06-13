@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".exercise.add.AddExerciseFragment">
+
+    <data>
+
+        <import type="com.clloret.speakingpractice.tag.add.AddTagViewModel.FormErrors" />
+
+        <variable
+            name="model"
+            type="com.clloret.speakingpractice.tag.add.AddTagViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:errorEnabled="true"
+            app:errorText="@{model.getErrorMessage(FormErrors.EMPTY_NAME, @string/msg_error_cannot_be_empty, model.formErrors)}">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_tag_name"
+                android:text="@={model.name}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{()-> model.saveData()}"
+            android:text="@string/add_exercise_save" />
+
+    </LinearLayout>
+</layout>

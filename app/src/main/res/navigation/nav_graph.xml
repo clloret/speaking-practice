@@ -69,6 +69,25 @@
         android:id="@+id/tagListFragment"
         android:name="com.clloret.speakingpractice.tag.list.TagListFragment"
         android:label="Tag List"
-        tools:layout="@layout/tag_list_fragment" />
+        tools:layout="@layout/tag_list_fragment">
+        <action
+            android:id="@+id/action_tagListFragment_to_addTagFragment"
+            app:destination="@id/addTagFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/addTagFragment"
+        android:name="com.clloret.speakingpractice.tag.add.AddTagFragment"
+        android:label="{title}"
+        tools:layout="@layout/add_tag_fragment">
+        <argument
+            android:name="tagId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

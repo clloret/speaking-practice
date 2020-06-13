@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.TagListFragmentBinding
+import com.clloret.speakingpractice.tag.add.AddTagViewModel
 import com.clloret.speakingpractice.utils.Dialogs
 import timber.log.Timber
 
@@ -198,14 +199,14 @@ class TagListFragment : Fragment() {
 
     private fun addTag(): Boolean {
 
-//        val action =
-//            ExerciseListFragmentDirections.actionExerciseListFragmentToAddExerciseFragment(
-//                AddExerciseViewModel.DEFAULT_ID,
-//                getString(R.string.title_add)
-//            )
-//
-//        findNavController()
-//            .navigate(action)
+        val action =
+            TagListFragmentDirections.actionTagListFragmentToAddTagFragment(
+                AddTagViewModel.DEFAULT_ID,
+                getString(R.string.title_add)
+            )
+
+        findNavController()
+            .navigate(action)
 
         return true
     }
@@ -214,14 +215,14 @@ class TagListFragment : Fragment() {
 
         selectionTracker?.apply {
             selection.first()?.let { tagId ->
-//                val action =
-//                    ExerciseListFragmentDirections.actionExerciseListFragmentToAddExerciseFragment(
-//                        tagId.toInt(),
-//                        getString(R.string.title_edit)
-//                    )
-//
-//                findNavController()
-//                    .navigate(action)
+                val action =
+                    TagListFragmentDirections.actionTagListFragmentToAddTagFragment(
+                        tagId.toInt(),
+                        getString(R.string.title_edit)
+                    )
+
+                findNavController()
+                    .navigate(action)
             }
         }
         return true

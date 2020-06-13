@@ -16,6 +16,10 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
         return db.exerciseDao().getExerciseById(id)
     }
 
+    fun getTagById(id: Int): LiveData<Tag> {
+        return db.tagDao().getTagById(id)
+    }
+
     fun getResultValues(exerciseId: Int): LiveData<ExerciseResultTuple> {
         return db.exerciseDao().getResultValues(exerciseId)
     }
@@ -63,4 +67,9 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
     suspend fun insertOrUpdateExerciseAndTags(exercise: Exercise, tagsIds: List<Int>) {
         db.exerciseDao().insertOrUpdateExerciseAndTags(exercise, tagsIds)
     }
+
+    suspend fun insertOrUpdateTag(tag: Tag) {
+        db.tagDao().insertOrUpdate(tag)
+    }
+
 }

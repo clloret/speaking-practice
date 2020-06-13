@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homeFragment_to_exerciseListFragment"
             app:destination="@id/exerciseListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_tagListFragment"
+            app:destination="@id/tagListFragment" />
     </fragment>
 
     <fragment
@@ -61,5 +64,11 @@
             android:name="exerciseId"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/tagListFragment"
+        android:name="com.clloret.speakingpractice.tag.list.TagListFragment"
+        android:label="Tag List"
+        tools:layout="@layout/tag_list_fragment" />
 
 </navigation>

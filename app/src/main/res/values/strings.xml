@@ -29,4 +29,5 @@
     <string name="action_exercise_list">Exercise List</string>
     <string name="action_speaking_practice">Speaking Practice</string>
     <string name="title_tags">Tags</string>
+    <string name="action_tag_list">Tag List</string>
 </resources>

@@ -2,16 +2,16 @@ package com.clloret.speakingpractice.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.clloret.speakingpractice.domain.entities.Exercise
-import com.clloret.speakingpractice.domain.entities.ExerciseDetail
-import com.clloret.speakingpractice.domain.entities.ExerciseResultTuple
-import com.clloret.speakingpractice.domain.entities.TagExerciseJoin
+import com.clloret.speakingpractice.domain.entities.*
 
 @Dao
 interface ExerciseDao {
 
     @Query("SELECT * FROM exercises")
     fun getAllExercises(): LiveData<List<Exercise>>
+
+    @Query("SELECT * FROM tags")
+    fun getAllTags(): LiveData<List<Tag>>
 
     @Query("SELECT * FROM ExerciseDetail")
     fun getAllExercisesDetail(): LiveData<List<ExerciseDetail>>

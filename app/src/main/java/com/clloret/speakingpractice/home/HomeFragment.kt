@@ -53,6 +53,14 @@ class HomeFragment : Fragment() {
                 .navigate(action)
         }
 
+        btnTagList.setOnClickListener {
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToTagListFragment()
+
+            findNavController()
+                .navigate(action)
+        }
+
         btnImportExercises.setOnClickListener {
             this.importExercises()
         }

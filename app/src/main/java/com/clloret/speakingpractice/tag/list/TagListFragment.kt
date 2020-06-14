@@ -110,7 +110,7 @@ class TagListFragment : Fragment() {
                     true
                 }
                 R.id.action_delete -> {
-                    deleteSelectedExercises()
+                    deleteSelectedTags()
                     mode.finish()
                     true
                 }
@@ -131,14 +131,14 @@ class TagListFragment : Fragment() {
         selectionTracker?.onSaveInstanceState(outState)
     }
 
-    private fun deleteSelectedExercises() {
+    private fun deleteSelectedTags() {
         selectionTracker?.selection?.apply {
             val list = this.map { it.toInt() }
 
             Dialogs(requireContext())
-                .showConfirmation(messageId = R.string.msg_delete_exercise_confirmation) { result ->
+                .showConfirmation(messageId = R.string.msg_delete_tag_confirmation) { result ->
                     if (result == Dialogs.Button.POSITIVE) {
-                        viewModel.deleteExerciseList(list)
+                        viewModel.deleteTagList(list)
                     }
                 }
         }

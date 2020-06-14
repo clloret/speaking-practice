@@ -21,9 +21,9 @@ class TagListViewModel(application: Application) : AndroidViewModel(application)
         return ExerciseRepository(db)
     }
 
-    fun deleteExerciseList(list: List<Int>) {
+    fun deleteTagList(list: List<Int>) {
         runBlocking {
-            repository.deleteExerciseList(list)
+            repository.deleteTagList(list)
         }
     }
 }

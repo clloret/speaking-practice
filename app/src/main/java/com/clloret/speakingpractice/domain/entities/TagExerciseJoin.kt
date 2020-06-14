@@ -3,6 +3,7 @@ package com.clloret.speakingpractice.domain.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 
 @Entity(
     tableName = "tag_exercise_join",
@@ -10,11 +11,13 @@ import androidx.room.ForeignKey
     foreignKeys = [ForeignKey(
         entity = Tag::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("tag_id")
+        childColumns = arrayOf("tag_id"),
+        onDelete = CASCADE
     ), ForeignKey(
         entity = Exercise::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("exercise_id")
+        childColumns = arrayOf("exercise_id"),
+        onDelete = CASCADE
     )]
 )
 data class TagExerciseJoin(

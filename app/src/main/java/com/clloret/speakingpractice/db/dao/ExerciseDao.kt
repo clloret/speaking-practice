@@ -13,7 +13,7 @@ interface ExerciseDao {
     @Query("SELECT * FROM tags")
     fun getAllTags(): LiveData<List<Tag>>
 
-    @Query("SELECT * FROM ExerciseDetail")
+    @Query("SELECT * FROM exercise_detail")
     fun getAllExercisesDetail(): LiveData<List<ExerciseDetail>>
 
     @Query("SELECT * FROM exercises WHERE id = :id")

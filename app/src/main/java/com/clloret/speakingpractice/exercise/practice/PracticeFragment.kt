@@ -19,6 +19,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.clloret.speakingpractice.MainViewModel
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeFragmentBinding
+import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByTag
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import timber.log.Timber
 import java.util.*
@@ -33,7 +34,13 @@ class PracticeFragment : Fragment() {
 
     private var tts: TextToSpeech? = null
     private val mainViewModel: MainViewModel by activityViewModels()
-    private val viewModel: PracticeViewModel by viewModels()
+
+    private val viewModel: PracticeViewModel by viewModels {
+        //val filter = ExerciseFilterAll()
+        val filter = ExerciseFilterByTag(1)
+        PracticeViewModelFactory(requireActivity().application, filter)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

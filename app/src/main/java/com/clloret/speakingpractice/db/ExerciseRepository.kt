@@ -16,6 +16,10 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
         return db.exerciseDao().getExerciseById(id)
     }
 
+    fun getExercisesDetailsByTag(tagId: Int): LiveData<List<ExerciseDetail>> {
+        return db.exerciseDao().getExercisesDetailByTag(tagId)
+    }
+
     fun getTagById(id: Int): LiveData<Tag> {
         return db.tagDao().getTagById(id)
     }

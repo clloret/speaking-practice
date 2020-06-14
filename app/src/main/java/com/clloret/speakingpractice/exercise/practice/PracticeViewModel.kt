@@ -11,10 +11,12 @@ import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.domain.ExerciseValidator
 import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
 import com.clloret.speakingpractice.domain.entities.ExerciseDetail
+import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.lifecycle.Event
 import kotlinx.coroutines.runBlocking
 
-class PracticeViewModel(application: Application) : AndroidViewModel(application) {
+class PracticeViewModel(application: Application, filter: ExerciseFilterStrategy) :
+    AndroidViewModel(application) {
     enum class ExerciseResult {
         HIDDEN, CORRECT, INCORRECT
     }
@@ -32,7 +34,7 @@ class PracticeViewModel(application: Application) : AndroidViewModel(application
         initRepository()
     }
 
-    val exercises = repository.allExercisesDetails
+    val exercises = filter.getExercises(repository)
 
     var onClickRecognizeSpeechBtn: (() -> Unit)? = null
 

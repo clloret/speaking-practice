@@ -36,4 +36,5 @@ ext {
     compileSdkVersion = 29
 
     roomVersion = '2.2.5'
+    fragmentVersion = '1.2.5'
 }

@@ -63,12 +63,8 @@ class AddTagFragment : Fragment(), CoroutineScope by MainScope() {
 
     private fun observeData() {
         viewModel.getSaveData().observe(viewLifecycleOwner, Observer { saved ->
-            saved?.let {
-                if (saved) {
-                    findNavController().navigateUp()
-                } else {
-                    showSnackBar("Phrases can't be empty")
-                }
+            if (saved) {
+                findNavController().navigateUp()
             }
         })
     }

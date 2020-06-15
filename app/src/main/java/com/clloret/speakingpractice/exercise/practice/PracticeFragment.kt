@@ -15,11 +15,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.clloret.speakingpractice.MainViewModel
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeFragmentBinding
-import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByTag
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import timber.log.Timber
 import java.util.*
@@ -36,11 +36,11 @@ class PracticeFragment : Fragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
 
     private val viewModel: PracticeViewModel by viewModels {
-        //val filter = ExerciseFilterAll()
-        val filter = ExerciseFilterByTag(1)
+        val filter = args.filter
         PracticeViewModelFactory(requireActivity().application, filter)
     }
 
+    private val args: PracticeFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

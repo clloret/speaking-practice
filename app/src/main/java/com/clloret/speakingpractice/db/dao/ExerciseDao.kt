@@ -16,7 +16,20 @@ interface ExerciseDao {
     @Query("SELECT * FROM exercise_detail")
     fun getAllExercisesDetail(): LiveData<List<ExerciseDetail>>
 
-    @Query("SELECT * FROM exercise_detail WHERE tag_id = :tagId")
+    @Query(
+        """
+                SELECT 
+                    exercises.*,
+                    SUM(result) AS correct, 
+                    COUNT(*) - SUM(result) AS incorrect 
+                FROM 
+                    exercises
+                    LEFT OUTER JOIN tag_exercise_join ON exercises.id = tag_exercise_join.exercise_id
+                    LEFT OUTER JOIN exercise_attempts ON exercises.id = exercise_attempts.exercise_id 
+                    GROUP BY exercises.id, tag_exercise_join.tag_id
+                    HAVING tag_exercise_join.tag_id = :tagId
+                    """
+    )
     fun getExercisesDetailByTag(tagId: Int): LiveData<List<ExerciseDetail>>
 
     @Query("SELECT * FROM exercises WHERE id = :id")

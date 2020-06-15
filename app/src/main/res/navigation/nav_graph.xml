@@ -12,21 +12,25 @@
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_exerciseFragment"
-            app:destination="@id/exerciseFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_exerciseListFragment"
             app:destination="@id/exerciseListFragment" />
         <action
             android:id="@+id/action_homeFragment_to_tagListFragment"
             app:destination="@id/tagListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_practiceFilterFragment"
+            app:destination="@id/practiceFilterFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/exerciseFragment"
+        android:id="@+id/practiceFragment"
         android:name="com.clloret.speakingpractice.exercise.practice.PracticeFragment"
         android:label="@string/practice_fragment_label"
-        tools:layout="@layout/practice_fragment" />
+        tools:layout="@layout/practice_fragment">
+        <argument
+            android:name="filter"
+            app:argType="com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy" />
+    </fragment>
 
     <fragment
         android:id="@+id/addExerciseFragment"
@@ -89,5 +93,24 @@
             android:name="title"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/practiceFilterFragment"
+        android:name="com.clloret.speakingpractice.exercise.practice.filter.PracticeFilterFragment"
+        android:label="Select Filter"
+        tools:layout="@layout/practice_filter_fragment">
+        <action
+            android:id="@+id/action_practiceFilterFragment_to_practiceFragment"
+            app:destination="@id/practiceFragment" />
+        <action
+            android:id="@+id/action_practiceFilterFragment_to_selectTagDlgFragment"
+            app:destination="@id/selectTagDlgFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/selectTagDlgFragment"
+        android:name="com.clloret.speakingpractice.exercise.practice.filter.SelectTagDlgFragment"
+        tools:layout="@layout/select_tag_dlg_fragment"
+        android:label="SelectTagDlgFragment" />
 
 </navigation>

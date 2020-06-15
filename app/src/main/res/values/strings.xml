@@ -32,4 +32,7 @@
     <string name="title_tags">Tags</string>
     <string name="action_tag_list">Tag List</string>
     <string name="add_tag_name">Tag Name</string>
+    <string name="action_all_exercises">All Exercises</string>
+    <string name="action_select_tag">Select One Tag</string>
+    <string name="title_select_one_tag">Select One Tag</string>
 </resources>

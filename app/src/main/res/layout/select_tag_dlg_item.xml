@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="tag"
+            type="com.clloret.speakingpractice.domain.entities.Tag" />
+
+        <variable
+            name="handlers"
+            type="com.clloret.speakingpractice.exercise.practice.filter.Handlers" />
+
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:onClick="@{()->handlers.onClick(tag)}"
+        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+        android:text="@{tag.name}"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+</layout>

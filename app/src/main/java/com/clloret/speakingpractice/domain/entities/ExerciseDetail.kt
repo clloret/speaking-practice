@@ -8,7 +8,6 @@ import androidx.room.DatabaseView
     value = """
         SELECT 
             exercises.*,
-            tag_exercise_join.tag_id,
             SUM(result) AS correct, 
             COUNT(*) - SUM(result) AS incorrect 
         FROM 
@@ -22,7 +21,6 @@ data class ExerciseDetail(
     val id: Int,
     @ColumnInfo(name = "practice_phrase") val practicePhrase: String,
     @ColumnInfo(name = "translated_phrase") val translatedPhrase: String,
-    @ColumnInfo(name = "tag_id") val tagId: Int,
     val correct: Int,
     val incorrect: Int
 )

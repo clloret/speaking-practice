@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
     private fun setupButtonsEvents() {
         btnPractice.setOnClickListener {
             val action =
-                HomeFragmentDirections.actionHomeFragmentToExerciseFragment()
+                HomeFragmentDirections.actionHomeFragmentToPracticeFilterFragment()
 
             findNavController()
                 .navigate(action)

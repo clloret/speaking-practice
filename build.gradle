@@ -37,4 +37,5 @@ ext {
 
     roomVersion = '2.2.5'
     fragmentVersion = '1.2.5'
+    lifecycleVersion = '2.2.0'
 }

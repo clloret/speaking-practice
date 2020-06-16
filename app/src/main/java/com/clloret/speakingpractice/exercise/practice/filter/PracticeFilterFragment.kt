@@ -9,7 +9,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterAll
+import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByRandom
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByTag
+import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import kotlinx.android.synthetic.main.practice_filter_fragment.*
 import timber.log.Timber
@@ -18,6 +20,7 @@ class PracticeFilterFragment : Fragment() {
 
     companion object {
         fun newInstance() = PracticeFilterFragment()
+        const val DEFAULT_EXERCISE_LIMIT = 10
     }
 
     private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.nav_graph)
@@ -43,16 +46,10 @@ class PracticeFilterFragment : Fragment() {
                 it.let {
                     Timber.d("Tag: $it")
 
-                    val filter = ExerciseFilterByTag(it.id)
-                    val action =
-                        PracticeFilterFragmentDirections.actionPracticeFilterFragmentToPracticeFragment(
-                            filter
-                        )
+                    findNavController().popBackStack()
 
-                    findNavController().apply {
-                        popBackStack()
-                        navigate(action)
-                    }
+                    val filter = ExerciseFilterByTag(it.id)
+                    showPracticeWithFilter(filter)
                 }
             })
     }
@@ -60,13 +57,7 @@ class PracticeFilterFragment : Fragment() {
     private fun setupButtonsEvents() {
         btnAllExercises.setOnClickListener {
             val filter = ExerciseFilterAll()
-            val action =
-                PracticeFilterFragmentDirections.actionPracticeFilterFragmentToPracticeFragment(
-                    filter
-                )
-
-            findNavController()
-                .navigate(action)
+            showPracticeWithFilter(filter)
         }
 
         btnOneTag.setOnClickListener {
@@ -76,6 +67,21 @@ class PracticeFilterFragment : Fragment() {
             findNavController()
                 .navigate(action)
         }
+
+        btnRandomExercises.setOnClickListener {
+            val filter = ExerciseFilterByRandom(DEFAULT_EXERCISE_LIMIT)
+            showPracticeWithFilter(filter)
+        }
+    }
+
+    private fun showPracticeWithFilter(filter: ExerciseFilterStrategy) {
+        val action =
+            PracticeFilterFragmentDirections.actionPracticeFilterFragmentToPracticeFragment(
+                filter
+            )
+
+        findNavController()
+            .navigate(action)
     }
 
 }

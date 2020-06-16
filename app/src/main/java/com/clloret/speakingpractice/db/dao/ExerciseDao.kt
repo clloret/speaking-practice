@@ -32,6 +32,12 @@ interface ExerciseDao {
     )
     fun getExercisesDetailByTag(tagId: Int): LiveData<List<ExerciseDetail>>
 
+    @Query("SELECT * FROM exercise_detail WHERE id IN (:ids)")
+    fun getExercisesDetailsByIds(ids: List<Int>): LiveData<List<ExerciseDetail>>
+
+    @Query("SELECT id FROM exercises ORDER BY RANDOM() LIMIT :limit")
+    suspend fun getRandomIds(limit: Int): List<Int>
+
     @Query("SELECT * FROM exercises WHERE id = :id")
     fun getExerciseById(id: Int): LiveData<Exercise>
 

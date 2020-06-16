@@ -8,11 +8,11 @@
     tools:context=".exercise.practice.filter.PracticeFilterFragment">
 
     <Button
-        android:id="@+id/btnAllExercises"
+        android:id="@+id/btnRandomExercises"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="@string/action_all_exercises" />
+        android:text="@string/action_random_exercises" />
 
     <Button
         android:id="@+id/btnOneTag"
@@ -22,10 +22,10 @@
         android:text="@string/action_select_tag" />
 
     <Button
-        android:id="@+id/btnRandomExercises"
+        android:id="@+id/btnAllExercises"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="@string/action_random_exercises" />
+        android:text="@string/action_all_exercises" />
 
 </LinearLayout>

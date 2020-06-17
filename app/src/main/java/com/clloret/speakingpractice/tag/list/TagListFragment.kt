@@ -154,7 +154,7 @@ class TagListFragment : Fragment() {
         )
         addItemDecoration(dividerItemDecoration)
 
-        val listAdapter = TagListAdapter(findNavController())
+        val listAdapter = TagListAdapter()
         adapter = listAdapter
 
         viewModel.tags.observe(viewLifecycleOwner, Observer {

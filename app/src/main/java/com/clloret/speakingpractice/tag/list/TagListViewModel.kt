@@ -13,19 +13,7 @@ class TagListViewModel(application: Application) : AndroidViewModel(application)
         initRepository()
     }
 
-//    var exerciseTags: ObservableField<List<ChipBindingEntry>> = ObservableField()
-
     val tags = repository.allTags
-
-    init {
-//        repository.allTags.apply {
-//            observeForever { value ->
-//                value?.let {
-//                    exerciseTags.set(it)
-//                }
-//            }
-//        }
-    }
 
     private fun initRepository(): ExerciseRepository {
         val application = getApplication<App>()

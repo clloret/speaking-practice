@@ -5,8 +5,6 @@ import com.clloret.speakingpractice.domain.entities.*
 
 class ExerciseRepository(private val db: ExercisesDatabase) {
 
-    val allExercises: LiveData<List<Exercise>> = db.exerciseDao().getAllExercises()
-
     val allTags = db.exerciseDao().getAllTags()
 
     val allExercisesDetails: LiveData<List<ExerciseDetail>> =
@@ -32,16 +30,8 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
         return db.tagDao().getTagById(id)
     }
 
-    fun getResultValues(exerciseId: Int): LiveData<ExerciseResultTuple> {
-        return db.exerciseDao().getResultValues(exerciseId)
-    }
-
     fun getExerciseAttemptsByExerciseId(id: Int): LiveData<List<ExerciseAttempt>> {
         return db.exerciseAttemptDao().getExerciseAttemptsByExerciseId(id)
-    }
-
-    fun getTagsForExercise(id: Int): LiveData<List<Tag>> {
-        return db.tagExerciseJoinDao().getTagsForExercise(id)
     }
 
     fun getSelectedTagsForExercise(exerciseId: Int): LiveData<List<TagSelectedTuple>> {
@@ -50,18 +40,6 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
 
     suspend fun insertExercise(exercise: Exercise) {
         db.exerciseDao().insert(exercise)
-    }
-
-    suspend fun updateExercise(exercise: Exercise) {
-        db.exerciseDao().update(exercise)
-    }
-
-    suspend fun deleteExercise(exercise: Exercise) {
-        db.exerciseDao().delete(exercise)
-    }
-
-    suspend fun deleteExerciseById(exerciseId: Int) {
-        db.exerciseDao().deleteById(exerciseId)
     }
 
     suspend fun deleteExerciseList(listIds: List<Int>) {

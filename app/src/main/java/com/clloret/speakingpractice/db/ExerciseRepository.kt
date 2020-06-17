@@ -16,12 +16,12 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
         return db.exerciseDao().getExerciseById(id)
     }
 
-    fun getExercisesDetailsByTag(tagId: Int): LiveData<List<ExerciseDetail>> {
-        return db.exerciseDao().getExercisesDetailByTag(tagId)
-    }
-
     fun getExercisesDetailsByIds(ids: List<Int>): LiveData<List<ExerciseDetail>> {
         return db.exerciseDao().getExercisesDetailsByIds(ids)
+    }
+
+    suspend fun getExercisesIdsByTag(tagId: Int): List<Int> {
+        return db.exerciseDao().getExercisesIdsByTag(tagId)
     }
 
     suspend fun getRandomExercisesIds(limit: Int): List<Int> {

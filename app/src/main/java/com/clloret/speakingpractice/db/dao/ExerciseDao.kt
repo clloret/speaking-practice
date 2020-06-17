@@ -32,6 +32,19 @@ interface ExerciseDao {
     )
     fun getExercisesDetailByTag(tagId: Int): LiveData<List<ExerciseDetail>>
 
+    @Query(
+        """
+                SELECT 
+                    id 
+                FROM 
+                    exercises 
+                INNER JOIN tag_exercise_join 
+                ON exercises.id = tag_exercise_join.exercise_id 
+                WHERE tag_exercise_join.tag_id=:tagId
+    """
+    )
+    suspend fun getExercisesIdsByTag(tagId: Int): List<Int>
+
     @Query("SELECT * FROM exercise_detail WHERE id IN (:ids)")
     fun getExercisesDetailsByIds(ids: List<Int>): LiveData<List<ExerciseDetail>>
 

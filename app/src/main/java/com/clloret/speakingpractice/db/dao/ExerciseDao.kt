@@ -36,7 +36,7 @@ interface ExerciseDao {
     fun getExercisesDetailsByIds(ids: List<Int>): LiveData<List<ExerciseDetail>>
 
     @Query("SELECT id FROM exercises ORDER BY RANDOM() LIMIT :limit")
-    suspend fun getRandomIds(limit: Int): List<Int>
+    suspend fun getRandomExercisesIds(limit: Int): List<Int>
 
     @Query("SELECT * FROM exercises WHERE id = :id")
     fun getExerciseById(id: Int): LiveData<Exercise>

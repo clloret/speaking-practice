@@ -9,7 +9,7 @@ class ExerciseFilterByRandom(private val limit: Int) : ExerciseFilterStrategy() 
 
     override fun getExercises(repository: ExerciseRepository): LiveData<List<ExerciseDetail>> {
         val ids = runBlocking {
-            repository.getRandomIds(limit)
+            repository.getRandomExercisesIds(limit)
         }
         return repository.getExercisesDetailsByIds(ids)
     }

@@ -24,8 +24,8 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
         return db.exerciseDao().getExercisesDetailsByIds(ids)
     }
 
-    suspend fun getRandomIds(limit: Int): List<Int> {
-        return db.exerciseDao().getRandomIds(limit)
+    suspend fun getRandomExercisesIds(limit: Int): List<Int> {
+        return db.exerciseDao().getRandomExercisesIds(limit)
     }
 
     fun getTagById(id: Int): LiveData<Tag> {

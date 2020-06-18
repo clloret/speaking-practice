@@ -12,12 +12,12 @@ import androidx.room.DatabaseView
             COUNT(*) - SUM(result) AS incorrect 
         FROM 
             exercises
-            LEFT OUTER JOIN exercise_attempts ON exercises.id = exercise_attempts.exercise_id 
-            GROUP BY exercises.id
+            LEFT OUTER JOIN exercise_attempts ON exercises.exercise_id = exercise_attempts.exercise_id 
+            GROUP BY exercises.exercise_id
             """
 )
 data class ExerciseDetail(
-    val id: Int,
+    @ColumnInfo(name = "exercise_id") val id: Int,
     @ColumnInfo(name = "practice_phrase") val practicePhrase: String,
     @ColumnInfo(name = "translated_phrase") val translatedPhrase: String,
     val correct: Int,

@@ -7,7 +7,7 @@ import com.clloret.speakingpractice.domain.entities.Tag
 @Dao
 interface TagDao {
 
-    @Query("SELECT * FROM tags WHERE id = :id")
+    @Query("SELECT * FROM tags WHERE tag_id = :id")
     fun getTagById(id: Int): LiveData<Tag>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -27,7 +27,7 @@ interface TagDao {
     @Query("DELETE FROM tags")
     suspend fun deleteAll()
 
-    @Query("DELETE FROM tags WHERE id IN (:listIds)")
+    @Query("DELETE FROM tags WHERE tag_id IN (:listIds)")
     suspend fun deleteList(listIds: List<Int>)
 
 }

@@ -24,9 +24,9 @@ interface ExerciseDao {
                     COUNT(*) - SUM(result) AS incorrect 
                 FROM 
                     exercises
-                    LEFT OUTER JOIN tag_exercise_join ON exercises.id = tag_exercise_join.exercise_id
-                    LEFT OUTER JOIN exercise_attempts ON exercises.id = exercise_attempts.exercise_id 
-                    GROUP BY exercises.id, tag_exercise_join.tag_id
+                    LEFT OUTER JOIN tag_exercise_join ON exercises.exercise_id = tag_exercise_join.exercise_id
+                    LEFT OUTER JOIN exercise_attempts ON exercises.exercise_id = exercise_attempts.exercise_id 
+                    GROUP BY exercises.exercise_id, tag_exercise_join.tag_id
                     HAVING tag_exercise_join.tag_id = :tagId
                     """
     )
@@ -35,26 +35,26 @@ interface ExerciseDao {
     @Query(
         """
                 SELECT 
-                    id 
+                    exercises.exercise_id 
                 FROM 
                     exercises 
                 INNER JOIN tag_exercise_join 
-                ON exercises.id = tag_exercise_join.exercise_id 
+                ON exercises.exercise_id = tag_exercise_join.exercise_id 
                 WHERE tag_exercise_join.tag_id=:tagId
     """
     )
     suspend fun getExercisesIdsByTag(tagId: Int): List<Int>
 
-    @Query("SELECT * FROM exercise_detail WHERE id IN (:ids)")
+    @Query("SELECT * FROM exercise_detail WHERE exercise_id IN (:ids)")
     fun getExercisesDetailsByIds(ids: List<Int>): LiveData<List<ExerciseDetail>>
 
-    @Query("SELECT id FROM exercises ORDER BY RANDOM() LIMIT :limit")
+    @Query("SELECT exercise_id FROM exercises ORDER BY RANDOM() LIMIT :limit")
     suspend fun getRandomExercisesIds(limit: Int): List<Int>
 
-    @Query("SELECT * FROM exercises WHERE id = :id")
+    @Query("SELECT * FROM exercises WHERE exercise_id = :id")
     fun getExerciseById(id: Int): LiveData<Exercise>
 
-    @Query("SELECT SUM(result) AS correct, COUNT(*) - SUM(result) AS incorrect FROM exercises INNER JOIN exercise_attempts ON exercises.id = exercise_attempts.exercise_id GROUP BY exercise_id HAVING exercise_id=:exerciseId")
+    @Query("SELECT SUM(result) AS correct, COUNT(*) - SUM(result) AS incorrect FROM exercises INNER JOIN exercise_attempts ON exercises.exercise_id = exercise_attempts.exercise_id GROUP BY exercises.exercise_id HAVING exercises.exercise_id=:exerciseId")
     fun getResultValues(exerciseId: Int): LiveData<ExerciseResultTuple>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -66,10 +66,10 @@ interface ExerciseDao {
     @Delete
     suspend fun delete(exercise: Exercise)
 
-    @Query("DELETE FROM exercises WHERE id = :id")
+    @Query("DELETE FROM exercises WHERE exercise_id = :id")
     suspend fun deleteById(id: Int)
 
-    @Query("DELETE FROM exercises WHERE id IN (:listIds)")
+    @Query("DELETE FROM exercises WHERE exercise_id IN (:listIds)")
     suspend fun deleteList(listIds: List<Int>)
 
     @Query("DELETE FROM exercises")

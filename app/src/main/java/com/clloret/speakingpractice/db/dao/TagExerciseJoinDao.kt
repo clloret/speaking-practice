@@ -16,9 +16,9 @@ interface TagExerciseJoinDao {
 
     @Query(
         """
-               SELECT id, name FROM tags
+               SELECT tags.tag_id, name FROM tags
                INNER JOIN tag_exercise_join
-               ON tags.id=tag_exercise_join.tag_id
+               ON tags.tag_id=tag_exercise_join.tag_id
                WHERE tag_exercise_join.exercise_id=:exerciseId
                """
     )
@@ -26,10 +26,10 @@ interface TagExerciseJoinDao {
 
     @Query(
         """
-              SELECT id, name, CASE WHEN exercise_id IS NULL THEN 0 ELSE 1 END AS selected 
+              SELECT tags.tag_id, name, CASE WHEN exercise_id IS NULL THEN 0 ELSE 1 END AS selected 
               FROM tags 
               LEFT OUTER JOIN tag_exercise_join
-              ON tags.id=tag_exercise_join.tag_id
+              ON tags.tag_id=tag_exercise_join.tag_id
               AND tag_exercise_join.exercise_id=:exerciseId
                """
     )
@@ -37,9 +37,9 @@ interface TagExerciseJoinDao {
 
     @Query(
         """
-               SELECT id, practice_phrase, translated_phrase FROM exercises
+               SELECT exercises.exercise_id, practice_phrase, translated_phrase FROM exercises
                INNER JOIN tag_exercise_join
-               ON exercises.id=tag_exercise_join.tag_id
+               ON exercises.exercise_id=tag_exercise_join.tag_id
                WHERE tag_exercise_join.tag_id=:tagId
                """
     )

@@ -11,7 +11,7 @@ import java.util.*
     tableName = "exercise_attempts",
     foreignKeys = [ForeignKey(
         entity = Exercise::class,
-        parentColumns = arrayOf("id"),
+        parentColumns = arrayOf("exercise_id"),
         childColumns = arrayOf("exercise_id"),
         onDelete = CASCADE
     )]

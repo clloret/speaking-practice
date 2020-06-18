@@ -6,7 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "exercises")
 data class Exercise(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "exercise_id")
+    val id: Int = 0,
     @ColumnInfo(name = "practice_phrase") val practicePhrase: String,
     @ColumnInfo(name = "translated_phrase") val translatedPhrase: String
 )

@@ -10,12 +10,12 @@ import androidx.room.ForeignKey.CASCADE
     primaryKeys = ["tag_id", "exercise_id"],
     foreignKeys = [ForeignKey(
         entity = Tag::class,
-        parentColumns = arrayOf("id"),
+        parentColumns = arrayOf("tag_id"),
         childColumns = arrayOf("tag_id"),
         onDelete = CASCADE
     ), ForeignKey(
         entity = Exercise::class,
-        parentColumns = arrayOf("id"),
+        parentColumns = arrayOf("exercise_id"),
         childColumns = arrayOf("exercise_id"),
         onDelete = CASCADE
     )]

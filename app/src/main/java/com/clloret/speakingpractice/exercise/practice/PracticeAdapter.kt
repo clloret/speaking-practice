@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeItemBinding
-import com.clloret.speakingpractice.domain.entities.ExerciseDetail
+import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 
 class PracticeAdapter(
     private val viewModel: PracticeViewModel
 ) :
-    ListAdapter<ExerciseDetail, PracticeViewHolder>(ExerciseListDiffCallback()) {
+    ListAdapter<ExerciseWithDetails, PracticeViewHolder>(ExerciseListDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PracticeViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -30,12 +30,18 @@ class PracticeAdapter(
     }
 }
 
-class ExerciseListDiffCallback : DiffUtil.ItemCallback<ExerciseDetail>() {
-    override fun areItemsTheSame(oldItem: ExerciseDetail, newItem: ExerciseDetail): Boolean {
-        return oldItem.id == newItem.id
+class ExerciseListDiffCallback : DiffUtil.ItemCallback<ExerciseWithDetails>() {
+    override fun areItemsTheSame(
+        oldItem: ExerciseWithDetails,
+        newItem: ExerciseWithDetails
+    ): Boolean {
+        return oldItem.exercise.id == newItem.exercise.id
     }
 
-    override fun areContentsTheSame(oldItem: ExerciseDetail, newItem: ExerciseDetail): Boolean {
+    override fun areContentsTheSame(
+        oldItem: ExerciseWithDetails,
+        newItem: ExerciseWithDetails
+    ): Boolean {
         return oldItem == newItem
     }
 }

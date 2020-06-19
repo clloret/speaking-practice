@@ -10,7 +10,7 @@ import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.domain.ExerciseValidator
 import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
-import com.clloret.speakingpractice.domain.entities.ExerciseDetail
+import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.lifecycle.Event
 import kotlinx.coroutines.runBlocking
@@ -28,7 +28,7 @@ class PracticeViewModel(application: Application, filter: ExerciseFilterStrategy
     private val _speakText: MutableLiveData<Event<String>> = MutableLiveData()
     val speakText: LiveData<Event<String>> get() = _speakText
 
-    private var currentExerciseDetail: ExerciseDetail? = null
+    private var currentExerciseDetail: ExerciseWithDetails? = null
 
     private val repository: ExerciseRepository by lazy {
         initRepository()
@@ -44,7 +44,7 @@ class PracticeViewModel(application: Application, filter: ExerciseFilterStrategy
         return ExerciseRepository(db)
     }
 
-    fun recognizeSpeech(exerciseDetail: ExerciseDetail) {
+    fun recognizeSpeech(exerciseDetail: ExerciseWithDetails) {
         currentExerciseDetail = exerciseDetail
         onClickRecognizeSpeechBtn?.invoke()
     }
@@ -57,12 +57,12 @@ class PracticeViewModel(application: Application, filter: ExerciseFilterStrategy
         currentExerciseDetail?.let {
             val result = ExerciseValidator.validatePhrase(
                 text,
-                it.practicePhrase
+                it.exercise.practicePhrase
             )
 
             runBlocking {
                 ExerciseAttempt(
-                    exerciseId = it.id,
+                    exerciseId = it.exercise.id,
                     result = result,
                     recognizedText = text
                 ).apply {

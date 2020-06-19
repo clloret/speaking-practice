@@ -11,30 +11,12 @@ interface ExerciseDao {
     @Query("SELECT * FROM exercises")
     fun getExercisesWithDetails(): LiveData<List<ExerciseWithDetails>>
 
-    @Query("SELECT * FROM exercises")
-    fun getAllExercises(): LiveData<List<Exercise>>
+    @Transaction
+    @Query("SELECT * FROM exercises WHERE exercise_id IN (:ids)")
+    fun getExercisesWithDetailsByIds(ids: List<Int>): LiveData<List<ExerciseWithDetails>>
 
     @Query("SELECT * FROM tags")
     fun getAllTags(): LiveData<List<Tag>>
-
-    @Query("SELECT * FROM exercise_detail")
-    fun getAllExercisesDetail(): LiveData<List<ExerciseDetail>>
-
-    @Query(
-        """
-                SELECT 
-                    exercises.*,
-                    SUM(result) AS correct, 
-                    COUNT(*) - SUM(result) AS incorrect 
-                FROM 
-                    exercises
-                    LEFT OUTER JOIN tag_exercise_join ON exercises.exercise_id = tag_exercise_join.exercise_id
-                    LEFT OUTER JOIN exercise_attempts ON exercises.exercise_id = exercise_attempts.exercise_id 
-                    GROUP BY exercises.exercise_id, tag_exercise_join.tag_id
-                    HAVING tag_exercise_join.tag_id = :tagId
-                    """
-    )
-    fun getExercisesDetailByTag(tagId: Int): LiveData<List<ExerciseDetail>>
 
     @Query(
         """
@@ -48,9 +30,6 @@ interface ExerciseDao {
     """
     )
     suspend fun getExercisesIdsByTag(tagId: Int): List<Int>
-
-    @Query("SELECT * FROM exercise_detail WHERE exercise_id IN (:ids)")
-    fun getExercisesDetailsByIds(ids: List<Int>): LiveData<List<ExerciseDetail>>
 
     @Query("SELECT exercise_id FROM exercises ORDER BY RANDOM() LIMIT :limit")
     suspend fun getRandomExercisesIds(limit: Int): List<Int>

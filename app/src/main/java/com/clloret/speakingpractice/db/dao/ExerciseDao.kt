@@ -7,6 +7,10 @@ import com.clloret.speakingpractice.domain.entities.*
 @Dao
 interface ExerciseDao {
 
+    @Transaction
+    @Query("SELECT * FROM exercises")
+    fun getExercisesWithDetails(): LiveData<List<ExerciseWithDetails>>
+
     @Query("SELECT * FROM exercises")
     fun getAllExercises(): LiveData<List<Exercise>>
 

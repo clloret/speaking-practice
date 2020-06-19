@@ -7,6 +7,6 @@ import com.clloret.speakingpractice.domain.entities.ExerciseDetail
 class ExerciseFilterAll : ExerciseFilterStrategy() {
 
     override fun getExercises(repository: ExerciseRepository): LiveData<List<ExerciseDetail>> {
-        return repository.allExercisesDetails
+        return repository.allExercisesDetailsOld
     }
 }

@@ -7,8 +7,11 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
 
     val allTags = db.exerciseDao().getAllTags()
 
-    val allExercisesDetails: LiveData<List<ExerciseDetail>> =
+    val allExercisesDetailsOld: LiveData<List<ExerciseDetail>> =
         db.exerciseDao().getAllExercisesDetail()
+
+    val allExercisesDetails: LiveData<List<ExerciseWithDetails>> =
+        db.exerciseDao().getExercisesWithDetails()
 
     fun getExerciseById(id: Int): LiveData<Exercise> {
         return db.exerciseDao().getExerciseById(id)

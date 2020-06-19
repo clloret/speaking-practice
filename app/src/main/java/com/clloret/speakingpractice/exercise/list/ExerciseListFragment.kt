@@ -20,7 +20,6 @@ import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.utils.Dialogs
 import timber.log.Timber
 
-
 class ExerciseListFragment : Fragment() {
 
     companion object {

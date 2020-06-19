@@ -4,8 +4,7 @@ import android.view.MotionEvent
 import androidx.recyclerview.selection.ItemDetailsLookup.ItemDetails
 import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.databinding.ExerciseListItemBinding
-import com.clloret.speakingpractice.domain.entities.ExerciseDetail
-
+import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 
 class ExerciseListViewHolder(private val binding: ExerciseListItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -13,7 +12,7 @@ class ExerciseListViewHolder(private val binding: ExerciseListItemBinding) :
     private val itemDetails = ExerciseItemDetails()
 
     fun bind(
-        item: ExerciseDetail,
+        item: ExerciseWithDetails,
         position: Int,
         isSelected: Boolean,
         onClickHandlers: Handlers
@@ -23,7 +22,7 @@ class ExerciseListViewHolder(private val binding: ExerciseListItemBinding) :
             handlers = onClickHandlers
 
             itemDetails.pos = position
-            itemDetails.identifier = item.id.toLong()
+            itemDetails.identifier = item.exercise.id.toLong()
 
             itemView.isActivated = isSelected
         }
@@ -36,5 +35,5 @@ class ExerciseListViewHolder(private val binding: ExerciseListItemBinding) :
 }
 
 interface Handlers {
-    fun onClick(exerciseDetail: ExerciseDetail)
+    fun onClick(exerciseDetail: ExerciseWithDetails)
 }

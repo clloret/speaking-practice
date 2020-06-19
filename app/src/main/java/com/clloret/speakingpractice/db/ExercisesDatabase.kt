@@ -17,7 +17,7 @@ import timber.log.Timber
 
 @Database(
     entities = [Exercise::class, ExerciseAttempt::class, Tag::class, TagExerciseJoin::class],
-    views = [ExerciseDetail::class], version = 1, exportSchema = false
+    views = [ExerciseDetail::class, ExerciseResults::class], version = 1, exportSchema = false
 )
 @TypeConverters(DbConverters::class)
 abstract class ExercisesDatabase : RoomDatabase() {

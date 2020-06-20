@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
+import com.clloret.speakingpractice.utils.databinding.ChipBindingEntry
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 

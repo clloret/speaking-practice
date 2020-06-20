@@ -1,7 +1,7 @@
 package com.clloret.speakingpractice.domain.entities
 
 import androidx.room.ColumnInfo
-import com.clloret.speakingpractice.exercise.add.ChipBindingEntry
+import com.clloret.speakingpractice.utils.databinding.ChipBindingEntry
 
 data class TagSelectedTuple(
     @ColumnInfo(name = "tag_id")

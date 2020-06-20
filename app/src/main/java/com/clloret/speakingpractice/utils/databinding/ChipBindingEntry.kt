@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.exercise.add
+package com.clloret.speakingpractice.utils.databinding
 
 interface ChipBindingEntry {
     val id: Int

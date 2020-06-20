@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.exercise.add
+package com.clloret.speakingpractice.utils.databinding
 
 import androidx.core.view.children
 import androidx.databinding.BindingAdapter

@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
-import com.clloret.speakingpractice.utils.databinding.ChipBindingEntry
+import com.clloret.speakingpractice.utils.databinding.ChipChoiceBinding
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
@@ -18,7 +18,7 @@ class AddExerciseViewModel(
 
     var practicePhrase: ObservableField<String> = ObservableField()
     var translatedPhrase: ObservableField<String> = ObservableField()
-    var exerciseTags: ObservableField<List<ChipBindingEntry>> = ObservableField()
+    var exerciseTags: ObservableField<List<ChipChoiceBinding>> = ObservableField()
 
     private val saveData = MutableLiveData<Boolean>()
 
@@ -63,7 +63,7 @@ class AddExerciseViewModel(
         return formErrors.isEmpty()
     }
 
-    private fun getSelectedTagsIds(selectedTags: List<ChipBindingEntry>): ArrayList<Int> {
+    private fun getSelectedTagsIds(selectedTags: List<ChipChoiceBinding>): ArrayList<Int> {
         val selectedTagIds = arrayListOf<Int>()
         selectedTags.forEach {
             Timber.d("Tag: $it")

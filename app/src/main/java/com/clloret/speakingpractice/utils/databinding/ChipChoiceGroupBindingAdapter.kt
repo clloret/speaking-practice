@@ -10,14 +10,14 @@ import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import timber.log.Timber
 
-class ChipGroupBindingAdapter {
+class ChipChoiceGroupBindingAdapter {
 
     companion object {
         private var bindingListener: InverseBindingListener? = null
 
-        @BindingAdapter("chips")
+        @BindingAdapter("choiceChips")
         @JvmStatic
-        fun setChips(chipGroup: ChipGroup, chips: List<ChipBindingEntry>?) {
+        fun setChips(chipGroup: ChipGroup, chips: List<ChipChoiceBinding>?) {
             Timber.d("setChips")
 
             chipGroup.removeAllViews()
@@ -44,17 +44,17 @@ class ChipGroupBindingAdapter {
             }
         }
 
-        @InverseBindingAdapter(attribute = "chips")
+        @InverseBindingAdapter(attribute = "choiceChips")
         @JvmStatic
         fun getChips(
             chipGroup: ChipGroup
-        ): List<ChipBindingEntry> {
+        ): List<ChipChoiceBinding> {
 
             Timber.d("getChips")
 
-            val list: ArrayList<ChipBindingEntry> = arrayListOf()
+            val list: ArrayList<ChipChoiceBinding> = arrayListOf()
             chipGroup.children.map { it as Chip }.forEach {
-                val item = it.tag as ChipBindingEntry
+                val item = it.tag as ChipChoiceBinding
                 item.selected = it.isChecked
                 list.add(item)
             }
@@ -63,7 +63,7 @@ class ChipGroupBindingAdapter {
         }
 
         @Suppress("UNUSED_PARAMETER")
-        @BindingAdapter("chipsAttrChanged")
+        @BindingAdapter("choiceChipsAttrChanged")
         @JvmStatic
         fun setChipsChanged(chipGroup: ChipGroup, chipsAttrChanged: InverseBindingListener) {
             Timber.d("setChipsChanged")

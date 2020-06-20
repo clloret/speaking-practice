@@ -1,6 +1,6 @@
 package com.clloret.speakingpractice.utils.databinding
 
-interface ChipBindingEntry {
+interface ChipChoiceBinding {
     val id: Int
     val displayName: String
     var selected: Boolean

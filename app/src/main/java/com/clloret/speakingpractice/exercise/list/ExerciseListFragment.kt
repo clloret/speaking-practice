@@ -43,8 +43,11 @@ class ExerciseListFragment : Fragment() {
             selectionTracker?.apply {
                 if (hasSelection()) {
                     clearSelection()
+                } else {
+                    findNavController().navigateUp()
                 }
             }
+
         }
     }
 

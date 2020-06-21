@@ -59,17 +59,17 @@ interface ExerciseDao {
     suspend fun deleteAll()
 
     @Query("DELETE FROM tag_exercise_join WHERE exercise_id=:exerciseId")
-    suspend fun deleteAllFrom(exerciseId: Int)
+    suspend fun deleteAllTagExerciseJoinsFrom(exerciseId: Int)
 
     @Insert
-    suspend fun insertAll(tagExerciseJoins: List<TagExerciseJoin>)
+    suspend fun insertAllTagExerciseJoins(tagExerciseJoins: List<TagExerciseJoin>)
 
     @Transaction
     suspend fun insertOrUpdateExerciseAndTags(exercise: Exercise, tagsIds: List<Int>) {
         val id = insert(exercise)
         if (id == -1L) {
             update(exercise)
-            deleteAllFrom(exercise.id)
+            deleteAllTagExerciseJoinsFrom(exercise.id)
         }
 
         val exerciseId: Int = if (id == -1L) exercise.id else id.toInt()
@@ -77,7 +77,7 @@ interface ExerciseDao {
         tagsIds.forEach {
             tagExerciseJoins.add(TagExerciseJoin(it, exerciseId))
         }
-        insertAll(tagExerciseJoins)
+        insertAllTagExerciseJoins(tagExerciseJoins)
     }
 
 }

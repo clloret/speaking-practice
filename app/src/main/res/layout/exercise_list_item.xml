@@ -45,11 +45,33 @@
             android:layout_marginBottom="16dp"
             android:text="@{exercise.exercise.translatedPhrase}"
             android:textAppearance="@style/ExerciseListPhase"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tags"
             app:layout_constraintEnd_toStartOf="@+id/resultsCorrect"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/practicePhrase"
             tools:text="@string/add_exercise_translated_phrase" />
+
+        <HorizontalScrollView
+            android:id="@+id/tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/resultsCorrect"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/translatedPhrase"
+            tools:layout_height="32dp">
+
+            <com.google.android.material.chip.ChipGroup
+                entryChips="@{exercise.tags}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                app:singleSelection="false" />
+
+        </HorizontalScrollView>
 
         <TextView
             android:id="@+id/resultsCorrect"

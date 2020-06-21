@@ -3,6 +3,7 @@ package com.clloret.speakingpractice.domain.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.clloret.speakingpractice.utils.databinding.ChipEntryBinding
 
 @Entity(tableName = "tags")
 data class Tag(
@@ -10,4 +11,7 @@ data class Tag(
     @ColumnInfo(name = "tag_id")
     val id: Int = 0,
     val name: String
-)
+) : ChipEntryBinding {
+    override val displayName: String
+        get() = name
+}

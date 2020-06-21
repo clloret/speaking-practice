@@ -90,9 +90,12 @@ class ImportExercises(
                         if (tokens.isNotEmpty()) {
                             val import = tokens[IMPORT_IDX].toBoolean()
                             if (import) {
-                                val tagNames = tokens[TAGS_IDX]
-                                    .split(",")
-                                    .map { it.trim() }
+                                val tagsValue = tokens[TAGS_IDX]
+                                val tagNames =
+                                    if (tagsValue.isBlank()) emptyList()
+                                    else tagsValue
+                                        .split(",")
+                                        .map { it.trim() }
 
                                 val exercise =
                                     Exercise(

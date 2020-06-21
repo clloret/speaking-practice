@@ -5,7 +5,7 @@ import com.clloret.speakingpractice.domain.entities.*
 
 class ExerciseRepository(private val db: ExercisesDatabase) {
 
-    val allTags = db.exerciseDao().getAllTags()
+    val allTags = db.tagDao().getAllTags()
 
     val allExercisesDetails: LiveData<List<ExerciseWithDetails>> =
         db.exerciseDao().getExercisesWithDetails()

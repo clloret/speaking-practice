@@ -7,6 +7,9 @@ import com.clloret.speakingpractice.domain.entities.Tag
 @Dao
 interface TagDao {
 
+    @Query("SELECT * FROM tags")
+    fun getAllTags(): LiveData<List<Tag>>
+
     @Query("SELECT * FROM tags WHERE tag_id = :id")
     fun getTagById(id: Int): LiveData<Tag>
 

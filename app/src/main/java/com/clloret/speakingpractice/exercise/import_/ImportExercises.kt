@@ -39,7 +39,7 @@ class ImportExercises(
                 repository.deleteAllExercises()
             }
             for (exercise in exercises) {
-                repository.insertExercise(exercise)
+                repository.insertExerciseAndTags(exercise.exercise, exercise.tagNames)
             }
         }
         completion?.invoke(exercises.count())
@@ -74,9 +74,9 @@ class ImportExercises(
         }
     }
 
-    private fun readTsvFile(uri: Uri): List<Exercise> {
+    private fun readTsvFile(uri: Uri): List<ExerciseWithTagNames> {
         try {
-            val exercises = ArrayList<Exercise>()
+            val exercises = arrayListOf<ExerciseWithTagNames>()
             val contentResolver = context.contentResolver
 
             contentResolver.openInputStream(uri)?.use { inputStream ->
@@ -90,12 +90,16 @@ class ImportExercises(
                         if (tokens.isNotEmpty()) {
                             val import = tokens[IMPORT_IDX].toBoolean()
                             if (import) {
+                                val tagNames = tokens[TAGS_IDX]
+                                    .split(",")
+                                    .map { it.trim() }
+
                                 val exercise =
                                     Exercise(
                                         practicePhrase = tokens[PRACTICE_PHRASE_IDX],
                                         translatedPhrase = tokens[TRANSLATED_PHRASE_IDX]
                                     )
-                                exercises.add(exercise)
+                                exercises.add(ExerciseWithTagNames(exercise, tagNames))
                             }
                         }
 
@@ -115,8 +119,11 @@ class ImportExercises(
         private const val PRACTICE_PHRASE_IDX = 0
         private const val TRANSLATED_PHRASE_IDX = 1
         private const val IMPORT_IDX = 2
+        private const val TAGS_IDX = 3
         private const val FILE_READ_REQUEST_CODE: Int = 0x01
         private const val TSV_DELIMITER = "\t"
     }
+
+    data class ExerciseWithTagNames(val exercise: Exercise, val tagNames: List<String>)
 }
 

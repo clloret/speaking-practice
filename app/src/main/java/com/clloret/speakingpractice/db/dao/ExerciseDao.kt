@@ -2,10 +2,7 @@ package com.clloret.speakingpractice.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.clloret.speakingpractice.domain.entities.Exercise
-import com.clloret.speakingpractice.domain.entities.ExerciseResultTuple
-import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
-import com.clloret.speakingpractice.domain.entities.TagExerciseJoin
+import com.clloret.speakingpractice.domain.entities.*
 
 @Dao
 interface ExerciseDao {
@@ -80,4 +77,18 @@ interface ExerciseDao {
         insertAllTagExerciseJoins(tagExerciseJoins)
     }
 
+    @Transaction
+    suspend fun insertExerciseAndTags(exercise: Exercise, tagNames: List<String>, tagDao: TagDao) {
+        val exerciseId = insert(exercise)
+        val tagExerciseJoins = arrayListOf<TagExerciseJoin>()
+        tagNames.forEach {
+            var tag = tagDao.getTagByName(it)
+            if (tag == null) {
+                val tagId = tagDao.insert(Tag(name = it))
+                tag = Tag(tagId.toInt(), it)
+            }
+            tagExerciseJoins.add(TagExerciseJoin(tag.id, exerciseId.toInt()))
+        }
+        insertAllTagExerciseJoins(tagExerciseJoins)
+    }
 }

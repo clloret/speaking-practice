@@ -13,6 +13,9 @@ interface TagDao {
     @Query("SELECT * FROM tags WHERE tag_id = :id")
     fun getTagById(id: Int): LiveData<Tag>
 
+    @Query("SELECT * FROM tags WHERE name = :name")
+    fun getTagByName(name: String): Tag?
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(tag: Tag): Long
 

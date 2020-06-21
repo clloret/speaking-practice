@@ -66,4 +66,8 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
         db.tagDao().insertOrUpdate(tag)
     }
 
+    suspend fun insertExerciseAndTags(exercise: Exercise, tagNames: List<String>) {
+        db.exerciseDao().insertExerciseAndTags(exercise, tagNames, db.tagDao())
+    }
+
 }

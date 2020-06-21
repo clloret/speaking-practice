@@ -55,18 +55,16 @@ interface ExerciseDao {
     @Query("DELETE FROM exercises")
     suspend fun deleteAll()
 
-    @Query("DELETE FROM tag_exercise_join WHERE exercise_id=:exerciseId")
-    suspend fun deleteAllTagExerciseJoinsFrom(exerciseId: Int)
-
-    @Insert
-    suspend fun insertAllTagExerciseJoins(tagExerciseJoins: List<TagExerciseJoin>)
-
     @Transaction
-    suspend fun insertOrUpdateExerciseAndTags(exercise: Exercise, tagsIds: List<Int>) {
+    suspend fun insertOrUpdateExerciseAndTags(
+        exercise: Exercise,
+        tagsIds: List<Int>,
+        tagExerciseJoinDao: TagExerciseJoinDao
+    ) {
         val id = insert(exercise)
         if (id == -1L) {
             update(exercise)
-            deleteAllTagExerciseJoinsFrom(exercise.id)
+            tagExerciseJoinDao.deleteAllTagExerciseJoinsFrom(exercise.id)
         }
 
         val exerciseId: Int = if (id == -1L) exercise.id else id.toInt()
@@ -74,11 +72,16 @@ interface ExerciseDao {
         tagsIds.forEach {
             tagExerciseJoins.add(TagExerciseJoin(it, exerciseId))
         }
-        insertAllTagExerciseJoins(tagExerciseJoins)
+        tagExerciseJoinDao.insertAllTagExerciseJoins(tagExerciseJoins)
     }
 
     @Transaction
-    suspend fun insertExerciseAndTags(exercise: Exercise, tagNames: List<String>, tagDao: TagDao) {
+    suspend fun insertExerciseAndTags(
+        exercise: Exercise,
+        tagNames: List<String>,
+        tagDao: TagDao,
+        tagExerciseJoinDao: TagExerciseJoinDao
+    ) {
         val exerciseId = insert(exercise)
         val tagExerciseJoins = arrayListOf<TagExerciseJoin>()
         tagNames.forEach {
@@ -89,6 +92,6 @@ interface ExerciseDao {
             }
             tagExerciseJoins.add(TagExerciseJoin(tag.id, exerciseId.toInt()))
         }
-        insertAllTagExerciseJoins(tagExerciseJoins)
+        tagExerciseJoinDao.insertAllTagExerciseJoins(tagExerciseJoins)
     }
 }

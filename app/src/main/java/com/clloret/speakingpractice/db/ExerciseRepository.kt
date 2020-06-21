@@ -59,7 +59,7 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
     }
 
     suspend fun insertOrUpdateExerciseAndTags(exercise: Exercise, tagsIds: List<Int>) {
-        db.exerciseDao().insertOrUpdateExerciseAndTags(exercise, tagsIds)
+        db.exerciseDao().insertOrUpdateExerciseAndTags(exercise, tagsIds, db.tagExerciseJoinDao())
     }
 
     suspend fun insertOrUpdateTag(tag: Tag) {
@@ -67,7 +67,8 @@ class ExerciseRepository(private val db: ExercisesDatabase) {
     }
 
     suspend fun insertExerciseAndTags(exercise: Exercise, tagNames: List<String>) {
-        db.exerciseDao().insertExerciseAndTags(exercise, tagNames, db.tagDao())
+        db.exerciseDao()
+            .insertExerciseAndTags(exercise, tagNames, db.tagDao(), db.tagExerciseJoinDao())
     }
 
 }

@@ -14,6 +14,9 @@ interface TagExerciseJoinDao {
     @Insert
     suspend fun insert(tagExerciseJoin: TagExerciseJoin)
 
+    @Insert
+    suspend fun insertAllTagExerciseJoins(tagExerciseJoins: List<TagExerciseJoin>)
+
     @Query(
         """
                SELECT tags.tag_id, name FROM tags
@@ -47,5 +50,8 @@ interface TagExerciseJoinDao {
 
     @Query("DELETE FROM tag_exercise_join")
     suspend fun deleteAll()
+
+    @Query("DELETE FROM tag_exercise_join WHERE exercise_id=:exerciseId")
+    suspend fun deleteAllTagExerciseJoinsFrom(exerciseId: Int)
 
 }

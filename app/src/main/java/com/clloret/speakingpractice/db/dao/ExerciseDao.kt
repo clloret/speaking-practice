@@ -31,6 +31,16 @@ interface ExerciseDao {
     @Query("SELECT exercise_id FROM exercises ORDER BY RANDOM() LIMIT :limit")
     suspend fun getRandomExercisesIds(limit: Int): List<Int>
 
+    @Query(
+        """
+        SELECT exercise_id
+FROM exercise_attempts
+GROUP BY exercise_id
+HAVING CAST(SUM(result) AS FLOAT) / COUNT(exercise_id) < :successFactor OR COUNT(exercise_id) < :minAttempts
+    """
+    )
+    suspend fun getMostFailedExercisesIds(successFactor: Double, minAttempts: Int): List<Int>
+
     @Query("SELECT * FROM exercises WHERE exercise_id = :id")
     fun getExerciseById(id: Int): LiveData<Exercise>
 
@@ -94,4 +104,5 @@ interface ExerciseDao {
         }
         tagExerciseJoinDao.insertAllTagExerciseJoins(tagExerciseJoins)
     }
+
 }

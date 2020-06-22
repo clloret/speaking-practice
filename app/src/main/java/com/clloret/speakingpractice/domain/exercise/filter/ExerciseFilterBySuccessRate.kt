@@ -5,7 +5,10 @@ import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import kotlinx.coroutines.runBlocking
 
-class ExerciseFilterBySuccessRate(private val successFactor: Double, private val minAttempts: Int) :
+class ExerciseFilterBySuccessRate(
+    private val successFactor: Double = DEFAULT_SUCCESS_FACTOR,
+    private val minAttempts: Int = DEFAULT_MIN_ATTEMPTS
+) :
     ExerciseFilterStrategy() {
 
     override fun getExercises(repository: ExerciseRepository): LiveData<List<ExerciseWithDetails>> {
@@ -13,5 +16,10 @@ class ExerciseFilterBySuccessRate(private val successFactor: Double, private val
             repository.getMostFailedExercisesIds(successFactor, minAttempts)
         }
         return repository.getExercisesDetailsByIds(ids)
+    }
+
+    companion object {
+        const val DEFAULT_SUCCESS_FACTOR = 0.80
+        const val DEFAULT_MIN_ATTEMPTS = 10
     }
 }

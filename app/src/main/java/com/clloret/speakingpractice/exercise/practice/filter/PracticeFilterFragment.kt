@@ -8,10 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.clloret.speakingpractice.R
-import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterAll
-import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByRandom
-import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByTag
-import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
+import com.clloret.speakingpractice.domain.exercise.filter.*
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import kotlinx.android.synthetic.main.practice_filter_fragment.*
 import timber.log.Timber
@@ -60,17 +57,22 @@ class PracticeFilterFragment : Fragment() {
             showPracticeWithFilter(filter)
         }
 
+        btnRandomExercises.setOnClickListener {
+            val filter = ExerciseFilterByRandom(DEFAULT_EXERCISE_LIMIT)
+            showPracticeWithFilter(filter)
+        }
+
+        btnMostFailedExercises.setOnClickListener {
+            val filter = ExerciseFilterBySuccessRate()
+            showPracticeWithFilter(filter)
+        }
+
         btnOneTag.setOnClickListener {
             val action =
                 PracticeFilterFragmentDirections.actionPracticeFilterFragmentToSelectTagDlgFragment()
 
             findNavController()
                 .navigate(action)
-        }
-
-        btnRandomExercises.setOnClickListener {
-            val filter = ExerciseFilterByRandom(DEFAULT_EXERCISE_LIMIT)
-            showPracticeWithFilter(filter)
         }
     }
 

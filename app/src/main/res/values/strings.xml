@@ -37,4 +37,5 @@
     <string name="title_select_one_tag">Select One Tag</string>
     <string name="action_random_exercises">Random Exercises</string>
     <string name="action_most_failed_exercises">Most Failed Exercises</string>
+    <string name="title_two_points">:</string>
 </resources>

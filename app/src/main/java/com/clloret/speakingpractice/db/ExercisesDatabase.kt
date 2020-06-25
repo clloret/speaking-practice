@@ -44,6 +44,7 @@ abstract class ExercisesDatabase : RoomDatabase() {
                     "exercises"
                 )
                     .addCallback(ExercisesDatabaseCallback(scope))
+                    .addMigrations(DatabaseMigrations.MIGRATION_1_2)
                     .build()
                 INSTANCE = instance
                 return instance

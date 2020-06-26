@@ -33,10 +33,11 @@ interface ExerciseDao {
 
     @Query(
         """
-        SELECT exercise_id
-FROM exercise_attempts
-GROUP BY exercise_id
-HAVING CAST(SUM(result) AS FLOAT) / COUNT(exercise_id) < :successFactor OR COUNT(exercise_id) < :minAttempts
+                SELECT exercise_id
+                FROM exercise_attempts
+                GROUP BY exercise_id
+                HAVING CAST(SUM(result) AS FLOAT) / COUNT(exercise_id) < :successFactor
+                OR COUNT(exercise_id) < :minAttempts
     """
     )
     suspend fun getMostFailedExercisesIds(successFactor: Double, minAttempts: Int): List<Int>

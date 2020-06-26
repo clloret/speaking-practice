@@ -6,6 +6,7 @@ import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
 import com.clloret.speakingpractice.exercise.practice.PracticeViewModel
+import com.clloret.speakingpractice.exercise.practice.filter.SelectTagDlgViewModel
 import com.clloret.speakingpractice.tag.list.TagListViewModel
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.CoroutineScope
@@ -41,6 +42,7 @@ class App : Application() {
             }
             viewModel { ExerciseListViewModel(get(), get()) }
             viewModel { TagListViewModel(get(), get()) }
+            viewModel { SelectTagDlgViewModel(get()) }
 
             factory { SupervisorJob() }
             factory { CoroutineScope(get<CompletableJob>()) }

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,11 +15,11 @@ import com.clloret.speakingpractice.databinding.SelectTagDlgFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
-
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SelectTagDlgFragment : BottomSheetDialogFragment(), CoroutineScope by MainScope() {
 
-    private val viewModel: SelectTagDlgViewModel by viewModels()
+    private val viewModel: SelectTagDlgViewModel by viewModel()
     private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.nav_graph)
 
     override fun onCreateView(

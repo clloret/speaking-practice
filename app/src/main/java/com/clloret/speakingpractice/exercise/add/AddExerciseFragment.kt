@@ -13,10 +13,10 @@ import androidx.navigation.fragment.navArgs
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.AddExerciseFragmentBinding
 import com.clloret.speakingpractice.db.ExerciseRepository
-import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
+import org.koin.android.ext.android.inject
 
 class AddExerciseFragment : Fragment(), CoroutineScope by MainScope() {
 
@@ -24,9 +24,7 @@ class AddExerciseFragment : Fragment(), CoroutineScope by MainScope() {
         fun newInstance() = AddExerciseFragment()
     }
 
-    private val repository: ExerciseRepository by lazy {
-        initRepository()
-    }
+    private val repository: ExerciseRepository by inject()
 
     private val viewModel: AddExerciseViewModel by viewModels {
         AddExerciseViewModelFactory(repository, args.exerciseId)
@@ -52,13 +50,6 @@ class AddExerciseFragment : Fragment(), CoroutineScope by MainScope() {
         super.onActivityCreated(savedInstanceState)
 
         observeData()
-    }
-
-    private fun initRepository(): ExerciseRepository {
-        val db = ExercisesDatabase.getDatabase(requireContext(), this)
-        return ExerciseRepository(
-            db
-        )
     }
 
     private fun observeData() {

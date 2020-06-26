@@ -3,12 +3,15 @@ package com.clloret.speakingpractice
 import android.app.Application
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
+import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
+import com.clloret.speakingpractice.exercise.practice.PracticeViewModel
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import timber.log.Timber
@@ -26,6 +29,14 @@ class App : Application() {
 
             single { ExercisesDatabase.getDatabase(get(), get()) }
             single { ExerciseRepository(get()) }
+
+            viewModel { (filter: ExerciseFilterStrategy) ->
+                PracticeViewModel(
+                    get(),
+                    filter,
+                    get()
+                )
+            }
 
             factory { SupervisorJob() }
             factory { CoroutineScope(get<CompletableJob>()) }

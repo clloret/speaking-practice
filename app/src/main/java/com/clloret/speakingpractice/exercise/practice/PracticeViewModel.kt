@@ -4,10 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.clloret.speakingpractice.App
 import com.clloret.speakingpractice.db.ExerciseRepository
-import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.domain.ExerciseValidator
 import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
@@ -15,7 +12,11 @@ import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrateg
 import com.clloret.speakingpractice.utils.lifecycle.Event
 import kotlinx.coroutines.runBlocking
 
-class PracticeViewModel(application: Application, filter: ExerciseFilterStrategy) :
+class PracticeViewModel(
+    application: Application,
+    filter: ExerciseFilterStrategy,
+    private val repository: ExerciseRepository
+) :
     AndroidViewModel(application) {
     enum class ExerciseResult {
         HIDDEN, CORRECT, INCORRECT
@@ -30,19 +31,9 @@ class PracticeViewModel(application: Application, filter: ExerciseFilterStrategy
 
     private var currentExerciseDetail: ExerciseWithDetails? = null
 
-    private val repository: ExerciseRepository by lazy {
-        initRepository()
-    }
-
     val exercises = filter.getExercises(repository)
 
     var onClickRecognizeSpeechBtn: (() -> Unit)? = null
-
-    private fun initRepository(): ExerciseRepository {
-        val application = getApplication<App>()
-        val db = ExercisesDatabase.getDatabase(application, viewModelScope)
-        return ExerciseRepository(db)
-    }
 
     fun recognizeSpeech(exerciseDetail: ExerciseWithDetails) {
         currentExerciseDetail = exerciseDetail

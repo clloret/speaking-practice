@@ -7,29 +7,20 @@ import android.net.Uri
 import androidx.fragment.app.Fragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.db.ExerciseRepository
-import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.utils.Dialogs
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.runBlocking
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import timber.log.Timber
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
 class ImportExercises(
     private val context: Context
-) : CoroutineScope by MainScope() {
+) : KoinComponent {
 
-    private val repository: ExerciseRepository by lazy {
-        initRepository()
-    }
-
-    private fun initRepository(): ExerciseRepository {
-        val db = ExercisesDatabase.getDatabase(context, this)
-        return ExerciseRepository(db)
-    }
-
+    val repository: ExerciseRepository by inject()
     var onCompletion: ((Int) -> Unit)? = null
 
     fun import(uri: Uri, deleteAll: Boolean = true, completion: ((Int) -> Unit)?) {

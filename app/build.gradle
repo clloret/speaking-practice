@@ -76,9 +76,13 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+    // Koin
+    implementation "org.koin:koin-androidx-scope:$koinVersion"
+    implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
     testImplementation 'junit:junit:4.13'
     testImplementation 'com.google.truth:truth:1.0.1'

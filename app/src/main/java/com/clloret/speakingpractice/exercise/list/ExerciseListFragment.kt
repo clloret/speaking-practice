@@ -5,7 +5,6 @@ import android.view.*
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.ItemDetailsLookup
@@ -18,6 +17,7 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListFragmentBinding
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.utils.Dialogs
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class ExerciseListFragment : Fragment() {
@@ -26,8 +26,8 @@ class ExerciseListFragment : Fragment() {
         fun newInstance() = ExerciseListFragment()
     }
 
-    private val viewModel: ExerciseListViewModel by viewModels()
-    var selectionTracker: SelectionTracker<Long>? = null
+    private val viewModel: ExerciseListViewModel by viewModel()
+    private var selectionTracker: SelectionTracker<Long>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

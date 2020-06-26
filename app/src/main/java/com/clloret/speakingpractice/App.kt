@@ -4,6 +4,7 @@ import android.app.Application
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
+import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
 import com.clloret.speakingpractice.exercise.practice.PracticeViewModel
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.CoroutineScope
@@ -37,6 +38,7 @@ class App : Application() {
                     get()
                 )
             }
+            viewModel { ExerciseListViewModel(get(), get()) }
 
             factory { SupervisorJob() }
             factory { CoroutineScope(get<CompletableJob>()) }

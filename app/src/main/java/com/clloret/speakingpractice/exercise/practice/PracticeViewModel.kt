@@ -1,9 +1,8 @@
 package com.clloret.speakingpractice.exercise.practice
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.domain.ExerciseValidator
 import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
@@ -13,11 +12,10 @@ import com.clloret.speakingpractice.utils.lifecycle.Event
 import kotlinx.coroutines.runBlocking
 
 class PracticeViewModel(
-    application: Application,
     filter: ExerciseFilterStrategy,
     private val repository: ExerciseRepository
 ) :
-    AndroidViewModel(application) {
+    ViewModel() {
     enum class ExerciseResult {
         HIDDEN, CORRECT, INCORRECT
     }

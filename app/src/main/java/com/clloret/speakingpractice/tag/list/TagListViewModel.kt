@@ -1,12 +1,10 @@
 package com.clloret.speakingpractice.tag.list
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import com.clloret.speakingpractice.db.ExerciseRepository
 import kotlinx.coroutines.runBlocking
 
-class TagListViewModel(application: Application, private val repository: ExerciseRepository) :
-    AndroidViewModel(application) {
+class TagListViewModel(private val repository: ExerciseRepository) : ViewModel() {
 
     val tags = repository.allTags
 

@@ -34,14 +34,10 @@ class App : Application() {
             single { ExerciseRepository(get()) }
 
             viewModel { (filter: ExerciseFilterStrategy) ->
-                PracticeViewModel(
-                    get(),
-                    filter,
-                    get()
-                )
+                PracticeViewModel(filter, get())
             }
-            viewModel { ExerciseListViewModel(get(), get()) }
-            viewModel { TagListViewModel(get(), get()) }
+            viewModel { ExerciseListViewModel(get()) }
+            viewModel { TagListViewModel(get()) }
             viewModel { SelectTagDlgViewModel(get()) }
 
             factory { SupervisorJob() }

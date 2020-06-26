@@ -40,8 +40,8 @@ class AddExerciseViewModel(
 
         repository.getSelectedTagsForExercise(exerciseId).apply {
             observeForever { value ->
-                value?.let {
-                    exerciseTags.set(it)
+                value?.let { tags ->
+                    exerciseTags.set(tags.sortedBy { it.displayName })
                 }
             }
         }

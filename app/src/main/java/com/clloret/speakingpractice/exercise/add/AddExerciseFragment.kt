@@ -13,7 +13,6 @@ import androidx.navigation.fragment.navArgs
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.AddExerciseFragmentBinding
 import com.clloret.speakingpractice.db.ExerciseRepository
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import org.koin.android.ext.android.inject
@@ -58,13 +57,6 @@ class AddExerciseFragment : Fragment(), CoroutineScope by MainScope() {
                 findNavController().navigateUp()
             }
         })
-    }
-
-    private fun showSnackBar(message: String) {
-        val snackBar = Snackbar.make(
-            requireActivity().findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG
-        )
-        snackBar.show()
     }
 
 }

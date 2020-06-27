@@ -11,10 +11,12 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class HomeFragment : Fragment() {
 
-    private var importExercises: ImportExercises? = null
+    private val importExercises: ImportExercises by inject { parametersOf(this.requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +29,7 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        importExercises = ImportExercises(requireContext()).apply {
+        importExercises.apply {
             onCompletion = { count ->
                 showSnackBar("$count exercises imported successfully")
             }
@@ -69,11 +71,11 @@ class HomeFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        importExercises?.onActivityResult(requestCode, resultCode, data)
+        importExercises.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun importExercises() {
-        importExercises?.performFileSearchFromFragment(this)
+        importExercises.performFileSearchFromFragment(this)
     }
 
     private fun showSnackBar(message: String) {

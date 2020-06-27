@@ -20,7 +20,7 @@ class ImportExercises(
     private val context: Context
 ) : KoinComponent {
 
-    val repository: ExerciseRepository by inject()
+    private val repository: ExerciseRepository by inject()
     var onCompletion: ((Int) -> Unit)? = null
 
     fun import(uri: Uri, deleteAll: Boolean = true, completion: ((Int) -> Unit)?) {

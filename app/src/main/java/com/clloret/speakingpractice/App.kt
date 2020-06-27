@@ -1,9 +1,11 @@
 package com.clloret.speakingpractice
 
 import android.app.Application
+import android.content.Context
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
+import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
 import com.clloret.speakingpractice.exercise.practice.PracticeViewModel
 import com.clloret.speakingpractice.exercise.practice.filter.SelectTagDlgViewModel
@@ -32,6 +34,7 @@ class App : Application() {
 
             single { ExercisesDatabase.getDatabase(get(), get()) }
             single { ExerciseRepository(get()) }
+            single { (context: Context) -> ImportExercises(context) }
 
             viewModel { (filter: ExerciseFilterStrategy) ->
                 PracticeViewModel(filter, get())

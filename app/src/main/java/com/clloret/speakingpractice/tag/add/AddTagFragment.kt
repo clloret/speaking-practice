@@ -6,17 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.AddTagFragmentBinding
-import com.clloret.speakingpractice.db.ExerciseRepository
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class AddTagFragment : Fragment(), CoroutineScope by MainScope() {
 
@@ -24,12 +23,7 @@ class AddTagFragment : Fragment(), CoroutineScope by MainScope() {
         fun newInstance() = AddTagFragment()
     }
 
-    private val repository: ExerciseRepository by inject()
-
-    private val viewModel: AddTagViewModel by viewModels {
-        AddTagViewModelFactory(repository, args.tagId)
-    }
-
+    private val viewModel: AddTagViewModel by viewModel { parametersOf(args.tagId) }
     private val args: AddTagFragmentArgs by navArgs()
 
     override fun onCreateView(

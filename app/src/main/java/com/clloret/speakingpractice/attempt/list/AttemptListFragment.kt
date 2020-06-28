@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,10 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.AttemptListFragmentBinding
-import com.clloret.speakingpractice.db.ExerciseRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class AttemptListFragment : Fragment(), CoroutineScope by MainScope() {
 
@@ -25,12 +24,7 @@ class AttemptListFragment : Fragment(), CoroutineScope by MainScope() {
         fun newInstance() = AttemptListFragment()
     }
 
-    private val repository: ExerciseRepository by inject()
-
-    private val viewModel: AttemptListViewModel by viewModels {
-        AttemptListViewModelFactory(repository, args.exerciseId)
-    }
-
+    private val viewModel: AttemptListViewModel by viewModel { parametersOf(args.exerciseId) }
     private val args: AttemptListFragmentArgs by navArgs()
 
     override fun onCreateView(

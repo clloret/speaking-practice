@@ -2,6 +2,7 @@ package com.clloret.speakingpractice
 
 import android.app.Application
 import android.content.Context
+import com.clloret.speakingpractice.attempt.list.AttemptListViewModel
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
@@ -41,6 +42,9 @@ class App : Application() {
             viewModel { ExerciseListViewModel(get()) }
             viewModel { TagListViewModel(get()) }
             viewModel { SelectTagDlgViewModel(get()) }
+            viewModel { (exerciseId: Int) ->
+                AttemptListViewModel(get(), exerciseId)
+            }
 
             factory { SupervisorJob() }
             factory { CoroutineScope(get<CompletableJob>()) }

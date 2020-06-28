@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.AddTagFragmentBinding
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -53,12 +52,4 @@ class AddTagFragment : Fragment(), CoroutineScope by MainScope() {
             }
         })
     }
-
-    private fun showSnackBar(message: String) {
-        val snackBar = Snackbar.make(
-            requireActivity().findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG
-        )
-        snackBar.show()
-    }
-
 }

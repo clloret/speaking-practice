@@ -6,6 +6,7 @@ import com.clloret.speakingpractice.attempt.list.AttemptListViewModel
 import com.clloret.speakingpractice.db.ExerciseRepository
 import com.clloret.speakingpractice.db.ExercisesDatabase
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
+import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
 import com.clloret.speakingpractice.exercise.practice.PracticeViewModel
@@ -44,6 +45,9 @@ class App : Application() {
             viewModel { SelectTagDlgViewModel(get()) }
             viewModel { (exerciseId: Int) ->
                 AttemptListViewModel(get(), exerciseId)
+            }
+            viewModel { (exerciseId: Int) ->
+                AddExerciseViewModel(get(), exerciseId)
             }
 
             factory { SupervisorJob() }

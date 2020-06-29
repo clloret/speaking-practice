@@ -19,17 +19,28 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/practice_background">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/scoreboard_background"
+            app:layout_constraintBottom_toBottomOf="@+id/successRate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/resultsCorrect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:padding="@dimen/default_padding"
             android:text="@{Integer.toString(exercise.results.correct)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
             android:textColor="@color/exercise_correct"
+            app:layout_constraintEnd_toStartOf="@+id/resultsSeparator"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="99" />
@@ -38,10 +49,11 @@
             android:id="@+id/resultsSeparator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:paddingTop="@dimen/default_padding"
+            android:paddingBottom="@dimen/default_padding"
             android:text="@string/title_slash"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            app:layout_constraintEnd_toStartOf="@+id/resultsIncorrect"
             app:layout_constraintStart_toEndOf="@+id/resultsCorrect"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,11 +61,11 @@
             android:id="@+id/resultsIncorrect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:padding="@dimen/default_padding"
             android:text="@{Integer.toString(exercise.results.incorrect)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
             android:textColor="@color/exercise_incorrect"
+            app:layout_constraintEnd_toStartOf="@+id/rateSeparator"
             app:layout_constraintStart_toEndOf="@+id/resultsSeparator"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="99" />
@@ -62,8 +74,7 @@
             android:id="@+id/rateSeparator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:padding="@dimen/default_padding"
             android:text="@string/title_two_points"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
             app:layout_constraintStart_toEndOf="@+id/resultsIncorrect"
@@ -73,8 +84,7 @@
             android:id="@+id/successRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:padding="@dimen/default_padding"
             android:text="@{Integer.toString(exercise.results.successRate) + '%'}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
             app:layout_constraintStart_toEndOf="@+id/rateSeparator"
@@ -86,52 +96,75 @@
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/xsmall_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:background="@drawable/phrase_rounded_corner"
             android:gravity="center"
-            android:padding="16dp"
             android:text="@{exercise.exercise.practicePhrase}"
-            app:layout_constraintBottom_toTopOf="@+id/fabTextToSpeech"
+            app:layout_constraintBottom_toTopOf="@+id/btnTextToSpeech"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/resultsCorrect"
+            app:layout_constraintTop_toTopOf="@+id/guideline"
             tools:text="Hello" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabTextToSpeech"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> model.speakText(exercise.exercise.practicePhrase)}"
-            app:layout_constraintBottom_toTopOf="@+id/translatedPhrase"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/practicePhrase"
-            app:srcCompat="@drawable/ic_record_voice_over_black_24dp" />
 
         <TextView
             android:id="@+id/translatedPhrase"
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/xsmall_margin"
+            android:background="@drawable/phrase_rounded_corner"
             android:gravity="center"
-            android:padding="16dp"
             android:text="@{exercise.exercise.translatedPhrase}"
-            app:layout_constraintBottom_toTopOf="@+id/fabRecognizeSpeech"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fabTextToSpeech"
+            app:layout_constraintTop_toBottomOf="@+id/successRate"
             tools:text="Hola" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabRecognizeSpeech"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="16dp"
+        <Button
+            android:id="@+id/btnTextToSpeech"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:gravity="center"
+            android:onClick="@{() -> model.speakText(exercise.exercise.practicePhrase)}"
+            android:text="@string/action_listen"
+            app:icon="@drawable/ic_hearing_wht_24"
+            app:iconGravity="textStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnRecognizeSpeech"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnRecognizeSpeech"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:gravity="center"
             android:onClick="@{() -> model.recognizeSpeech(exercise)}"
+            android:text="@string/action_speak"
+            app:icon="@drawable/ic_mic_wht_24"
+            app:iconGravity="textStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@android:drawable/ic_btn_speak_now" />
+            app:layout_constraintStart_toEndOf="@+id/btnTextToSpeech" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

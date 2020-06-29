@@ -3,6 +3,9 @@
     <color name="color_primary">#388E3C</color>
     <color name="color_primary_variant">#1b5e20</color>
     <color name="color_secondary">#FFC107</color>
-    <color name="exercise_correct">#00FF00</color>
-    <color name="exercise_incorrect">#FF0000</color>
+    <color name="exercise_correct">#4caf50</color>
+    <color name="exercise_incorrect">#f44336</color>
+    <color name="phrase_background">#c8e6c9</color>
+    <color name="practice_background">#bdbdbd</color>
+    <color name="scoreboard_background">#ffecb3</color>
 </resources>

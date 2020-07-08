@@ -96,6 +96,7 @@
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:padding="@dimen/default_padding"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/xsmall_margin"
             android:layout_marginEnd="@dimen/default_margin"
@@ -107,12 +108,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline"
-            tools:text="Hello" />
+            tools:text="@tools:sample/lorem/random" />
 
         <TextView
             android:id="@+id/translatedPhrase"
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="match_parent"
+            android:padding="@dimen/default_padding"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
@@ -125,7 +127,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/successRate"
-            tools:text="Hola" />
+            tools:text="@tools:sample/lorem/random" />
 
         <Button
             android:id="@+id/btnListenPhrase"

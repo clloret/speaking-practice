@@ -14,6 +14,10 @@
             name="model"
             type="com.clloret.speakingpractice.exercise.practice.PracticeViewModel" />
 
+        <variable
+            name="successRateColor"
+            type="int" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,6 +91,7 @@
             android:padding="@dimen/default_padding"
             android:text="@{Integer.toString(exercise.results.successRate) + '%'}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textColor="@{context.getResources().getColor(successRateColor)}"
             app:layout_constraintStart_toEndOf="@+id/rateSeparator"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="50%" />
@@ -96,13 +101,13 @@
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="@dimen/default_padding"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/xsmall_margin"
             android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginBottom="@dimen/default_margin"
             android:background="@drawable/phrase_rounded_corner"
             android:gravity="center"
+            android:padding="@dimen/default_padding"
             android:text="@{exercise.exercise.practicePhrase}"
             app:layout_constraintBottom_toTopOf="@+id/btnListenPhrase"
             app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +119,6 @@
             android:id="@+id/translatedPhrase"
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="match_parent"
-            android:padding="@dimen/default_padding"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
@@ -122,6 +126,7 @@
             android:layout_marginBottom="@dimen/xsmall_margin"
             android:background="@drawable/phrase_rounded_corner"
             android:gravity="center"
+            android:padding="@dimen/default_padding"
             android:text="@{exercise.exercise.translatedPhrase}"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,10 +1,10 @@
 package com.clloret.speakingpractice.exercise.list
 
 import androidx.lifecycle.ViewModel
-import com.clloret.speakingpractice.db.ExerciseRepository
+import com.clloret.speakingpractice.db.AppRepository
 import kotlinx.coroutines.runBlocking
 
-class ExerciseListViewModel(private val repository: ExerciseRepository) : ViewModel() {
+class ExerciseListViewModel(private val repository: AppRepository) : ViewModel() {
 
     val exercises = repository.allExercisesDetails
 

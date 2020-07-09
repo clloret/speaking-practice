@@ -3,8 +3,8 @@ package com.clloret.speakingpractice
 import android.app.Application
 import android.content.Context
 import com.clloret.speakingpractice.attempt.list.AttemptListViewModel
-import com.clloret.speakingpractice.db.ExerciseRepository
-import com.clloret.speakingpractice.db.ExercisesDatabase
+import com.clloret.speakingpractice.db.AppDatabase
+import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
@@ -34,8 +34,8 @@ class App : Application() {
     private fun setupKoin() {
         val appModule = module {
 
-            single { ExercisesDatabase.getDatabase(get(), get()) }
-            single { ExerciseRepository(get()) }
+            single { AppDatabase.getDatabase(get(), get()) }
+            single { AppRepository(get()) }
             single { (context: Context) -> ImportExercises(context) }
 
             viewModel { (filter: ExerciseFilterStrategy) ->

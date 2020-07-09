@@ -3,7 +3,7 @@ package com.clloret.speakingpractice.db
 import androidx.lifecycle.LiveData
 import com.clloret.speakingpractice.domain.entities.*
 
-class ExerciseRepository(private val db: ExercisesDatabase) {
+class AppRepository(private val db: AppDatabase) {
 
     val allTags = db.tagDao().getAllTags()
 

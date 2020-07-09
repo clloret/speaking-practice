@@ -1,10 +1,10 @@
 package com.clloret.speakingpractice.attempt.list
 
 import androidx.lifecycle.ViewModel
-import com.clloret.speakingpractice.db.ExerciseRepository
+import com.clloret.speakingpractice.db.AppRepository
 
 class AttemptListViewModel(
-    repository: ExerciseRepository,
+    repository: AppRepository,
     exerciseId: Int
 ) : ViewModel() {
 

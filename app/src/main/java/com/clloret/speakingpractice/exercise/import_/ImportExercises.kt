@@ -6,7 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.Fragment
 import com.clloret.speakingpractice.R
-import com.clloret.speakingpractice.db.ExerciseRepository
+import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.utils.Dialogs
 import kotlinx.coroutines.runBlocking
@@ -20,7 +20,7 @@ class ImportExercises(
     private val context: Context
 ) : KoinComponent {
 
-    private val repository: ExerciseRepository by inject()
+    private val repository: AppRepository by inject()
     var onCompletion: ((Int) -> Unit)? = null
 
     fun import(uri: Uri, deleteAll: Boolean = true, completion: ((Int) -> Unit)?) {

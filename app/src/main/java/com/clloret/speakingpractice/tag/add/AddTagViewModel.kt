@@ -5,12 +5,12 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.clloret.speakingpractice.db.ExerciseRepository
+import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.entities.Tag
 import kotlinx.coroutines.runBlocking
 
 class AddTagViewModel(
-    private val repository: ExerciseRepository,
+    private val repository: AppRepository,
     private val tagId: Int
 ) : ViewModel() {
 

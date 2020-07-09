@@ -20,7 +20,7 @@ import timber.log.Timber
     views = [ExerciseResults::class], version = 2, exportSchema = true
 )
 @TypeConverters(DbConverters::class)
-abstract class ExercisesDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao
     abstract fun exerciseAttemptDao(): ExerciseAttemptDao
     abstract fun tagDao(): TagDao
@@ -30,9 +30,9 @@ abstract class ExercisesDatabase : RoomDatabase() {
         // Singleton prevents multiple instances of database opening at the
         // same time.
         @Volatile
-        private var INSTANCE: ExercisesDatabase? = null
+        private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope): ExercisesDatabase {
+        fun getDatabase(context: Context, scope: CoroutineScope): AppDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -40,8 +40,8 @@ abstract class ExercisesDatabase : RoomDatabase() {
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    ExercisesDatabase::class.java,
-                    "exercises"
+                    AppDatabase::class.java,
+                    "speaking-practice"
                 )
                     .addCallback(ExercisesDatabaseCallback(scope))
                     .addMigrations(DatabaseMigrations.MIGRATION_1_2)

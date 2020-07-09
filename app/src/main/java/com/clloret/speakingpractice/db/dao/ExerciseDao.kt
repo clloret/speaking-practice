@@ -42,6 +42,19 @@ interface ExerciseDao {
     )
     suspend fun getMostFailedExercisesIds(successFactor: Double, minAttempts: Int): List<Int>
 
+    @Query(
+        """
+                SELECT exercises.exercise_id
+                  FROM exercises
+                       LEFT OUTER JOIN
+                       exercise_attempts ON exercises.exercise_id = exercise_attempts.exercise_id
+                 GROUP BY exercises.exercise_id
+                 ORDER BY COUNT(exercise_attempts.id)
+                 LIMIT :limit
+"""
+    )
+    suspend fun getLessPracticedExercisesIds(limit: Int): List<Int>
+
     @Query("SELECT * FROM exercises WHERE exercise_id = :id")
     fun getExerciseById(id: Int): LiveData<Exercise>
 

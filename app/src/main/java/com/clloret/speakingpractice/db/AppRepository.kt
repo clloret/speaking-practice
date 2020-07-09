@@ -30,6 +30,10 @@ class AppRepository(private val db: AppDatabase) {
         return db.exerciseDao().getMostFailedExercisesIds(successFactor, minAttempts)
     }
 
+    suspend fun getLessPracticedExercisesIds(limit: Int): List<Int> {
+        return db.exerciseDao().getLessPracticedExercisesIds(limit)
+    }
+
     fun getTagById(id: Int): LiveData<Tag> {
         return db.tagDao().getTagById(id)
     }

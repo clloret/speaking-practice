@@ -11,6 +11,8 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.domain.exercise.filter.*
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import kotlinx.android.synthetic.main.practice_filter_fragment.*
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 class PracticeFilterFragment : Fragment() {
@@ -21,6 +23,9 @@ class PracticeFilterFragment : Fragment() {
     }
 
     private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.nav_graph)
+    private val filterByLessPracticed: ExerciseFilterByLessPracticed by inject {
+        parametersOf(DEFAULT_EXERCISE_LIMIT)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,8 +68,7 @@ class PracticeFilterFragment : Fragment() {
         }
 
         btnLessPracticedExercises.setOnClickListener {
-            val filter = ExerciseFilterByLessPracticed(DEFAULT_EXERCISE_LIMIT)
-            showPracticeWithFilter(filter)
+            showPracticeWithFilter(filterByLessPracticed)
         }
 
         btnMostFailedExercises.setOnClickListener {

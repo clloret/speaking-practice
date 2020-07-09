@@ -5,6 +5,7 @@ import android.content.Context
 import com.clloret.speakingpractice.attempt.list.AttemptListViewModel
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppRepository
+import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByLessPracticed
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
@@ -37,6 +38,9 @@ class App : Application() {
             single { AppDatabase.getDatabase(get(), get()) }
             single { AppRepository(get()) }
             single { (context: Context) -> ImportExercises(context) }
+            single { (limit: Int) ->
+                ExerciseFilterByLessPracticed(limit)
+            }
 
             viewModel { (filter: ExerciseFilterStrategy) ->
                 PracticeViewModel(filter, get())

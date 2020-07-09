@@ -62,6 +62,11 @@ class PracticeFilterFragment : Fragment() {
             showPracticeWithFilter(filter)
         }
 
+        btnLessPracticedExercises.setOnClickListener {
+            val filter = ExerciseFilterByLessPracticed(DEFAULT_EXERCISE_LIMIT)
+            showPracticeWithFilter(filter)
+        }
+
         btnMostFailedExercises.setOnClickListener {
             val filter = ExerciseFilterBySuccessRate()
             showPracticeWithFilter(filter)

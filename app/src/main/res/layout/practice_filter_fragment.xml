@@ -22,6 +22,13 @@
         android:text="@string/action_most_failed_exercises" />
 
     <Button
+        android:id="@+id/btnLessPracticedExercises"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/action_less_practiced_exercises" />
+
+    <Button
         android:id="@+id/btnOneTag"
         android:layout_width="match_parent"
         android:layout_height="0dp"

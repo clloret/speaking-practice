@@ -37,6 +37,9 @@ class App : Application() {
             single { AppDatabase.getDatabase(get(), get()) }
             single { AppRepository(get()) }
             single { (context: Context) -> ImportExercises(context) }
+
+            // Exercise Filters
+
             single { ExerciseFilterAll() }
             single { ExerciseFilterBySuccessRate() }
             single { (limit: Int) ->
@@ -48,6 +51,8 @@ class App : Application() {
             single { (tagId: Int) ->
                 ExerciseFilterByTag(tagId)
             }
+
+            // View Models
 
             viewModel { (filter: ExerciseFilterStrategy) ->
                 PracticeViewModel(filter, get())

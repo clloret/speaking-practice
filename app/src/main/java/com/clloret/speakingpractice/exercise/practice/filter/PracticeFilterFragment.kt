@@ -11,6 +11,7 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.domain.exercise.filter.*
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import kotlinx.android.synthetic.main.practice_filter_fragment.*
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
@@ -55,8 +56,9 @@ class PracticeFilterFragment : Fragment() {
 
                     findNavController().popBackStack()
 
-                    val filter = ExerciseFilterByTag(it.id)
+                    val filter: ExerciseFilterByTag = get { parametersOf(it.id) }
                     showPracticeWithFilter(filter)
+
                 }
             })
     }

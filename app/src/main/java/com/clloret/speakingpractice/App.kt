@@ -45,6 +45,9 @@ class App : Application() {
             single { (limit: Int) ->
                 ExerciseFilterByLessPracticed(limit)
             }
+            single { (tagId: Int) ->
+                ExerciseFilterByTag(tagId)
+            }
 
             viewModel { (filter: ExerciseFilterStrategy) ->
                 PracticeViewModel(filter, get())

@@ -3,6 +3,8 @@ package com.clloret.speakingpractice.exercise.practice
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
@@ -34,6 +36,9 @@ class PracticeFragment : Fragment() {
     }
 
     private var tts: TextToSpeech? = null
+    private var soundPool: SoundPool? = null
+    private var soundCorrect: Int? = null
+    private var soundIncorrect: Int? = null
     private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel: PracticeViewModel by viewModel { parametersOf(args.filter) }
     private val args: PracticeFragmentArgs by navArgs()
@@ -94,14 +99,30 @@ class PracticeFragment : Fragment() {
                 textToSpeech(it)
             })
 
+        viewModel.exerciseResult.observe(viewLifecycleOwner, Observer {
+
+            @Suppress("NON_EXHAUSTIVE_WHEN")
+            when (it) {
+                PracticeViewModel.ExerciseResult.CORRECT -> playSound(soundCorrect)
+                PracticeViewModel.ExerciseResult.INCORRECT -> playSound(soundIncorrect)
+            }
+        })
+
         viewModel.onClickRecognizeSpeechBtn = {
             startRecognizeSpeech()
+        }
+    }
+
+    private fun playSound(soundId: Int?) {
+        soundId?.let {
+            soundPool?.play(it, 1.0F, 1.0F, 1, 0, 1F)
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        initSoundPool()
         initTts()
     }
 
@@ -109,6 +130,7 @@ class PracticeFragment : Fragment() {
         super.onDestroyView()
 
         stopTts()
+        stopSoundPool()
     }
 
     private fun showMessage(message: String) {
@@ -183,6 +205,26 @@ class PracticeFragment : Fragment() {
     private fun stopTts() {
         tts?.stop()
         tts?.shutdown()
+    }
+
+    private fun initSoundPool() {
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(2)
+            .setAudioAttributes(audioAttributes)
+            .build()
+
+        soundCorrect = soundPool?.load(requireContext(), R.raw.sound_exercise_correct, 1)
+        soundIncorrect = soundPool?.load(requireContext(), R.raw.sound_exercise_incorrect, 1)
+    }
+
+    private fun stopSoundPool() {
+        soundPool?.release()
+        soundPool = null
     }
 
     private fun textToSpeech(text: String) {

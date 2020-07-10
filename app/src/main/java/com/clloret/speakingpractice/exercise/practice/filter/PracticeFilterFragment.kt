@@ -23,13 +23,14 @@ class PracticeFilterFragment : Fragment() {
     }
 
     private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.nav_graph)
+    private val filterAll: ExerciseFilterAll by inject()
+    private val filterBySuccessRate: ExerciseFilterBySuccessRate by inject()
     private val filterByRandom: ExerciseFilterByRandom by inject {
         parametersOf(DEFAULT_EXERCISE_LIMIT)
     }
     private val filterByLessPracticed: ExerciseFilterByLessPracticed by inject {
         parametersOf(DEFAULT_EXERCISE_LIMIT)
     }
-    private val filterBySuccessRate: ExerciseFilterBySuccessRate by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,8 +63,7 @@ class PracticeFilterFragment : Fragment() {
 
     private fun setupButtonsEvents() {
         btnAllExercises.setOnClickListener {
-            val filter = ExerciseFilterAll()
-            showPracticeWithFilter(filter)
+            showPracticeWithFilter(filterAll)
         }
 
         btnRandomExercises.setOnClickListener {

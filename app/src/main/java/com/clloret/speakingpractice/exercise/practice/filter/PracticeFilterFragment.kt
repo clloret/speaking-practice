@@ -23,6 +23,9 @@ class PracticeFilterFragment : Fragment() {
     }
 
     private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.nav_graph)
+    private val filterByRandom: ExerciseFilterByRandom by inject {
+        parametersOf(DEFAULT_EXERCISE_LIMIT)
+    }
     private val filterByLessPracticed: ExerciseFilterByLessPracticed by inject {
         parametersOf(DEFAULT_EXERCISE_LIMIT)
     }
@@ -63,8 +66,7 @@ class PracticeFilterFragment : Fragment() {
         }
 
         btnRandomExercises.setOnClickListener {
-            val filter = ExerciseFilterByRandom(DEFAULT_EXERCISE_LIMIT)
-            showPracticeWithFilter(filter)
+            showPracticeWithFilter(filterByRandom)
         }
 
         btnLessPracticedExercises.setOnClickListener {

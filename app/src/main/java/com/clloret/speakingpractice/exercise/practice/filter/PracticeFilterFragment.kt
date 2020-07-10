@@ -29,6 +29,7 @@ class PracticeFilterFragment : Fragment() {
     private val filterByLessPracticed: ExerciseFilterByLessPracticed by inject {
         parametersOf(DEFAULT_EXERCISE_LIMIT)
     }
+    private val filterBySuccessRate: ExerciseFilterBySuccessRate by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,8 +75,7 @@ class PracticeFilterFragment : Fragment() {
         }
 
         btnMostFailedExercises.setOnClickListener {
-            val filter = ExerciseFilterBySuccessRate()
-            showPracticeWithFilter(filter)
+            showPracticeWithFilter(filterBySuccessRate)
         }
 
         btnOneTag.setOnClickListener {

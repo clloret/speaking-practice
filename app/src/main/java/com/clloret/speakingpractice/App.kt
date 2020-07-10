@@ -7,6 +7,7 @@ import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByLessPracticed
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByRandom
+import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterBySuccessRate
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
@@ -39,6 +40,7 @@ class App : Application() {
             single { AppDatabase.getDatabase(get(), get()) }
             single { AppRepository(get()) }
             single { (context: Context) -> ImportExercises(context) }
+            single { ExerciseFilterBySuccessRate() }
             single { (limit: Int) ->
                 ExerciseFilterByRandom(limit)
             }

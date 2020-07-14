@@ -11,6 +11,7 @@ import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
 import com.clloret.speakingpractice.exercise.practice.PracticeViewModel
 import com.clloret.speakingpractice.exercise.practice.filter.SelectTagDlgViewModel
+import com.clloret.speakingpractice.statistics.StatisticsViewModel
 import com.clloret.speakingpractice.tag.add.AddTagViewModel
 import com.clloret.speakingpractice.tag.list.TagListViewModel
 import kotlinx.coroutines.CompletableJob
@@ -60,6 +61,7 @@ class App : Application() {
             viewModel { ExerciseListViewModel(get()) }
             viewModel { TagListViewModel(get()) }
             viewModel { SelectTagDlgViewModel(get()) }
+            viewModel { StatisticsViewModel(get()) }
             viewModel { (exerciseId: Int) ->
                 AttemptListViewModel(get(), exerciseId)
             }

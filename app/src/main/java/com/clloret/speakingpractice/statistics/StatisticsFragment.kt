@@ -16,14 +16,12 @@ class StatisticsFragment : Fragment() {
         fun newInstance() = StatisticsFragment()
     }
 
-    //private lateinit var viewModel: StatisticsViewModel
     private val viewModel: StatisticsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //return inflater.inflate(R.layout.statistics_fragment, container, false)
         val binding: StatisticsFragmentBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.statistics_fragment, container, false

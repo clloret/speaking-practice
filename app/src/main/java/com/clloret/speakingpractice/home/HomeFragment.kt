@@ -66,6 +66,15 @@ class HomeFragment : Fragment() {
         btnImportExercises.setOnClickListener {
             this.importExercises()
         }
+
+        btnStatistics.setOnClickListener {
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToStatisticsFragment()
+
+            findNavController()
+                .navigate(action)
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

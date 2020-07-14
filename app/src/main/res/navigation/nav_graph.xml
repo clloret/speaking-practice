@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_homeFragment_to_practiceFilterFragment"
             app:destination="@id/practiceFilterFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment" />
     </fragment>
 
     <fragment
@@ -110,7 +113,13 @@
     <dialog
         android:id="@+id/selectTagDlgFragment"
         android:name="com.clloret.speakingpractice.exercise.practice.filter.SelectTagDlgFragment"
-        tools:layout="@layout/select_tag_dlg_fragment"
-        android:label="SelectTagDlgFragment" />
+        android:label="SelectTagDlgFragment"
+        tools:layout="@layout/select_tag_dlg_fragment" />
+
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.clloret.speakingpractice.statistics.StatisticsFragment"
+        android:label="Statistics"
+        tools:layout="@layout/statistics_fragment" />
 
 </navigation>

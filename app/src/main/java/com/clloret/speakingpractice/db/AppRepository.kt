@@ -10,6 +10,8 @@ class AppRepository(private val db: AppDatabase) {
     val allExercisesDetails: LiveData<List<ExerciseWithDetails>> =
         db.exerciseDao().getExercisesWithDetails()
 
+    val statistics = db.statisticsDao().getStatistics()
+
     fun getExerciseById(id: Int): LiveData<Exercise> {
         return db.exerciseDao().getExerciseById(id)
     }

@@ -6,10 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.clloret.speakingpractice.db.dao.ExerciseAttemptDao
-import com.clloret.speakingpractice.db.dao.ExerciseDao
-import com.clloret.speakingpractice.db.dao.TagDao
-import com.clloret.speakingpractice.db.dao.TagExerciseJoinDao
+import com.clloret.speakingpractice.db.dao.*
 import com.clloret.speakingpractice.domain.entities.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -25,6 +22,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun exerciseAttemptDao(): ExerciseAttemptDao
     abstract fun tagDao(): TagDao
     abstract fun tagExerciseJoinDao(): TagExerciseJoinDao
+    abstract fun statisticsDao(): StatisticsDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the

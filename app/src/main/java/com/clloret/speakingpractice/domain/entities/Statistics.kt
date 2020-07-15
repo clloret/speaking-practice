@@ -1,6 +1,7 @@
 package com.clloret.speakingpractice.domain.entities
 
 import androidx.room.ColumnInfo
+import kotlin.math.roundToInt
 
 data class Statistics(
     @ColumnInfo(name = "total_attempts") val totalAttempts: Int,
@@ -12,5 +13,5 @@ data class Statistics(
     @ColumnInfo(name = "non_practiced_exercises") val nonPracticedExercises: Int
 ) {
     val percentagePracticedExercises: Int
-        get() = practicedExercises / totalExercises
+        get() = (practicedExercises * 100 / totalExercises.toDouble()).roundToInt()
 }

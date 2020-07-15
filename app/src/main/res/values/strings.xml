@@ -47,4 +47,8 @@
     <string name="title_statistics_correct">Correct</string>
     <string name="title_statistics_incorrect">Incorrect</string>
     <string name="title_statistics_success_rate">Success Rate</string>
+    <string name="title_statistics_exercises">Exercises</string>
+    <string name="title_statistics_practiced">Practiced</string>
+    <string name="title_statistics_non_practiced">Non Practiced</string>
+    <string name="title_statistics_percentage_practiced">% Practiced</string>
 </resources>

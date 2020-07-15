@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_primary">#388E3C</color>
+    <color name="color_primary">#388e3c</color>
     <color name="color_primary_variant">#1b5e20</color>
-    <color name="color_secondary">#FFC107</color>
+    <color name="color_secondary">#ffc107</color>
     <color name="exercise_correct">#4caf50</color>
     <color name="exercise_incorrect">#f44336</color>
     <color name="phrase_background">#c8e6c9</color>
@@ -11,4 +11,8 @@
     <color name="success_rate_failed">#f44336</color>
     <color name="success_rate_passed">#9e9e9e</color>
     <color name="success_rate_completed">#4caf50</color>
+    <color name="statistics_background">#bdbdbd</color>
+    <color name="statistics_text">#000000</color>
+    <color name="statistics_group_background">#c8e6c9</color>
+    <color name="statistics_line_separator">#388e3c</color>
 </resources>

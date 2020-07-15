@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".statistics.StatisticsFragment">
 
@@ -10,47 +11,162 @@
             type="com.clloret.speakingpractice.statistics.StatisticsViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/statistics_background">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/verticalCenterGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <View
+            android:id="@+id/attemptsBackground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/statistics_group_rounded_corner"
+            app:layout_constraintBottom_toBottomOf="@+id/mySpace"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:background="@color/statistics_line_separator"
+            app:layout_constraintBottom_toBottomOf="@+id/successRateValue"
+            app:layout_constraintEnd_toEndOf="@+id/attemptsGroupTitle"
+            app:layout_constraintStart_toStartOf="@+id/attemptsGroupTitle"
+            app:layout_constraintTop_toTopOf="@+id/totalAttemptsValue" />
+
+        <Space
+            android:id="@+id/mySpace"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/successRateValue" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/attemptsGroupTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:text="@string/title_statistics_attempts"
+            android:textAppearance="@style/StatisticsGroupTitle"
+            android:textColor="@color/statistics_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/attemptsBackground" />
+
+        <TextView
+            android:id="@+id/totalAttemptsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_horizontal"
+            android:text="@string/title_statistics_total"
+            android:textAppearance="@style/StatisticsTitle"
+            app:layout_constraintBottom_toBottomOf="@+id/totalAttemptsValue"
+            app:layout_constraintEnd_toStartOf="@+id/verticalCenterGuide"
+            app:layout_constraintTop_toTopOf="@+id/totalAttemptsValue" />
+
+        <TextView
+            android:id="@+id/totalAttemptsValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
             android:text="@{Integer.toString(model.statistics.totalAttempts)}"
-            tools:text="999" />
+            android:textAppearance="@style/StatisticsValue"
+            app:layout_constraintStart_toStartOf="@+id/verticalCenterGuide"
+            app:layout_constraintTop_toBottomOf="@+id/attemptsGroupTitle"
+            tools:text="9.999" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/correctAttemptsTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:gravity="center_horizontal"
-            android:text="@{Integer.toString(model.statistics.correctAttempts)}" />
+            android:text="@string/title_statistics_correct"
+            android:textAppearance="@style/StatisticsTitle"
+            app:layout_constraintBottom_toBottomOf="@+id/correctAttemptsValue"
+            app:layout_constraintEnd_toStartOf="@+id/verticalCenterGuide"
+            app:layout_constraintTop_toTopOf="@+id/correctAttemptsValue" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/correctAttemptsValue"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
-            android:text="@{Integer.toString(model.statistics.incorrectAttempts)}" />
+            android:text="@{Integer.toString(model.statistics.correctAttempts)}"
+            android:textAppearance="@style/StatisticsValue"
+            app:layout_constraintStart_toStartOf="@+id/verticalCenterGuide"
+            app:layout_constraintTop_toBottomOf="@+id/totalAttemptsValue"
+            tools:text="9.999" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/incorrectAttemptsTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:gravity="center_horizontal"
-            android:text="@{Integer.toString(model.statistics.totalExercises)}" />
+            android:text="@string/title_statistics_incorrect"
+            android:textAppearance="@style/StatisticsTitle"
+            app:layout_constraintBottom_toBottomOf="@+id/incorrectAttemptsValue"
+            app:layout_constraintEnd_toStartOf="@+id/verticalCenterGuide"
+            app:layout_constraintTop_toTopOf="@+id/incorrectAttemptsValue" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/incorrectAttemptsValue"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
-            android:text="@{Integer.toString(model.statistics.practicedExercises)}" />
+            android:text="@{Integer.toString(model.statistics.incorrectAttempts)}"
+            android:textAppearance="@style/StatisticsValue"
+            app:layout_constraintStart_toStartOf="@+id/verticalCenterGuide"
+            app:layout_constraintTop_toBottomOf="@+id/correctAttemptsValue"
+            tools:text="9.999" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/successRateTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:gravity="center_horizontal"
-            android:text="@{Integer.toString(model.statistics.nonPracticedExercises)}" />
+            android:text="@string/title_statistics_success_rate"
+            android:textAppearance="@style/StatisticsTitle"
+            app:layout_constraintBottom_toBottomOf="@+id/successRateValue"
+            app:layout_constraintEnd_toStartOf="@+id/verticalCenterGuide"
+            app:layout_constraintTop_toTopOf="@+id/successRateValue" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/successRateValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:text="@{Integer.toString(model.statistics.successRate) + '%'}"
+            android:textAppearance="@style/StatisticsValue"
+            app:layout_constraintStart_toStartOf="@+id/verticalCenterGuide"
+            app:layout_constraintTop_toBottomOf="@+id/incorrectAttemptsValue"
+            tools:text="80%" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

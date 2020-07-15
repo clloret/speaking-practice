@@ -42,4 +42,9 @@
     <string name="title_two_points">:</string>
     <string name="action_less_practiced_exercises">Less practiced exercises</string>
     <string name="action_statistics">Statistics</string>
+    <string name="title_statistics_attempts">Attempts</string>
+    <string name="title_statistics_total">Total</string>
+    <string name="title_statistics_correct">Correct</string>
+    <string name="title_statistics_incorrect">Incorrect</string>
+    <string name="title_statistics_success_rate">Success Rate</string>
 </resources>

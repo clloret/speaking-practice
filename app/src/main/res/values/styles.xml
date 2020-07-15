@@ -43,4 +43,18 @@
         <item name="android:textColor">@color/exercise_incorrect</item>
     </style>
 
+    // Statistics Styles
+
+    <style name="StatisticsGroupTitle" parent="@style/TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/statistics_text</item>
+    </style>
+
+    <style name="StatisticsTitle" parent="@style/TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/statistics_text</item>
+    </style>
+
+    <style name="StatisticsValue" parent="@style/TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textColor">@color/statistics_text</item>
+    </style>
+
 </resources>

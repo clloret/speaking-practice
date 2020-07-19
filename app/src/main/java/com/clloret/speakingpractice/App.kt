@@ -56,7 +56,7 @@ class App : Application() {
             // View Models
 
             viewModel { (filter: ExerciseFilterStrategy) ->
-                PracticeViewModel(filter, get())
+                PracticeViewModel(filter, get(), get())
             }
             viewModel { ExerciseListViewModel(get()) }
             viewModel { TagListViewModel(get()) }

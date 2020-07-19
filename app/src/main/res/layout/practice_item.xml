@@ -108,7 +108,7 @@
             android:background="@drawable/phrase_rounded_corner"
             android:gravity="center"
             android:padding="@dimen/default_padding"
-            android:text="@{exercise.exercise.practicePhrase}"
+            android:text="@{model.getFormattedPracticePhrase(exercise.exercise)}"
             app:layout_constraintBottom_toTopOf="@+id/btnListenPhrase"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

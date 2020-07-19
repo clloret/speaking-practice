@@ -1,21 +1,27 @@
 package com.clloret.speakingpractice.exercise.practice
 
+import android.app.Application
+import android.text.Spannable
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.clloret.speakingpractice.App
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.ExerciseValidator
+import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.lifecycle.Event
 import kotlinx.coroutines.runBlocking
+import timber.log.Timber
 
 class PracticeViewModel(
     filter: ExerciseFilterStrategy,
+    application: Application,
     private val repository: AppRepository
 ) :
-    ViewModel() {
+    AndroidViewModel(application) {
     enum class ExerciseResult {
         HIDDEN, CORRECT, INCORRECT
     }
@@ -28,6 +34,7 @@ class PracticeViewModel(
     val speakText: LiveData<Event<String>> get() = _speakText
 
     private var currentExerciseDetail: ExerciseWithDetails? = null
+    private var correctWordsPositions: List<Int> = listOf()
 
     val exercises = filter.getExercises(repository)
 
@@ -60,12 +67,40 @@ class PracticeViewModel(
 
                 _exerciseResult.postValue(if (result) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
             }
+
+            val words = ExerciseValidator.checkCorrectWords(
+                text,
+                it.exercise.practicePhrase
+            )
+            correctWordsPositions = words
         }
     }
 
     fun resetExercise() {
         _exerciseResult.postValue(ExerciseResult.HIDDEN)
         currentExerciseDetail = null
+        correctWordsPositions = listOf()
+    }
+
+    private fun isCurrentExercise(exercise: Exercise): Boolean {
+        return currentExerciseDetail?.exercise?.let {
+            exercise.id == it.id
+        } ?: false
+    }
+
+    fun getFormattedPracticePhrase(exercise: Exercise): Spannable {
+        Timber.d("Correct Words Positions: $correctWordsPositions")
+        Timber.d("Exercise: $exercise")
+        Timber.d("Current Exercise: ${currentExerciseDetail?.exercise}")
+
+        val context = getApplication<App>().applicationContext
+
+        return FormatCorrectWords.getFormattedPracticePhrase(
+            context,
+            exercise.practicePhrase,
+            correctWordsPositions,
+            isCurrentExercise(exercise)
+        )
     }
 
 }

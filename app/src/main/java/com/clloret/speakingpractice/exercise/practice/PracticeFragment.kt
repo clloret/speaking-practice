@@ -80,7 +80,11 @@ class PracticeFragment : Fragment() {
                 super.onPageSelected(position)
 
                 Timber.d("Page: $position")
-                viewModel.resetExercise()
+
+                val lastPage = listAdapter.itemCount - 1
+                if (position < lastPage) {
+                    viewModel.resetExercise()
+                }
             }
         })
 

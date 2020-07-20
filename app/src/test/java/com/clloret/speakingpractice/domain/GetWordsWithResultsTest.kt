@@ -50,7 +50,7 @@ class GetWordsWithResultsTest(
     }
 
     @Test
-    fun `when get words return correct words correct`() {
+    fun `when get words return correct and incorrect words`() {
         val wordPositions = correctPositions.map(Character::getNumericValue).toList()
         val result = ExerciseValidator.getWordsWithResults(practicePhrase, wordPositions)
 

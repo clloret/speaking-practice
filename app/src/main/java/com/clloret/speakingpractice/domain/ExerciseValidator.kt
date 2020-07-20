@@ -16,7 +16,7 @@ class ExerciseValidator {
             return cleanPhrase.equals(cleanText, true)
         }
 
-        fun checkCorrectWords(recognizedPhrase: String, practicePhrase: String): MutableList<Int> {
+        fun checkCorrectWords(recognizedPhrase: String, practicePhrase: String): List<Int> {
             val cleanText = cleanText(recognizedPhrase)
             val cleanPhrase = cleanText(practicePhrase)
             val textWords = cleanText.split(" ")

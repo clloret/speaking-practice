@@ -24,10 +24,13 @@ class FormatCorrectWords {
             if (isCurrent) {
                 val spannableBuilder = SpannableStringBuilder()
                 val words = getWordsWithResults(practicePhrase, correctWordsPositions)
-                words.forEach { word ->
-                    val color = if (word.second) colorCorrect else colorIncorrect
+                words.forEachIndexed { index, pair ->
+                    val color = if (pair.second) colorCorrect else colorIncorrect
                     spannableBuilder.color(color) {
-                        append(word.first)
+                        append(pair.first)
+                        if (words.lastIndex != index) {
+                            append(' ')
+                        }
                     }
                 }
 

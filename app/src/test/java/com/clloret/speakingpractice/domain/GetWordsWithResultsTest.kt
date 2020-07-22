@@ -54,7 +54,7 @@ class GetWordsWithResultsTest(
         val wordPositions = correctPositions.map(Character::getNumericValue).toList()
         val result = ExerciseValidator.getWordsWithResults(practicePhrase, wordPositions)
 
-        Truth.assertThat(result).containsAtLeastElementsIn(expected)
+        Truth.assertThat(result).containsExactlyElementsIn(expected)
     }
 
 }

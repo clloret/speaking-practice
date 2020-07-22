@@ -7,7 +7,6 @@ import android.text.SpannableStringBuilder
 import androidx.core.content.ContextCompat
 import androidx.core.text.color
 import com.clloret.speakingpractice.R
-import com.clloret.speakingpractice.domain.ExerciseValidator.Companion.getWordsWithResults
 
 class FormatCorrectWords {
 
@@ -15,7 +14,7 @@ class FormatCorrectWords {
         fun getFormattedPracticePhrase(
             context: Context,
             practicePhrase: String,
-            correctWordsPositions: List<Int>,
+            correctWords: List<Pair<String, Boolean>>,
             isCurrent: Boolean
         ): Spannable {
             val colorCorrect = ContextCompat.getColor(context, R.color.exercise_correct)
@@ -23,12 +22,11 @@ class FormatCorrectWords {
 
             if (isCurrent) {
                 val spannableBuilder = SpannableStringBuilder()
-                val words = getWordsWithResults(practicePhrase, correctWordsPositions)
-                words.forEachIndexed { index, pair ->
+                correctWords.forEachIndexed { index, pair ->
                     val color = if (pair.second) colorCorrect else colorIncorrect
                     spannableBuilder.color(color) {
                         append(pair.first)
-                        if (words.lastIndex != index) {
+                        if (correctWords.lastIndex != index) {
                             append(' ')
                         }
                     }
@@ -39,6 +37,5 @@ class FormatCorrectWords {
 
             return SpannableString(practicePhrase)
         }
-
     }
 }

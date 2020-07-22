@@ -8,8 +8,8 @@ import java.io.Serializable
 
 @RunWith(value = Parameterized::class)
 class GetWordsWithResultsTest(
+    private val recognizedPhrase: String,
     private val practicePhrase: String,
-    private val correctPositions: String,
     private val expected: Array<Pair<String, Boolean>>
 ) {
     companion object {
@@ -18,8 +18,8 @@ class GetWordsWithResultsTest(
         fun data(): List<Array<Serializable>> {
             return arrayListOf(
                 arrayOf(
+                    "weekend change the date of the meeting",
                     "we can't change the date of the meeting",
-                    "2,3,4,5,6,7",
                     arrayOf(
                         Pair("we", false),
                         Pair("can't", false),
@@ -32,8 +32,8 @@ class GetWordsWithResultsTest(
                     )
                 ),
                 arrayOf(
+                    "i'd like a lot of white wine please",
                     "i'd like a glass of white wine please",
-                    "0,1,2,4,5,6,7",
                     arrayOf(
                         Pair("i'd", true),
                         Pair("like", true),
@@ -51,10 +51,9 @@ class GetWordsWithResultsTest(
 
     @Test
     fun `when get words return correct and incorrect words`() {
-        val wordPositions = correctPositions.map(Character::getNumericValue).toList()
-        val result = ExerciseValidator.getWordsWithResults(practicePhrase, wordPositions)
+        val result =
+            ExerciseValidator.getWordsWithResults(recognizedPhrase, practicePhrase)
 
         Truth.assertThat(result).containsExactlyElementsIn(expected)
     }
-
 }

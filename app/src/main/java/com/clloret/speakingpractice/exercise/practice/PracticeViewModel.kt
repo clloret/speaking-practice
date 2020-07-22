@@ -34,7 +34,7 @@ class PracticeViewModel(
     val speakText: LiveData<Event<String>> get() = _speakText
 
     private var currentExerciseDetail: ExerciseWithDetails? = null
-    private var correctWordsPositions: List<Int> = listOf()
+    private var correctWords = listOf<Pair<String, Boolean>>()
 
     val exercises = filter.getExercises(repository)
 
@@ -68,18 +68,18 @@ class PracticeViewModel(
                 _exerciseResult.postValue(if (result) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
             }
 
-            val words = ExerciseValidator.checkCorrectWords(
+            val words = ExerciseValidator.getWordsWithResults(
                 text,
                 it.exercise.practicePhrase
             )
-            correctWordsPositions = words
+            correctWords = words
         }
     }
 
     fun resetExercise() {
         _exerciseResult.postValue(ExerciseResult.HIDDEN)
         currentExerciseDetail = null
-        correctWordsPositions = listOf()
+        correctWords = listOf()
     }
 
     private fun isCurrentExercise(exercise: Exercise): Boolean {
@@ -89,7 +89,7 @@ class PracticeViewModel(
     }
 
     fun getFormattedPracticePhrase(exercise: Exercise): Spannable {
-        Timber.d("Correct Words Positions: $correctWordsPositions")
+        Timber.d("Correct Words: $correctWords")
         Timber.d("Exercise: $exercise")
         Timber.d("Current Exercise: ${currentExerciseDetail?.exercise}")
 
@@ -98,7 +98,7 @@ class PracticeViewModel(
         return FormatCorrectWords.getFormattedPracticePhrase(
             context,
             exercise.practicePhrase,
-            correctWordsPositions,
+            correctWords,
             isCurrentExercise(exercise)
         )
     }

@@ -16,18 +16,18 @@ class ExerciseValidator {
             return cleanPhrase.equals(cleanText, true)
         }
 
-        fun checkCorrectWords(recognizedPhrase: String, practicePhrase: String): List<Int> {
-            val cleanRecognized = cleanText(recognizedPhrase)
-            val cleanPractice = cleanText(practicePhrase)
-            val recognizedWords = cleanRecognized.split(" ")
-            val practiceWords = cleanPractice.split(" ")
+        fun getWordsWithResults(
+            recognizedPhrase: String, practicePhrase: String
+        ): List<Pair<String, Boolean>> {
+            val practiceWords = cleanText(practicePhrase).split(" ")
             val practiceWordsMap = practiceWords
                 .withIndex()
                 .groupBy(keySelector = { it.value }, valueTransform = { it.index })
                 .toMutableMap()
 
-            val recognizedWordsIndex = mutableListOf<Int>()
+            val correctWordsPositions = mutableListOf<Int>()
             var lastIndex: Int
+            val recognizedWords = cleanText(recognizedPhrase).split(" ")
 
             for (word in recognizedWords) {
                 if (practiceWordsMap.containsKey(word)) {
@@ -37,25 +37,18 @@ class ExerciseValidator {
                         practiceWordsMap.remove(word)
                     }
 
-                    recognizedWordsIndex.add(lastIndex)
+                    correctWordsPositions.add(lastIndex)
                 }
             }
 
-            return recognizedWordsIndex
-        }
-
-        fun getWordsWithResults(
-            practicePhrase: String,
-            correctWordsPositions: List<Int>
-        ): List<Pair<String, Boolean>> {
-            val practiceWords = practicePhrase.split(" ")
-            return practiceWords.mapIndexed { idx, value ->
+            return practicePhrase.split(" ").mapIndexed { idx, value ->
                 Pair(
                     value,
                     correctWordsPositions.contains(idx)
                 )
             }
         }
+
 
     }
 }

@@ -40,7 +40,7 @@ class AppRepository(private val db: AppDatabase) {
         return db.tagDao().getTagById(id)
     }
 
-    fun getExerciseAttemptsByExerciseId(id: Int): LiveData<List<ExerciseAttempt>> {
+    fun getExerciseAttemptsByExerciseId(id: Int): LiveData<List<AttemptWithExercise>> {
         return db.exerciseAttemptDao().getExerciseAttemptsByExerciseId(id)
     }
 

@@ -2,18 +2,22 @@ package com.clloret.speakingpractice.attempt.list
 
 import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.databinding.AttemptListItemBinding
-import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
+import com.clloret.speakingpractice.domain.entities.AttemptWithExercise
 import java.text.DateFormat
 
 class AttemptListViewHolder(private val binding: AttemptListItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: ExerciseAttempt) {
+    fun bind(
+        item: AttemptWithExercise,
+        viewModel: AttemptListViewModel
+    ) {
         val df = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT)
-        val formattedTime = df.format(item.time)
+        val formattedTime = df.format(item.attempt.time)
 
         binding.apply {
             attempt = item
             attemptTime = formattedTime
+            model = viewModel
         }
     }
 }

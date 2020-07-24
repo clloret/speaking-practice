@@ -63,7 +63,7 @@ class App : Application() {
             viewModel { SelectTagDlgViewModel(get()) }
             viewModel { StatisticsViewModel(get()) }
             viewModel { (exerciseId: Int) ->
-                AttemptListViewModel(get(), exerciseId)
+                AttemptListViewModel(get(), get(), exerciseId)
             }
             viewModel { (exerciseId: Int) ->
                 AddExerciseViewModel(get(), exerciseId)

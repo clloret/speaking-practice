@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.AttemptListItemBinding
-import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
+import com.clloret.speakingpractice.domain.entities.AttemptWithExercise
 
-class AttemptListAdapter :
-    ListAdapter<ExerciseAttempt, AttemptListViewHolder>(AttemptListDiffCallback()) {
+class AttemptListAdapter(
+    private val viewModel: AttemptListViewModel
+) :
+    ListAdapter<AttemptWithExercise, AttemptListViewHolder>(AttemptListDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttemptListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -24,16 +26,22 @@ class AttemptListAdapter :
 
     override fun onBindViewHolder(holder: AttemptListViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, viewModel)
     }
 }
 
-class AttemptListDiffCallback : DiffUtil.ItemCallback<ExerciseAttempt>() {
-    override fun areItemsTheSame(oldItem: ExerciseAttempt, newItem: ExerciseAttempt): Boolean {
-        return oldItem.id == newItem.id
+class AttemptListDiffCallback : DiffUtil.ItemCallback<AttemptWithExercise>() {
+    override fun areItemsTheSame(
+        oldItem: AttemptWithExercise,
+        newItem: AttemptWithExercise
+    ): Boolean {
+        return oldItem.attempt.id == newItem.attempt.id
     }
 
-    override fun areContentsTheSame(oldItem: ExerciseAttempt, newItem: ExerciseAttempt): Boolean {
+    override fun areContentsTheSame(
+        oldItem: AttemptWithExercise,
+        newItem: AttemptWithExercise
+    ): Boolean {
         return oldItem == newItem
     }
 }

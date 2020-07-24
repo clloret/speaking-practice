@@ -52,7 +52,7 @@ class AttemptListFragment : Fragment(), CoroutineScope by MainScope() {
         )
         addItemDecoration(dividerItemDecoration)
 
-        val listAdapter = AttemptListAdapter()
+        val listAdapter = AttemptListAdapter(viewModel)
         adapter = listAdapter
 
         viewModel.attempts.observe(viewLifecycleOwner, Observer {

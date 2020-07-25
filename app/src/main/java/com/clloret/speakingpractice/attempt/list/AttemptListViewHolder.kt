@@ -15,7 +15,7 @@ class AttemptListViewHolder(private val binding: AttemptListItemBinding) :
         val formattedTime = df.format(item.attempt.time)
 
         binding.apply {
-            attempt = item
+            entity = item
             attemptTime = formattedTime
             model = viewModel
         }

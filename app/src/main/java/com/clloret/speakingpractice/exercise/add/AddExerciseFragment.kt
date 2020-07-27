@@ -11,12 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.AddExerciseFragmentBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class AddExerciseFragment : Fragment(), CoroutineScope by MainScope() {
+class AddExerciseFragment : Fragment() {
 
     companion object {
         fun newInstance() = AddExerciseFragment()

@@ -13,11 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.SelectTagDlgFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SelectTagDlgFragment : BottomSheetDialogFragment(), CoroutineScope by MainScope() {
+class SelectTagDlgFragment : BottomSheetDialogFragment() {
 
     private val viewModel: SelectTagDlgViewModel by viewModel()
     private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.nav_graph)

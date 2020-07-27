@@ -11,10 +11,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
 
-class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
+class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModels()
 

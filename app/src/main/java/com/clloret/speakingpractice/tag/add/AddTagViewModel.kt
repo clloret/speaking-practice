@@ -5,9 +5,10 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.entities.Tag
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 
 class AddTagViewModel(
     private val repository: AppRepository,
@@ -70,7 +71,7 @@ class AddTagViewModel(
                 practicePhrase
             )
 
-            runBlocking {
+            viewModelScope.launch {
                 repository.insertOrUpdateTag(tag)
             }
 

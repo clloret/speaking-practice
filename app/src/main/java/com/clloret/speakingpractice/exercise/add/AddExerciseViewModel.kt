@@ -5,10 +5,11 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.utils.databinding.ChipChoiceBinding
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class AddExerciseViewModel(
@@ -101,7 +102,7 @@ class AddExerciseViewModel(
                 translatedPhrase
             )
 
-            runBlocking {
+            viewModelScope.launch {
                 repository.insertOrUpdateExerciseAndTags(exercise, selectedTagIds)
             }
 

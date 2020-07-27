@@ -37,7 +37,6 @@ android {
 // To inline the bytecode built with JVM target 1.8 into
 // bytecode that is being built with JVM target 1.6. (e.g. navArgs)
 
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -86,6 +85,15 @@ dependencies {
 
     testImplementation 'junit:junit:4.13'
     testImplementation 'com.google.truth:truth:1.0.1'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.8"
+    testImplementation "org.robolectric:robolectric:4.3.1"
+    testImplementation 'com.jraska.livedata:testing-ktx:1.1.2'
+
+    // AndroidX Test - JVM testing
+    testImplementation "androidx.test.ext:junit-ktx:1.1.1"
+    testImplementation "androidx.test:core-ktx:1.2.0"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

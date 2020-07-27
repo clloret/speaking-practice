@@ -9,7 +9,8 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.utils.Dialogs
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
@@ -23,15 +24,13 @@ class ImportExercises(
     private val repository: AppRepository by inject()
     var onCompletion: ((Int) -> Unit)? = null
 
-    fun import(uri: Uri, deleteAll: Boolean = true, completion: ((Int) -> Unit)?) {
+    suspend fun import(uri: Uri, deleteAll: Boolean = true, completion: ((Int) -> Unit)?) {
         val exercises = readTsvFile(uri)
-        runBlocking {
-            if (deleteAll) {
-                repository.deleteAllExercises()
-            }
-            for (exercise in exercises) {
-                repository.insertExerciseAndTags(exercise.exercise, exercise.tagNames)
-            }
+        if (deleteAll) {
+            repository.deleteAllExercises()
+        }
+        for (exercise in exercises) {
+            repository.insertExerciseAndTags(exercise.exercise, exercise.tagNames)
         }
         completion?.invoke(exercises.count())
     }
@@ -48,17 +47,24 @@ class ImportExercises(
         return true
     }
 
-    fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+    fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        resultData: Intent?,
+        scope: CoroutineScope
+    ) {
         if (requestCode == FILE_READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             resultData?.data?.also { uri ->
                 Dialogs(context)
                     .showConfirmationWithCancel(messageId = R.string.msg_replace_previous_exercises) { result ->
                         if (result != Dialogs.Button.NEUTRAL) {
-                            import(
-                                uri,
-                                result == Dialogs.Button.POSITIVE,
-                                onCompletion
-                            )
+                            scope.launch {
+                                import(
+                                    uri,
+                                    result == Dialogs.Button.POSITIVE,
+                                    onCompletion
+                                )
+                            }
                         }
                     }
             }

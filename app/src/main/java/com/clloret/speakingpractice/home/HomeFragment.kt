@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
@@ -80,7 +81,7 @@ class HomeFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        importExercises.onActivityResult(requestCode, resultCode, data)
+        importExercises.onActivityResult(requestCode, resultCode, data, lifecycleScope)
     }
 
     private fun importExercises() {

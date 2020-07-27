@@ -36,7 +36,7 @@ interface TagExerciseJoinDao {
               AND tag_exercise_join.exercise_id=:exerciseId
                """
     )
-    fun getSelectedTagsForExercise(exerciseId: Int): LiveData<List<TagSelectedTuple>>
+    suspend fun getSelectedTagsForExercise(exerciseId: Int): List<TagSelectedTuple>
 
     @Query(
         """

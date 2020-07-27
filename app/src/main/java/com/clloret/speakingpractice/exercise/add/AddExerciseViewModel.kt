@@ -31,19 +31,13 @@ class AddExerciseViewModel(
     val formErrors = ObservableArrayList<FormErrors>()
 
     init {
-        repository.getExerciseById(exerciseId).apply {
-            observeForever { value ->
-                value?.let {
-                    showData(it)
-                }
+        viewModelScope.launch {
+            repository.getExerciseById(exerciseId)?.let {
+                showData(it)
             }
-        }
 
-        repository.getSelectedTagsForExercise(exerciseId).apply {
-            observeForever { value ->
-                value?.let { tags ->
-                    exerciseTags.set(tags.sortedBy { it.displayName })
-                }
+            repository.getSelectedTagsForExercise(exerciseId).let { tags ->
+                exerciseTags.set(tags.sortedBy { it.displayName })
             }
         }
     }

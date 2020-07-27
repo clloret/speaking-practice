@@ -56,7 +56,7 @@ interface ExerciseDao {
     suspend fun getLessPracticedExercisesIds(limit: Int): List<Int>
 
     @Query("SELECT * FROM exercises WHERE exercise_id = :id")
-    fun getExerciseById(id: Int): LiveData<Exercise>
+    suspend fun getExerciseById(id: Int): Exercise
 
     @Query("SELECT SUM(result) AS correct, COUNT(*) - SUM(result) AS incorrect FROM exercises INNER JOIN exercise_attempts ON exercises.exercise_id = exercise_attempts.exercise_id GROUP BY exercises.exercise_id HAVING exercises.exercise_id=:exerciseId")
     fun getResultValues(exerciseId: Int): LiveData<ExerciseResultTuple>

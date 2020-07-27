@@ -12,7 +12,7 @@ class AppRepository(private val db: AppDatabase) {
 
     val statistics = db.statisticsDao().getStatistics()
 
-    fun getExerciseById(id: Int): LiveData<Exercise> {
+    suspend fun getExerciseById(id: Int): Exercise? {
         return db.exerciseDao().getExerciseById(id)
     }
 
@@ -44,7 +44,7 @@ class AppRepository(private val db: AppDatabase) {
         return db.exerciseAttemptDao().getExerciseAttemptsByExerciseId(id)
     }
 
-    fun getSelectedTagsForExercise(exerciseId: Int): LiveData<List<TagSelectedTuple>> {
+    suspend fun getSelectedTagsForExercise(exerciseId: Int): List<TagSelectedTuple> {
         return db.tagExerciseJoinDao().getSelectedTagsForExercise(exerciseId)
     }
 

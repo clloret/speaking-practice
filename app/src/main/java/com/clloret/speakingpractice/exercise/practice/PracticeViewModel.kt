@@ -5,7 +5,7 @@ import android.text.Spannable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.clloret.speakingpractice.App
+import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.ExerciseValidator
 import com.clloret.speakingpractice.domain.entities.Exercise
@@ -13,7 +13,7 @@ import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.lifecycle.Event
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class PracticeViewModel(
@@ -56,7 +56,7 @@ class PracticeViewModel(
                 it.exercise.practicePhrase
             )
 
-            runBlocking {
+            viewModelScope.launch {
                 ExerciseAttempt(
                     exerciseId = it.exercise.id,
                     result = result,
@@ -64,9 +64,9 @@ class PracticeViewModel(
                 ).apply {
                     repository.insertAttempt(this)
                 }
-
-                _exerciseResult.postValue(if (result) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
             }
+
+            _exerciseResult.postValue(if (result) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
 
             val words = ExerciseValidator.getWordsWithResults(
                 text,
@@ -93,7 +93,7 @@ class PracticeViewModel(
         Timber.d("Exercise: $exercise")
         Timber.d("Current Exercise: ${currentExerciseDetail?.exercise}")
 
-        val context = getApplication<App>().applicationContext
+        val context = getApplication<Application>().applicationContext
 
         return FormatCorrectWords.getFormattedPracticePhrase(
             context,

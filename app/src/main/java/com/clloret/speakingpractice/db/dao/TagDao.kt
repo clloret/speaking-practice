@@ -11,7 +11,7 @@ interface TagDao {
     fun getAllTags(): LiveData<List<Tag>>
 
     @Query("SELECT * FROM tags WHERE tag_id = :id")
-    fun getTagById(id: Int): LiveData<Tag>
+    suspend fun getTagById(id: Int): Tag?
 
     @Query("SELECT * FROM tags WHERE name = :name")
     fun getTagByName(name: String): Tag?

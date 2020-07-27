@@ -36,7 +36,7 @@ class AppRepository(private val db: AppDatabase) {
         return db.exerciseDao().getLessPracticedExercisesIds(limit)
     }
 
-    fun getTagById(id: Int): LiveData<Tag> {
+    suspend fun getTagById(id: Int): Tag? {
         return db.tagDao().getTagById(id)
     }
 

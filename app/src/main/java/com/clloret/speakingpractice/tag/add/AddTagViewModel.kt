@@ -26,11 +26,9 @@ class AddTagViewModel(
     val formErrors = ObservableArrayList<FormErrors>()
 
     init {
-        repository.getTagById(tagId).apply {
-            observeForever { value ->
-                value?.let {
-                    showData(it)
-                }
+        viewModelScope.launch {
+            repository.getTagById(tagId)?.let {
+                showData(it)
             }
         }
     }

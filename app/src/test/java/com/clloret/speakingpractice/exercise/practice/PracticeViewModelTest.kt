@@ -1,6 +1,5 @@
 package com.clloret.speakingpractice.exercise.practice
 
-import android.app.Application
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
@@ -34,6 +33,8 @@ class PracticeViewModelTest {
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
+    private val colorResourceProvider = TestColorResourceProvider()
+    private val formatCorrectWords = FormatCorrectWords(colorResourceProvider)
     private lateinit var db: AppDatabase
     private lateinit var repository: AppRepository
     private lateinit var sut: PracticeViewModel
@@ -61,9 +62,8 @@ class PracticeViewModelTest {
 
     @Before
     fun createSut() {
-        val context = getApplicationContext<Application>()
         val filter = ExerciseFilterAll()
-        sut = PracticeViewModel(filter, context, repository)
+        sut = PracticeViewModel(filter, repository, formatCorrectWords)
     }
 
     @Test

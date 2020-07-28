@@ -1,41 +1,37 @@
 package com.clloret.speakingpractice.exercise.practice
 
-import android.content.Context
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
-import androidx.core.content.ContextCompat
 import androidx.core.text.color
-import com.clloret.speakingpractice.R
+import com.clloret.speakingpractice.domain.resources.ColorResourceProvider
 
-class FormatCorrectWords {
+class FormatCorrectWords(private val colorResourceProvider: ColorResourceProvider) {
 
-    companion object {
-        fun getFormattedPracticePhrase(
-            context: Context,
-            practicePhrase: String,
-            correctWords: List<Pair<String, Boolean>>,
-            isCurrent: Boolean
-        ): Spanned {
-            val colorCorrect = ContextCompat.getColor(context, R.color.exercise_correct)
-            val colorIncorrect = ContextCompat.getColor(context, R.color.exercise_incorrect)
+    fun getFormattedPracticePhrase(
+        practicePhrase: String,
+        correctWords: List<Pair<String, Boolean>>,
+        isCurrent: Boolean
+    ): Spanned {
+        val colorCorrect = colorResourceProvider.getExerciseCorrect()
+        val colorIncorrect = colorResourceProvider.getExerciseIncorrect()
 
-            if (isCurrent) {
-                val spannableBuilder = SpannableStringBuilder()
-                correctWords.forEachIndexed { index, pair ->
-                    val color = if (pair.second) colorCorrect else colorIncorrect
-                    spannableBuilder.color(color) {
-                        append(pair.first)
-                        if (correctWords.lastIndex != index) {
-                            append(' ')
-                        }
+        if (isCurrent) {
+            val spannableBuilder = SpannableStringBuilder()
+            correctWords.forEachIndexed { index, pair ->
+                val color = if (pair.second) colorCorrect else colorIncorrect
+                spannableBuilder.color(color) {
+                    append(pair.first)
+                    if (correctWords.lastIndex != index) {
+                        append(' ')
                     }
                 }
-
-                return spannableBuilder
             }
 
-            return SpannableString(practicePhrase)
+            return spannableBuilder
         }
+
+        return SpannableString(practicePhrase)
     }
+
 }

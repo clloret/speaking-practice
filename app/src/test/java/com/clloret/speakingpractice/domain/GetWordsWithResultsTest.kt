@@ -6,7 +6,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import java.io.Serializable
 
-@RunWith(value = Parameterized::class)
+@RunWith(Parameterized::class)
 class GetWordsWithResultsTest(
     private val recognizedPhrase: String,
     private val practicePhrase: String,
@@ -15,7 +15,7 @@ class GetWordsWithResultsTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index}: {0} - {1}")
-        fun data(): List<Array<Serializable>> {
+        fun params(): List<Array<Serializable>> {
             return arrayListOf(
                 arrayOf(
                     "weekend change the date of the meeting",

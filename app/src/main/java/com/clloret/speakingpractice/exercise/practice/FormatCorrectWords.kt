@@ -1,9 +1,9 @@
 package com.clloret.speakingpractice.exercise.practice
 
 import android.content.Context
-import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
+import android.text.Spanned
 import androidx.core.content.ContextCompat
 import androidx.core.text.color
 import com.clloret.speakingpractice.R
@@ -16,7 +16,7 @@ class FormatCorrectWords {
             practicePhrase: String,
             correctWords: List<Pair<String, Boolean>>,
             isCurrent: Boolean
-        ): Spannable {
+        ): Spanned {
             val colorCorrect = ContextCompat.getColor(context, R.color.exercise_correct)
             val colorIncorrect = ContextCompat.getColor(context, R.color.exercise_incorrect)
 

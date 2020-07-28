@@ -1,7 +1,7 @@
 package com.clloret.speakingpractice.exercise.practice
 
 import android.app.Application
-import android.text.Spannable
+import android.text.Spanned
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -88,7 +88,7 @@ class PracticeViewModel(
         } ?: false
     }
 
-    fun getFormattedPracticePhrase(exercise: Exercise): Spannable {
+    fun getFormattedPracticePhrase(exercise: Exercise): Spanned {
         Timber.d("Correct Words: $correctWords")
         Timber.d("Exercise: $exercise")
         Timber.d("Current Exercise: ${currentExerciseDetail?.exercise}")

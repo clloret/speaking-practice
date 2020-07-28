@@ -1,7 +1,7 @@
 package com.clloret.speakingpractice.attempt.list
 
 import android.app.Application
-import android.text.Spannable
+import android.text.Spanned
 import androidx.lifecycle.AndroidViewModel
 import com.clloret.speakingpractice.App
 import com.clloret.speakingpractice.db.AppRepository
@@ -18,7 +18,7 @@ class AttemptListViewModel(
 
     val attempts = repository.getExerciseAttemptsByExerciseId(exerciseId)
 
-    fun getFormattedPracticePhrase(exercise: Exercise, attempt: ExerciseAttempt): Spannable {
+    fun getFormattedPracticePhrase(exercise: Exercise, attempt: ExerciseAttempt): Spanned {
         val context = getApplication<App>().applicationContext
 
         val correctWords = ExerciseValidator.getWordsWithResults(

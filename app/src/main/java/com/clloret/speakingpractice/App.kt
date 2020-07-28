@@ -9,11 +9,13 @@ import com.clloret.speakingpractice.domain.exercise.filter.*
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
+import com.clloret.speakingpractice.exercise.practice.FormatCorrectWords
 import com.clloret.speakingpractice.exercise.practice.PracticeViewModel
 import com.clloret.speakingpractice.exercise.practice.filter.SelectTagDlgViewModel
 import com.clloret.speakingpractice.statistics.StatisticsViewModel
 import com.clloret.speakingpractice.tag.add.AddTagViewModel
 import com.clloret.speakingpractice.tag.list.TagListViewModel
+import com.clloret.speakingpractice.utils.resources.ColorResourceProviderImpl
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -39,6 +41,15 @@ class App : Application() {
             single { AppRepository(get()) }
             single { (context: Context) -> ImportExercises(context) }
 
+            // Utils
+
+            single {
+                ColorResourceProviderImpl(
+                    get()
+                )
+            }
+            single { FormatCorrectWords(get()) }
+
             // Exercise Filters
 
             single { ExerciseFilterAll() }
@@ -63,7 +74,7 @@ class App : Application() {
             viewModel { SelectTagDlgViewModel(get()) }
             viewModel { StatisticsViewModel(get()) }
             viewModel { (exerciseId: Int) ->
-                AttemptListViewModel(get(), get(), exerciseId)
+                AttemptListViewModel(exerciseId, get(), get())
             }
             viewModel { (exerciseId: Int) ->
                 AddExerciseViewModel(get(), exerciseId)

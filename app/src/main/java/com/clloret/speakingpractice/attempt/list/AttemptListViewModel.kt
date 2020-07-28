@@ -1,9 +1,7 @@
 package com.clloret.speakingpractice.attempt.list
 
-import android.app.Application
 import android.text.Spanned
-import androidx.lifecycle.AndroidViewModel
-import com.clloret.speakingpractice.App
+import androidx.lifecycle.ViewModel
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.ExerciseValidator
 import com.clloret.speakingpractice.domain.entities.Exercise
@@ -11,23 +9,20 @@ import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
 import com.clloret.speakingpractice.exercise.practice.FormatCorrectWords
 
 class AttemptListViewModel(
-    application: Application,
+    exerciseId: Int,
     repository: AppRepository,
-    exerciseId: Int
-) : AndroidViewModel(application) {
+    private val formatCorrectWords: FormatCorrectWords
+) : ViewModel() {
 
     val attempts = repository.getExerciseAttemptsByExerciseId(exerciseId)
 
     fun getFormattedPracticePhrase(exercise: Exercise, attempt: ExerciseAttempt): Spanned {
-        val context = getApplication<App>().applicationContext
-
         val correctWords = ExerciseValidator.getWordsWithResults(
             attempt.recognizedText,
             exercise.practicePhrase
         )
 
-        return FormatCorrectWords.getFormattedPracticePhrase(
-            context,
+        return formatCorrectWords.getFormattedPracticePhrase(
             exercise.practicePhrase,
             correctWords,
             true

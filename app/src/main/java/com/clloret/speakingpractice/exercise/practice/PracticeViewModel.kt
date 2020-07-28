@@ -1,10 +1,9 @@
 package com.clloret.speakingpractice.exercise.practice
 
-import android.app.Application
 import android.text.Spanned
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.ExerciseValidator
@@ -18,10 +17,10 @@ import timber.log.Timber
 
 class PracticeViewModel(
     filter: ExerciseFilterStrategy,
-    application: Application,
-    private val repository: AppRepository
+    private val repository: AppRepository,
+    private val formatCorrectWords: FormatCorrectWords
 ) :
-    AndroidViewModel(application) {
+    ViewModel() {
     enum class ExerciseResult {
         HIDDEN, CORRECT, INCORRECT
     }
@@ -93,10 +92,7 @@ class PracticeViewModel(
         Timber.d("Exercise: $exercise")
         Timber.d("Current Exercise: ${currentExerciseDetail?.exercise}")
 
-        val context = getApplication<Application>().applicationContext
-
-        return FormatCorrectWords.getFormattedPracticePhrase(
-            context,
+        return formatCorrectWords.getFormattedPracticePhrase(
             exercise.practicePhrase,
             correctWords,
             isCurrentExercise(exercise)

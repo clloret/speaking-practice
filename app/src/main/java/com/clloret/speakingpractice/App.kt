@@ -6,6 +6,7 @@ import com.clloret.speakingpractice.attempt.list.AttemptListViewModel
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.exercise.filter.*
+import com.clloret.speakingpractice.domain.resources.ColorResourceProvider
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
@@ -43,7 +44,7 @@ class App : Application() {
 
             // Utils
 
-            single {
+            single<ColorResourceProvider> {
                 ColorResourceProviderImpl(
                     get()
                 )

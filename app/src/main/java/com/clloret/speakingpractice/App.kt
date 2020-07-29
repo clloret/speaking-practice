@@ -61,9 +61,6 @@ class App : Application() {
             single { (limit: Int) ->
                 ExerciseFilterByLessPracticed(limit)
             }
-            single { (tagId: Int) ->
-                ExerciseFilterByTag(tagId)
-            }
 
             // View Models
 

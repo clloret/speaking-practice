@@ -29,8 +29,8 @@ class TagListAdapter :
         val item = getItem(position)
 
         var isSelected = false
-        if (selectionTracker != null) {
-            if (selectionTracker!!.isSelected(item.id.toLong())) {
+        selectionTracker?.let {
+            if (it.isSelected(item.id.toLong())) {
                 isSelected = true
             }
         }

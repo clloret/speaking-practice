@@ -30,8 +30,8 @@ class ExerciseListAdapter(private val findNavController: NavController) :
         val item = getItem(position)
 
         var isSelected = false
-        if (selectionTracker != null) {
-            if (selectionTracker!!.isSelected(item.exercise.id.toLong())) {
+        selectionTracker?.let {
+            if (it.isSelected(item.exercise.id.toLong())) {
                 isSelected = true
             }
         }

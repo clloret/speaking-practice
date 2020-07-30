@@ -37,12 +37,6 @@ class TagListAdapter :
         holder.bind(item, position, isSelected)
     }
 
-//    override fun onClick(details: TagItemDetails) {
-//        val action = ExerciseListFragmentDirections.actionExerciseListFragmentToAttemptListFragment(
-//            exerciseId = exerciseDetail.id
-//        )
-//        findNavController.navigate(action)
-//    }
 }
 
 class TagListDiffCallback : DiffUtil.ItemCallback<Tag>() {

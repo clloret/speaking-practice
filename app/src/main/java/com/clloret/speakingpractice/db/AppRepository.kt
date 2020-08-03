@@ -81,4 +81,8 @@ class AppRepository(private val db: AppDatabase) {
             .insertExerciseAndTags(exercise, tagNames, db.tagDao(), db.tagExerciseJoinDao())
     }
 
+    suspend fun insertAllPracticeWords(practiceWords: List<PracticeWord>) {
+        db.practiceWordDao()
+            .insertAll(practiceWords)
+    }
 }

@@ -13,8 +13,9 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @Database(
-    entities = [Exercise::class, ExerciseAttempt::class, Tag::class, TagExerciseJoin::class],
-    views = [ExerciseResults::class], version = 2, exportSchema = true
+    entities = [Exercise::class, ExerciseAttempt::class, Tag::class, TagExerciseJoin::class,
+        PracticeWord::class],
+    views = [ExerciseResults::class], version = 3, exportSchema = true
 )
 @TypeConverters(DbConverters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -23,6 +24,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun tagDao(): TagDao
     abstract fun tagExerciseJoinDao(): TagExerciseJoinDao
     abstract fun statisticsDao(): StatisticsDao
+    abstract fun practiceWordDao(): PracticeWordDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
@@ -43,6 +45,7 @@ abstract class AppDatabase : RoomDatabase() {
                 )
                     .addCallback(ExercisesDatabaseCallback(scope))
                     .addMigrations(DatabaseMigrations.MIGRATION_1_2)
+                    .addMigrations(DatabaseMigrations.MIGRATION_2_3)
                     .build()
                 INSTANCE = instance
                 return instance

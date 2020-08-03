@@ -11,6 +11,22 @@ class DatabaseMigrations {
             }
         }
 
+        val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                migration2to3(database)
+            }
+        }
+
+        private fun migration2to3(database: SupportSQLiteDatabase) {
+            baseMigration(database)
+            database.execSQL(
+                "CREATE TABLE IF NOT EXISTS practice_words (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `word` TEXT NOT NULL, `result` INTEGER NOT NULL)"
+            )
+            database.execSQL(
+                "CREATE INDEX IF NOT EXISTS `index_practice_words_exercise_id` ON practice_words (`exercise_id`)"
+            )
+        }
+
         private fun baseMigration(database: SupportSQLiteDatabase) {
             // Migrate exercises table
 

@@ -10,6 +10,7 @@ import com.clloret.speakingpractice.domain.ExerciseValidator
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
+import com.clloret.speakingpractice.domain.entities.PracticeWord
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.lifecycle.Event
 import kotlinx.coroutines.launch
@@ -49,7 +50,7 @@ class PracticeViewModel(
     }
 
     fun validatePhrase(text: String) {
-        currentExerciseDetail?.let {
+        currentExerciseDetail?.let { it ->
             val result = ExerciseValidator.validatePhrase(
                 text,
                 it.exercise.practicePhrase
@@ -72,6 +73,18 @@ class PracticeViewModel(
                 it.exercise.practicePhrase
             )
             correctWords = words
+
+            viewModelScope.launch {
+                val practiceWords =
+                    words.map { word ->
+                        PracticeWord(
+                            exerciseId = it.exercise.id,
+                            word = word.first,
+                            result = word.second
+                        )
+                    }
+                repository.insertAllPracticeWords(practiceWords)
+            }
         }
     }
 

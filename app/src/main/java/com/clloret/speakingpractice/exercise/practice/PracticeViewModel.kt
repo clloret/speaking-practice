@@ -80,7 +80,7 @@ class PracticeViewModel(
                     words.map { word ->
                         PracticeWord(
                             exerciseId = it.exercise.id,
-                            word = filterValidChars(word.first),
+                            word = filterValidChars(unifyApostrophes(word.first)),
                             result = word.second
                         )
                     }
@@ -116,8 +116,13 @@ class PracticeViewModel(
     companion object {
         private fun filterValidChars(text: String): String {
             return text
-                .filter { it.isLetter() || it == '\'' || it == '’' }
+                .filter { it.isLetter() || it == '’' }
                 .toLowerCase(Locale.US)
+        }
+
+        private fun unifyApostrophes(text: String): String {
+            return text
+                .replace('\'', '’', true)
         }
     }
 

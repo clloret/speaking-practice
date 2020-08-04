@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="word"
+            type="com.clloret.speakingpractice.domain.entities.PracticeWordWithResults" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/practicePhrase"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{word.word}"
+            android:textAppearance="@style/ExerciseListPhase"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/resultsCorrect"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Hello" />
+
+        <TextView
+            android:id="@+id/successRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{@string/percent_format(word.successRate)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="50%" />
+
+        <TextView
+            android:id="@+id/resultsCorrect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@{@string/number_format(word.correct)}"
+            android:textAppearance="@style/ExerciseListResultCorrect"
+            app:layout_constraintBottom_toBottomOf="@+id/resultsIncorrect"
+            app:layout_constraintEnd_toStartOf="@+id/resultsSeparator"
+            tools:text="999" />
+
+        <TextView
+            android:id="@+id/resultsSeparator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/title_slash"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:layout_constraintBottom_toBottomOf="@+id/resultsIncorrect"
+            app:layout_constraintEnd_toStartOf="@+id/resultsIncorrect" />
+
+        <TextView
+            android:id="@+id/resultsIncorrect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{@string/number_format(word.incorrect)}"
+            android:textAppearance="@style/ExerciseListResultIncorrect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/successRate"
+            tools:text="999" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

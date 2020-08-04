@@ -17,6 +17,7 @@ import com.clloret.speakingpractice.statistics.StatisticsViewModel
 import com.clloret.speakingpractice.tag.add.AddTagViewModel
 import com.clloret.speakingpractice.tag.list.TagListViewModel
 import com.clloret.speakingpractice.utils.resources.ColorResourceProviderImpl
+import com.clloret.speakingpractice.words.WordListViewModel
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -71,6 +72,7 @@ class App : Application() {
             viewModel { TagListViewModel(get()) }
             viewModel { SelectTagDlgViewModel(get()) }
             viewModel { StatisticsViewModel(get()) }
+            viewModel { WordListViewModel(get()) }
             viewModel { (exerciseId: Int) ->
                 AttemptListViewModel(exerciseId, get(), get())
             }

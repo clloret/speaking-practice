@@ -15,6 +15,7 @@ import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrateg
 import com.clloret.speakingpractice.utils.lifecycle.Event
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
 
 class PracticeViewModel(
     filter: ExerciseFilterStrategy,
@@ -79,7 +80,7 @@ class PracticeViewModel(
                     words.map { word ->
                         PracticeWord(
                             exerciseId = it.exercise.id,
-                            word = word.first,
+                            word = filterValidChars(word.first),
                             result = word.second
                         )
                     }
@@ -110,6 +111,14 @@ class PracticeViewModel(
             correctWords,
             isCurrentExercise(exercise)
         )
+    }
+
+    companion object {
+        private fun filterValidChars(text: String): String {
+            return text
+                .filter { it.isLetter() || it == '\'' || it == '’' }
+                .toLowerCase(Locale.US)
+        }
     }
 
 }

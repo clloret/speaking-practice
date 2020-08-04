@@ -53,4 +53,5 @@
     <string name="title_statistics_percentage_practiced">% Practiced</string>
     <string name="number_format">%1$,d</string>
     <string name="percent_format">%1$d%%</string>
+    <string name="action_word_list">Word List</string>
 </resources>

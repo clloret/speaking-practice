@@ -56,6 +56,14 @@ class HomeFragment : Fragment() {
                 .navigate(action)
         }
 
+        btnWordList.setOnClickListener {
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToWordListFragment()
+
+            findNavController()
+                .navigate(action)
+        }
+
         btnTagList.setOnClickListener {
             val action =
                 HomeFragmentDirections.actionHomeFragmentToTagListFragment()

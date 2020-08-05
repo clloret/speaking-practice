@@ -17,6 +17,12 @@ class DatabaseMigrations {
             }
         }
 
+        val MIGRATION_3_4 = object : Migration(3, 4) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                migration3to4(database)
+            }
+        }
+
         private fun migration2to3(database: SupportSQLiteDatabase) {
             baseMigration(database)
             database.execSQL(
@@ -24,6 +30,35 @@ class DatabaseMigrations {
             )
             database.execSQL(
                 "CREATE INDEX IF NOT EXISTS `index_practice_words_exercise_id` ON practice_words (`exercise_id`)"
+            )
+        }
+
+        private fun migration3to4(database: SupportSQLiteDatabase) {
+            baseMigration(database)
+
+            // Migrate exercise_attempts table
+
+            database.execSQL(
+                "CREATE TABLE IF NOT EXISTS exercise_attempts_new (`exercise_attempt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `exercise_id` INTEGER NOT NULL, `time` INTEGER NOT NULL, `result` INTEGER NOT NULL, `recognized_text` TEXT NOT NULL, FOREIGN KEY(`exercise_id`) REFERENCES `exercises`(`exercise_id`) ON UPDATE NO ACTION ON DELETE CASCADE )"
+            )
+            database.execSQL(
+                "INSERT INTO exercise_attempts_new (exercise_attempt_id, exercise_id, time, result, recognized_text)"
+                        + " SELECT id, exercise_id, time, result,  recognized_text FROM exercise_attempts"
+            )
+            database.execSQL("DROP TABLE exercise_attempts")
+            database.execSQL("ALTER TABLE exercise_attempts_new RENAME TO exercise_attempts")
+            database.execSQL(
+                "CREATE INDEX IF NOT EXISTS `index_exercise_attempts_exercise_id` ON exercise_attempts (`exercise_id`)"
+            )
+
+            // Drop old practice_words table
+
+            database.execSQL("DROP TABLE practice_words")
+            database.execSQL(
+                "CREATE TABLE IF NOT EXISTS practice_words (`practice_word_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `exercise_attempt_id` INTEGER NOT NULL, `word` TEXT NOT NULL, `result` INTEGER NOT NULL, FOREIGN KEY(`exercise_attempt_id`) REFERENCES `exercise_attempts`(`exercise_attempt_id`) ON UPDATE NO ACTION ON DELETE CASCADE )"
+            )
+            database.execSQL(
+                "CREATE INDEX IF NOT EXISTS `index_practice_words_exercise_attempt_id` ON practice_words (`exercise_attempt_id`)"
             )
         }
 

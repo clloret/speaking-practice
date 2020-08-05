@@ -57,18 +57,6 @@ class PracticeViewModel(
                 it.exercise.practicePhrase
             )
 
-            viewModelScope.launch {
-                ExerciseAttempt(
-                    exerciseId = it.exercise.id,
-                    result = result,
-                    recognizedText = text
-                ).apply {
-                    repository.insertAttempt(this)
-                }
-            }
-
-            _exerciseResult.postValue(if (result) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
-
             val words = ExerciseValidator.getWordsWithResults(
                 text,
                 it.exercise.practicePhrase
@@ -76,6 +64,11 @@ class PracticeViewModel(
             correctWords = words
 
             viewModelScope.launch {
+                val exerciseAttempt = ExerciseAttempt(
+                    exerciseId = it.exercise.id,
+                    result = result,
+                    recognizedText = text
+                )
                 val practiceWords =
                     words.map { word ->
                         PracticeWord(
@@ -84,8 +77,10 @@ class PracticeViewModel(
                             result = word.second
                         )
                     }
-                repository.insertAllPracticeWords(practiceWords)
+                repository.insertExerciseAttemptAndWords(exerciseAttempt, practiceWords)
             }
+
+            _exerciseResult.postValue(if (result) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
         }
     }
 

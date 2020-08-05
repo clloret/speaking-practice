@@ -67,10 +67,6 @@ class AppRepository(private val db: AppDatabase) {
         db.exerciseDao().deleteAll()
     }
 
-    suspend fun insertAttempt(exerciseResult: ExerciseAttempt) {
-        db.exerciseAttemptDao().insert(exerciseResult)
-    }
-
     suspend fun insertOrUpdateExerciseAndTags(exercise: Exercise, tagsIds: List<Int>) {
         db.exerciseDao().insertOrUpdateExerciseAndTags(exercise, tagsIds, db.tagExerciseJoinDao())
     }
@@ -84,8 +80,11 @@ class AppRepository(private val db: AppDatabase) {
             .insertExerciseAndTags(exercise, tagNames, db.tagDao(), db.tagExerciseJoinDao())
     }
 
-    suspend fun insertAllPracticeWords(practiceWords: List<PracticeWord>) {
-        db.practiceWordDao()
-            .insertAll(practiceWords)
+    suspend fun insertExerciseAttemptAndWords(
+        exerciseAttempt: ExerciseAttempt,
+        practiceWords: List<PracticeWord>
+    ) {
+        db.exerciseAttemptDao()
+            .insertExerciseAttemptAndWords(exerciseAttempt, practiceWords, db.practiceWordDao())
     }
 }

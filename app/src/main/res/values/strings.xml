@@ -54,4 +54,7 @@
     <string name="number_format">%1$,d</string>
     <string name="percent_format">%1$d%%</string>
     <string name="action_word_list">Word List</string>
+    <string name="title_order">Order</string>
+    <string name="action_short_correct">Correct</string>
+    <string name="action_short_incorrect">Incorrect</string>
 </resources>

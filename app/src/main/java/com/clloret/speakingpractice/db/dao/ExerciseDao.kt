@@ -49,7 +49,7 @@ interface ExerciseDao {
                        LEFT OUTER JOIN
                        exercise_attempts ON exercises.exercise_id = exercise_attempts.exercise_id
                  GROUP BY exercises.exercise_id
-                 ORDER BY COUNT(exercise_attempts.id)
+                 ORDER BY COUNT(exercise_attempts.exercise_attempt_id)
                  LIMIT :limit
 """
     )

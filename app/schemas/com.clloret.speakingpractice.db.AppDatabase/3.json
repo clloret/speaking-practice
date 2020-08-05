@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "27d38d7b2702ce4729808ef32f73607f",
+    "identityHash": "d9960f162eed01a5621cc2e84d179830",
     "entities": [
       {
         "tableName": "exercises",
@@ -38,11 +38,11 @@
       },
       {
         "tableName": "exercise_attempts",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `exercise_id` INTEGER NOT NULL, `time` INTEGER NOT NULL, `result` INTEGER NOT NULL, `recognized_text` TEXT NOT NULL, FOREIGN KEY(`exercise_id`) REFERENCES `exercises`(`exercise_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`exercise_attempt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `exercise_id` INTEGER NOT NULL, `time` INTEGER NOT NULL, `result` INTEGER NOT NULL, `recognized_text` TEXT NOT NULL, FOREIGN KEY(`exercise_id`) REFERENCES `exercises`(`exercise_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
-            "columnName": "id",
+            "columnName": "exercise_attempt_id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -73,7 +73,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "exercise_attempt_id"
           ],
           "autoGenerate": true
         },
@@ -277,7 +277,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '27d38d7b2702ce4729808ef32f73607f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd9960f162eed01a5621cc2e84d179830')"
     ]
   }
 }

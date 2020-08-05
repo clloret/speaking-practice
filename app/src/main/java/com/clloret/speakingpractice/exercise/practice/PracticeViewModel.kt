@@ -79,7 +79,7 @@ class PracticeViewModel(
                 val practiceWords =
                     words.map { word ->
                         PracticeWord(
-                            exerciseId = it.exercise.id,
+                            exerciseAttemptId = it.exercise.id,
                             word = filterValidChars(unifyApostrophes(word.first)),
                             result = word.second
                         )

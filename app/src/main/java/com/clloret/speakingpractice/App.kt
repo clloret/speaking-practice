@@ -7,6 +7,7 @@ import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.exercise.filter.*
 import com.clloret.speakingpractice.domain.resources.ColorResourceProvider
+import com.clloret.speakingpractice.domain.word.*
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
@@ -25,6 +26,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import timber.log.Timber
 
@@ -61,6 +63,29 @@ class App : Application() {
             }
             single { (limit: Int) ->
                 ExerciseFilterByLessPracticed(limit)
+            }
+
+            // Practice Word Sorters
+
+            single<Comparator<WordSortable>>(named("WordSortByTextAsc")) {
+                WordSortByText(
+                    WordSortStrategy.OrderType.ASC
+                )
+            }
+            single<Comparator<WordSortable>>(named("WordSortByTextDesc")) {
+                WordSortByText(
+                    WordSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<WordSortable>>(named("WordSortByCorrectDesc")) {
+                WordSortByCorrect(
+                    WordSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<WordSortable>>(named("WordSortByIncorrectDesc")) {
+                WordSortByIncorrect(
+                    WordSortStrategy.OrderType.DESC
+                )
             }
 
             // View Models

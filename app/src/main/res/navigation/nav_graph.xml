@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_homeFragment_to_wordListFragment"
             app:destination="@id/wordListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
 
     <fragment
@@ -130,5 +133,10 @@
         android:name="com.clloret.speakingpractice.words.WordListFragment"
         android:label="Word List"
         tools:layout="@layout/word_list_fragment" />
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.clloret.speakingpractice.AboutFragment"
+        android:label="About" />
 
 </navigation>

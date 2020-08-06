@@ -77,8 +77,10 @@ class HomeFragment : Fragment() {
         }
 
         btnStatistics.setOnClickListener {
+//            val action =
+//                HomeFragmentDirections.actionHomeFragmentToStatisticsFragment()
             val action =
-                HomeFragmentDirections.actionHomeFragmentToStatisticsFragment()
+                HomeFragmentDirections.actionHomeFragmentToAboutFragment()
 
             findNavController()
                 .navigate(action)

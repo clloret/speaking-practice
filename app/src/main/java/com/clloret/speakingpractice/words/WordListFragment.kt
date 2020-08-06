@@ -49,10 +49,20 @@ class WordListFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
+    private fun selectDefaultSortOrder(menu: Menu) {
+        menu.findItem(R.id.menu_word_sort_alphabetically_asc).isChecked = true
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
 
         inflater.inflate(R.menu.menu_word_list, menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+
+        selectDefaultSortOrder(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -55,6 +55,8 @@
     <string name="percent_format">%1$d%%</string>
     <string name="action_word_list">Word List</string>
     <string name="title_order">Order</string>
-    <string name="action_short_correct">Correct</string>
-    <string name="action_short_incorrect">Incorrect</string>
+    <string name="action_short_alphabetically_asc">Alphabetically ascending</string>
+    <string name="action_short_alphabetically_desc">Alphabetically descending</string>
+    <string name="action_short_correct">More correct</string>
+    <string name="action_short_incorrect">More incorrect</string>
 </resources>

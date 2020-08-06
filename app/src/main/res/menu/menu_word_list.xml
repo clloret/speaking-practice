@@ -12,6 +12,12 @@
                 android:id="@id/menu_word_order"
                 android:checkableBehavior="single">
                 <item
+                    android:id="@+id/menu_word_sort_alphabetically_asc"
+                    android:title="@string/action_short_alphabetically_asc" />
+                <item
+                    android:id="@+id/menu_word_sort_alphabetically_desc"
+                    android:title="@string/action_short_alphabetically_desc" />
+                <item
                     android:id="@+id/menu_word_sort_correct"
                     android:title="@string/action_short_correct" />
                 <item

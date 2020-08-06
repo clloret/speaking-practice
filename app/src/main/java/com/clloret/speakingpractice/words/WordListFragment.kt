@@ -10,7 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.WordListFragmentBinding
+import com.clloret.speakingpractice.domain.word.WordSortable
+import kotlinx.android.synthetic.main.word_list_fragment.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
 
 class WordListFragment : Fragment() {
 
@@ -19,6 +23,10 @@ class WordListFragment : Fragment() {
     }
 
     private val viewModel: WordListViewModel by viewModel()
+    private val sortByAlphaAsc: Comparator<WordSortable> by inject(named("WordSortByTextAsc"))
+    private val sortByAlphaDesc: Comparator<WordSortable> by inject(named("WordSortByTextDesc"))
+    private val sortByCorrect: Comparator<WordSortable> by inject(named("WordSortByCorrectDesc"))
+    private val sortByIncorrect: Comparator<WordSortable> by inject(named("WordSortByIncorrectDesc"))
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,13 +60,23 @@ class WordListFragment : Fragment() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.menu_word_sort_correct -> sortByCorrect()
+            R.id.menu_word_sort_alphabetically_asc -> selectSortMenuItem(item, sortByAlphaAsc)
+            R.id.menu_word_sort_alphabetically_desc -> selectSortMenuItem(item, sortByAlphaDesc)
+            R.id.menu_word_sort_correct -> selectSortMenuItem(item, sortByCorrect)
+            R.id.menu_sort_sort_incorrect -> selectSortMenuItem(item, sortByIncorrect)
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun sortByCorrect(): Boolean {
-        TODO("Not yet implemented")
+    private fun selectSortMenuItem(item: MenuItem, comparator: Comparator<WordSortable>): Boolean {
+        sortBy(comparator)
+        item.isChecked = true
+        return true
+    }
+
+    private fun sortBy(comparator: Comparator<WordSortable>) {
+        val wordListAdapter = recyclerView.adapter as WordListAdapter
+        wordListAdapter.setOrder(comparator)
     }
 
     private fun RecyclerView.setupRecyclerView() {
@@ -71,7 +89,7 @@ class WordListFragment : Fragment() {
         )
         addItemDecoration(dividerItemDecoration)
 
-        val listAdapter = WordListAdapter()
+        val listAdapter = WordListAdapter(sortByAlphaAsc)
         adapter = listAdapter
 
         viewModel.words.observe(viewLifecycleOwner, Observer {

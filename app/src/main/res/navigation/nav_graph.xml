@@ -137,6 +137,6 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.clloret.speakingpractice.AboutFragment"
-        android:label="About" />
+        android:label="About Me" />
 
 </navigation>

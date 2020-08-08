@@ -2,12 +2,12 @@ package com.clloret.speakingpractice.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.google.android.material.snackbar.Snackbar
@@ -18,6 +18,13 @@ import org.koin.core.parameter.parametersOf
 class HomeFragment : Fragment() {
 
     private val importExercises: ImportExercises by inject { parametersOf(this.requireContext()) }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +44,19 @@ class HomeFragment : Fragment() {
         }
 
         setupButtonsEvents()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.menu_home, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(
+            item,
+            requireView().findNavController()
+        ) || super.onOptionsItemSelected(item)
     }
 
     private fun setupButtonsEvents() {
@@ -77,10 +97,8 @@ class HomeFragment : Fragment() {
         }
 
         btnStatistics.setOnClickListener {
-//            val action =
-//                HomeFragmentDirections.actionHomeFragmentToStatisticsFragment()
             val action =
-                HomeFragmentDirections.actionHomeFragmentToAboutFragment()
+                HomeFragmentDirections.actionHomeFragmentToStatisticsFragment()
 
             findNavController()
                 .navigate(action)

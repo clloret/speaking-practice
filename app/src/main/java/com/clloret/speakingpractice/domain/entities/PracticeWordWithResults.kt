@@ -9,7 +9,7 @@ data class PracticeWordWithResults(
     @ColumnInfo(name = "correct") override val correct: Int,
     @ColumnInfo(name = "incorrect") override val incorrect: Int
 ) : WordSortable {
-    val successRate: Int
+    override val successRate: Int
         get() {
             val count = (correct + incorrect).takeIf { it > 0 } ?: return 0
 

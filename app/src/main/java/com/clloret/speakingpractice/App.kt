@@ -87,6 +87,16 @@ class App : Application() {
                     WordSortStrategy.OrderType.DESC
                 )
             }
+            single<Comparator<WordSortable>>(named("WordSortBySuccessRateAsc")) {
+                WordSortBySuccessRate(
+                    WordSortStrategy.OrderType.ASC
+                )
+            }
+            single<Comparator<WordSortable>>(named("WordSortBySuccessRateDesc")) {
+                WordSortBySuccessRate(
+                    WordSortStrategy.OrderType.DESC
+                )
+            }
 
             // View Models
 

@@ -69,4 +69,6 @@
     <string name="title_about_me">About Me</string>
     <string name="action_sort_success_rate_asc">Success rate ascending</string>
     <string name="action_sort_success_rate_desc">Success rate descending</string>
+    <string name="action_sort_more_practice">More practiced</string>
+    <string name="action_sort_less_practiced">Less practiced</string>
 </resources>

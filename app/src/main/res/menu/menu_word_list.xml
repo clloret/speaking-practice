@@ -29,6 +29,12 @@
                 <item
                     android:id="@+id/menu_word_sort_success_rate_desc"
                     android:title="@string/action_sort_success_rate_desc" />
+                <item
+                    android:id="@+id/menu_word_sort_more_practiced"
+                    android:title="@string/action_sort_more_practice" />
+                <item
+                    android:id="@+id/menu_word_sort_less_practiced"
+                    android:title="@string/action_sort_less_practiced" />
             </group>
         </menu>
     </item>

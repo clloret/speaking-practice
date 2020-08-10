@@ -21,14 +21,14 @@
                     android:id="@+id/menu_word_sort_correct"
                     android:title="@string/action_short_correct" />
                 <item
-                    android:id="@+id/menu_sort_sort_incorrect"
+                    android:id="@+id/menu_word_sort_incorrect"
                     android:title="@string/action_short_incorrect" />
                 <item
-                    android:id="@+id/menu_sort_sort_success_rate_asc"
-                    android:title="@string/action_short_success_rate_asc" />
+                    android:id="@+id/menu_word_sort_success_rate_asc"
+                    android:title="@string/action_sort_success_rate_asc" />
                 <item
-                    android:id="@+id/menu_sort_sort_success_rate_desc"
-                    android:title="@string/action_short_success_rate_desc" />
+                    android:id="@+id/menu_word_sort_success_rate_desc"
+                    android:title="@string/action_sort_success_rate_desc" />
             </group>
         </menu>
     </item>

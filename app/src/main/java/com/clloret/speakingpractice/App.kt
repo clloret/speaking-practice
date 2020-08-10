@@ -97,6 +97,16 @@ class App : Application() {
                     WordSortStrategy.OrderType.DESC
                 )
             }
+            single<Comparator<WordSortable>>(named("WordSortByPracticedAsc")) {
+                WordSortByPracticed(
+                    WordSortStrategy.OrderType.ASC
+                )
+            }
+            single<Comparator<WordSortable>>(named("WordSortByPracticedDesc")) {
+                WordSortByPracticed(
+                    WordSortStrategy.OrderType.DESC
+                )
+            }
 
             // View Models
 

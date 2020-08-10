@@ -27,6 +27,8 @@ class WordListFragment : Fragment() {
     private val sortByAlphaDesc: Comparator<WordSortable> by inject(named("WordSortByTextDesc"))
     private val sortByCorrect: Comparator<WordSortable> by inject(named("WordSortByCorrectDesc"))
     private val sortByIncorrect: Comparator<WordSortable> by inject(named("WordSortByIncorrectDesc"))
+    private val sortBySuccessRateAsc: Comparator<WordSortable> by inject(named("WordSortBySuccessRateAsc"))
+    private val sortBySuccessRateDesc: Comparator<WordSortable> by inject(named("WordSortBySuccessRateDesc"))
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,6 +76,8 @@ class WordListFragment : Fragment() {
             R.id.menu_word_sort_alphabetically_desc -> selectSortMenuItem(item, sortByAlphaDesc)
             R.id.menu_word_sort_correct -> selectSortMenuItem(item, sortByCorrect)
             R.id.menu_sort_sort_incorrect -> selectSortMenuItem(item, sortByIncorrect)
+            R.id.menu_sort_sort_success_rate_asc -> selectSortMenuItem(item, sortBySuccessRateAsc)
+            R.id.menu_sort_sort_success_rate_desc -> selectSortMenuItem(item, sortBySuccessRateDesc)
             else -> super.onOptionsItemSelected(item)
         }
     }

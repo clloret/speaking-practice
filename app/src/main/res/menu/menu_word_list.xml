@@ -23,6 +23,12 @@
                 <item
                     android:id="@+id/menu_sort_sort_incorrect"
                     android:title="@string/action_short_incorrect" />
+                <item
+                    android:id="@+id/menu_sort_sort_success_rate_asc"
+                    android:title="@string/action_short_success_rate_asc" />
+                <item
+                    android:id="@+id/menu_sort_sort_success_rate_desc"
+                    android:title="@string/action_short_success_rate_desc" />
             </group>
         </menu>
     </item>

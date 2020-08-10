@@ -67,4 +67,6 @@
     <string name="about_version">Version</string>
     <string name="about_view_source_code">View source code in GitHub</string>
     <string name="title_about_me">About Me</string>
+    <string name="action_short_success_rate_asc">Success rate ascending</string>
+    <string name="action_short_success_rate_desc">Success rate descending</string>
 </resources>

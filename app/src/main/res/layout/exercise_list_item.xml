@@ -11,7 +11,7 @@
 
         <variable
             name="handlers"
-            type="com.clloret.speakingpractice.exercise.list.Handlers" />
+            type="com.clloret.speakingpractice.exercise.list.OnClickExerciseHandler" />
 
     </data>
 

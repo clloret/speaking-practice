@@ -17,7 +17,7 @@ import com.clloret.speakingpractice.utils.selection.LongItemDetails
 class ExerciseListAdapter(private val findNavController: NavController) :
     ListAdapter<ExerciseWithDetails, ExerciseListAdapter.ViewHolder>(
         ExerciseListDiffCallback()
-    ), Handlers {
+    ), OnClickExerciseHandler {
 
     var selectionTracker: SelectionTracker<Long>? = null
 
@@ -65,11 +65,11 @@ class ExerciseListAdapter(private val findNavController: NavController) :
         fun bind(
             item: ExerciseWithDetails,
             isSelected: Boolean,
-            onClickHandlers: Handlers
+            onClickHandler: OnClickExerciseHandler
         ) {
             binding.apply {
                 exercise = item
-                handlers = onClickHandlers
+                handlers = onClickHandler
                 itemView.isActivated = isSelected
             }
         }
@@ -82,7 +82,7 @@ class ExerciseListAdapter(private val findNavController: NavController) :
     }
 }
 
-interface Handlers {
+interface OnClickExerciseHandler {
     fun onClick(exerciseDetail: ExerciseWithDetails)
 }
 

@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,6 +16,8 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListFragmentBinding
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.utils.Dialogs
+import com.clloret.speakingpractice.utils.selection.LongItemDetailsLookup
+import com.clloret.speakingpractice.utils.selection.LongItemKeyProvider
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -167,8 +168,8 @@ class ExerciseListFragment : Fragment() {
                 selectionTracker = SelectionTracker.Builder(
                     "exercise-selection",
                     this,
-                    ExerciseItemKeyProvider(it),
-                    ExerciseItemDetailsLookup(this),
+                    LongItemKeyProvider(this),
+                    LongItemDetailsLookup(this),
                     StorageStrategy.createLongStorage()
                 ).build()
 
@@ -229,23 +230,6 @@ class ExerciseListFragment : Fragment() {
             }
         }
         return true
-    }
-
-    class ExerciseItemDetailsLookup internal constructor(private val recyclerView: RecyclerView) :
-        ItemDetailsLookup<Long>() {
-        override fun getItemDetails(motionEvent: MotionEvent): ItemDetails<Long>? {
-            val view: View? = recyclerView.findChildViewUnder(motionEvent.x, motionEvent.y)
-            if (view != null) {
-                val viewHolder = recyclerView.getChildViewHolder(view)
-                if (viewHolder is ExerciseListViewHolder) {
-                    return viewHolder.getItemDetails(
-                        motionEvent
-                    )
-                }
-            }
-            return null
-        }
-
     }
 
 }

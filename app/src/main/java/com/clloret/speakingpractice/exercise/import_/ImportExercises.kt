@@ -10,11 +10,14 @@ import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.utils.Dialogs
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
 import java.io.BufferedReader
+import java.io.InputStream
 import java.io.InputStreamReader
 
 class ImportExercises(
@@ -24,8 +27,24 @@ class ImportExercises(
     private val repository: AppRepository by inject()
     var onCompletion: ((Int) -> Unit)? = null
 
-    suspend fun import(uri: Uri, deleteAll: Boolean = true, completion: ((Int) -> Unit)?) {
-        val exercises = readTsvFile(uri)
+    suspend fun import(
+        uri: Uri,
+        deleteAll: Boolean = true,
+        completion: ((Int) -> Unit)?
+    ) {
+        withContext(Dispatchers.IO) {
+            context.contentResolver.openInputStream(uri)?.use {
+                import(it, deleteAll, completion)
+            }
+        }
+    }
+
+    suspend fun import(
+        inputStream: InputStream,
+        deleteAll: Boolean = true,
+        completion: ((Int) -> Unit)?
+    ) {
+        val exercises = readTsvFile(inputStream)
         if (deleteAll) {
             repository.deleteAllExercises()
         }
@@ -71,40 +90,37 @@ class ImportExercises(
         }
     }
 
-    private fun readTsvFile(uri: Uri): List<ExerciseWithTagNames> {
+    private fun readTsvFile(inputStream: InputStream): List<ExerciseWithTagNames> {
         try {
             val exercises = arrayListOf<ExerciseWithTagNames>()
-            val contentResolver = context.contentResolver
 
-            contentResolver.openInputStream(uri)?.use { inputStream ->
-                BufferedReader(InputStreamReader(inputStream)).use { reader ->
-                    // Read the header
-                    reader.readLine()
+            BufferedReader(InputStreamReader(inputStream)).use { reader ->
+                // Read the header
+                reader.readLine()
 
-                    var line: String? = reader.readLine()
-                    while (line != null) {
-                        val tokens = line.split(TSV_DELIMITER)
-                        if (tokens.isNotEmpty()) {
-                            val import = tokens[IMPORT_IDX].toBoolean()
-                            if (import) {
-                                val tagsValue = tokens[TAGS_IDX]
-                                val tagNames =
-                                    if (tagsValue.isBlank()) emptyList()
-                                    else tagsValue
-                                        .split(",")
-                                        .map { it.trim() }
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    val tokens = line.split(TSV_DELIMITER)
+                    if (tokens.isNotEmpty()) {
+                        val import = tokens[IMPORT_IDX].toBoolean()
+                        if (import) {
+                            val tagsValue = tokens[TAGS_IDX]
+                            val tagNames =
+                                if (tagsValue.isBlank()) emptyList()
+                                else tagsValue
+                                    .split(",")
+                                    .map { it.trim() }
 
-                                val exercise =
-                                    Exercise(
-                                        practicePhrase = tokens[PRACTICE_PHRASE_IDX],
-                                        translatedPhrase = tokens[TRANSLATED_PHRASE_IDX]
-                                    )
-                                exercises.add(ExerciseWithTagNames(exercise, tagNames))
-                            }
+                            val exercise =
+                                Exercise(
+                                    practicePhrase = tokens[PRACTICE_PHRASE_IDX],
+                                    translatedPhrase = tokens[TRANSLATED_PHRASE_IDX]
+                                )
+                            exercises.add(ExerciseWithTagNames(exercise, tagNames))
                         }
-
-                        line = reader.readLine()
                     }
+
+                    line = reader.readLine()
                 }
             }
 

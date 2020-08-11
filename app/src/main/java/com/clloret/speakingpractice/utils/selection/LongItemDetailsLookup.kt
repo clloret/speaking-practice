@@ -1,16 +1,16 @@
-package com.clloret.speakingpractice.tag.list
+package com.clloret.speakingpractice.utils.selection
 
 import android.view.MotionEvent
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.widget.RecyclerView
 
-class TagItemDetailsLookup(private val recyclerView: RecyclerView) :
+class LongItemDetailsLookup(private val recyclerView: RecyclerView) :
     ItemDetailsLookup<Long>() {
     override fun getItemDetails(event: MotionEvent): ItemDetails<Long>? {
         val view = recyclerView.findChildViewUnder(event.x, event.y)
         if (view != null) {
             val viewHolder = recyclerView.getChildViewHolder(view)
-            if (viewHolder is TagListAdapter.ViewHolder) {
+            if (viewHolder is LongItemDetails) {
                 return viewHolder.getItemDetails()
             }
         }

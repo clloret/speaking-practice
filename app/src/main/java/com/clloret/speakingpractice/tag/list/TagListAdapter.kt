@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.TagListItemBinding
 import com.clloret.speakingpractice.domain.entities.Tag
+import com.clloret.speakingpractice.utils.selection.LongItemDetails
 
 class TagListAdapter :
     ListAdapter<Tag, TagListAdapter.ViewHolder>(TagListDiffCallback()) {
@@ -49,7 +50,7 @@ class TagListAdapter :
     }
 
     inner class ViewHolder(private val binding: TagListItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root), LongItemDetails {
 
         fun bind(
             item: Tag,
@@ -61,7 +62,7 @@ class TagListAdapter :
             }
         }
 
-        fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
+        override fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
             object : ItemDetailsLookup.ItemDetails<Long>() {
                 override fun getPosition(): Int = adapterPosition
                 override fun getSelectionKey(): Long? = itemId

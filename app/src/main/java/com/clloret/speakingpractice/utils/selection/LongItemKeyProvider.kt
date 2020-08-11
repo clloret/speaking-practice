@@ -1,9 +1,9 @@
-package com.clloret.speakingpractice.tag.list
+package com.clloret.speakingpractice.utils.selection
 
 import androidx.recyclerview.selection.ItemKeyProvider
 import androidx.recyclerview.widget.RecyclerView
 
-class TagItemKeyProvider(private val recyclerView: RecyclerView) :
+class LongItemKeyProvider(private val recyclerView: RecyclerView) :
     ItemKeyProvider<Long>(SCOPE_MAPPED) {
 
     override fun getKey(position: Int): Long? {

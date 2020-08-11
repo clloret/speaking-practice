@@ -16,6 +16,8 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.TagListFragmentBinding
 import com.clloret.speakingpractice.tag.add.AddTagViewModel
 import com.clloret.speakingpractice.utils.Dialogs
+import com.clloret.speakingpractice.utils.selection.LongItemDetailsLookup
+import com.clloret.speakingpractice.utils.selection.LongItemKeyProvider
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -165,8 +167,12 @@ class TagListFragment : Fragment() {
                 selectionTracker = SelectionTracker.Builder(
                     "tag-selection",
                     this,
-                    TagItemKeyProvider(this),
-                    TagItemDetailsLookup(this),
+                    LongItemKeyProvider(
+                        this
+                    ),
+                    LongItemDetailsLookup(
+                        this
+                    ),
                     StorageStrategy.createLongStorage()
                 ).build()
 

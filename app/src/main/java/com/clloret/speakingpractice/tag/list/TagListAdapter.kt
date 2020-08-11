@@ -15,6 +15,15 @@ class TagListAdapter :
 
     var selectionTracker: SelectionTracker<Long>? = null
 
+    init {
+        setHasStableIds(true)
+    }
+
+    override fun getItemId(position: Int): Long {
+        val item = getItem(position)
+        return item.id.toLong()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding: TagListItemBinding = DataBindingUtil.inflate(
@@ -34,7 +43,7 @@ class TagListAdapter :
                 isSelected = true
             }
         }
-        holder.bind(item, position, isSelected)
+        holder.bind(item, isSelected)
     }
 
 }

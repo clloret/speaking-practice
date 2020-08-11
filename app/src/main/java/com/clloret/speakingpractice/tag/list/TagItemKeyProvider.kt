@@ -1,20 +1,17 @@
 package com.clloret.speakingpractice.tag.list
 
 import androidx.recyclerview.selection.ItemKeyProvider
-import com.clloret.speakingpractice.domain.entities.Tag
+import androidx.recyclerview.widget.RecyclerView
 
-class TagItemKeyProvider(private val list: List<Tag>) :
-    ItemKeyProvider<Long>(
-        SCOPE_CACHED
-    ) {
+class TagItemKeyProvider(private val recyclerView: RecyclerView) :
+    ItemKeyProvider<Long>(SCOPE_MAPPED) {
 
-    private val map = list.associateBy({ it.id.toLong() }, { list.indexOf(it) })
-
-    override fun getKey(position: Int): Long {
-        return list[position].id.toLong()
+    override fun getKey(position: Int): Long? {
+        return recyclerView.adapter?.getItemId(position)
     }
 
     override fun getPosition(key: Long): Int {
-        return map[key] ?: error("Key not found")
+        val viewHolder = recyclerView.findViewHolderForItemId(key)
+        return viewHolder?.layoutPosition ?: RecyclerView.NO_POSITION
     }
 }

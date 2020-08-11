@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -166,8 +165,8 @@ class TagListFragment : Fragment() {
                 selectionTracker = SelectionTracker.Builder(
                     "tag-selection",
                     this,
-                    TagItemKeyProvider(it),
-                    ExerciseItemDetailsLookup(this),
+                    TagItemKeyProvider(this),
+                    TagItemDetailsLookup(this),
                     StorageStrategy.createLongStorage()
                 ).build()
 
@@ -229,22 +228,4 @@ class TagListFragment : Fragment() {
         }
         return true
     }
-
-    class ExerciseItemDetailsLookup internal constructor(private val recyclerView: RecyclerView) :
-        ItemDetailsLookup<Long>() {
-        override fun getItemDetails(motionEvent: MotionEvent): ItemDetails<Long>? {
-            val view: View? = recyclerView.findChildViewUnder(motionEvent.x, motionEvent.y)
-            if (view != null) {
-                val viewHolder = recyclerView.getChildViewHolder(view)
-                if (viewHolder is TagListViewHolder) {
-                    return viewHolder.getItemDetails(
-                        motionEvent
-                    )
-                }
-            }
-            return null
-        }
-
-    }
-
 }

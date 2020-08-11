@@ -10,7 +10,7 @@ class TagItemDetailsLookup(private val recyclerView: RecyclerView) :
         val view = recyclerView.findChildViewUnder(event.x, event.y)
         if (view != null) {
             val viewHolder = recyclerView.getChildViewHolder(view)
-            if (viewHolder is TagListViewHolder) {
+            if (viewHolder is TagListAdapter.ViewHolder) {
                 return viewHolder.getItemDetails()
             }
         }

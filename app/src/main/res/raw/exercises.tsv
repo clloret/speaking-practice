@@ -1,4 +1,76 @@
 PracticePhrase	TranslatedPhrase	Import	Tags
-What is your name	¿Cómo te llamas?	TRUE	Samples
-What do you do	¿Qué haces?	TRUE	Samples
-I don’t understand	No entiendo	TRUE	Samples
+It’s on the table	Está en la mesa	TRUE	Samples, Beginner
+He’s a teacher	Él es profesor	TRUE	Samples, Beginner
+She’s tall	Ella es alta	TRUE	Samples, Beginner
+I don’t know	No sé	TRUE	Samples, Beginner
+It's not here	No está aquí	TRUE	Samples, Beginner
+I’m from Spain	Soy de España	TRUE	Samples, Beginner
+Where are you from?	¿De dónde eres?	TRUE	Samples, Beginner
+Where are you?	¿Dónde estás?	TRUE	Samples, Beginner
+Who are you?	¿Quién eres?	TRUE	Samples, Beginner
+What's this?	¿Qué es esto?	TRUE	Samples, Beginner
+That’s not for me	Esto no es para mí	TRUE	Samples, Beginner
+This isn’t my book	Este no es mi libro	TRUE	Samples, Beginner
+He’s not my brother	Él no es mi hermano	TRUE	Samples, Beginner
+Is he with his sister?	¿Está él con su hermana?	TRUE	Samples, Beginner
+The pencil is under the table	El lápiz está debajo de la mesa	TRUE	Samples, Beginner
+Where is it?	¿Dónde está?	TRUE	Samples, Beginner
+It's not there	No está ahí	TRUE	Samples, Beginner
+He's english	El es inglés	TRUE	Samples, Beginner
+He's from England	El es de Inglaterra	TRUE	Samples, Beginner
+Where is she from?	¿De dónde es ella?	TRUE	Samples, Beginner
+She's from United States	Ella es de Estados Unidos	TRUE	Samples, Beginner
+What's your name?	¿Cuál es tu nombre?	TRUE	Samples, Beginner
+Is this your pen?	¿Es este tu bolígrafo?	TRUE	Samples, Beginner
+My pen is red not blue	Mi bolígrafo es rojo no azul	TRUE	Samples, Beginner
+He's in front of me	Él está delante de mi	TRUE	Samples, Beginner
+I’ll do it when I can	Lo haré cuando pueda	TRUE	Samples, Intermediate
+I’ll see him as soon as I can	Le veré en cuanto pueda	TRUE	Samples, Intermediate
+When will they be here?	 ¿Cuándo estarán aquí?	TRUE	Samples, Intermediate
+I have no idea	No tengo ni idea	TRUE	Samples, Intermediate
+Don’t you know when they’re coming?	¿No sabes cuándo vienen?	TRUE	Samples, Intermediate
+They’ll come when I call them	 Vendrán cuando yo les llame	TRUE	Samples, Intermediate
+When are you going to call them?	¿Cuándo vas a llamarles?	TRUE	Samples, Intermediate
+I’ll call them when I have time	Les llamaré cuando tenga tiempo	TRUE	Samples, Intermediate
+Don’t you have any time now?	 ¿No tienes tiempo ahora?	TRUE	Samples, Intermediate
+Of course I do	Por supuesto que sí	TRUE	Samples, Intermediate
+Then, why don’t you do it?	Entonces, ¿por qué no lo haces?	TRUE	Samples, Intermediate
+All right, I’ll do it	Vale, lo haré	TRUE	Samples, Intermediate
+We’ll visit them tomorrow morning	Les visitaremos mañana por la mañana	TRUE	Samples, Intermediate
+He’ll be here a bit later	Él estará aquí un poco más tarde	TRUE	Samples, Intermediate
+Why don’t you call back?	¿Por qué no vuelves a llamar?	TRUE	Samples, Intermediate
+Will they ask me a lot of questions?	¿Me harán muchas preguntas?	TRUE	Samples, Intermediate
+She’ll come when she wants to	Ella vendrá cuando quiera	TRUE	Samples, Intermediate
+When will they receive it?	¿Cuándo lo recibirán?	TRUE	Samples, Intermediate
+It’ll probably take place here	Probablemente tendrá lugar aquí	TRUE	Samples, Intermediate
+Things will change someday	Las cosas cambiarán algún día	TRUE	Samples, Intermediate
+Things have to change	Las cosas tienen que cambiar	TRUE	Samples, Intermediate
+When will it take place?	¿Cuándo tendrá lugar?	TRUE	Samples, Intermediate
+When will the meeting begin?	¿Cuándo empezará la reunión?	TRUE	Samples, Intermediate
+When will it be over?	¿Cuándo terminará?	TRUE	Samples, Intermediate
+When will you be through?	¿Cuándo terminarás?	TRUE	Samples, Intermediate
+You should have told me	Deberías habérmelo dicho	TRUE	Samples, Advanced
+I had no idea you were ill	No tenía ni idea de que estabas enferma	TRUE	Samples, Advanced
+I learned about it through him	Me enteré de ello a través de él	TRUE	Samples, Advanced
+It’s a good thing I ran into her	Menos mal que tropecé con ella	TRUE	Samples, Advanced
+What did the doctors tell you?	 ¿Qué te han dicho los médicos?	TRUE	Samples, Advanced
+How did that happen to you?	 ¿Cómo te pasó eso?	TRUE	Samples, Advanced
+When will you leave the hospital?	¿Cuándo saldrás del hospital?	TRUE	Samples, Advanced
+Keep me up to date on how you’re doing	 Mantenme al día de cómo vas	TRUE	Samples, Advanced
+What a surprise!	¡Vaya sorpresa!	TRUE	Samples, Advanced
+You look good	Tienes buen aspecto	TRUE	Samples, Advanced
+Let’s change the subject	Cambiemos de tema	TRUE	Samples, Advanced
+Let’s not talk about illnesses	No hablemos de enfermedades	TRUE	Samples, Advanced
+They depress me	Me deprimen	TRUE	Samples, Advanced
+I get depressed easily	Me deprimo fácilmente	TRUE	Samples, Advanced
+Come on, cheer up!	¡Venga, anímate!	TRUE	Samples, Advanced
+Maybe it is for you	Quizá lo es para ti	TRUE	Samples, Advanced
+And for you too	Y para ti también	TRUE	Samples, Advanced
+Okay, if you insist	De acuerdo, si insistes	TRUE	Samples, Advanced
+You look tired	Te veo cansado	TRUE	Samples, Advanced
+And wouldn’t you after what I’ve done?	¿Y tú no lo estarías después de lo que he hecho yo?	TRUE	Samples, Advanced
+What have you done?	¿Qué has hecho?	TRUE	Samples, Advanced
+What do you mean?	¿Qué quieres decir?	TRUE	Samples, Advanced
+I mean that everything up to now has been easy for me	Quiero decir que todo hasta ahora ha sido fácil para mí	TRUE	Samples, Advanced
+You think you’re really smart	Te crees muy listo	TRUE	Samples, Advanced
+I missed very few in the last book	Fallé muy pocos en el último libro	TRUE	Samples, Advanced

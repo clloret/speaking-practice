@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_homeFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
 
     <fragment
@@ -138,5 +141,10 @@
         android:id="@+id/aboutFragment"
         android:name="com.clloret.speakingpractice.AboutFragment"
         android:label="About Me" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.clloret.speakingpractice.SettingsFragment"
+        android:label="Settings" />
 
 </navigation>

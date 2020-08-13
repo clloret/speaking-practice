@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_info_24dp"
+        android:title="@string/title_settings" />
+
+    <item
         android:id="@+id/aboutFragment"
         android:icon="@drawable/ic_info_24dp"
         android:title="@string/title_about_me" />

@@ -71,4 +71,11 @@
     <string name="action_sort_success_rate_desc">Success rate descending</string>
     <string name="action_sort_more_practice">More practiced</string>
     <string name="action_sort_less_practiced">Less practiced</string>
+    <string name="pref_collect_statistics" translatable="false">collect_statistics</string>
+    <string name="pref_privacy_policy">Privacy policy</string>
+    <string name="summary_collect_statistics">Submit anonymous usage statistics and error reports to help improve this app. No personal data will be collected.</string>
+    <string name="title_collect_statistics">Improve this app</string>
+    <string name="title_privacy">Privacy</string>
+    <string name="title_settings">Settings</string>
+
 </resources>

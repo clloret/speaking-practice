@@ -6,12 +6,12 @@ buildscript {
     repositories {
         google()
         jcenter()
-
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath 'com.google.gms:google-services:4.3.3'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -40,5 +40,5 @@ ext {
     roomVersion = '2.2.5'
     fragmentVersion = '1.2.5'
     lifecycleVersion = '2.2.0'
-    koinVersion= '2.1.6'
+    koinVersion = '2.1.6'
 }

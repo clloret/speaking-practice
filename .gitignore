@@ -255,5 +255,9 @@ fabric.properties
 
 # End of https://www.gitignore.io/api/gradle,android,windows,androidstudio
 
+# Secrets
+google-services.json
+secrets.properties
+
 /.idea/jarRepositories.xml
 /.idea/checkstyle-idea.xml

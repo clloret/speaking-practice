@@ -7,6 +7,7 @@ import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.exercise.filter.*
 import com.clloret.speakingpractice.domain.resources.ColorResourceProvider
+import com.clloret.speakingpractice.domain.resources.StringResourceProvider
 import com.clloret.speakingpractice.domain.word.*
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
@@ -17,11 +18,16 @@ import com.clloret.speakingpractice.exercise.practice.filter.SelectTagDlgViewMod
 import com.clloret.speakingpractice.statistics.StatisticsViewModel
 import com.clloret.speakingpractice.tag.add.AddTagViewModel
 import com.clloret.speakingpractice.tag.list.TagListViewModel
+import com.clloret.speakingpractice.utils.PreferenceValues
 import com.clloret.speakingpractice.utils.resources.ColorResourceProviderImpl
+import com.clloret.speakingpractice.utils.resources.StringResourceProviderImpl
 import com.clloret.speakingpractice.words.WordListViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -31,11 +37,25 @@ import org.koin.dsl.module
 import timber.log.Timber
 
 class App : Application() {
+    private val preferenceValues: PreferenceValues by inject()
+
     override fun onCreate() {
         super.onCreate()
 
         setupLog()
         setupKoin()
+        setupCollectionServices()
+    }
+
+    private fun setupCollectionServices() {
+        if (!BuildConfig.DEBUG && preferenceValues.isAnalyticsEnabled()) {
+            FirebaseAnalytics
+                .getInstance(this)
+                .setAnalyticsCollectionEnabled(true)
+            FirebaseCrashlytics
+                .getInstance()
+                .setCrashlyticsCollectionEnabled(true)
+        }
     }
 
     private fun setupKoin() {
@@ -52,6 +72,12 @@ class App : Application() {
                     get()
                 )
             }
+            single<StringResourceProvider> {
+                StringResourceProviderImpl(
+                    get()
+                )
+            }
+            single { PreferenceValues(get(), get()) }
             single { FormatCorrectWords(get()) }
 
             // Exercise Filters

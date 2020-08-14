@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.WordListFragmentBinding
 import com.clloret.speakingpractice.domain.word.WordSortable
+import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
 import kotlinx.android.synthetic.main.word_list_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,7 +43,7 @@ class WordListFragment : Fragment() {
         )
 
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.recyclerView.setupRecyclerView()
+        binding.recyclerView.setupRecyclerView(binding.emptyView)
 
         return binding.root
     }
@@ -97,7 +98,7 @@ class WordListFragment : Fragment() {
         wordListAdapter.setOrder(comparator)
     }
 
-    private fun RecyclerView.setupRecyclerView() {
+    private fun RecyclerView.setupRecyclerView(emptyView: View) {
         val linearLayoutManager = LinearLayoutManager(requireContext())
         layoutManager = linearLayoutManager
 
@@ -109,6 +110,9 @@ class WordListFragment : Fragment() {
 
         val listAdapter = WordListAdapter(sortByAlphaAsc)
         adapter = listAdapter
+
+        val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
+        listAdapter.registerAdapterDataObserver(rvEmptyObserver)
 
         viewModel.words.observe(viewLifecycleOwner, Observer {
             it?.let {

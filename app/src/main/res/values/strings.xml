@@ -77,5 +77,6 @@
     <string name="title_collect_statistics">Improve this app</string>
     <string name="title_privacy">Privacy</string>
     <string name="title_settings">Settings</string>
+    <string name="title_empty_word_list">You haven\'t practiced any exercises yet</string>
 
 </resources>

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.AttemptListFragmentBinding
+import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -35,12 +36,12 @@ class AttemptListFragment : Fragment() {
         )
 
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.recyclerView.setupRecyclerView()
+        binding.recyclerView.setupRecyclerView(binding.emptyView)
 
         return binding.root
     }
 
-    private fun RecyclerView.setupRecyclerView() {
+    private fun RecyclerView.setupRecyclerView(emptyView: View) {
         val linearLayoutManager = LinearLayoutManager(requireContext())
         layoutManager = linearLayoutManager
 
@@ -52,6 +53,9 @@ class AttemptListFragment : Fragment() {
 
         val listAdapter = AttemptListAdapter(viewModel)
         adapter = listAdapter
+
+        val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
+        listAdapter.registerAdapterDataObserver(rvEmptyObserver)
 
         viewModel.attempts.observe(viewLifecycleOwner, Observer {
             it?.let {

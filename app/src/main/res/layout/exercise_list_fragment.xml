@@ -21,5 +21,16 @@
             tools:orientation="vertical"
             tools:scrollbars="vertical" />
 
+        <TextView
+            android:id="@+id/emptyView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/default_padding"
+            android:text="@string/title_empty_exercise_list"
+            android:textAppearance="@style/EmptyViewText"
+            android:visibility="gone"
+            tools:visibility="gone" />
+
     </FrameLayout>
 </layout>

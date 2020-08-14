@@ -80,5 +80,6 @@
     <string name="title_empty_word_list">You haven\'t practiced any exercises yet</string>
     <string name="title_empty_attempt_list">You haven\'t practiced this exercise yet</string>
     <string name="title_empty_tag_list">You haven\'t created any tags yet</string>
+    <string name="title_empty_exercise_list">You haven\'t created any exercises yet</string>
 
 </resources>

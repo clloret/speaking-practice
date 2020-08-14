@@ -16,6 +16,7 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListFragmentBinding
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.utils.Dialogs
+import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
 import com.clloret.speakingpractice.utils.selection.LongItemDetailsLookup
 import com.clloret.speakingpractice.utils.selection.LongItemKeyProvider
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -62,7 +63,7 @@ class ExerciseListFragment : Fragment() {
         )
 
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.recyclerView.setupRecyclerView(savedInstanceState)
+        binding.recyclerView.setupRecyclerView(binding.emptyView, savedInstanceState)
 
         return binding.root
     }
@@ -148,7 +149,7 @@ class ExerciseListFragment : Fragment() {
         }
     }
 
-    private fun RecyclerView.setupRecyclerView(savedInstanceState: Bundle?) {
+    private fun RecyclerView.setupRecyclerView(emptyView: View, savedInstanceState: Bundle?) {
         val linearLayoutManager = LinearLayoutManager(requireContext())
         layoutManager = linearLayoutManager
 
@@ -160,6 +161,9 @@ class ExerciseListFragment : Fragment() {
 
         val listAdapter = ExerciseListAdapter(findNavController())
         adapter = listAdapter
+
+        val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
+        listAdapter.registerAdapterDataObserver(rvEmptyObserver)
 
         viewModel.exercises.observe(viewLifecycleOwner, Observer {
             it?.let {

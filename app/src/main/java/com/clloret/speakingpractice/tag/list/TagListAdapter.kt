@@ -49,7 +49,7 @@ class TagListAdapter :
         holder.bind(item, isSelected)
     }
 
-    inner class ViewHolder(private val binding: TagListItemBinding) :
+    class ViewHolder(private val binding: TagListItemBinding) :
         RecyclerView.ViewHolder(binding.root), LongItemDetails {
 
         fun bind(

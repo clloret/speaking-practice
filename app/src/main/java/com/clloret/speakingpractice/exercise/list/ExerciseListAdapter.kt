@@ -59,7 +59,7 @@ class ExerciseListAdapter(private val findNavController: NavController) :
         findNavController.navigate(action)
     }
 
-    inner class ViewHolder(private val binding: ExerciseListItemBinding) :
+    class ViewHolder(private val binding: ExerciseListItemBinding) :
         RecyclerView.ViewHolder(binding.root), LongItemDetails {
 
         fun bind(

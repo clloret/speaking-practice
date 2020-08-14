@@ -16,6 +16,7 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.TagListFragmentBinding
 import com.clloret.speakingpractice.tag.add.AddTagViewModel
 import com.clloret.speakingpractice.utils.Dialogs
+import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
 import com.clloret.speakingpractice.utils.selection.LongItemDetailsLookup
 import com.clloret.speakingpractice.utils.selection.LongItemKeyProvider
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -61,7 +62,7 @@ class TagListFragment : Fragment() {
         )
 
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.recyclerView.setupRecyclerView(savedInstanceState)
+        binding.recyclerView.setupRecyclerView(binding.emptyView, savedInstanceState)
 
         return binding.root
     }
@@ -147,7 +148,7 @@ class TagListFragment : Fragment() {
         }
     }
 
-    private fun RecyclerView.setupRecyclerView(savedInstanceState: Bundle?) {
+    private fun RecyclerView.setupRecyclerView(emptyView: View, savedInstanceState: Bundle?) {
         val linearLayoutManager = LinearLayoutManager(requireContext())
         layoutManager = linearLayoutManager
 
@@ -159,6 +160,9 @@ class TagListFragment : Fragment() {
 
         val listAdapter = TagListAdapter()
         adapter = listAdapter
+
+        val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
+        listAdapter.registerAdapterDataObserver(rvEmptyObserver)
 
         viewModel.tags.observe(viewLifecycleOwner, Observer {
             it?.let {

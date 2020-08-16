@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_importExercisesDlgFragment"
+            app:destination="@id/importExercisesDlgFragment" />
     </fragment>
 
     <fragment
@@ -146,5 +149,11 @@
         android:id="@+id/settingsFragment"
         android:name="com.clloret.speakingpractice.SettingsFragment"
         android:label="Settings" />
+
+    <dialog
+        android:id="@+id/importExercisesDlgFragment"
+        android:name="com.clloret.speakingpractice.exercise.import_.ImportExercisesDlgFragment"
+        android:label="ImportExercisesDlgFragment"
+        tools:layout="@layout/import_exercises_dlg_fragment" />
 
 </navigation>

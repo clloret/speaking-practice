@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_import_help"
+        android:icon="@drawable/ic_help_24dp"
+        android:title="@string/action_import_show_me_the_help" />
+
+    <item
+        android:id="@+id/menu_import_select_file"
+        android:icon="@drawable/ic_select_file_24dp"
+        android:title="@string/action_import_select_a_file" />
+
+</menu>

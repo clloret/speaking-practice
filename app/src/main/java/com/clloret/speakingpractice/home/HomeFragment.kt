@@ -1,15 +1,18 @@
 package com.clloret.speakingpractice.home
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.navigation.ui.NavigationUI
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
+import com.clloret.speakingpractice.exercise.import_.ImportExercisesSharedViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
@@ -17,8 +20,13 @@ import org.koin.core.parameter.parametersOf
 
 class HomeFragment : Fragment() {
 
-    private val importExercises: ImportExercises by inject { parametersOf(this.requireContext()) }
+    companion object {
+        private const val HELP_URL =
+            "https://github.com/clloret/speaking-practice/wiki/Import-exercises"
+    }
 
+    private val sharedViewModel: ImportExercisesSharedViewModel by navGraphViewModels(R.id.nav_graph)
+    private val importExercises: ImportExercises by inject { parametersOf(this.requireContext()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +44,23 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        sharedViewModel.onShowHelp = {
+            findNavController().popBackStack()
+
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(HELP_URL)
+                )
+            )
+        }
+
+        sharedViewModel.onSelectFile = {
+            findNavController().popBackStack()
+
+            this.importExercises()
+        }
 
         importExercises.apply {
             onCompletion = { count ->
@@ -93,7 +118,11 @@ class HomeFragment : Fragment() {
         }
 
         btnImportExercises.setOnClickListener {
-            this.importExercises()
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToImportExercisesDlgFragment()
+
+            findNavController()
+                .navigate(action)
         }
 
         btnStatistics.setOnClickListener {

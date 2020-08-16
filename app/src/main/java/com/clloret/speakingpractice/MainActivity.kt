@@ -8,6 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import com.google.android.material.snackbar.Snackbar
+import com.vorlonsoft.android.rate.AppRate
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         configureAppBar()
+        configureAndroidRate()
         observeData()
     }
 
@@ -44,6 +46,13 @@ class MainActivity : AppCompatActivity() {
             findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG
         )
         snackBar.show()
+    }
+
+    private fun configureAndroidRate() {
+        AppRate.with(this)
+            .monitor()
+
+        AppRate.showRateDialogIfMeetsConditions(this)
     }
 
 }

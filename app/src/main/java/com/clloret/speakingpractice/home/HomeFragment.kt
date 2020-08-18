@@ -22,6 +22,8 @@ class HomeFragment : Fragment() {
 
     companion object {
         private const val HELP_URL =
+            "https://github.com/clloret/speaking-practice/wiki"
+        private const val IMPORT_HELP_URL =
             "https://github.com/clloret/speaking-practice/wiki/Import-exercises"
     }
 
@@ -51,7 +53,7 @@ class HomeFragment : Fragment() {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse(HELP_URL)
+                    Uri.parse(IMPORT_HELP_URL)
                 )
             )
         }
@@ -78,10 +80,13 @@ class HomeFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(
-            item,
-            requireView().findNavController()
-        ) || super.onOptionsItemSelected(item)
+        return when (item.itemId) {
+            R.id.menu_home_help -> showHelp()
+            else -> NavigationUI.onNavDestinationSelected(
+                item,
+                requireView().findNavController()
+            ) || super.onOptionsItemSelected(item)
+        }
     }
 
     private fun setupButtonsEvents() {
@@ -143,6 +148,16 @@ class HomeFragment : Fragment() {
 
     private fun importExercises() {
         importExercises.performFileSearchFromFragment(this)
+    }
+
+    private fun showHelp(): Boolean {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(HELP_URL)
+            )
+        )
+        return true
     }
 
     private fun showSnackBar(message: String) {

@@ -11,7 +11,7 @@ class AttemptListViewHolder(private val binding: AttemptListItemBinding) :
         item: AttemptWithExercise,
         viewModel: AttemptListViewModel
     ) {
-        val df = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT)
+        val df = DateFormat.getInstance()
         val formattedTime = df.format(item.attempt.time)
 
         binding.apply {

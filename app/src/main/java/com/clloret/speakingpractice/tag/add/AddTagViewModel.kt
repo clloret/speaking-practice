@@ -61,19 +61,19 @@ class AddTagViewModel(
 
     fun saveData() {
         if (isFormValid()) {
-            val practicePhrase: String = name.get()!!
+            val name: String = name.get()!!
             val isNew = tagId == DEFAULT_ID
             val id = if (isNew) 0 else tagId
             val tag = Tag(
                 id,
-                practicePhrase
+                name
             )
 
             viewModelScope.launch {
                 repository.insertOrUpdateTag(tag)
+            }.invokeOnCompletion {
+                saveData.postValue(true)
             }
-
-            saveData.postValue(true)
         } else {
             saveData.postValue(false)
         }

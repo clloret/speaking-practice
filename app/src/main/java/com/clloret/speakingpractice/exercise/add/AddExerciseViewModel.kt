@@ -98,9 +98,9 @@ class AddExerciseViewModel(
 
             viewModelScope.launch {
                 repository.insertOrUpdateExerciseAndTags(exercise, selectedTagIds)
+            }.invokeOnCompletion {
+                saveData.postValue(true)
             }
-
-            saveData.postValue(true)
         } else {
             saveData.postValue(false)
         }

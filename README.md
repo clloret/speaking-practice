@@ -19,10 +19,22 @@ An Android application to practice English pronunciation.
 
 ## Requirements
 
-- JDK 1.8
-- [Android SDK](http://developer.android.com/sdk/index.html).
-- Android 10 [(API 29)](https://developer.android.com/studio/releases/platforms#10).
-- Latest Android SDK Tools and build tools.
+-   JDK 1.8
+-   [Android SDK](http://developer.android.com/sdk/index.html).
+-   Android 10 [(API 29)](https://developer.android.com/studio/releases/platforms#10).
+-   Latest Android SDK Tools and build tools.
+
+## Thanks for open source this libraries
+
+-   [Android-Debug-Database](https://github.com/amitshekhariitbhu/Android-Debug-Database)
+-   [AndroidRate](https://github.com/Vorlonsoft/AndroidRate)
+-   [Junit](https://github.com/junit-team/junit4)
+-   [Koin](https://github.com/InsertKoinIO/koin)
+-   [Livedata-Testing](https://github.com/jraska/livedata-testing)
+-   [Material-About-Library](https://github.com/daniel-stoneuk/material-about-library)
+-   [Mockito](https://github.com/mockito/mockito)
+-   [Robolectric](https://github.com/robolectric/robolectric)
+-   [Timber](https://github.com/JakeWharton/timber)
 
 ## License
 

@@ -9,11 +9,17 @@
             name="word"
             type="com.clloret.speakingpractice.domain.entities.PracticeWordWithResults" />
 
+        <variable
+            name="handler"
+            type="com.clloret.speakingpractice.words.OnClickWordHandler" />
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{()->handler.onClick(word)}">
 
         <TextView
             android:id="@+id/practicePhrase"

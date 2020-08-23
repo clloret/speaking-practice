@@ -5,6 +5,7 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -108,7 +109,7 @@ class WordListFragment : Fragment() {
         )
         addItemDecoration(dividerItemDecoration)
 
-        val listAdapter = WordListAdapter(sortByAlphaAsc)
+        val listAdapter = WordListAdapter(sortByAlphaAsc, findNavController())
         adapter = listAdapter
 
         val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)

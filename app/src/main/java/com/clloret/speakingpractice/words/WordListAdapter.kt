@@ -3,15 +3,20 @@ package com.clloret.speakingpractice.words
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.WordListItemBinding
+import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByWord
 import com.clloret.speakingpractice.domain.entities.PracticeWordWithResults
 import com.clloret.speakingpractice.domain.word.WordSortable
 
-class WordListAdapter(comparator: Comparator<WordSortable>) :
-    RecyclerView.Adapter<WordListViewHolder>() {
+class WordListAdapter(
+    comparator: Comparator<WordSortable>,
+    private val findNavController: NavController
+) :
+    RecyclerView.Adapter<WordListAdapter.ViewHolder>(), OnClickWordHandler {
 
     private val adapterCallback: WordListAdapterCallback =
         WordListAdapterCallback(this, comparator)
@@ -21,19 +26,19 @@ class WordListAdapter(comparator: Comparator<WordSortable>) :
             adapterCallback
         )
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding: WordListItemBinding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.word_list_item,
             parent, false
         )
-        return WordListViewHolder(binding)
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: WordListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = sortedList.get(position)
-        holder.bind(item)
+        holder.bind(item, this)
     }
 
     override fun getItemCount() = sortedList.size()
@@ -55,4 +60,30 @@ class WordListAdapter(comparator: Comparator<WordSortable>) :
             endBatchedUpdates()
         }
     }
+
+    override fun onClick(word: PracticeWordWithResults) {
+        val action = WordListFragmentDirections.actionWordListFragmentToAttemptListFragment(
+            filter = AttemptFilterByWord(word.word)
+        )
+        findNavController.navigate(action)
+    }
+
+    class ViewHolder(private val binding: WordListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(
+            item: PracticeWordWithResults,
+            onClickHandler: OnClickWordHandler
+        ) {
+            binding.apply {
+                word = item
+                handler = onClickHandler
+            }
+        }
+    }
+
+}
+
+interface OnClickWordHandler {
+    fun onClick(word: PracticeWordWithResults)
 }

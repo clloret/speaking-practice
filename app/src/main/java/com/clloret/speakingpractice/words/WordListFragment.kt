@@ -55,8 +55,9 @@ class WordListFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    private fun selectDefaultSortOrder(menu: Menu) {
-        menu.findItem(R.id.menu_word_sort_alphabetically_asc).isChecked = true
+    private fun selectStoredSortOrder(menu: Menu) {
+        val itemId = viewModel.sortItemId ?: R.id.menu_word_sort_alphabetically_asc
+        menu.findItem(itemId).isChecked = true
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -68,7 +69,7 @@ class WordListFragment : Fragment() {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
 
-        selectDefaultSortOrder(menu)
+        selectStoredSortOrder(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -91,6 +92,8 @@ class WordListFragment : Fragment() {
     private fun selectSortMenuItem(item: MenuItem, comparator: Comparator<WordSortable>): Boolean {
         sortBy(comparator)
         item.isChecked = true
+        viewModel.selectedComparator = comparator
+        viewModel.sortItemId = item.itemId
         return true
     }
 
@@ -109,7 +112,8 @@ class WordListFragment : Fragment() {
         )
         addItemDecoration(dividerItemDecoration)
 
-        val listAdapter = WordListAdapter(sortByAlphaAsc, findNavController())
+        val comparator = viewModel.selectedComparator ?: sortByAlphaAsc
+        val listAdapter = WordListAdapter(comparator, findNavController())
         adapter = listAdapter
 
         val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)

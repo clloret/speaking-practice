@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Show exercise attempts when select a word in word list screen
+- Save state of selected order in word list screen
 
 ## [1.0.1] - 2020-08-19
 

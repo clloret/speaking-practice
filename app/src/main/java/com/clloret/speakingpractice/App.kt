@@ -5,6 +5,7 @@ import android.content.Context
 import com.clloret.speakingpractice.attempt.list.AttemptListViewModel
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppRepository
+import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterStrategy
 import com.clloret.speakingpractice.domain.exercise.filter.*
 import com.clloret.speakingpractice.domain.resources.ColorResourceProvider
 import com.clloret.speakingpractice.domain.resources.StringResourceProvider
@@ -144,8 +145,8 @@ class App : Application() {
             viewModel { SelectTagDlgViewModel(get()) }
             viewModel { StatisticsViewModel(get()) }
             viewModel { WordListViewModel(get()) }
-            viewModel { (exerciseId: Int) ->
-                AttemptListViewModel(exerciseId, get(), get())
+            viewModel { (filter: AttemptFilterStrategy) ->
+                AttemptListViewModel(filter, get(), get())
             }
             viewModel { (exerciseId: Int) ->
                 AddExerciseViewModel(get(), exerciseId)

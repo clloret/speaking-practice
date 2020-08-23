@@ -80,8 +80,8 @@
         android:label="Exercise Attempts"
         tools:layout="@layout/attempt_list_fragment">
         <argument
-            android:name="exerciseId"
-            app:argType="integer" />
+            android:name="filter"
+            app:argType="com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterStrategy" />
     </fragment>
 
     <fragment

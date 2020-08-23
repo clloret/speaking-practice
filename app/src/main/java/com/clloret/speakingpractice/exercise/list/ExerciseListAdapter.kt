@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListItemBinding
+import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByExercise
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.utils.selection.LongItemDetails
 
@@ -54,7 +55,7 @@ class ExerciseListAdapter(private val findNavController: NavController) :
 
     override fun onClick(exerciseDetail: ExerciseWithDetails) {
         val action = ExerciseListFragmentDirections.actionExerciseListFragmentToAttemptListFragment(
-            exerciseId = exerciseDetail.exercise.id
+            filter = AttemptFilterByExercise(exerciseDetail.exercise.id)
         )
         findNavController.navigate(action)
     }

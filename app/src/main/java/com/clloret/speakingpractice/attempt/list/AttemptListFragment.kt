@@ -23,7 +23,7 @@ class AttemptListFragment : Fragment() {
         fun newInstance() = AttemptListFragment()
     }
 
-    private val viewModel: AttemptListViewModel by viewModel { parametersOf(args.exerciseId) }
+    private val viewModel: AttemptListViewModel by viewModel { parametersOf(args.filter) }
     private val args: AttemptListFragmentArgs by navArgs()
 
     override fun onCreateView(

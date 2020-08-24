@@ -152,12 +152,11 @@ class PracticeFragment : Fragment() {
     }
 
     private fun processRecognizedText(data: Intent) {
-        val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) ?: return
-        val recognizedText = result[0]
+        val results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) ?: return
 
-        Timber.i(recognizedText)
+        Timber.d("Recognized results: $results")
 
-        viewModel.validatePhrase(recognizedText)
+        viewModel.validatePhrase(results)
     }
 
     private fun startRecognizeSpeech() {
@@ -186,7 +185,7 @@ class PracticeFragment : Fragment() {
         val appContext = this.requireActivity().applicationContext
         val googleTtsPackage = "com.google.android.tts"
 
-        tts = TextToSpeech(appContext, TextToSpeech.OnInitListener { status ->
+        tts = TextToSpeech(appContext, { status ->
             if (status == TextToSpeech.SUCCESS) {
                 val ttsLang = tts?.setLanguage(Locale.US)
                 if (ttsLang == TextToSpeech.LANG_MISSING_DATA

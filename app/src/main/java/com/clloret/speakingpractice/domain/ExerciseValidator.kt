@@ -1,19 +1,53 @@
 package com.clloret.speakingpractice.domain
 
+import androidx.annotation.VisibleForTesting
 import java.util.*
 
-class ExerciseValidator {
+class ExerciseValidator(private val recognizedPhrases: List<String>, val practicePhrase: String) {
+
+    fun getValidPhrase(): Pair<Boolean, String> {
+        val index = getCorrectPhraseIndex()
+
+        if (index == NOT_FOUND) {
+            val bestPhrase = getBestPhrase()
+            return Pair(false, bestPhrase)
+        }
+
+        val phrase = recognizedPhrases[index]
+        return Pair(true, phrase)
+    }
+
+    @VisibleForTesting
+    fun validatePhrase(recognizedPhrase: String): Boolean {
+        val cleanText = cleanText(recognizedPhrase)
+        val cleanPhrase = cleanText(practicePhrase)
+        return cleanPhrase.equals(cleanText, true)
+    }
+
+    private fun getCorrectPhraseIndex(): Int {
+        for (indexedValue in recognizedPhrases.withIndex()) {
+            if (validatePhrase(indexedValue.value)) {
+                return indexedValue.index
+            }
+        }
+        return NOT_FOUND
+    }
+
+    private fun getBestPhrase(): String {
+        val maxCorrect = recognizedPhrases
+            .map { Pair(getWordsWithResults(it, practicePhrase), it) }
+            .maxBy { wordsWithPhrase -> wordsWithPhrase.first.count { it.second } }
+
+        return maxCorrect!!.second
+    }
+
     companion object {
+        const val NOT_FOUND = -1
+
         private fun cleanText(text: String): String {
             return text
                 .filter { it.isLetterOrDigit() || it.isWhitespace() }
                 .toLowerCase(Locale.US)
-        }
-
-        fun validatePhrase(recognizedPhrase: String, practicePhrase: String): Boolean {
-            val cleanText = cleanText(recognizedPhrase)
-            val cleanPhrase = cleanText(practicePhrase)
-            return cleanPhrase.equals(cleanText, true)
         }
 
         fun getWordsWithResults(

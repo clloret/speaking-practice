@@ -50,15 +50,15 @@ class PracticeViewModel(
         _speakText.postValue(Event(text))
     }
 
-    fun validatePhrase(text: String) {
+    fun validatePhrase(textList: List<String>) {
         currentExerciseDetail?.let { it ->
-            val result = ExerciseValidator.validatePhrase(
-                text,
-                it.exercise.practicePhrase
-            )
+            val result = ExerciseValidator(textList, it.exercise.practicePhrase)
+                .getValidPhrase()
+
+            Timber.d("Valid recognized phrase: $result")
 
             val words = ExerciseValidator.getWordsWithResults(
-                text,
+                result.second,
                 it.exercise.practicePhrase
             )
             correctWords = words
@@ -66,8 +66,8 @@ class PracticeViewModel(
             viewModelScope.launch {
                 val exerciseAttempt = ExerciseAttempt(
                     exerciseId = it.exercise.id,
-                    result = result,
-                    recognizedText = text
+                    result = result.first,
+                    recognizedText = result.second
                 )
                 val practiceWords =
                     words.map { word ->
@@ -80,7 +80,8 @@ class PracticeViewModel(
                 repository.insertExerciseAttemptAndWords(exerciseAttempt, practiceWords)
             }
 
-            _exerciseResult.postValue(if (result) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
+            _exerciseResult
+                .postValue(if (result.first) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
         }
     }
 

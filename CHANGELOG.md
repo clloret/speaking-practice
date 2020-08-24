@@ -9,6 +9,10 @@ All notable changes to this project will be documented in this file.
 - Show exercise attempts when select a word in word list screen
 - Save state of selected order in word list screen
 
+### Changed
+
+- Improve voice recognition
+
 ## [1.0.1] - 2020-08-19
 
 ### Fixed

@@ -21,6 +21,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -79,7 +80,7 @@ class PracticeViewModelTest {
         val first = exercises.first()
 
         sut.recognizeSpeech(first)
-        sut.validatePhrase(CORRECT_PHRASE)
+        sut.validatePhrase(arrayListOf(CORRECT_PHRASE))
 
         println(first.exercise.id)
 
@@ -103,10 +104,11 @@ class PracticeViewModelTest {
         val firstExercise = exercises.first()
 
         sut.recognizeSpeech(firstExercise)
-        sut.validatePhrase(INCORRECT_PHRASE)
+        sut.validatePhrase(arrayListOf(CORRECT_PHRASE))
 
         TestObserver.test(sut.exerciseResult)
-            .awaitValue()
+            //.awaitValue()
+            .awaitValue(2, TimeUnit.SECONDS)
             .assertHasValue()
             .assertValue { it == PracticeViewModel.ExerciseResult.INCORRECT }
     }
@@ -117,7 +119,7 @@ class PracticeViewModelTest {
         val first = exercises.first()
 
         sut.recognizeSpeech(first)
-        sut.validatePhrase(CORRECT_PHRASE)
+        sut.validatePhrase(arrayListOf(CORRECT_PHRASE))
 
         val attempts =
             db.exerciseAttemptDao().getExerciseAttemptsByExerciseId(first.exercise.id)

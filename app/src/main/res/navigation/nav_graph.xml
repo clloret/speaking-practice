@@ -136,7 +136,7 @@
 
     <fragment
         android:id="@+id/wordListFragment"
-        android:name="com.clloret.speakingpractice.words.WordListFragment"
+        android:name="com.clloret.speakingpractice.word.WordListFragment"
         android:label="Word List"
         tools:layout="@layout/word_list_fragment">
         <action

@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.words
+package com.clloret.speakingpractice.word
 
 import androidx.lifecycle.ViewModel
 import com.clloret.speakingpractice.db.AppRepository

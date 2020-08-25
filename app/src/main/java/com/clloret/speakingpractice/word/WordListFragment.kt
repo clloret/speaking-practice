@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.words
+package com.clloret.speakingpractice.word
 
 import android.os.Bundle
 import android.view.*

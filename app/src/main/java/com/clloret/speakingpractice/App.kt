@@ -23,7 +23,7 @@ import com.clloret.speakingpractice.tag.list.TagListViewModel
 import com.clloret.speakingpractice.utils.PreferenceValues
 import com.clloret.speakingpractice.utils.resources.ColorResourceProviderImpl
 import com.clloret.speakingpractice.utils.resources.StringResourceProviderImpl
-import com.clloret.speakingpractice.words.WordListViewModel
+import com.clloret.speakingpractice.word.WordListViewModel
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.CompletableJob

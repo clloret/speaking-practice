@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.words
+package com.clloret.speakingpractice.word
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedListAdapterCallback

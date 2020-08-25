@@ -29,30 +29,3 @@ class WordListAdapterCallback(
         return oldItem == newItem
     }
 }
-
-class ComparatorOne : Comparator<PracticeWordWithResults> {
-    override fun compare(o1: PracticeWordWithResults?, o2: PracticeWordWithResults?): Int {
-        if (o1 == null || o2 == null) {
-            return 0
-        }
-        return o1.word.compareTo(o2.word)
-    }
-}
-
-class ComparatorTwo : Comparator<PracticeWordWithResults> {
-    override fun compare(o1: PracticeWordWithResults?, o2: PracticeWordWithResults?): Int {
-        if (o1 == null || o2 == null) {
-            return 0
-        }
-        return o1.correct.compareTo(o2.correct)
-    }
-}
-
-class ComparatorThree : Comparator<PracticeWordWithResults> {
-    override fun compare(o1: PracticeWordWithResults?, o2: PracticeWordWithResults?): Int {
-        if (o1 == null || o2 == null) {
-            return 0
-        }
-        return o1.correct.compareTo(o2.correct)
-    }
-}

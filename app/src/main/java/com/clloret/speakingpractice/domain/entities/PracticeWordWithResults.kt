@@ -1,7 +1,7 @@
 package com.clloret.speakingpractice.domain.entities
 
 import androidx.room.ColumnInfo
-import com.clloret.speakingpractice.domain.word.WordSortable
+import com.clloret.speakingpractice.domain.word.sort.WordSortable
 import kotlin.math.roundToInt
 
 data class PracticeWordWithResults(

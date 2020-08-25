@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.domain.word
+package com.clloret.speakingpractice.domain.word.sort
 
 class WordSortByIncorrect(orderType: OrderType) : WordSortStrategy(orderType) {
     override fun compare(sortable1: WordSortable, sortable2: WordSortable): Int {

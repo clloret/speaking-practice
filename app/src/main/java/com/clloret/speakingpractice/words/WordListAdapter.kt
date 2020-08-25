@@ -10,7 +10,7 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.WordListItemBinding
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByWord
 import com.clloret.speakingpractice.domain.entities.PracticeWordWithResults
-import com.clloret.speakingpractice.domain.word.WordSortable
+import com.clloret.speakingpractice.domain.word.sort.WordSortable
 
 class WordListAdapter(
     comparator: Comparator<WordSortable>,

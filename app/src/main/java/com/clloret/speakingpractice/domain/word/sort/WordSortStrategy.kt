@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.domain.word
+package com.clloret.speakingpractice.domain.word.sort
 
 abstract class WordSortStrategy(private val orderType: OrderType) :
     Comparator<WordSortable> {

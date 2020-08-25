@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.WordListFragmentBinding
-import com.clloret.speakingpractice.domain.word.WordSortable
+import com.clloret.speakingpractice.domain.word.sort.WordSortable
 import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
 import kotlinx.android.synthetic.main.word_list_fragment.*
 import org.koin.android.ext.android.inject

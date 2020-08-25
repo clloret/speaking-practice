@@ -10,7 +10,7 @@ import com.clloret.speakingpractice.domain.exercise.filter.*
 import com.clloret.speakingpractice.domain.exercise.sort.*
 import com.clloret.speakingpractice.domain.resources.ColorResourceProvider
 import com.clloret.speakingpractice.domain.resources.StringResourceProvider
-import com.clloret.speakingpractice.domain.word.*
+import com.clloret.speakingpractice.domain.word.sort.*
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel

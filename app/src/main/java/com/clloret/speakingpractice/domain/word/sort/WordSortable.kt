@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.domain.word
+package com.clloret.speakingpractice.domain.word.sort
 
 interface WordSortable {
     val word: String

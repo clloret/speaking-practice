@@ -3,7 +3,7 @@ package com.clloret.speakingpractice.words
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedListAdapterCallback
 import com.clloret.speakingpractice.domain.entities.PracticeWordWithResults
-import com.clloret.speakingpractice.domain.word.WordSortable
+import com.clloret.speakingpractice.domain.word.sort.WordSortable
 
 class WordListAdapterCallback(
     adapter: RecyclerView.Adapter<*>,

@@ -6,19 +6,27 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SortedList
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListItemBinding
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByExercise
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
+import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
 import com.clloret.speakingpractice.utils.selection.LongItemDetails
 
-class ExerciseListAdapter(private val findNavController: NavController) :
-    ListAdapter<ExerciseWithDetails, ExerciseListAdapter.ViewHolder>(
-        ExerciseListDiffCallback()
-    ), OnClickExerciseHandler {
+class ExerciseListAdapter(
+    comparator: Comparator<ExerciseSortable>,
+    private val findNavController: NavController
+) : RecyclerView.Adapter<ExerciseListAdapter.ViewHolder>(), OnClickExerciseHandler {
+
+    private val adapterCallback = ExerciseListAdapterCallback(this, comparator)
+    private val sortedList =
+        SortedList<ExerciseWithDetails>(
+            ExerciseWithDetails::class.java,
+            adapterCallback
+        )
+
 
     var selectionTracker: SelectionTracker<Long>? = null
 
@@ -27,7 +35,7 @@ class ExerciseListAdapter(private val findNavController: NavController) :
     }
 
     override fun getItemId(position: Int): Long {
-        val item = getItem(position)
+        val item = sortedList.get(position)
         return item.exercise.id.toLong()
     }
 
@@ -42,7 +50,7 @@ class ExerciseListAdapter(private val findNavController: NavController) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = sortedList.get(position)
 
         var isSelected = false
         selectionTracker?.let {
@@ -51,6 +59,26 @@ class ExerciseListAdapter(private val findNavController: NavController) :
             }
         }
         holder.bind(item, isSelected, this)
+    }
+
+    override fun getItemCount() = sortedList.size()
+
+    fun submitList(list: Collection<ExerciseWithDetails>) {
+        sortedList.replaceAll(list)
+    }
+
+    fun setOrder(comparator: Comparator<ExerciseSortable>) {
+        adapterCallback.comparator = comparator
+
+        with(sortedList) {
+            beginBatchedUpdates()
+
+            val list = (0 until sortedList.size())
+                .mapTo(ArrayList<ExerciseWithDetails>()) { get(it) }
+            replaceAll(list)
+
+            endBatchedUpdates()
+        }
     }
 
     override fun onClick(exerciseDetail: ExerciseWithDetails) {
@@ -85,20 +113,4 @@ class ExerciseListAdapter(private val findNavController: NavController) :
 
 interface OnClickExerciseHandler {
     fun onClick(exerciseDetail: ExerciseWithDetails)
-}
-
-class ExerciseListDiffCallback : DiffUtil.ItemCallback<ExerciseWithDetails>() {
-    override fun areItemsTheSame(
-        oldItem: ExerciseWithDetails,
-        newItem: ExerciseWithDetails
-    ): Boolean {
-        return oldItem.exercise.id == newItem.exercise.id
-    }
-
-    override fun areContentsTheSame(
-        oldItem: ExerciseWithDetails,
-        newItem: ExerciseWithDetails
-    ): Boolean {
-        return oldItem == newItem
-    }
 }

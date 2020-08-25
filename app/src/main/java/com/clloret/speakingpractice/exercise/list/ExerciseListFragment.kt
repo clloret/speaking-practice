@@ -14,12 +14,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListFragmentBinding
+import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.utils.Dialogs
 import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
 import com.clloret.speakingpractice.utils.selection.LongItemDetailsLookup
 import com.clloret.speakingpractice.utils.selection.LongItemKeyProvider
+import kotlinx.android.synthetic.main.word_list_fragment.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
 import timber.log.Timber
 
 class ExerciseListFragment : Fragment() {
@@ -29,6 +33,14 @@ class ExerciseListFragment : Fragment() {
     }
 
     private val viewModel: ExerciseListViewModel by viewModel()
+    private val sortByAlphaAsc: Comparator<ExerciseSortable> by inject(named("ExerciseSortByTextAsc"))
+    private val sortByAlphaDesc: Comparator<ExerciseSortable> by inject(named("ExerciseSortByTextDesc"))
+    private val sortByCorrect: Comparator<ExerciseSortable> by inject(named("ExerciseSortByCorrectDesc"))
+    private val sortByIncorrect: Comparator<ExerciseSortable> by inject(named("ExerciseSortByIncorrectDesc"))
+    private val sortBySuccessRateAsc: Comparator<ExerciseSortable> by inject(named("ExerciseSortBySuccessRateAsc"))
+    private val sortBySuccessRateDesc: Comparator<ExerciseSortable> by inject(named("ExerciseSortBySuccessRateDesc"))
+    private val sortByPracticedAsc: Comparator<ExerciseSortable> by inject(named("ExerciseSortByPracticedAsc"))
+    private val sortByPracticedDesc: Comparator<ExerciseSortable> by inject(named("ExerciseSortByPracticedDesc"))
     private var selectionTracker: SelectionTracker<Long>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,14 +86,67 @@ class ExerciseListFragment : Fragment() {
         inflater.inflate(R.menu.menu_exercise_list, menu)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+
+        selectStoredSortOrder(menu)
+    }
+
+    private fun selectStoredSortOrder(menu: Menu) {
+        val itemId = viewModel.sortItemId ?: R.id.menu_exercise_list_sort_alphabetically_asc
+        menu.findItem(itemId).isChecked = true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_add -> addExercise()
+            R.id.menu_exercise_list_sort_alphabetically_asc -> selectSortMenuItem(
+                item,
+                sortByAlphaAsc
+            )
+            R.id.menu_exercise_list_sort_alphabetically_desc -> selectSortMenuItem(
+                item,
+                sortByAlphaDesc
+            )
+            R.id.menu_exercise_list_sort_correct -> selectSortMenuItem(item, sortByCorrect)
+            R.id.menu_exercise_list_sort_incorrect -> selectSortMenuItem(item, sortByIncorrect)
+            R.id.menu_exercise_list_sort_success_rate_asc -> selectSortMenuItem(
+                item,
+                sortBySuccessRateAsc
+            )
+            R.id.menu_exercise_list_sort_success_rate_desc -> selectSortMenuItem(
+                item,
+                sortBySuccessRateDesc
+            )
+            R.id.menu_exercise_list_sort_more_practiced -> selectSortMenuItem(
+                item,
+                sortByPracticedDesc
+            )
+            R.id.menu_exercise_list_sort_less_practiced -> selectSortMenuItem(
+                item,
+                sortByPracticedAsc
+            )
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun selectSortMenuItem(
+        item: MenuItem,
+        comparator: Comparator<ExerciseSortable>
+    ): Boolean {
+        sortBy(comparator)
+        item.isChecked = true
+        viewModel.selectedComparator = comparator
+        viewModel.sortItemId = item.itemId
+        return true
+    }
+
+    private fun sortBy(comparator: Comparator<ExerciseSortable>) {
+        val adapter = recyclerView.adapter as ExerciseListAdapter
+        adapter.setOrder(comparator)
     }
 
     private var actionMode: ActionMode? = null
@@ -159,7 +224,8 @@ class ExerciseListFragment : Fragment() {
         )
         addItemDecoration(dividerItemDecoration)
 
-        val listAdapter = ExerciseListAdapter(findNavController())
+        val comparator = viewModel.selectedComparator ?: sortByAlphaAsc
+        val listAdapter = ExerciseListAdapter(comparator, findNavController())
         adapter = listAdapter
 
         val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)

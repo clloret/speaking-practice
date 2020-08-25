@@ -7,6 +7,7 @@ import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterStrategy
 import com.clloret.speakingpractice.domain.exercise.filter.*
+import com.clloret.speakingpractice.domain.exercise.sort.*
 import com.clloret.speakingpractice.domain.resources.ColorResourceProvider
 import com.clloret.speakingpractice.domain.resources.StringResourceProvider
 import com.clloret.speakingpractice.domain.word.*
@@ -132,6 +133,49 @@ class App : Application() {
             single<Comparator<WordSortable>>(named("WordSortByPracticedDesc")) {
                 WordSortByPracticed(
                     WordSortStrategy.OrderType.DESC
+                )
+            }
+
+            // Exercise List Sorters
+
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortByTextAsc")) {
+                ExerciseSortByText(
+                    ExerciseSortStrategy.OrderType.ASC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortByTextDesc")) {
+                ExerciseSortByText(
+                    ExerciseSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortByCorrectDesc")) {
+                ExerciseSortByCorrect(
+                    ExerciseSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortByIncorrectDesc")) {
+                ExerciseSortByIncorrect(
+                    ExerciseSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortBySuccessRateAsc")) {
+                ExerciseSortBySuccessRate(
+                    ExerciseSortStrategy.OrderType.ASC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortBySuccessRateDesc")) {
+                ExerciseSortBySuccessRate(
+                    ExerciseSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortByPracticedAsc")) {
+                ExerciseSortByPracticed(
+                    ExerciseSortStrategy.OrderType.ASC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortByPracticedDesc")) {
+                ExerciseSortByPracticed(
+                    ExerciseSortStrategy.OrderType.DESC
                 )
             }
 

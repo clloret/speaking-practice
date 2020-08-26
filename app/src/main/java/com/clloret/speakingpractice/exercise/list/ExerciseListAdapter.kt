@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListItemBinding
-import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByExercise
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
+import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterById
 import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
 import com.clloret.speakingpractice.utils.selection.LongItemDetails
 
@@ -82,8 +82,8 @@ class ExerciseListAdapter(
     }
 
     override fun onClick(exerciseDetail: ExerciseWithDetails) {
-        val action = ExerciseListFragmentDirections.actionExerciseListFragmentToAttemptListFragment(
-            filter = AttemptFilterByExercise(exerciseDetail.exercise.id)
+        val action = ExerciseListFragmentDirections.actionExerciseListFragmentToPracticeFragment(
+            ExerciseFilterById(exerciseDetail.exercise.id)
         )
         findNavController.navigate(action)
     }

@@ -1,7 +1,10 @@
 package com.clloret.speakingpractice.exercise.list
 
+import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.recyclerview.selection.ItemDetailsLookup
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListItemBinding
+import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByExercise
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterById
 import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
@@ -88,6 +92,30 @@ class ExerciseListAdapter(
         findNavController.navigate(action)
     }
 
+    override fun onClickMenu(view: View, exerciseDetail: ExerciseWithDetails) {
+        PopupMenu(view.context, view).apply {
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.action_show_attempts -> showExerciseAttempts(exerciseDetail)
+                    else -> false
+                }
+            }
+            inflate(R.menu.menu_exercise_list_popup)
+            gravity = Gravity.START
+            show()
+        }
+    }
+
+    private fun showExerciseAttempts(exerciseDetail: ExerciseWithDetails): Boolean {
+        val action = ExerciseListFragmentDirections
+            .actionExerciseListFragmentToAttemptListFragment(
+                AttemptFilterByExercise(exerciseDetail.exercise.id)
+            )
+        findNavController.navigate(action)
+
+        return true
+    }
+
     class ViewHolder(private val binding: ExerciseListItemBinding) :
         RecyclerView.ViewHolder(binding.root), LongItemDetails {
 
@@ -113,4 +141,5 @@ class ExerciseListAdapter(
 
 interface OnClickExerciseHandler {
     fun onClick(exerciseDetail: ExerciseWithDetails)
+    fun onClickMenu(view: View, exerciseDetail: ExerciseWithDetails)
 }

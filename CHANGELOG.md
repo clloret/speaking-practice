@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file.
 - Show exercise attempts when select a word in word list screen
 - Save state of selected order in word list screen
 - Sort menu on the exercise list screen
+- Show practice screen when select a exercise in exercise list screen
+- Popup menu in exercise list screen
 
 ### Changed
 

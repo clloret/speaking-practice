@@ -80,7 +80,7 @@
             android:layout_marginEnd="16dp"
             android:text="@{@string/percent_format(exercise.results.successRate)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/menuButton"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="50%" />
 
@@ -113,9 +113,23 @@
             android:layout_marginEnd="16dp"
             android:text="@{@string/number_format(exercise.results.incorrect)}"
             android:textAppearance="@style/ExerciseListResultIncorrect"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/menuButton"
             app:layout_constraintTop_toBottomOf="@+id/successRate"
             tools:text="999" />
+
+        <ImageView
+            android:id="@+id/menuButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/exercise_list_menu_button_description"
+            android:focusable="true"
+            android:padding="6dp"
+            android:src="@drawable/ic_more_vert_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

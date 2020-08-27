@@ -39,6 +39,10 @@ class AppRepository(private val db: AppDatabase) {
         return db.exerciseDao().getLessPracticedExercisesIds(limit)
     }
 
+    suspend fun getWordExercisesIds(word: String): List<Int> {
+        return db.exerciseDao().getWordExercisesIds("% $word %")
+    }
+
     suspend fun getTagById(id: Int): Tag? {
         return db.tagDao().getTagById(id)
     }

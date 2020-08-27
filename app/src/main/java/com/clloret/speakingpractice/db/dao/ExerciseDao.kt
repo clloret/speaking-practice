@@ -55,6 +55,15 @@ interface ExerciseDao {
     )
     suspend fun getLessPracticedExercisesIds(limit: Int): List<Int>
 
+    @Query(
+        """
+                SELECT exercise_id
+                  FROM exercises
+                 WHERE (' ' || practice_phrase || ' ') LIKE :word
+"""
+    )
+    suspend fun getWordExercisesIds(word: String): List<Int>
+
     @Query("SELECT * FROM exercises WHERE exercise_id = :id")
     suspend fun getExerciseById(id: Int): Exercise
 

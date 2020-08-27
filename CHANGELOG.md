@@ -11,6 +11,8 @@ All notable changes to this project will be documented in this file.
 - Sort menu on the exercise list screen
 - Show practice screen when select a exercise in exercise list screen
 - Popup menu in exercise list screen
+- Show practice screen when select a word in word list screen
+- Popup menu in word list screen
 
 ### Changed
 

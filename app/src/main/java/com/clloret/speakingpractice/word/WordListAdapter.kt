@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.WordListItemBinding
-import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByWord
 import com.clloret.speakingpractice.domain.entities.PracticeWordWithResults
+import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByWord
 import com.clloret.speakingpractice.domain.word.sort.WordSortable
 
 class WordListAdapter(
@@ -21,7 +21,7 @@ class WordListAdapter(
     private val adapterCallback: WordListAdapterCallback =
         WordListAdapterCallback(this, comparator)
     private val sortedList: SortedList<PracticeWordWithResults> =
-        SortedList<PracticeWordWithResults>(
+        SortedList(
             PracticeWordWithResults::class.java,
             adapterCallback
         )
@@ -62,8 +62,8 @@ class WordListAdapter(
     }
 
     override fun onClick(word: PracticeWordWithResults) {
-        val action = WordListFragmentDirections.actionWordListFragmentToAttemptListFragment(
-            filter = AttemptFilterByWord(word.word)
+        val action = WordListFragmentDirections.actionWordListFragmentToPracticeFragment(
+            ExerciseFilterByWord(word.word)
         )
         findNavController.navigate(action)
     }

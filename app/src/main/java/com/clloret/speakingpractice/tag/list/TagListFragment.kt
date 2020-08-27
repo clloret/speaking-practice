@@ -70,7 +70,7 @@ class TagListFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
 
-        inflater.inflate(R.menu.menu_exercise_list, menu)
+        inflater.inflate(R.menu.menu_tag_list, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

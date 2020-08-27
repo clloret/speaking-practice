@@ -59,7 +59,7 @@ interface ExerciseDao {
         """
                 SELECT exercise_id
                   FROM exercises
-                 WHERE (' ' || practice_phrase || ' ') LIKE :word
+                 WHERE [REPLACE]([REPLACE]( (' ' || practice_phrase || ' '), '?', ''), '!', '') LIKE :word
 """
     )
     suspend fun getWordExercisesIds(word: String): List<Int>

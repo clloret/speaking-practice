@@ -20,6 +20,12 @@ class AboutFragment : MaterialAboutFragment() {
         private const val GITHUB_URL = "https://github.com/clloret/speaking-practice"
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        trackScreen()
+    }
+
     override fun getMaterialAboutList(activityContext: Context): MaterialAboutList {
         return MaterialAboutList.Builder()
             .addCard(buildApp(activityContext))

@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.StatisticsFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StatisticsFragment : Fragment() {
+class StatisticsFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = StatisticsFragment()

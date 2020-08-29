@@ -5,19 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.AttemptListFragmentBinding
 import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class AttemptListFragment : Fragment() {
+class AttemptListFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = AttemptListFragment()
@@ -57,7 +56,7 @@ class AttemptListFragment : Fragment() {
         val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
         listAdapter.registerAdapterDataObserver(rvEmptyObserver)
 
-        viewModel.attempts.observe(viewLifecycleOwner, Observer {
+        viewModel.attempts.observe(viewLifecycleOwner, {
             it?.let {
                 listAdapter.submitList(it)
             }

@@ -13,11 +13,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
+import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.MainViewModel
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeFragmentBinding
@@ -27,7 +26,7 @@ import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 import java.util.*
 
-class PracticeFragment : Fragment() {
+class PracticeFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = PracticeFragment()
@@ -88,7 +87,7 @@ class PracticeFragment : Fragment() {
             }
         })
 
-        viewModel.exercises.observe(viewLifecycleOwner, Observer {
+        viewModel.exercises.observe(viewLifecycleOwner, {
             it?.let {
                 listAdapter.submitList(it)
             }
@@ -103,7 +102,7 @@ class PracticeFragment : Fragment() {
                 textToSpeech(it)
             })
 
-        viewModel.exerciseResult.observe(viewLifecycleOwner, Observer {
+        viewModel.exerciseResult.observe(viewLifecycleOwner, {
 
             @Suppress("NON_EXHAUSTIVE_WHEN")
             when (it) {

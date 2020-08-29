@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.domain.exercise.filter.*
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
@@ -15,7 +15,7 @@ import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
-class PracticeFilterFragment : Fragment() {
+class PracticeFilterFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = PracticeFilterFragment()

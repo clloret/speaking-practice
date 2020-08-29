@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.*
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.TagListFragmentBinding
 import com.clloret.speakingpractice.tag.add.AddTagViewModel
@@ -22,7 +21,7 @@ import com.clloret.speakingpractice.utils.selection.LongItemKeyProvider
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class TagListFragment : Fragment() {
+class TagListFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = TagListFragment()
@@ -164,7 +163,7 @@ class TagListFragment : Fragment() {
         val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
         listAdapter.registerAdapterDataObserver(rvEmptyObserver)
 
-        viewModel.tags.observe(viewLifecycleOwner, Observer {
+        viewModel.tags.observe(viewLifecycleOwner, {
             it?.let {
                 listAdapter.submitList(it)
 

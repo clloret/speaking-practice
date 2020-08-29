@@ -3,12 +3,11 @@ package com.clloret.speakingpractice.word
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.WordListFragmentBinding
 import com.clloret.speakingpractice.domain.word.sort.WordSortable
@@ -18,7 +17,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 
-class WordListFragment : Fragment() {
+class WordListFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = WordListFragment()
@@ -119,7 +118,7 @@ class WordListFragment : Fragment() {
         val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
         listAdapter.registerAdapterDataObserver(rvEmptyObserver)
 
-        viewModel.words.observe(viewLifecycleOwner, Observer {
+        viewModel.words.observe(viewLifecycleOwner, {
             it?.let {
                 listAdapter.submitList(it)
             }

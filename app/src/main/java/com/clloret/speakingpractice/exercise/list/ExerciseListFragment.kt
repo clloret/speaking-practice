@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.*
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListFragmentBinding
 import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
@@ -26,7 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 import timber.log.Timber
 
-class ExerciseListFragment : Fragment() {
+class ExerciseListFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = ExerciseListFragment()
@@ -231,7 +230,7 @@ class ExerciseListFragment : Fragment() {
         val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
         listAdapter.registerAdapterDataObserver(rvEmptyObserver)
 
-        viewModel.exercises.observe(viewLifecycleOwner, Observer {
+        viewModel.exercises.observe(viewLifecycleOwner, {
             it?.let {
                 listAdapter.submitList(it)
 

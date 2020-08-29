@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - Show practice screen when select a word in word list screen
 - Popup menu in word list screen
 - The title of the practice screen now identifies which exercises are displayed
+- Changelog option in home menu
 
 ### Changed
 

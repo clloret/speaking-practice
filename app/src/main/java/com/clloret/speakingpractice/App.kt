@@ -26,9 +26,7 @@ import com.clloret.speakingpractice.utils.resources.StringResourceProviderImpl
 import com.clloret.speakingpractice.word.WordListViewModel
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import kotlinx.coroutines.CompletableJob
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -41,6 +39,7 @@ import timber.log.Timber
 
 class App : Application() {
     private val preferenceValues: PreferenceValues by inject()
+    private val database: AppDatabase by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -48,6 +47,11 @@ class App : Application() {
         setupLog()
         setupKoin()
         setupCollectionServices()
+        populateDatabase()
+    }
+
+    private fun populateDatabase() = GlobalScope.launch {
+        database.exerciseDao().getRandomExercisesIds(1)
     }
 
     private fun setupCollectionServices() {

@@ -23,6 +23,8 @@ class HomeFragment : BaseFragment() {
     companion object {
         private const val HELP_URL =
             "https://github.com/clloret/speaking-practice/wiki"
+        private const val CHANGELOG_URL =
+            "https://github.com/clloret/speaking-practice/blob/master/CHANGELOG.md"
         private const val IMPORT_HELP_URL =
             "https://github.com/clloret/speaking-practice/wiki/Import-exercises"
     }
@@ -82,6 +84,7 @@ class HomeFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_home_help -> showHelp()
+            R.id.menu_home_changelog -> showChangelog()
             else -> NavigationUI.onNavDestinationSelected(
                 item,
                 requireView().findNavController()
@@ -155,6 +158,16 @@ class HomeFragment : BaseFragment() {
             Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse(HELP_URL)
+            )
+        )
+        return true
+    }
+
+    private fun showChangelog(): Boolean {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(CHANGELOG_URL)
             )
         )
         return true

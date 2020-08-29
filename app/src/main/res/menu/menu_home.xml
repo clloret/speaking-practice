@@ -13,6 +13,10 @@
         android:title="@string/title_settings" />
 
     <item
+        android:id="@+id/menu_home_changelog"
+        android:title="@string/title_changelog" />
+
+    <item
         android:id="@+id/aboutFragment"
         android:title="@string/title_about_me" />
 

@@ -87,5 +87,6 @@
     <string name="title_help">Help</string>
     <string name="exercise_list_menu_button_description">Menu button</string>
     <string name="action_show_exercise_attempts">Show attempts</string>
+    <string name="title_changelog">Changelog</string>
 
 </resources>

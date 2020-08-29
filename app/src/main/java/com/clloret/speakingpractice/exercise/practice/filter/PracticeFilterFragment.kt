@@ -56,7 +56,7 @@ class PracticeFilterFragment : BaseFragment() {
                     findNavController().popBackStack()
 
                     val filter = ExerciseFilterByTag(it.id)
-                    showPracticeWithFilter(filter)
+                    showPracticeWithFilter(filter, it.name)
 
                 }
             })
@@ -64,19 +64,19 @@ class PracticeFilterFragment : BaseFragment() {
 
     private fun setupButtonsEvents() {
         btnAllExercises.setOnClickListener {
-            showPracticeWithFilter(filterAll)
+            showPracticeWithFilter(filterAll, "All")
         }
 
         btnRandomExercises.setOnClickListener {
-            showPracticeWithFilter(filterByRandom)
+            showPracticeWithFilter(filterByRandom, "Random")
         }
 
         btnLessPracticedExercises.setOnClickListener {
-            showPracticeWithFilter(filterByLessPracticed)
+            showPracticeWithFilter(filterByLessPracticed, "Less Practiced")
         }
 
         btnMostFailedExercises.setOnClickListener {
-            showPracticeWithFilter(filterBySuccessRate)
+            showPracticeWithFilter(filterBySuccessRate, "Most Failed")
         }
 
         btnOneTag.setOnClickListener {
@@ -88,10 +88,11 @@ class PracticeFilterFragment : BaseFragment() {
         }
     }
 
-    private fun showPracticeWithFilter(filter: ExerciseFilterStrategy) {
+    private fun showPracticeWithFilter(filter: ExerciseFilterStrategy, filterName: String) {
         val action =
             PracticeFilterFragmentDirections.actionPracticeFilterFragmentToPracticeFragment(
-                filter
+                filter,
+                "Practice $filterName"
             )
 
         findNavController()

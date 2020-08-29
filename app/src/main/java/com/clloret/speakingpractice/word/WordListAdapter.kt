@@ -15,6 +15,8 @@ import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByWord
 import com.clloret.speakingpractice.domain.entities.PracticeWordWithResults
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByWord
 import com.clloret.speakingpractice.domain.word.sort.WordSortable
+import java.util.*
+import kotlin.collections.ArrayList
 
 class WordListAdapter(
     comparator: Comparator<WordSortable>,
@@ -67,7 +69,7 @@ class WordListAdapter(
 
     override fun onClick(word: PracticeWordWithResults) {
         val action = WordListFragmentDirections.actionWordListFragmentToPracticeFragment(
-            ExerciseFilterByWord(word.word)
+            ExerciseFilterByWord(word.word), "Practice “${word.word.capitalize(Locale.US)}”"
         )
         findNavController.navigate(action)
     }

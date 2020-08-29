@@ -40,11 +40,14 @@
     <fragment
         android:id="@+id/practiceFragment"
         android:name="com.clloret.speakingpractice.exercise.practice.PracticeFragment"
-        android:label="@string/practice_fragment_label"
+        android:label="{title}"
         tools:layout="@layout/practice_fragment">
         <argument
             android:name="filter"
             app:argType="com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
 
     <fragment

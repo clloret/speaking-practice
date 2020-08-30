@@ -2,8 +2,8 @@ package com.clloret.speakingpractice
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.analytics.FirebaseAnalytics
+import kotlinx.android.synthetic.main.activity_main.*
 
 open class BaseFragment : Fragment() {
 
@@ -20,9 +20,7 @@ open class BaseFragment : Fragment() {
 }
 
 fun Fragment.trackScreen() {
-    val screenName = findNavController().currentDestination?.let {
-        it.label.toString()
-    } ?: javaClass.simpleName
+    val screenName = requireActivity().toolbar.title.toString()
     setCurrentScreen(screenName)
 }
 

@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.1.1] - 2020-08-30
+
+### Changed
+
+- Remove white spaces before add an exercise and when add a new tag
+- More descriptive title for add exercise and tag screen
+
 ## [1.1.0] - 2020-08-29
 
 ### Added
@@ -32,7 +39,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial release
 
-[unreleased]: https://github.com/clloret/speaking-practice/compare/v1.1.0...HEAD
+[unreleased]: https://github.com/clloret/speaking-practice/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/clloret/speaking-practice/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/clloret/speaking-practice/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/clloret/speaking-practice/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/clloret/speaking-practice/releases/tag/v1.0.0

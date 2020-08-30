@@ -85,9 +85,9 @@ class AddExerciseViewModel(
 
     fun saveExercise() {
         if (isFormValid()) {
-            val practicePhrase: String = practicePhrase.get()!!
-            val translatedPhrase: String = translatedPhrase.get()!!
-            val selectedTagIds = getSelectedTagsIds(exerciseTags.get()!!)
+            val practicePhrase: String = practicePhrase.get()?.trim() ?: return
+            val translatedPhrase: String = translatedPhrase.get()?.trim() ?: return
+            val selectedTagIds = getSelectedTagsIds(exerciseTags.get() ?: return)
             val isNew = exerciseId == DEFAULT_ID
             val id = if (isNew) 0 else exerciseId
             val exercise = Exercise(

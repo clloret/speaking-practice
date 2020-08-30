@@ -61,7 +61,7 @@ class AddTagViewModel(
 
     fun saveData() {
         if (isFormValid()) {
-            val name: String = name.get()!!
+            val name: String = name.get()?.trim() ?: return
             val isNew = tagId == DEFAULT_ID
             val id = if (isNew) 0 else tagId
             val tag = Tag(

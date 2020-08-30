@@ -275,7 +275,7 @@ class ExerciseListFragment : BaseFragment() {
         val action =
             ExerciseListFragmentDirections.actionExerciseListFragmentToAddExerciseFragment(
                 AddExerciseViewModel.DEFAULT_ID,
-                getString(R.string.title_add)
+                getString(R.string.title_add_exercise)
             )
 
         findNavController()
@@ -291,7 +291,7 @@ class ExerciseListFragment : BaseFragment() {
                 val action =
                     ExerciseListFragmentDirections.actionExerciseListFragmentToAddExerciseFragment(
                         exerciseId.toInt(),
-                        getString(R.string.title_edit)
+                        getString(R.string.title_edit_exercise)
                     )
 
                 findNavController()

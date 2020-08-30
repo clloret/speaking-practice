@@ -212,7 +212,7 @@ class TagListFragment : BaseFragment() {
         val action =
             TagListFragmentDirections.actionTagListFragmentToAddTagFragment(
                 AddTagViewModel.DEFAULT_ID,
-                getString(R.string.title_add)
+                getString(R.string.title_add_tag)
             )
 
         findNavController()
@@ -228,7 +228,7 @@ class TagListFragment : BaseFragment() {
                 val action =
                     TagListFragmentDirections.actionTagListFragmentToAddTagFragment(
                         tagId.toInt(),
-                        getString(R.string.title_edit)
+                        getString(R.string.title_edit_tag)
                     )
 
                 findNavController()

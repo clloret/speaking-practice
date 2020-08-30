@@ -27,9 +27,10 @@ fun Fragment.trackScreen() {
 }
 
 fun Fragment.setCurrentScreen(screenName: String) {
+    val screenClass = this.javaClass.simpleName
     Bundle().apply {
         putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
-        putString(FirebaseAnalytics.Param.SCREEN_CLASS, javaClass.simpleName)
+        putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenClass)
         val analytics = FirebaseAnalytics
             .getInstance(requireActivity().applicationContext)
         analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, this)

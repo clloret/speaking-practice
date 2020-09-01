@@ -1,9 +1,13 @@
 package com.clloret.speakingpractice.exercise.list
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.activity.addCallback
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
@@ -25,6 +29,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 import timber.log.Timber
 
+
 class ExerciseListFragment : BaseFragment() {
 
     companion object {
@@ -41,6 +46,8 @@ class ExerciseListFragment : BaseFragment() {
     private val sortByPracticedAsc: Comparator<ExerciseSortable> by inject(named("ExerciseSortByPracticedAsc"))
     private val sortByPracticedDesc: Comparator<ExerciseSortable> by inject(named("ExerciseSortByPracticedDesc"))
     private var selectionTracker: SelectionTracker<Long>? = null
+
+    private var searchView: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,17 +90,14 @@ class ExerciseListFragment : BaseFragment() {
         super.onCreateOptionsMenu(menu, inflater)
 
         inflater.inflate(R.menu.menu_exercise_list, menu)
+
+        configureSearchView(menu)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
 
         selectStoredSortOrder(menu)
-    }
-
-    private fun selectStoredSortOrder(menu: Menu) {
-        val itemId = viewModel.sortItemId ?: R.id.menu_exercise_list_sort_alphabetically_asc
-        menu.findItem(itemId).isChecked = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -130,6 +134,25 @@ class ExerciseListFragment : BaseFragment() {
             )
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun selectStoredSortOrder(menu: Menu) {
+        val itemId = viewModel.sortItemId ?: R.id.menu_exercise_list_sort_alphabetically_asc
+        menu.findItem(itemId).isChecked = true
+    }
+
+    private fun configureSearchView(menu: Menu) {
+        val searchItem = menu.findItem(R.id.menu_exercise_search)
+        if (searchItem != null) {
+            searchView = searchItem.actionView as SearchView
+        }
+        val activity: FragmentActivity = requireActivity()
+        val searchManager = activity.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView?.let {
+            it.setSearchableInfo(searchManager.getSearchableInfo(activity.componentName))
+            viewModel.observeSearchQuery(RxSearchObservable.fromView(it))
+        }
+
     }
 
     private fun selectSortMenuItem(
@@ -267,6 +290,10 @@ class ExerciseListFragment : BaseFragment() {
                     selectionTracker?.onRestoreInstanceState(savedInstanceState)
                 }
             }
+        })
+
+        viewModel.filtered.observe(viewLifecycleOwner, {
+            listAdapter.submitList(it)
         })
     }
 

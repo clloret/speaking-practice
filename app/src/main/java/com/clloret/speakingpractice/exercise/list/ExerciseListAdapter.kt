@@ -26,11 +26,10 @@ class ExerciseListAdapter(
 
     private val adapterCallback = ExerciseListAdapterCallback(this, comparator)
     private val sortedList =
-        SortedList<ExerciseWithDetails>(
+        SortedList(
             ExerciseWithDetails::class.java,
             adapterCallback
         )
-
 
     var selectionTracker: SelectionTracker<Long>? = null
 
@@ -67,20 +66,14 @@ class ExerciseListAdapter(
 
     override fun getItemCount() = sortedList.size()
 
-    fun submitList(list: Collection<ExerciseWithDetails>) {
-        sortedList.replaceAll(list)
-    }
+    private fun getCurrentList() =
+        (0 until sortedList.size())
+            .mapTo(ArrayList<ExerciseWithDetails>()) { sortedList.get(it) }
 
-    fun setOrder(comparator: Comparator<ExerciseSortable>) {
-        adapterCallback.comparator = comparator
-
+    private fun updateList(list: Collection<ExerciseWithDetails>) {
         with(sortedList) {
             beginBatchedUpdates()
-
-            val list = (0 until sortedList.size())
-                .mapTo(ArrayList<ExerciseWithDetails>()) { get(it) }
             replaceAll(list)
-
             endBatchedUpdates()
         }
     }
@@ -114,6 +107,15 @@ class ExerciseListAdapter(
         findNavController.navigate(action)
 
         return true
+    }
+
+    fun submitList(list: Collection<ExerciseWithDetails>) {
+        updateList(list)
+    }
+
+    fun setOrder(comparator: Comparator<ExerciseSortable>) {
+        adapterCallback.comparator = comparator
+        updateList(getCurrentList())
     }
 
     class ViewHolder(private val binding: ExerciseListItemBinding) :

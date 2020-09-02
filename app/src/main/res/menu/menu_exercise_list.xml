@@ -5,6 +5,7 @@
     <item
         android:id="@+id/menu_exercise_search"
         android:icon="@android:drawable/ic_menu_search"
+        android:orderInCategory="2"
         android:title="@string/title_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always" />
@@ -12,14 +13,14 @@
     <item
         android:id="@+id/action_add"
         android:icon="@drawable/ic_add_wht_24dp"
-        android:orderInCategory="100"
+        android:orderInCategory="3"
         android:title="@string/action_add"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_exercise_list_order"
         android:icon="@drawable/ic_sort_wht_24dp"
-        android:orderInCategory="101"
+        android:orderInCategory="1"
         android:title="@string/title_order"
         app:showAsAction="ifRoom">
         <menu>

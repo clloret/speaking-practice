@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Search for exercises by text on the exercise list screen
+
 ## [1.1.1] - 2020-08-30
 
 ### Changed

@@ -90,7 +90,6 @@ class ExerciseListFragment : BaseFragment() {
         super.onCreateOptionsMenu(menu, inflater)
 
         inflater.inflate(R.menu.menu_exercise_list, menu)
-
         configureSearchView(menu)
     }
 
@@ -98,6 +97,11 @@ class ExerciseListFragment : BaseFragment() {
         super.onPrepareOptionsMenu(menu)
 
         selectStoredSortOrder(menu)
+
+        viewModel.filterQuery?.let { query ->
+            searchView?.isIconified = false
+            searchView?.setQuery(query, false)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -148,11 +152,10 @@ class ExerciseListFragment : BaseFragment() {
         }
         val activity: FragmentActivity = requireActivity()
         val searchManager = activity.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchView?.let {
-            it.setSearchableInfo(searchManager.getSearchableInfo(activity.componentName))
-            viewModel.observeSearchQuery(RxSearchObservable.fromView(it))
+        searchView?.apply {
+            setSearchableInfo(searchManager.getSearchableInfo(activity.componentName))
+            viewModel.observeSearchQuery(RxSearchObservable.fromView(this))
         }
-
     }
 
     private fun selectSortMenuItem(
@@ -292,7 +295,7 @@ class ExerciseListFragment : BaseFragment() {
             }
         })
 
-        viewModel.filtered.observe(viewLifecycleOwner, {
+        viewModel.filteredExercises.observe(viewLifecycleOwner, {
             listAdapter.submitList(it)
         })
     }

@@ -21,12 +21,13 @@ class ExerciseListViewModel(private val repository: AppRepository) : ViewModel()
     private val compositeDisposable = CompositeDisposable()
     private var unfilteredData = emptyList<ExerciseWithDetails>()
 
-    private val _filtered: MutableLiveData<List<ExerciseWithDetails>> = MutableLiveData()
-    val filtered: LiveData<List<ExerciseWithDetails>> get() = _filtered
+    private val _filteredExercises: MutableLiveData<List<ExerciseWithDetails>> = MutableLiveData()
+    val filteredExercises: LiveData<List<ExerciseWithDetails>> get() = _filteredExercises
     val exercises = MediatorLiveData<List<ExerciseWithDetails>>()
 
     var selectedComparator: Comparator<ExerciseSortable>? = null
     var sortItemId: Int? = null
+    var filterQuery: String? = null
 
     init {
         exercises.addSource(repository.allExercisesDetails) {
@@ -44,11 +45,13 @@ class ExerciseListViewModel(private val repository: AppRepository) : ViewModel()
     private fun filterByText(text: String) {
         val list = unfilteredData
             .filter { it.practicePhrase.contains(text, ignoreCase = true) }
-        _filtered.postValue(list)
+        _filteredExercises.postValue(list)
+        filterQuery = text
     }
 
     private fun removeFilter() {
-        _filtered.postValue(unfilteredData)
+        _filteredExercises.postValue(unfilteredData)
+        filterQuery = null
     }
 
     fun deleteExerciseList(list: List<Int>) {

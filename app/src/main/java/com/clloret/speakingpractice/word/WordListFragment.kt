@@ -1,8 +1,12 @@
 package com.clloret.speakingpractice.word
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +15,7 @@ import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.WordListFragmentBinding
 import com.clloret.speakingpractice.domain.word.sort.WordSortable
+import com.clloret.speakingpractice.exercise.list.RxSearchObservable
 import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
 import kotlinx.android.synthetic.main.word_list_fragment.*
 import org.koin.android.ext.android.inject
@@ -32,6 +37,8 @@ class WordListFragment : BaseFragment() {
     private val sortBySuccessRateDesc: Comparator<WordSortable> by inject(named("WordSortBySuccessRateDesc"))
     private val sortByPracticedAsc: Comparator<WordSortable> by inject(named("WordSortByPracticedAsc"))
     private val sortByPracticedDesc: Comparator<WordSortable> by inject(named("WordSortByPracticedDesc"))
+
+    private var searchView: SearchView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,12 +70,18 @@ class WordListFragment : BaseFragment() {
         super.onCreateOptionsMenu(menu, inflater)
 
         inflater.inflate(R.menu.menu_word_list, menu)
+        configureSearchView(menu)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
 
         selectStoredSortOrder(menu)
+
+        viewModel.filterQuery?.let { query ->
+            searchView?.isIconified = false
+            searchView?.setQuery(query, false)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -101,6 +114,19 @@ class WordListFragment : BaseFragment() {
         wordListAdapter.setOrder(comparator)
     }
 
+    private fun configureSearchView(menu: Menu) {
+        val searchItem = menu.findItem(R.id.menu_word_search)
+        if (searchItem != null) {
+            searchView = searchItem.actionView as SearchView
+        }
+        val activity: FragmentActivity = requireActivity()
+        val searchManager = activity.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView?.apply {
+            setSearchableInfo(searchManager.getSearchableInfo(activity.componentName))
+            viewModel.observeSearchQuery(RxSearchObservable.fromView(this))
+        }
+    }
+
     private fun RecyclerView.setupRecyclerView(emptyView: View) {
         val linearLayoutManager = LinearLayoutManager(requireContext())
         layoutManager = linearLayoutManager
@@ -123,6 +149,11 @@ class WordListFragment : BaseFragment() {
                 listAdapter.submitList(it)
             }
         })
+
+        viewModel.filteredWords.observe(viewLifecycleOwner, {
+            listAdapter.submitList(it)
+        })
+
     }
 
 }

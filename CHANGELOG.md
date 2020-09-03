@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Search for exercises by text on the exercise list screen
+- Search for words by text on the word list screen
 
 ## [1.1.1] - 2020-08-30
 

@@ -18,6 +18,15 @@
             name="successRateColor"
             type="int" />
 
+        <variable
+            name="exercisePosition"
+            type="int" />
+
+        <variable
+            name="totalExercises"
+            type="int" />
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -95,6 +104,42 @@
             app:layout_constraintStart_toEndOf="@+id/rateSeparator"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="50%" />
+
+        <TextView
+            android:id="@+id/exerciseNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_padding"
+            android:text="@{@string/number_format(exercisePosition)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textColor="@color/exercise_position"
+            app:layout_constraintEnd_toStartOf="@+id/exerciseSeparator"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="99" />
+
+        <TextView
+            android:id="@+id/exerciseSeparator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/default_padding"
+            android:paddingBottom="@dimen/default_padding"
+            android:text="@string/title_slash"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            app:layout_constraintEnd_toStartOf="@+id/exerciseTotal"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/exerciseTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:padding="@dimen/default_padding"
+            android:text="@{@string/number_format(totalExercises)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textColor="@color/total_exercises"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="99" />
 
         <TextView
             android:id="@+id/practicePhrase"

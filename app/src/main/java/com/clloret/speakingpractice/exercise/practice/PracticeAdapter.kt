@@ -27,19 +27,23 @@ class PracticeAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, viewModel)
+        holder.bind(item, viewModel, position + 1, itemCount)
     }
 
     class ViewHolder(private val binding: PracticeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             item: ExerciseWithDetails,
-            viewModel: PracticeViewModel
+            viewModel: PracticeViewModel,
+            position: Int,
+            itemCount: Int
         ) {
             binding.apply {
                 exercise = item
                 successRateColor = getSuccessRateColor(item.results.successRate)
                 model = viewModel
+                exercisePosition = position
+                totalExercises = itemCount
             }
         }
 

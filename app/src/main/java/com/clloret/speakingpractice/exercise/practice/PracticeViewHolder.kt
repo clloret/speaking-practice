@@ -5,7 +5,7 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeItemBinding
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 
-class PracticeViewHolder(private val binding: PracticeItemBinding) :
+class PracticeViewHolderX(private val binding: PracticeItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(
         item: ExerciseWithDetails,

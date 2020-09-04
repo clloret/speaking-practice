@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeItemBinding
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
@@ -12,21 +13,41 @@ import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 class PracticeAdapter(
     private val viewModel: PracticeViewModel
 ) :
-    ListAdapter<ExerciseWithDetails, PracticeViewHolder>(ExerciseListDiffCallback()) {
+    ListAdapter<ExerciseWithDetails, PracticeAdapter.ViewHolder>(ExerciseListDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PracticeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding: PracticeItemBinding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.practice_item,
             parent, false
         )
-        return PracticeViewHolder(binding)
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: PracticeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item, viewModel)
+    }
+
+    class ViewHolder(private val binding: PracticeItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(
+            item: ExerciseWithDetails,
+            viewModel: PracticeViewModel
+        ) {
+            binding.apply {
+                exercise = item
+                successRateColor = getSuccessRateColor(item.results.successRate)
+                model = viewModel
+            }
+        }
+
+        private fun getSuccessRateColor(successRate: Int) = when (successRate) {
+            in 0..49 -> R.color.success_rate_failed
+            in 50..79 -> R.color.success_rate_passed
+            else -> R.color.success_rate_completed
+        }
     }
 }
 

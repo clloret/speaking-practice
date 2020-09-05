@@ -58,6 +58,7 @@
     <string name="percent_format">%1$d%%</string>
     <string name="practice_fragment_label">Speaking Practice</string>
     <string name="pref_collect_statistics" translatable="false">collect_statistics</string>
+    <string name="pref_exercises_per_round" translatable="false">exercises_per_round</string>
     <string name="pref_privacy_policy">Privacy policy</string>
     <string name="summary_collect_statistics">Submit anonymous usage statistics and error reports to help improve this app. No personal data will be collected.</string>
     <string name="title_about_me">About Me</string>
@@ -91,5 +92,6 @@
     <string name="title_tags">Tags</string>
     <string name="title_two_points">:</string>
     <string name="title_search">Search</string>
+    <string name="title_practice">Practice</string>
 
 </resources>

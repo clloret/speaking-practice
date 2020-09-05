@@ -8,4 +8,8 @@ class StringResourceProviderImpl(val context: Context) : StringResourceProvider 
     override fun getPrefCollectStatistics(): String {
         return context.getString(R.string.pref_collect_statistics)
     }
+
+    override fun getPrefExercisesPerRound(): String {
+        return context.getString(R.string.pref_exercises_per_round)
+    }
 }

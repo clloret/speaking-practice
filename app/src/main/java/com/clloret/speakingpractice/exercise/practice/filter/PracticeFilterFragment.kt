@@ -9,6 +9,7 @@ import androidx.navigation.navGraphViewModels
 import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.domain.exercise.filter.*
+import com.clloret.speakingpractice.utils.PreferenceValues
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import kotlinx.android.synthetic.main.practice_filter_fragment.*
 import org.koin.android.ext.android.inject
@@ -19,17 +20,17 @@ class PracticeFilterFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = PracticeFilterFragment()
-        const val DEFAULT_EXERCISE_LIMIT = 10
     }
 
     private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.nav_graph)
+    private val preferenceValues: PreferenceValues by inject()
     private val filterAll: ExerciseFilterAll by inject()
     private val filterBySuccessRate: ExerciseFilterBySuccessRate by inject()
     private val filterByRandom: ExerciseFilterByRandom by inject {
-        parametersOf(DEFAULT_EXERCISE_LIMIT)
+        parametersOf(preferenceValues.exercisesPerRound())
     }
     private val filterByLessPracticed: ExerciseFilterByLessPracticed by inject {
-        parametersOf(DEFAULT_EXERCISE_LIMIT)
+        parametersOf(preferenceValues.exercisesPerRound())
     }
 
     override fun onCreateView(

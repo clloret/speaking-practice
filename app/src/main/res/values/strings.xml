@@ -93,5 +93,7 @@
     <string name="title_two_points">:</string>
     <string name="title_search">Search</string>
     <string name="title_practice">Practice</string>
+    <string name="title_exercises_per_round">Exercises per round</string>
+    <string name="summary_exercises_per_round">Set the number of exercises per round when practice random or less practiced exercises.</string>
 
 </resources>

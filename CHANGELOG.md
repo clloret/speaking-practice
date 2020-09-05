@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.2.0] - 2020-09-05
+
 ### Added
 
 - Search for exercises by text on the exercise list screen
@@ -48,6 +50,7 @@ All notable changes to this project will be documented in this file.
 - Initial release
 
 [unreleased]: https://github.com/clloret/speaking-practice/compare/v1.1.1...HEAD
+[1.2.0]: https://github.com/clloret/speaking-practice/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/clloret/speaking-practice/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/clloret/speaking-practice/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/clloret/speaking-practice/compare/v1.0.0...v1.0.1

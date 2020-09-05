@@ -26,4 +26,11 @@ class PreferenceValues(
             DEFAULT_EXERCISE_PER_ROUND
         )
     }
+
+    fun isSoundEnabled(): Boolean {
+        return preferences.getBoolean(
+            stringResourceProvider.getPrefEnableSound(),
+            true
+        )
+    }
 }

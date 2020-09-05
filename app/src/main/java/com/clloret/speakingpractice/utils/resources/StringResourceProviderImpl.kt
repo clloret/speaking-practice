@@ -12,4 +12,8 @@ class StringResourceProviderImpl(val context: Context) : StringResourceProvider 
     override fun getPrefExercisesPerRound(): String {
         return context.getString(R.string.pref_exercises_per_round)
     }
+
+    override fun getPrefEnableSound(): String {
+        return context.getString(R.string.pref_enable_sound)
+    }
 }

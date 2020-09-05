@@ -20,7 +20,9 @@ import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.MainViewModel
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeFragmentBinding
+import com.clloret.speakingpractice.utils.PreferenceValues
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
@@ -41,6 +43,7 @@ class PracticeFragment : BaseFragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
     private val viewModel: PracticeViewModel by viewModel { parametersOf(args.filter) }
     private val args: PracticeFragmentArgs by navArgs()
+    private val preferenceValues: PreferenceValues by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,6 +120,10 @@ class PracticeFragment : BaseFragment() {
     }
 
     private fun playSound(soundId: Int?) {
+        if (!preferenceValues.isSoundEnabled()) {
+            return
+        }
+
         soundId?.let {
             soundPool?.play(it, 1.0F, 1.0F, 1, 0, 1F)
         }

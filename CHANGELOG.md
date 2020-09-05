@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Search for words by text on the word list screen
 - Display the number of current exercises and the total number of exercises on the practice screen
 - Set the number exercises per round in preferences
+- Enable or disable sound in preferences
 
 ## [1.1.1] - 2020-08-30
 

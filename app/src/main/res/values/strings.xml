@@ -96,5 +96,7 @@
     <string name="title_exercises_per_round">Exercises per round</string>
     <string name="summary_exercises_per_round">Set the number of exercises per round when practice random or less practiced exercises.</string>
     <string name="pref_enable_sound">enable_sound</string>
+    <string name="title_enable_sound">Enable sound</string>
+    <string name="summary_enable_sound">Play sounds when practice exercises.</string>
 
 </resources>

@@ -13,6 +13,12 @@
             app:summary="@string/summary_exercises_per_round"
             app:title="@string/title_exercises_per_round" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="@string/pref_enable_sound"
+            app:summary="@string/summary_enable_sound"
+            app:title="@string/title_enable_sound" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/title_privacy">

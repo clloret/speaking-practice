@@ -101,30 +101,6 @@ class HomeFragment : BaseFragment() {
                 .navigate(action)
         }
 
-        btnExerciseList.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToExerciseListFragment()
-
-            findNavController()
-                .navigate(action)
-        }
-
-        btnWordList.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToWordListFragment()
-
-            findNavController()
-                .navigate(action)
-        }
-
-        btnTagList.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToTagListFragment()
-
-            findNavController()
-                .navigate(action)
-        }
-
         btnImportExercises.setOnClickListener {
             val action =
                 HomeFragmentDirections.actionHomeFragmentToImportExercisesDlgFragment()
@@ -132,15 +108,6 @@ class HomeFragment : BaseFragment() {
             findNavController()
                 .navigate(action)
         }
-
-        btnStatistics.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToStatisticsFragment()
-
-            findNavController()
-                .navigate(action)
-        }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

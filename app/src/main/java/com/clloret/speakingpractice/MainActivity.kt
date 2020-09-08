@@ -10,6 +10,7 @@ import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import com.google.android.material.snackbar.Snackbar
 import com.vorlonsoft.android.rate.AppRate
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,8 +30,9 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        val appBarConfiguration = AppBarConfiguration(bottomNavView.menu)
         toolbar.setupWithNavController(navController, appBarConfiguration)
+        bottomNavView.setupWithNavController(navController)
     }
 
     private fun observeData() {

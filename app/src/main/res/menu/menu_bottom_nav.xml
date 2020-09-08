@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home_24dp"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/exerciseListFragment"
+        android:icon="@drawable/ic_exercises_24dp"
+        android:title="@string/title_exercises" />
+
+    <item
+        android:id="@+id/wordListFragment"
+        android:icon="@drawable/ic_words_24dp"
+        android:title="@string/title_words" />
+
+    <item
+        android:id="@+id/tagListFragment"
+        android:icon="@drawable/ic_tags_24dp"
+        android:title="@string/title_tags" />
+
+    <item
+        android:id="@+id/statisticsFragment"
+        android:icon="@drawable/ic_stats_24dp"
+        android:title="@string/title_stats" />
+
+</menu>

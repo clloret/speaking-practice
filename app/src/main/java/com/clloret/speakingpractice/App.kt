@@ -55,14 +55,14 @@ class App : Application() {
     }
 
     private fun setupCollectionServices() {
-        if (!BuildConfig.DEBUG && preferenceValues.isAnalyticsEnabled()) {
-            FirebaseAnalytics
-                .getInstance(this)
-                .setAnalyticsCollectionEnabled(true)
-            FirebaseCrashlytics
-                .getInstance()
-                .setCrashlyticsCollectionEnabled(true)
-        }
+        val enableCollection = !BuildConfig.DEBUG && preferenceValues.isAnalyticsEnabled()
+        Timber.d("setupCollectionServices - enable: $enableCollection")
+        FirebaseAnalytics
+            .getInstance(this)
+            .setAnalyticsCollectionEnabled(enableCollection)
+        FirebaseCrashlytics
+            .getInstance()
+            .setCrashlyticsCollectionEnabled(enableCollection)
     }
 
     private fun setupKoin() {

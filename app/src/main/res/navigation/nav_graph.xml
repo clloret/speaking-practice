@@ -38,19 +38,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/practiceFragment"
-        android:name="com.clloret.speakingpractice.exercise.practice.PracticeFragment"
-        android:label="{title}"
-        tools:layout="@layout/practice_fragment">
-        <argument
-            android:name="filter"
-            app:argType="com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy" />
-        <argument
-            android:name="title"
-            app:argType="string" />
-    </fragment>
-
-    <fragment
         android:id="@+id/addExerciseFragment"
         android:name="com.clloret.speakingpractice.exercise.add.AddExerciseFragment"
         android:label="{title}"
@@ -76,8 +63,8 @@
             android:id="@+id/action_exerciseListFragment_to_addExerciseFragment"
             app:destination="@id/addExerciseFragment" />
         <action
-            android:id="@+id/action_exerciseListFragment_to_practiceFragment"
-            app:destination="@id/practiceFragment" />
+            android:id="@+id/action_exerciseListFragment_to_practiceActivity"
+            app:destination="@id/practiceActivity" />
     </fragment>
 
     <fragment
@@ -121,11 +108,11 @@
         android:label="Select Filter"
         tools:layout="@layout/practice_filter_fragment">
         <action
-            android:id="@+id/action_practiceFilterFragment_to_practiceFragment"
-            app:destination="@id/practiceFragment" />
-        <action
             android:id="@+id/action_practiceFilterFragment_to_selectTagDlgFragment"
             app:destination="@id/selectTagDlgFragment" />
+        <action
+            android:id="@+id/action_practiceFilterFragment_to_practiceActivity"
+            app:destination="@id/practiceActivity" />
     </fragment>
 
     <dialog
@@ -149,8 +136,8 @@
             android:id="@+id/action_wordListFragment_to_attemptListFragment"
             app:destination="@id/attemptListFragment" />
         <action
-            android:id="@+id/action_wordListFragment_to_practiceFragment"
-            app:destination="@id/practiceFragment" />
+            android:id="@+id/action_wordListFragment_to_practiceActivity"
+            app:destination="@id/practiceActivity" />
     </fragment>
 
     <fragment
@@ -168,5 +155,20 @@
         android:name="com.clloret.speakingpractice.exercise.import_.ImportExercisesDlgFragment"
         android:label="ImportExercisesDlgFragment"
         tools:layout="@layout/import_exercises_dlg_fragment" />
+
+    <activity
+        android:id="@+id/practiceActivity"
+        android:name="com.clloret.speakingpractice.exercise.practice.PracticeActivity"
+        android:label="{title}"
+        tools:layout="@layout/activity_practice">
+
+        <argument
+            android:name="filter"
+            app:argType="com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+
+    </activity>
 
 </navigation>

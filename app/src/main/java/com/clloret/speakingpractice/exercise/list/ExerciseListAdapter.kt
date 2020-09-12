@@ -79,7 +79,7 @@ class ExerciseListAdapter(
     }
 
     override fun onClick(exerciseDetail: ExerciseWithDetails) {
-        val action = ExerciseListFragmentDirections.actionExerciseListFragmentToPracticeFragment(
+        val action = ExerciseListFragmentDirections.actionExerciseListFragmentToPracticeActivity(
             ExerciseFilterById(exerciseDetail.exercise.id), "Practice An Exercise"
         )
         findNavController.navigate(action)

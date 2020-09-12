@@ -1,9 +1,10 @@
 package com.clloret.speakingpractice
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.firebase.analytics.FirebaseAnalytics
-import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 open class BaseFragment : Fragment() {
 
@@ -20,8 +21,12 @@ open class BaseFragment : Fragment() {
 }
 
 fun Fragment.trackScreen() {
-    val screenName = requireActivity().toolbar.title.toString()
-    setCurrentScreen(screenName)
+    (requireActivity() as AppCompatActivity).supportActionBar?.let {
+        Timber.d("trackScreen: ${it.title}")
+
+        val screenName = it.title.toString()
+        setCurrentScreen(screenName)
+    }
 }
 
 fun Fragment.setCurrentScreen(screenName: String) {

@@ -68,7 +68,7 @@ class WordListAdapter(
     }
 
     override fun onClick(word: PracticeWordWithResults) {
-        val action = WordListFragmentDirections.actionWordListFragmentToPracticeFragment(
+        val action = WordListFragmentDirections.actionWordListFragmentToPracticeActivity(
             ExerciseFilterByWord(word.word), "Practice “${word.word.capitalize(Locale.US)}”"
         )
         findNavController.navigate(action)

@@ -34,6 +34,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".exercise.practice.PracticeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

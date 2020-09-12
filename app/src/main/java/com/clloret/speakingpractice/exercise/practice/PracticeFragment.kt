@@ -14,16 +14,16 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.MainViewModel
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeFragmentBinding
+import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.PreferenceValues
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 import java.util.*
@@ -31,9 +31,18 @@ import java.util.*
 class PracticeFragment : BaseFragment() {
 
     companion object {
-        fun newInstance() = PracticeFragment()
+        fun newInstance(filter: ExerciseFilterStrategy): PracticeFragment {
+            val fragment = PracticeFragment()
+            Bundle().apply {
+                putSerializable(EXTRA_FILTER, filter)
+                fragment.arguments = this
+            }
+
+            return fragment
+        }
 
         private const val REQUEST_CODE_SPEECH_INPUT = 0x01
+        private const val EXTRA_FILTER = "filter"
     }
 
     private var tts: TextToSpeech? = null
@@ -41,13 +50,15 @@ class PracticeFragment : BaseFragment() {
     private var soundCorrect: Int? = null
     private var soundIncorrect: Int? = null
     private val mainViewModel: MainViewModel by activityViewModels()
-    private val viewModel: PracticeViewModel by viewModel { parametersOf(args.filter) }
-    private val args: PracticeFragmentArgs by navArgs()
     private val preferenceValues: PreferenceValues by inject()
+    private var viewModel: PracticeViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+        val filter = arguments?.getSerializable(EXTRA_FILTER) ?: return
+        viewModel = getViewModel { parametersOf(filter) }
     }
 
     override fun onCreateView(
@@ -74,6 +85,7 @@ class PracticeFragment : BaseFragment() {
     }
 
     private fun setupViewPager(viewPager: ViewPager2) {
+        val viewModel = viewModel ?: return
         val listAdapter = PracticeAdapter(viewModel)
         viewPager.adapter = listAdapter
 
@@ -98,6 +110,8 @@ class PracticeFragment : BaseFragment() {
     }
 
     private fun observeData() {
+        val viewModel = viewModel ?: return
+
         viewModel.speakText.observe(
             viewLifecycleOwner,
             EventObserver {
@@ -158,6 +172,7 @@ class PracticeFragment : BaseFragment() {
     }
 
     private fun processRecognizedText(data: Intent) {
+        val viewModel = viewModel ?: return
         val results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) ?: return
 
         Timber.d("Recognized results: $results")

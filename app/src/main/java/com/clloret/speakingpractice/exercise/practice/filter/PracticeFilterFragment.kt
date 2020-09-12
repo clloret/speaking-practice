@@ -91,7 +91,7 @@ class PracticeFilterFragment : BaseFragment() {
 
     private fun showPracticeWithFilter(filter: ExerciseFilterStrategy, filterName: String) {
         val action =
-            PracticeFilterFragmentDirections.actionPracticeFilterFragmentToPracticeFragment(
+            PracticeFilterFragmentDirections.actionPracticeFilterFragmentToPracticeActivity(
                 filter,
                 "Practice $filterName"
             )

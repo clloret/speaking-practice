@@ -28,7 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun exerciseAttemptDao(): ExerciseAttemptDao
     abstract fun tagDao(): TagDao
     abstract fun tagExerciseJoinDao(): TagExerciseJoinDao
-    abstract fun statisticsDao(): StatisticsDao
+    abstract fun statisticsDao(): StatsDao
     abstract fun practiceWordDao(): PracticeWordDao
 
     companion object {

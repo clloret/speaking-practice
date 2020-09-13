@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.statistics
+package com.clloret.speakingpractice.stats
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,24 +7,24 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
-import com.clloret.speakingpractice.databinding.StatisticsFragmentBinding
+import com.clloret.speakingpractice.databinding.StatsFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StatisticsFragment : BaseFragment() {
+class StatsFragment : BaseFragment() {
 
     companion object {
-        fun newInstance() = StatisticsFragment()
+        fun newInstance() = StatsFragment()
     }
 
-    private val viewModel: StatisticsViewModel by viewModel()
+    private val viewModel: StatsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: StatisticsFragmentBinding = DataBindingUtil.inflate(
+        val binding: StatsFragmentBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.statistics_fragment, container, false
+            R.layout.stats_fragment, container, false
         )
         binding.model = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

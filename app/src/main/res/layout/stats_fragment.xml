@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".statistics.StatisticsFragment">
+    tools:context=".stats.StatsFragment">
 
     <data>
 
         <variable
             name="model"
-            type="com.clloret.speakingpractice.statistics.StatisticsViewModel" />
+            type="com.clloret.speakingpractice.stats.StatsViewModel" />
     </data>
 
     <ScrollView
@@ -94,7 +94,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:gravity="center_horizontal"
-                android:text="@{@string/number_format(model.statistics.totalAttempts)}"
+                android:text="@{@string/number_format(model.stats.totalAttempts)}"
                 android:textAppearance="@style/StatisticsValue"
                 app:layout_constraintStart_toStartOf="@+id/verticalCenterGuide"
                 app:layout_constraintTop_toBottomOf="@+id/attemptsGroupTitle"
@@ -119,7 +119,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
-                android:text="@{@string/number_format(model.statistics.correctAttempts)}"
+                android:text="@{@string/number_format(model.stats.correctAttempts)}"
                 android:textAppearance="@style/StatisticsValue"
                 app:layout_constraintStart_toStartOf="@+id/verticalCenterGuide"
                 app:layout_constraintTop_toBottomOf="@+id/totalAttemptsValue"
@@ -144,7 +144,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
-                android:text="@{@string/number_format(model.statistics.incorrectAttempts)}"
+                android:text="@{@string/number_format(model.stats.incorrectAttempts)}"
                 android:textAppearance="@style/StatisticsValue"
                 app:layout_constraintStart_toStartOf="@+id/verticalCenterGuide"
                 app:layout_constraintTop_toBottomOf="@+id/correctAttemptsValue"
@@ -169,7 +169,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
-                android:text="@{@string/percent_format(model.statistics.successRate)}"
+                android:text="@{@string/percent_format(model.stats.successRate)}"
                 android:textAppearance="@style/StatisticsValue"
                 app:layout_constraintStart_toStartOf="@+id/verticalCenterGuide"
                 app:layout_constraintTop_toBottomOf="@+id/incorrectAttemptsValue"
@@ -238,7 +238,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:gravity="center_horizontal"
-                android:text="@{@string/number_format(model.statistics.totalExercises)}"
+                android:text="@{@string/number_format(model.stats.totalExercises)}"
                 android:textAppearance="@style/StatisticsValue"
                 app:layout_constraintStart_toStartOf="@+id/verticalCenterGuide"
                 app:layout_constraintTop_toBottomOf="@+id/exercisesGroupTitle"
@@ -263,7 +263,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
-                android:text="@{@string/number_format(model.statistics.practicedExercises)}"
+                android:text="@{@string/number_format(model.stats.practicedExercises)}"
                 android:textAppearance="@style/StatisticsValue"
                 app:layout_constraintStart_toStartOf="@+id/verticalCenterGuide"
                 app:layout_constraintTop_toBottomOf="@+id/totalExercisesValue"
@@ -288,7 +288,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
-                android:text="@{@string/number_format(model.statistics.nonPracticedExercises)}"
+                android:text="@{@string/number_format(model.stats.nonPracticedExercises)}"
                 android:textAppearance="@style/StatisticsValue"
                 app:layout_constraintStart_toStartOf="@+id/verticalCenterGuide"
                 app:layout_constraintTop_toBottomOf="@+id/practicedExercisesValue"
@@ -313,7 +313,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
-                android:text="@{@string/percent_format(model.statistics.percentagePracticedExercises)}"
+                android:text="@{@string/percent_format(model.stats.percentagePracticedExercises)}"
                 android:textAppearance="@style/StatisticsValue"
                 app:layout_constraintStart_toStartOf="@+id/verticalCenterGuide"
                 app:layout_constraintTop_toBottomOf="@+id/nonPracticedExercisesValue"

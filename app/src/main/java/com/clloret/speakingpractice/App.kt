@@ -17,7 +17,7 @@ import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
 import com.clloret.speakingpractice.exercise.practice.FormatCorrectWords
 import com.clloret.speakingpractice.exercise.practice.PracticeViewModel
 import com.clloret.speakingpractice.exercise.practice.filter.SelectTagDlgViewModel
-import com.clloret.speakingpractice.statistics.StatisticsViewModel
+import com.clloret.speakingpractice.stats.StatsViewModel
 import com.clloret.speakingpractice.tag.add.AddTagViewModel
 import com.clloret.speakingpractice.tag.list.TagListViewModel
 import com.clloret.speakingpractice.utils.PreferenceValues
@@ -192,7 +192,7 @@ class App : Application() {
             viewModel { ExerciseListViewModel(get()) }
             viewModel { TagListViewModel(get()) }
             viewModel { SelectTagDlgViewModel(get()) }
-            viewModel { StatisticsViewModel(get()) }
+            viewModel { StatsViewModel(get()) }
             viewModel { WordListViewModel(get()) }
             viewModel { (filter: AttemptFilterStrategy) ->
                 AttemptListViewModel(filter, get(), get())

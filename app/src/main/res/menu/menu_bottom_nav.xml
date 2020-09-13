@@ -22,7 +22,7 @@
         android:title="@string/title_tags" />
 
     <item
-        android:id="@+id/statisticsFragment"
+        android:id="@+id/statsFragment"
         android:icon="@drawable/ic_stats_24dp"
         android:title="@string/title_stats" />
 

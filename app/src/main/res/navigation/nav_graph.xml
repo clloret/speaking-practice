@@ -22,7 +22,7 @@
             app:destination="@id/practiceFilterFragment" />
         <action
             android:id="@+id/action_homeFragment_to_statisticsFragment"
-            app:destination="@id/statisticsFragment" />
+            app:destination="@id/statsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_wordListFragment"
             app:destination="@id/wordListFragment" />
@@ -122,10 +122,10 @@
         tools:layout="@layout/select_tag_dlg_fragment" />
 
     <fragment
-        android:id="@+id/statisticsFragment"
-        android:name="com.clloret.speakingpractice.statistics.StatisticsFragment"
+        android:id="@+id/statsFragment"
+        android:name="com.clloret.speakingpractice.stats.StatsFragment"
         android:label="Statistics"
-        tools:layout="@layout/statistics_fragment" />
+        tools:layout="@layout/stats_fragment" />
 
     <fragment
         android:id="@+id/wordListFragment"

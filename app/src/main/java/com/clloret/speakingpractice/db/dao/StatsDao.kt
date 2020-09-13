@@ -3,10 +3,10 @@ package com.clloret.speakingpractice.db.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
-import com.clloret.speakingpractice.domain.entities.Statistics
+import com.clloret.speakingpractice.domain.entities.Stats
 
 @Dao
-interface StatisticsDao {
+interface StatsDao {
     @Query(
         """SELECT COUNT() AS total_attempts,
        SUM(result) AS correct_attempts,
@@ -26,6 +26,6 @@ interface StatisticsDao {
   FROM exercise_attempts;
         """
     )
-    fun getStatistics(): LiveData<Statistics>
+    fun getStats(): LiveData<Stats>
 
 }

@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Results of the week in the home screen
+- Bottom navigation
+- Button to practice random exercises from the home screen
 
 ### Changed
 

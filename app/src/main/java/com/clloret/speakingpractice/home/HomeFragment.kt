@@ -100,14 +100,6 @@ class HomeFragment : BaseFragment() {
             findNavController()
                 .navigate(action)
         }
-
-        btnImportExercises.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToImportExercisesDlgFragment()
-
-            findNavController()
-                .navigate(action)
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

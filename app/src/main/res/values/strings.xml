@@ -102,4 +102,5 @@
     <string name="title_tags">Tags</string>
     <string name="title_two_points">:</string>
     <string name="title_words">Words</string>
+    <string name="title_import_exercises">Import Exercises</string>
 </resources>

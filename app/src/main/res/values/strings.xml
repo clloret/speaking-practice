@@ -103,4 +103,12 @@
     <string name="title_two_points">:</string>
     <string name="title_words">Words</string>
     <string name="title_import_exercises">Import Exercises</string>
+    <string name="title_monday">MO</string>
+    <string name="title_tuesday">TU</string>
+    <string name="title_wednesday">WE</string>
+    <string name="title_thursday">TH</string>
+    <string name="title_friday">FR</string>
+    <string name="title_saturday">SA</string>
+    <string name="title_sunday">SU</string>
+    <string name="title_week_results">RESULTS OF THE WEEK</string>
 </resources>

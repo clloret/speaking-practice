@@ -16,6 +16,7 @@ import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
 import com.clloret.speakingpractice.exercise.practice.FormatCorrectWords
 import com.clloret.speakingpractice.exercise.practice.PracticeViewModel
 import com.clloret.speakingpractice.exercise.practice.filter.SelectTagDlgViewModel
+import com.clloret.speakingpractice.home.stats.HomeStatsViewModel
 import com.clloret.speakingpractice.stats.StatsViewModel
 import com.clloret.speakingpractice.tag.add.AddTagViewModel
 import com.clloret.speakingpractice.tag.list.TagListViewModel
@@ -163,6 +164,7 @@ class KoinModule {
                 viewModel { TagListViewModel(get()) }
                 viewModel { SelectTagDlgViewModel(get()) }
                 viewModel { StatsViewModel(get()) }
+                viewModel { HomeStatsViewModel(get()) }
                 viewModel { WordListViewModel(get()) }
                 viewModel { (filter: AttemptFilterStrategy) ->
                     AttemptListViewModel(filter, get(), get())

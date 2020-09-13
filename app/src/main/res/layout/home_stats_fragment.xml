@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.clloret.speakingpractice.home.stats.HomeStatsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".home.stats.HomeStatsFragment">
+
+        <TextView
+            android:id="@+id/weekResultsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_week_results"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/mondayStats"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:indeterminate="false"
+            android:max="@{model.monday.totalAttempts}"
+            android:padding="@dimen/xsmall_padding"
+            android:progress="@{model.monday.correctAttempts}"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/tuesdayStats"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weekResultsTitle"
+            tools:max="15"
+            tools:progress="10" />
+
+        <ProgressBar
+            android:id="@+id/tuesdayStats"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp"
+            android:indeterminate="false"
+            android:max="@{model.tuesday.totalAttempts}"
+            android:padding="@dimen/xsmall_padding"
+            android:progress="@{model.tuesday.correctAttempts}"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/wednesdayStats"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/mondayStats"
+            app:layout_constraintTop_toBottomOf="@+id/weekResultsTitle" />
+
+        <ProgressBar
+            android:id="@+id/wednesdayStats"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp"
+            android:indeterminate="false"
+            android:max="@{model.wednesday.totalAttempts}"
+            android:padding="@dimen/xsmall_padding"
+            android:progress="@{model.wednesday.correctAttempts}"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/thursdayStats"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tuesdayStats"
+            app:layout_constraintTop_toBottomOf="@+id/weekResultsTitle" />
+
+        <ProgressBar
+            android:id="@+id/thursdayStats"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp"
+            android:indeterminate="false"
+            android:max="@{model.thursday.totalAttempts}"
+            android:padding="@dimen/xsmall_padding"
+            android:progress="@{model.thursday.correctAttempts}"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/fridayStats"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/wednesdayStats"
+            app:layout_constraintTop_toBottomOf="@+id/weekResultsTitle" />
+
+        <ProgressBar
+            android:id="@+id/fridayStats"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp"
+            android:indeterminate="false"
+            android:max="@{model.friday.totalAttempts}"
+            android:padding="@dimen/xsmall_padding"
+            android:progress="@{model.friday.correctAttempts}"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/saturdayStats"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/thursdayStats"
+            app:layout_constraintTop_toBottomOf="@+id/weekResultsTitle" />
+
+        <ProgressBar
+            android:id="@+id/saturdayStats"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp"
+            android:indeterminate="false"
+            android:max="@{model.saturday.totalAttempts}"
+            android:padding="@dimen/xsmall_padding"
+            android:progress="@{model.saturday.correctAttempts}"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/sundayStats"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/fridayStats"
+            app:layout_constraintTop_toBottomOf="@+id/weekResultsTitle" />
+
+        <ProgressBar
+            android:id="@+id/sundayStats"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:indeterminate="false"
+            android:max="@{model.sunday.totalAttempts}"
+            android:padding="@dimen/xsmall_padding"
+            android:progress="@{model.sunday.correctAttempts}"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/saturdayStats"
+            app:layout_constraintTop_toBottomOf="@+id/weekResultsTitle" />
+
+        <TextView
+            android:id="@+id/mondayTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_monday"
+            app:layout_constraintEnd_toEndOf="@+id/mondayStats"
+            app:layout_constraintStart_toStartOf="@+id/mondayStats"
+            app:layout_constraintTop_toBottomOf="@+id/mondayStats" />
+
+        <TextView
+            android:id="@+id/tuesdayTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_tuesday"
+            app:layout_constraintEnd_toEndOf="@+id/tuesdayStats"
+            app:layout_constraintStart_toStartOf="@+id/tuesdayStats"
+            app:layout_constraintTop_toBottomOf="@+id/tuesdayStats" />
+
+        <TextView
+            android:id="@+id/wednesdayTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_wednesday"
+            app:layout_constraintEnd_toEndOf="@+id/wednesdayStats"
+            app:layout_constraintStart_toStartOf="@+id/wednesdayStats"
+            app:layout_constraintTop_toBottomOf="@+id/wednesdayStats" />
+
+        <TextView
+            android:id="@+id/thursdayTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_thursday"
+            app:layout_constraintEnd_toEndOf="@+id/thursdayStats"
+            app:layout_constraintStart_toStartOf="@+id/thursdayStats"
+            app:layout_constraintTop_toBottomOf="@+id/thursdayStats" />
+
+        <TextView
+            android:id="@+id/fridayTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_friday"
+            app:layout_constraintEnd_toEndOf="@+id/fridayStats"
+            app:layout_constraintStart_toStartOf="@+id/fridayStats"
+            app:layout_constraintTop_toBottomOf="@+id/fridayStats" />
+
+        <TextView
+            android:id="@+id/saturdayTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_saturday"
+            app:layout_constraintEnd_toEndOf="@+id/saturdayStats"
+            app:layout_constraintStart_toStartOf="@+id/saturdayStats"
+            app:layout_constraintTop_toBottomOf="@+id/saturdayStats" />
+
+        <TextView
+            android:id="@+id/sundayTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_sunday"
+            app:layout_constraintEnd_toEndOf="@+id/sundayStats"
+            app:layout_constraintStart_toStartOf="@+id/sundayStats"
+            app:layout_constraintTop_toBottomOf="@+id/sundayStats" />
+
+        <TextView
+            android:id="@+id/successRateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/title_statistics_success_rate"
+            app:layout_constraintBottom_toTopOf="@+id/successRateValue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thursdayTitle" />
+
+        <TextView
+            android:id="@+id/successRateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{@string/percent_format(model.stats.successRate)}"
+            android:textAppearance="@style/StatisticsValue"
+            app:layout_constraintEnd_toEndOf="@+id/successRateTitle"
+            app:layout_constraintStart_toStartOf="@+id/successRateTitle"
+            app:layout_constraintTop_toBottomOf="@+id/successRateTitle"
+            tools:text="50%" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

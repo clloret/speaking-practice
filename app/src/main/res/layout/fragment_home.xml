@@ -8,12 +8,32 @@
     android:padding="8dp"
     tools:context=".home.HomeFragment">
 
+    <!-- FragmentContainerView currently has no layout preview -->
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.clloret.speakingpractice.home.stats.HomeStatsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        tools:ignore="FragmentTagUsage"
+        tools:layout="@layout/home_stats_fragment" />
+
     <Button
         android:id="@+id/btnPractice"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/default_margin"
-        android:layout_weight="1"
+        android:layout_weight="0.25"
+        android:text="@string/action_speaking_practice"
+        app:backgroundTint="@color/color_primary_variant"
+        app:cornerRadius="25dp" />
+
+    <Button
+        android:id="@+id/btnPracticeFilter"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/default_margin"
+        android:layout_weight="0.25"
         android:text="@string/action_speaking_practice"
         app:backgroundTint="@color/color_primary_variant"
         app:cornerRadius="25dp" />

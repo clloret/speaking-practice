@@ -15,6 +15,10 @@ class AppRepository(private val db: AppDatabase) {
 
     val stats = db.statisticsDao().getStats()
 
+    fun getStatsPerDay(day: String): LiveData<StatsPerDay> {
+        return db.statisticsDao().getStatsPerDay(day)
+    }
+
     suspend fun getExerciseById(id: Int): Exercise? {
         return db.exerciseDao().getExerciseById(id)
     }

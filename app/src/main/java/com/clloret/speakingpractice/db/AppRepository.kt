@@ -13,10 +13,10 @@ class AppRepository(private val db: AppDatabase) {
     val allPracticeWords: LiveData<List<PracticeWordWithResults>> =
         db.practiceWordDao().getPracticeWordsWithResults()
 
-    val stats = db.statisticsDao().getStats()
+    val stats = db.statsDao().getStats()
 
     fun getStatsPerDay(day: String): LiveData<StatsPerDay> {
-        return db.statisticsDao().getStatsPerDay(day)
+        return db.statsDao().getStatsPerDay(day)
     }
 
     suspend fun getExerciseById(id: Int): Exercise? {

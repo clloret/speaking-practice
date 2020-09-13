@@ -34,7 +34,7 @@
     <string name="action_sort_success_rate_asc">Success rate ascending</string>
     <string name="action_sort_success_rate_desc">Success rate descending</string>
     <string name="action_speak">Speak</string>
-    <string name="action_speaking_practice">Speaking Practice</string>
+    <string name="action_practice">Practice</string>
     <string name="action_statistics">Statistics</string>
     <string name="action_tag_list">Tag List</string>
     <string name="action_word_list">Word List</string>
@@ -111,4 +111,5 @@
     <string name="title_saturday">SA</string>
     <string name="title_sunday">SU</string>
     <string name="title_week_results">RESULTS OF THE WEEK</string>
+    <string name="action_select_a_filter">Select a filter</string>
 </resources>

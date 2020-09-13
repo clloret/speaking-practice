@@ -11,8 +11,10 @@ import androidx.navigation.navGraphViewModels
 import androidx.navigation.ui.NavigationUI
 import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
+import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByRandom
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.import_.ImportExercisesSharedViewModel
+import com.clloret.speakingpractice.utils.PreferenceValues
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
@@ -31,6 +33,10 @@ class HomeFragment : BaseFragment() {
 
     private val sharedViewModel: ImportExercisesSharedViewModel by navGraphViewModels(R.id.nav_graph)
     private val importExercises: ImportExercises by inject { parametersOf(this.requireContext()) }
+    private val preferenceValues: PreferenceValues by inject()
+    private val filterByRandom: ExerciseFilterByRandom by inject {
+        parametersOf(preferenceValues.exercisesPerRound())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +100,17 @@ class HomeFragment : BaseFragment() {
 
     private fun setupButtonsEvents() {
         btnPractice.setOnClickListener {
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToPracticeActivity(
+                    filterByRandom,
+                    "Random"
+                )
+
+            findNavController()
+                .navigate(action)
+        }
+
+        btnPracticeFilter.setOnClickListener {
             val action =
                 HomeFragmentDirections.actionHomeFragmentToPracticeFilterFragment()
 

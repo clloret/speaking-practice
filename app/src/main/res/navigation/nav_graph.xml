@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_homeFragment_to_importExercisesDlgFragment"
             app:destination="@id/importExercisesDlgFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_practiceActivity"
+            app:destination="@id/practiceActivity" />
     </fragment>
 
     <fragment

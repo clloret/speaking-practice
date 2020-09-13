@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 ## [1.2.0] - 2020-09-05
 
+### Changed
+
+- The option to import exercises is now on the home menu
+
 ### Added
 
 - Search for exercises by text on the exercise list screen

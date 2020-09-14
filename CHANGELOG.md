@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Show the attempts practiced each day in the home screen
+
 ## [1.3.0] - 2020-09-13
 
 ### Added

@@ -25,15 +25,13 @@
         android:layout_margin="@dimen/default_margin"
         android:layout_weight="0.25"
         android:text="@string/action_practice"
-        app:backgroundTint="@color/color_primary_variant"
-        app:cornerRadius="@dimen/button_corner_radius" />
+        app:backgroundTint="@color/color_primary_variant" />
 
     <Button
         android:id="@+id/btnPracticeFilter"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_margin="@dimen/default_margin"
-        android:text="@string/action_select_a_filter"
-        app:cornerRadius="@dimen/button_corner_radius" />
+        android:text="@string/action_select_a_filter" />
 
 </LinearLayout>

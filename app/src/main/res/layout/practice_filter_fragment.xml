@@ -11,6 +11,7 @@
         android:id="@+id/btnRandomExercises"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/default_margin"
         android:layout_weight="1"
         android:text="@string/action_random_exercises" />
 
@@ -18,6 +19,7 @@
         android:id="@+id/btnMostFailedExercises"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/default_margin"
         android:layout_weight="1"
         android:text="@string/action_most_failed_exercises" />
 
@@ -25,6 +27,7 @@
         android:id="@+id/btnLessPracticedExercises"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/default_margin"
         android:layout_weight="1"
         android:text="@string/action_less_practiced_exercises" />
 
@@ -32,6 +35,7 @@
         android:id="@+id/btnOneTag"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/default_margin"
         android:layout_weight="1"
         android:text="@string/action_select_tag" />
 
@@ -39,6 +43,7 @@
         android:id="@+id/btnAllExercises"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/default_margin"
         android:layout_weight="1"
         android:text="@string/action_all_exercises" />
 

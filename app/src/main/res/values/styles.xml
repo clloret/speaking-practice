@@ -9,6 +9,7 @@
         <item name="colorOnPrimary">#FFFFFF</item>
         <item name="colorSecondary">@color/color_secondary</item>
         <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="materialButtonStyle">@style/RoundButton</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -26,6 +27,12 @@
     //ThemeOverlay.AppCompat.Light
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    // Button Styles
+
+    <style name="RoundButton" parent="@style/Widget.MaterialComponents.Button">
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+    </style>
 
     // Text Styles
 

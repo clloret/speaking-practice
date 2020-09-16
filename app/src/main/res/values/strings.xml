@@ -112,4 +112,6 @@
     <string name="title_sunday">SU</string>
     <string name="title_week_results">RESULTS OF THE WEEK</string>
     <string name="action_select_a_filter">Select a filter</string>
+    <string name="title_exercise_correct">CORRECT</string>
+    <string name="title_exercise_incorrect">INCORRECT</string>
 </resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/exercise_correct_dark" />
+            <corners android:radius="@dimen/custom_toast_radius" />
+        </shape>
+    </item>
+
+    <item android:bottom="@dimen/custom_toast_shadow_size">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/exercise_correct" />
+            <corners android:radius="@dimen/custom_toast_radius" />
+        </shape>
+    </item>
+
+</layer-list>

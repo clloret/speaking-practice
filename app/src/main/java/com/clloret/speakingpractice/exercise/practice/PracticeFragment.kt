@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
@@ -21,6 +22,7 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeFragmentBinding
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.PreferenceValues
+import com.clloret.speakingpractice.utils.controls.CustomToast
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -52,6 +54,24 @@ class PracticeFragment : BaseFragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
     private val preferenceValues: PreferenceValues by inject()
     private var viewModel: PracticeViewModel? = null
+    private val toastExerciseCorrect by lazy {
+        CustomToast.makeText(
+            requireActivity().applicationContext,
+            R.string.title_exercise_correct,
+            R.drawable.correct_shape,
+            R.drawable.ic_exercise_correct_wht_24dp,
+            Toast.LENGTH_SHORT
+        )
+    }
+    private val toastExerciseIncorrect by lazy {
+        CustomToast.makeText(
+            requireActivity().applicationContext,
+            R.string.title_exercise_incorrect,
+            R.drawable.incorrect_shape,
+            R.drawable.ic_exercise_incorrect_wht_24dp,
+            Toast.LENGTH_SHORT
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,14 +143,24 @@ class PracticeFragment : BaseFragment() {
 
             @Suppress("NON_EXHAUSTIVE_WHEN")
             when (it) {
-                PracticeViewModel.ExerciseResult.CORRECT -> playSound(soundCorrect)
-                PracticeViewModel.ExerciseResult.INCORRECT -> playSound(soundIncorrect)
+                PracticeViewModel.ExerciseResult.CORRECT -> exerciseCorrect()
+                PracticeViewModel.ExerciseResult.INCORRECT -> exerciseIncorrect()
             }
         })
 
         viewModel.onClickRecognizeSpeechBtn = {
             startRecognizeSpeech()
         }
+    }
+
+    private fun exerciseCorrect() {
+        toastExerciseCorrect.show()
+        playSound(soundCorrect)
+    }
+
+    private fun exerciseIncorrect() {
+        toastExerciseIncorrect.show()
+        playSound(soundIncorrect)
     }
 
     private fun playSound(soundId: Int?) {

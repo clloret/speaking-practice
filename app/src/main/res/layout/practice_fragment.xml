@@ -32,20 +32,6 @@
 
         </androidx.viewpager2.widget.ViewPager2>
 
-        <ImageView
-            android:id="@+id/exerciseResultView"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:contentDescription="@string/exercise_result_description"
-            android:src="@{model.exerciseResult == ExerciseResult.CORRECT ? @drawable/ic_check_circle_green_24dp : @drawable/ic_error_red_24dp}"
-            android:visibility="@{model.exerciseResult == ExerciseResult.HIDDEN ? View.INVISIBLE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@+id/viewPager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_check_circle_green_24dp"
-            tools:visibility="visible" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

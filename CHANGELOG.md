@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - The result of the exercise is now displayed as a pop-up
+- The app buttons now have a rounded border
 
 ## [1.3.0] - 2020-09-13
 

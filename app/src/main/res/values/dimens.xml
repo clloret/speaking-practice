@@ -6,4 +6,8 @@
     <dimen name="xsmall_margin">4dp</dimen>
     <dimen name="button_height">52dp</dimen>
     <dimen name="button_corner_radius">25dp</dimen>
+    <dimen name="custom_toast_radius">50dp</dimen>
+    <dimen name="custom_toast_shadow_size">4dp</dimen>
+    <dimen name="custom_toast_padding">24dp</dimen>
+    <dimen name="custom_toast_icon_padding">8dp</dimen>
 </resources>

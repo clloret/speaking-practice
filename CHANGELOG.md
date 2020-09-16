@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - Show the attempts practiced each day in the home screen
 
+### Changed
+
+- The result of the exercise is now displayed as a pop-up
+
 ## [1.3.0] - 2020-09-13
 
 ### Added

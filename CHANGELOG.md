@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Show the attempts practiced each day in the home screen
+- Dots indicator in the practice screen to show the exercise position
 
 ### Changed
 

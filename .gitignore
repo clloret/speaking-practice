@@ -209,6 +209,10 @@ obj/
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
+.idea/jarRepositories.xml
+.idea/checkstyle-idea.xml
+.idea/markdown-navigator.xml
+.idea/markdown-navigator-enh.xml
 
 # OS-specific files
 .DS_Store?
@@ -258,6 +262,3 @@ fabric.properties
 # Secrets
 google-services.json
 secrets.properties
-
-/.idea/jarRepositories.xml
-/.idea/checkstyle-idea.xml

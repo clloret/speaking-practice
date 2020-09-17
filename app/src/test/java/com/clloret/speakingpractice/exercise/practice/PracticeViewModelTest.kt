@@ -7,7 +7,6 @@ import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppRepository
-import com.clloret.speakingpractice.domain.entities.AttemptWithExercise
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterAll
 import com.clloret.speakingpractice.util.MainCoroutineScopeRule
@@ -79,35 +78,28 @@ class PracticeViewModelTest {
         val exercises = sut.exercises.getOrAwaitValue()
         val first = exercises.first()
 
-        sut.recognizeSpeech(first)
+        sut.setCurrentExercise(first)
+        sut.recognizeSpeech()
         sut.validatePhrase(arrayListOf(CORRECT_PHRASE))
 
         println(first.exercise.id)
-
-        val attempts =
-            db.exerciseAttemptDao().getExerciseAttemptsByExerciseId(first.exercise.id)
 
         TestObserver.test(sut.exerciseResult)
             .awaitValue()
             .assertHasValue()
             .assertValue { it == PracticeViewModel.ExerciseResult.CORRECT }
-
-        TestObserver.test<List<AttemptWithExercise>>(attempts)
-            .awaitValue()
-            .assertHasValue()
-            .assertValue { it.isNotEmpty() }
     }
 
     @Test
-    fun `when the validated phrase is correct set exercise result as incorrect`() {
+    fun `when the validated phrase is incorrect set exercise result as incorrect`() {
         val exercises = sut.exercises.getOrAwaitValue()
         val firstExercise = exercises.first()
 
-        sut.recognizeSpeech(firstExercise)
-        sut.validatePhrase(arrayListOf(CORRECT_PHRASE))
+        sut.setCurrentExercise(firstExercise)
+        sut.recognizeSpeech()
+        sut.validatePhrase(arrayListOf(INCORRECT_PHRASE))
 
         TestObserver.test(sut.exerciseResult)
-            //.awaitValue()
             .awaitValue(2, TimeUnit.SECONDS)
             .assertHasValue()
             .assertValue { it == PracticeViewModel.ExerciseResult.INCORRECT }
@@ -118,24 +110,29 @@ class PracticeViewModelTest {
         val exercises = sut.exercises.getOrAwaitValue()
         val first = exercises.first()
 
-        sut.recognizeSpeech(first)
+        sut.setCurrentExercise(first)
+        sut.recognizeSpeech()
         sut.validatePhrase(arrayListOf(CORRECT_PHRASE))
 
         val attempts =
             db.exerciseAttemptDao().getExerciseAttemptsByExerciseId(first.exercise.id)
 
-        TestObserver.test<List<AttemptWithExercise>>(attempts)
-            .awaitValue()
+        TestObserver.test(attempts)
+            .awaitValue(2, TimeUnit.SECONDS)
             .assertHasValue()
             .assertValue { it.isNotEmpty() }
     }
 
     @Test
     fun `when call speakTest return the text to speak with TTS`() {
-        sut.speakText(CORRECT_PHRASE)
+        val exercises = sut.exercises.getOrAwaitValue()
+        val first = exercises.first()
+
+        sut.setCurrentExercise(first)
+        sut.speakText()
 
         TestObserver.test(sut.speakText)
-            .awaitValue()
+            .awaitValue(2, TimeUnit.SECONDS)
             .assertHasValue()
             .assertValue { it.peekContent() == CORRECT_PHRASE }
     }

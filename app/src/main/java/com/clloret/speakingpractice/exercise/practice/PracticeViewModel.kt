@@ -36,18 +36,36 @@ class PracticeViewModel(
 
     private var currentExerciseDetail: ExerciseWithDetails? = null
     private var correctWords = listOf<Pair<String, Boolean>>()
+    private var correctedExercise = false
 
     val exercises = filter.getExercises(repository)
-
     var onClickRecognizeSpeechBtn: (() -> Unit)? = null
 
-    fun recognizeSpeech(exerciseDetail: ExerciseWithDetails) {
-        currentExerciseDetail = exerciseDetail
+    private fun isCurrentExercise(exercise: Exercise): Boolean {
+        return currentExerciseDetail?.exercise?.let {
+            exercise.id == it.id
+        } ?: false
+    }
+
+    fun setCurrentExercise(exercise: ExerciseWithDetails) {
+        currentExerciseDetail = exercise
+    }
+
+    fun resetExercise() {
+        _exerciseResult.postValue(ExerciseResult.HIDDEN)
+        correctWords = listOf()
+        correctedExercise = false
+    }
+
+    fun recognizeSpeech() {
+        correctedExercise = true
         onClickRecognizeSpeechBtn?.invoke()
     }
 
-    fun speakText(text: String) {
-        _speakText.postValue(Event(text))
+    fun speakText() {
+        currentExerciseDetail?.let { it ->
+            _speakText.postValue(Event(it.practicePhrase))
+        }
     }
 
     fun validatePhrase(textList: List<String>) {
@@ -85,27 +103,16 @@ class PracticeViewModel(
         }
     }
 
-    fun resetExercise() {
-        _exerciseResult.postValue(ExerciseResult.HIDDEN)
-        currentExerciseDetail = null
-        correctWords = listOf()
-    }
-
-    private fun isCurrentExercise(exercise: Exercise): Boolean {
-        return currentExerciseDetail?.exercise?.let {
-            exercise.id == it.id
-        } ?: false
-    }
-
     fun getFormattedPracticePhrase(exercise: Exercise): Spanned {
         Timber.d("Correct Words: $correctWords")
         Timber.d("Exercise: $exercise")
         Timber.d("Current Exercise: ${currentExerciseDetail?.exercise}")
+        Timber.d("Corrected: $correctedExercise")
 
         return formatCorrectWords.getFormattedPracticePhrase(
             exercise.practicePhrase,
             correctWords,
-            isCurrentExercise(exercise)
+            isCurrentExercise(exercise) && correctedExercise
         )
     }
 

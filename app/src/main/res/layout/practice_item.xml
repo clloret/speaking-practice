@@ -36,6 +36,7 @@
         android:background="@color/practice_background">
 
         <View
+            android:id="@+id/view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/scoreboard_background"
@@ -150,15 +151,16 @@
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/xsmall_margin"
             android:layout_marginEnd="@dimen/default_margin"
-            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/phrase_rounded_corner"
             android:gravity="center"
             android:padding="@dimen/default_padding"
             android:text="@{model.getFormattedPracticePhrase(exercise.exercise)}"
-            app:layout_constraintBottom_toTopOf="@+id/btnListenPhrase"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/translatedPhrase"
             tools:text="@tools:sample/lorem/random" />
 
         <TextView
@@ -174,43 +176,12 @@
             android:gravity="center"
             android:padding="@dimen/default_padding"
             android:text="@{exercise.exercise.translatedPhrase}"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintBottom_toTopOf="@+id/practicePhrase"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/successRate"
+            app:layout_constraintTop_toBottomOf="@+id/view"
             tools:text="@tools:sample/lorem/random" />
-
-        <Button
-            android:id="@+id/btnListenPhrase"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginEnd="@dimen/default_margin"
-            android:layout_marginBottom="@dimen/default_margin"
-            android:gravity="center"
-            android:onClick="@{() -> model.speakText(exercise.exercise.practicePhrase)}"
-            android:text="@string/action_listen"
-            app:icon="@drawable/ic_hearing_wht_24"
-            app:iconGravity="textStart"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnSpeakPhrase"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/btnSpeakPhrase"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginEnd="@dimen/default_margin"
-            android:layout_marginBottom="@dimen/default_margin"
-            android:gravity="center"
-            android:onClick="@{() -> model.recognizeSpeech(exercise)}"
-            android:text="@string/action_speak"
-            app:icon="@drawable/ic_mic_wht_24"
-            app:iconGravity="textStart"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnListenPhrase" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

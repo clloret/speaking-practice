@@ -30,6 +30,10 @@ class PracticeAdapter(
         holder.bind(item, viewModel, position + 1, itemCount)
     }
 
+    public override fun getItem(position: Int): ExerciseWithDetails {
+        return super.getItem(position)
+    }
+
     class ViewHolder(private val binding: PracticeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(

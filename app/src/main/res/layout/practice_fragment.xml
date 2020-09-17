@@ -19,18 +19,69 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/practice_background">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tab_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
         </androidx.viewpager2.widget.ViewPager2>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dots_indicator_height"
+            android:layout_marginStart="@dimen/dots_indicator_padding"
+            android:layout_marginEnd="@dimen/dots_indicator_padding"
+            android:layout_marginBottom="8dp"
+            android:background="@color/practice_background"
+            app:layout_constraintBottom_toTopOf="@+id/btnListenPhrase"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabBackground="@drawable/dots_indicator"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"
+            app:tabMaxWidth="@dimen/dots_indicator_dot_width"
+            app:tabMode="auto"
+            tools:backgroundTint="@android:color/background_dark" />
+
+        <Button
+            android:id="@+id/btnListenPhrase"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:gravity="center"
+            android:onClick="@{() -> model.speakText()}"
+            android:text="@string/action_listen"
+            app:icon="@drawable/ic_hearing_wht_24"
+            app:iconGravity="textStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnSpeakPhrase"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnSpeakPhrase"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:gravity="center"
+            android:onClick="@{() -> model.recognizeSpeech()}"
+            android:text="@string/action_speak"
+            app:icon="@drawable/ic_mic_wht_24"
+            app:iconGravity="textStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnListenPhrase" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

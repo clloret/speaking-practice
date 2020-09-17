@@ -24,6 +24,8 @@ import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrateg
 import com.clloret.speakingpractice.utils.PreferenceValues
 import com.clloret.speakingpractice.utils.controls.CustomToast
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -97,23 +99,28 @@ class PracticeFragment : BaseFragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.model = viewModel
-        setupViewPager(binding.viewPager)
+        setupViewPager(binding.viewPager, binding.tabLayout)
 
         observeData()
 
         return binding.root
     }
 
-    private fun setupViewPager(viewPager: ViewPager2) {
+    private fun setupViewPager(viewPager: ViewPager2, tabLayout: TabLayout) {
         val viewModel = viewModel ?: return
         val listAdapter = PracticeAdapter(viewModel)
         viewPager.adapter = listAdapter
+
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            Timber.d("TabLayoutMediator - tag: $tab, position: $position")
+        }.attach()
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
 
-                Timber.d("Page: $position")
+                val item = listAdapter.getItem(position)
+                viewModel.setCurrentExercise(item)
 
                 val lastPage = listAdapter.itemCount - 1
                 if (position < lastPage) {

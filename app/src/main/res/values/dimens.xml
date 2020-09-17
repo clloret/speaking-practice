@@ -10,4 +10,8 @@
     <dimen name="custom_toast_shadow_size">4dp</dimen>
     <dimen name="custom_toast_padding">24dp</dimen>
     <dimen name="custom_toast_icon_padding">8dp</dimen>
+    <dimen name="dots_indicator_dot_thickness">4dp</dimen>
+    <dimen name="dots_indicator_dot_width">16dp</dimen>
+    <dimen name="dots_indicator_height">24dp</dimen>
+    <dimen name="dots_indicator_padding">32dp</dimen>
 </resources>

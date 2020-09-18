@@ -13,6 +13,8 @@ import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.entities.PracticeWord
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.lifecycle.Event
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
@@ -20,7 +22,8 @@ import java.util.*
 class PracticeViewModel(
     filter: ExerciseFilterStrategy,
     private val repository: AppRepository,
-    private val formatCorrectWords: FormatCorrectWords
+    private val formatCorrectWords: FormatCorrectWords,
+    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Main
 ) :
     ViewModel() {
     enum class ExerciseResult {
@@ -81,7 +84,7 @@ class PracticeViewModel(
             )
             correctWords = words
 
-            viewModelScope.launch {
+            viewModelScope.launch(defaultDispatcher) {
                 val exerciseAttempt = ExerciseAttempt(
                     exerciseId = it.exercise.id,
                     result = result.first,

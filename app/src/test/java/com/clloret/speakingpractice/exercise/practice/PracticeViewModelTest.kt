@@ -14,13 +14,14 @@ import com.clloret.speakingpractice.util.getOrAwaitValue
 import com.jraska.livedata.TestObserver
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.Executors
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -32,6 +33,7 @@ class PracticeViewModelTest {
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
+    private val testDispatcher = TestCoroutineDispatcher()
     private val colorResourceProvider = TestColorResourceProvider()
     private val formatCorrectWords = FormatCorrectWords(colorResourceProvider)
     private lateinit var db: AppDatabase
@@ -43,7 +45,9 @@ class PracticeViewModelTest {
         val context = getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
             context, AppDatabase::class.java
-        ).allowMainThreadQueries().build()
+        )
+            .setTransactionExecutor(Executors.newSingleThreadExecutor())
+            .allowMainThreadQueries().build()
         val exercise = Exercise(practicePhrase = CORRECT_PHRASE, translatedPhrase = "Hola Mundo!!")
 
         mainCoroutineRule.launch {
@@ -62,7 +66,7 @@ class PracticeViewModelTest {
     @Before
     fun createSut() {
         val filter = ExerciseFilterAll()
-        sut = PracticeViewModel(filter, repository, formatCorrectWords)
+        sut = PracticeViewModel(filter, repository, formatCorrectWords, testDispatcher)
     }
 
     @Test
@@ -100,7 +104,7 @@ class PracticeViewModelTest {
         sut.validatePhrase(arrayListOf(INCORRECT_PHRASE))
 
         TestObserver.test(sut.exerciseResult)
-            .awaitValue(2, TimeUnit.SECONDS)
+            .awaitValue()
             .assertHasValue()
             .assertValue { it == PracticeViewModel.ExerciseResult.INCORRECT }
     }
@@ -118,7 +122,7 @@ class PracticeViewModelTest {
             db.exerciseAttemptDao().getExerciseAttemptsByExerciseId(first.exercise.id)
 
         TestObserver.test(attempts)
-            .awaitValue(2, TimeUnit.SECONDS)
+            .awaitValue()
             .assertHasValue()
             .assertValue { it.isNotEmpty() }
     }
@@ -132,7 +136,7 @@ class PracticeViewModelTest {
         sut.speakText()
 
         TestObserver.test(sut.speakText)
-            .awaitValue(2, TimeUnit.SECONDS)
+            .awaitValue()
             .assertHasValue()
             .assertValue { it.peekContent() == CORRECT_PHRASE }
     }

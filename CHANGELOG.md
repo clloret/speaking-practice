@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 
 - The result of the exercise is now displayed as a pop-up
 - The app buttons now have a rounded border
+- Speech recognition now has a customized interface
 
 ## [1.3.0] - 2020-09-13
 

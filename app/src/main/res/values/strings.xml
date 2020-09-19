@@ -80,6 +80,10 @@
     <string name="title_empty_word_list">You haven\'t practiced any exercises yet</string>
     <string name="title_enable_sound">Enable sound</string>
     <string name="title_exercise_correct">CORRECT</string>
+    <string name="title_exercise_filter_all">All</string>
+    <string name="title_exercise_filter_less_practiced">Less Practiced</string>
+    <string name="title_exercise_filter_most_failed">Most Failed</string>
+    <string name="title_exercise_filter_random">Random</string>
     <string name="title_exercise_incorrect">INCORRECT</string>
     <string name="title_exercises">Exercises</string>
     <string name="title_exercises_per_round">Exercises per round</string>

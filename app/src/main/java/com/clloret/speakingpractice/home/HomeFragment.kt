@@ -107,7 +107,7 @@ class HomeFragment : BaseFragment() {
             val action =
                 HomeFragmentDirections.actionHomeFragmentToPracticeActivity(
                     filterByRandom,
-                    "Random"
+                    getString(R.string.title_exercise_filter_random)
                 )
 
             findNavController()

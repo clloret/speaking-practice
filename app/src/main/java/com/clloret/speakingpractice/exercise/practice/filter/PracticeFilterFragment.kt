@@ -60,7 +60,7 @@ class PracticeFilterFragment : BaseFragment() {
 
     private fun setupButtonsEvents() {
         btnAllExercises.setOnClickListener {
-            showPracticeWithFilter(filterAll, "All")
+            showPracticeWithFilter(filterAll, getString(R.string.title_exercise_filter_all))
         }
 
         btnRandomExercises.setOnClickListener {
@@ -70,7 +70,7 @@ class PracticeFilterFragment : BaseFragment() {
                         preferenceValues.exercisesPerRound()
                     )
                 }
-            showPracticeWithFilter(filterByRandom, "Random")
+            showPracticeWithFilter(filterByRandom, getString(R.string.title_exercise_filter_random))
         }
 
         btnLessPracticedExercises.setOnClickListener {
@@ -80,11 +80,17 @@ class PracticeFilterFragment : BaseFragment() {
                         preferenceValues.exercisesPerRound()
                     )
                 }
-            showPracticeWithFilter(filterByLessPracticed, "Less Practiced")
+            showPracticeWithFilter(
+                filterByLessPracticed,
+                getString(R.string.title_exercise_filter_less_practiced)
+            )
         }
 
         btnMostFailedExercises.setOnClickListener {
-            showPracticeWithFilter(filterBySuccessRate, "Most Failed")
+            showPracticeWithFilter(
+                filterBySuccessRate,
+                getString(R.string.title_exercise_filter_most_failed)
+            )
         }
 
         btnOneTag.setOnClickListener {

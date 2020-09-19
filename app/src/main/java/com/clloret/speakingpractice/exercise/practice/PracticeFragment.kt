@@ -1,18 +1,18 @@
 package com.clloret.speakingpractice.exercise.practice
 
-import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
@@ -24,8 +24,11 @@ import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrateg
 import com.clloret.speakingpractice.utils.PreferenceValues
 import com.clloret.speakingpractice.utils.controls.CustomToast
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
+import com.github.zagum.speechrecognitionview.RecognitionProgressView
+import com.github.zagum.speechrecognitionview.adapters.RecognitionListenerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.practice_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -45,10 +48,14 @@ class PracticeFragment : BaseFragment() {
             return fragment
         }
 
-        private const val REQUEST_CODE_SPEECH_INPUT = 0x01
         private const val EXTRA_FILTER = "filter"
     }
 
+    private val speechRecognizer: SpeechRecognizer by lazy {
+        SpeechRecognizer.createSpeechRecognizer(
+            requireContext()
+        )
+    }
     private var tts: TextToSpeech? = null
     private var soundPool: SoundPool? = null
     private var soundCorrect: Int? = null
@@ -100,6 +107,7 @@ class PracticeFragment : BaseFragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.model = viewModel
         setupViewPager(binding.viewPager, binding.tabLayout)
+        setupRecognizerProgressView(binding.recognitionProgressView)
 
         observeData()
 
@@ -136,6 +144,45 @@ class PracticeFragment : BaseFragment() {
         })
     }
 
+    private fun setupRecognizerProgressView(progressView: RecognitionProgressView) {
+        with(progressView) {
+            setSingleColor(ContextCompat.getColor(requireContext(), R.color.color_secondary))
+            setRotationRadiusInDp(20)
+            setSpeechRecognizer(speechRecognizer)
+            setRecognitionListener(object : RecognitionListenerAdapter() {
+                override fun onResults(results: Bundle) {
+                    processRecognizedText(results)
+                }
+
+                override fun onEndOfSpeech() {
+                    super.onEndOfSpeech()
+
+                    Timber.d("onEndOfSpeech")
+
+                    apply {
+                        postDelayed({
+                            stop()
+                            play()
+                            visibility = View.GONE
+                            btnSpeakPhrase.visibility = View.VISIBLE
+                        }, 2000)
+                    }
+                }
+
+                override fun onError(error: Int) {
+                    super.onError(error)
+
+                    Timber.d("onError - error:$error")
+
+                    visibility = View.GONE
+                    btnSpeakPhrase.visibility = View.VISIBLE
+                }
+            })
+            visibility = View.GONE
+            play()
+        }
+    }
+
     private fun observeData() {
         val viewModel = viewModel ?: return
 
@@ -156,6 +203,8 @@ class PracticeFragment : BaseFragment() {
         })
 
         viewModel.onClickRecognizeSpeechBtn = {
+            btnSpeakPhrase.visibility = View.INVISIBLE
+            recognitionProgressView.visibility = View.VISIBLE
             startRecognizeSpeech()
         }
     }
@@ -198,19 +247,9 @@ class PracticeFragment : BaseFragment() {
         mainViewModel.showMessage(message)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == REQUEST_CODE_SPEECH_INPUT) {
-            if (resultCode == Activity.RESULT_OK && null != data) {
-                processRecognizedText(data)
-            }
-        }
-    }
-
-    private fun processRecognizedText(data: Intent) {
+    private fun processRecognizedText(bundle: Bundle) {
         val viewModel = viewModel ?: return
-        val results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) ?: return
+        val results = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) ?: return
 
         Timber.d("Recognized results: $results")
 
@@ -218,25 +257,17 @@ class PracticeFragment : BaseFragment() {
     }
 
     private fun startRecognizeSpeech() {
-        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        intent
-            .putExtra(
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, requireContext().packageName)
+            putExtra(
                 RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
             )
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US.toLanguageTag())
-        intent.putExtra(
-            RecognizerIntent.EXTRA_PROMPT,
-            getString(R.string.msg_read_exercise_sentence)
-        )
-        try {
-            startActivityForResult(
-                intent,
-                REQUEST_CODE_SPEECH_INPUT
-            )
-        } catch (a: ActivityNotFoundException) {
-            showMessage(getString(R.string.msg_error_voice_recognition_not_supported))
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US.toLanguageTag())
         }
+        speechRecognizer.startListening(intent)
+
+        recognitionProgressView.play()
     }
 
     private fun initTts() {

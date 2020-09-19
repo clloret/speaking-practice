@@ -83,6 +83,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnListenPhrase" />
 
+        <com.github.zagum.speechrecognitionview.RecognitionProgressView
+            android:id="@+id/recognitionProgressView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSpeakPhrase"
+            app:layout_constraintEnd_toEndOf="@+id/btnSpeakPhrase"
+            app:layout_constraintStart_toStartOf="@+id/btnSpeakPhrase"
+            app:layout_constraintTop_toTopOf="@+id/btnSpeakPhrase" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

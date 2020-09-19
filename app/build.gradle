@@ -111,6 +111,7 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'com.github.daniel-stoneuk:material-about-library:3.1.2'
     implementation "com.vorlonsoft:androidrate:1.2.1"
+    implementation 'com.github.zagum:SpeechRecognitionView:1.2.2'
 
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 

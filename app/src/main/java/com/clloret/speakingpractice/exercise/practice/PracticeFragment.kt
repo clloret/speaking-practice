@@ -1,5 +1,6 @@
 package com.clloret.speakingpractice.exercise.practice
 
+import android.Manifest
 import android.content.Intent
 import android.media.AudioAttributes
 import android.media.SoundPool
@@ -32,6 +33,8 @@ import kotlinx.android.synthetic.main.practice_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
+import pub.devrel.easypermissions.AfterPermissionGranted
+import pub.devrel.easypermissions.EasyPermissions
 import timber.log.Timber
 import java.util.*
 
@@ -49,6 +52,7 @@ class PracticeFragment : BaseFragment() {
         }
 
         private const val EXTRA_FILTER = "filter"
+        private const val PERMISSION_REQUEST_RECORD_AUDIO = 0x01
     }
 
     private val speechRecognizer: SpeechRecognizer by lazy {
@@ -203,8 +207,6 @@ class PracticeFragment : BaseFragment() {
         })
 
         viewModel.onClickRecognizeSpeechBtn = {
-            btnSpeakPhrase.visibility = View.INVISIBLE
-            recognitionProgressView.visibility = View.VISIBLE
             startRecognizeSpeech()
         }
     }
@@ -256,18 +258,40 @@ class PracticeFragment : BaseFragment() {
         viewModel.validatePhrase(results)
     }
 
-    private fun startRecognizeSpeech() {
-        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-            putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, requireContext().packageName)
-            putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-            )
-            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US.toLanguageTag())
-        }
-        speechRecognizer.startListening(intent)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        recognitionProgressView.play()
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    @AfterPermissionGranted(PERMISSION_REQUEST_RECORD_AUDIO)
+    private fun startRecognizeSpeech() {
+
+        val perms = Manifest.permission.RECORD_AUDIO
+        if (EasyPermissions.hasPermissions(requireContext(), perms)) {
+            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, requireContext().packageName)
+                putExtra(
+                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+                )
+                putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US.toLanguageTag())
+            }
+            speechRecognizer.startListening(intent)
+
+            btnSpeakPhrase.visibility = View.INVISIBLE
+            recognitionProgressView.visibility = View.VISIBLE
+            recognitionProgressView.play()
+        } else {
+            EasyPermissions.requestPermissions(
+                this, getString(R.string.msg_rationale_permission_record_audio),
+                PERMISSION_REQUEST_RECORD_AUDIO, perms
+            )
+        }
     }
 
     private fun initTts() {

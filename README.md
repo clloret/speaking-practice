@@ -28,6 +28,7 @@ An Android application to practice English pronunciation.
 
 -   [Android-Debug-Database](https://github.com/amitshekhariitbhu/Android-Debug-Database)
 -   [AndroidRate](https://github.com/Vorlonsoft/AndroidRate)
+-   [EasyPermissions](https://github.com/googlesamples/easypermissions)
 -   [Junit](https://github.com/junit-team/junit4)
 -   [Koin](https://github.com/InsertKoinIO/koin)
 -   [Livedata-Testing](https://github.com/jraska/livedata-testing)
@@ -35,6 +36,7 @@ An Android application to practice English pronunciation.
 -   [Mockito](https://github.com/mockito/mockito)
 -   [Robolectric](https://github.com/robolectric/robolectric)
 -   [RxJava](https://github.com/ReactiveX/RxJava)
+-   [SpeechRecognitionView](https://github.com/zagum/SpeechRecognitionView)
 -   [Timber](https://github.com/JakeWharton/timber)
 
 ## License

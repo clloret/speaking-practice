@@ -11,13 +11,6 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/action_add"
-        android:icon="@drawable/ic_add_wht_24dp"
-        android:orderInCategory="3"
-        android:title="@string/action_add"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/menu_exercise_list_order"
         android:icon="@drawable/ic_sort_wht_24dp"
         android:orderInCategory="1"

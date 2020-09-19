@@ -119,4 +119,5 @@
     <string name="title_wednesday">WE</string>
     <string name="title_week_results">RESULTS OF THE WEEK</string>
     <string name="title_words">Words</string>
+    <string name="action_add_exercise_description">Add exercise</string>
 </resources>

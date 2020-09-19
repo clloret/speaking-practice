@@ -67,7 +67,6 @@ class ExerciseListFragment : BaseFragment() {
                     findNavController().navigateUp()
                 }
             }
-
         }
     }
 
@@ -82,6 +81,9 @@ class ExerciseListFragment : BaseFragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.recyclerView.setupRecyclerView(binding.emptyView, savedInstanceState)
+        binding.fabAddExercise.setOnClickListener {
+            addExercise()
+        }
 
         return binding.root
     }
@@ -109,7 +111,6 @@ class ExerciseListFragment : BaseFragment() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_add -> addExercise()
             R.id.menu_exercise_list_sort_alphabetically_asc -> selectSortMenuItem(
                 item,
                 sortByAlphaAsc

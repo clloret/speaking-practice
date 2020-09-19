@@ -14,4 +14,5 @@
     <dimen name="dots_indicator_dot_width">16dp</dimen>
     <dimen name="dots_indicator_height">24dp</dimen>
     <dimen name="dots_indicator_padding">32dp</dimen>
+    <dimen name="practice_frame_elevation">8dp</dimen>
 </resources>

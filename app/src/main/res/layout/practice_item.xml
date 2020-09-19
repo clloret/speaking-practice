@@ -108,26 +108,6 @@
             tools:text="50%" />
 
         <TextView
-            android:id="@+id/practicePhrase"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginTop="@dimen/xsmall_margin"
-            android:layout_marginEnd="@dimen/default_margin"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/phrase_rounded_corner"
-            android:gravity="center"
-            android:padding="@dimen/default_padding"
-            android:text="@{model.getFormattedPracticePhrase(exercise.exercise)}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/translatedPhrase"
-            tools:text="@tools:sample/lorem/random" />
-
-        <TextView
             android:id="@+id/translatedPhrase"
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="match_parent"
@@ -136,7 +116,8 @@
             android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginBottom="@dimen/xsmall_margin"
-            android:background="@drawable/phrase_rounded_corner"
+            android:background="@drawable/practice_frame_round_corner"
+            android:elevation="@dimen/practice_frame_elevation"
             android:gravity="center"
             android:padding="@dimen/default_padding"
             android:text="@{exercise.exercise.translatedPhrase}"
@@ -145,6 +126,27 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view"
+            tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/practicePhrase"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/xsmall_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/practice_frame_round_corner"
+            android:elevation="@dimen/practice_frame_elevation"
+            android:gravity="center"
+            android:padding="@dimen/default_padding"
+            android:text="@{model.getFormattedPracticePhrase(exercise.exercise)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/translatedPhrase"
             tools:text="@tools:sample/lorem/random" />
 
         <androidx.constraintlayout.widget.Guideline

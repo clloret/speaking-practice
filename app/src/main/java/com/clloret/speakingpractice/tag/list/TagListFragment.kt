@@ -62,24 +62,11 @@ class TagListFragment : BaseFragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.recyclerView.setupRecyclerView(binding.emptyView, savedInstanceState)
+        binding.fabAddTag.setOnClickListener {
+            addTag()
+        }
 
         return binding.root
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-
-        inflater.inflate(R.menu.menu_tag_list, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_add -> addTag()
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     private var actionMode: ActionMode? = null

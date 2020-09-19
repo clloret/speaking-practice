@@ -15,6 +15,8 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/recycler_fab_padding_bottom"
             tools:itemCount="10"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/tag_list_item"
@@ -31,6 +33,15 @@
             android:textAppearance="@style/EmptyViewText"
             android:visibility="gone"
             tools:visibility="gone" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/fab_margin"
+            android:contentDescription="@string/action_add_tag_description"
+            android:src="@drawable/ic_add_wht_24dp" />
 
     </FrameLayout>
 </layout>

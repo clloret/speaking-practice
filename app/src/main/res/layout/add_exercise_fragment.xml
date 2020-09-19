@@ -17,13 +17,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/medium_padding">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutPracticePhrase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/medium_margin"
             app:errorEnabled="true"
             app:errorText="@{model.getErrorMessage(FormErrors.EMPTY_PRACTICE_PHRASE, @string/msg_error_cannot_be_empty, model.formErrors)}">
 
@@ -39,7 +39,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/medium_margin"
             app:errorEnabled="true"
             app:errorText="@{model.getErrorMessage(FormErrors.EMPTY_TRANSLATED_PHRASE, @string/msg_error_cannot_be_empty, model.formErrors)}">
 
@@ -59,7 +59,8 @@
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/medium_margin">
 
             <com.google.android.material.chip.ChipGroup
                 choiceChips="@={model.exerciseTags}"

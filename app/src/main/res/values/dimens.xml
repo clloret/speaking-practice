@@ -2,8 +2,10 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="default_padding">8dp</dimen>
     <dimen name="xsmall_padding">4dp</dimen>
+    <dimen name="medium_padding">16dp</dimen>
     <dimen name="default_margin">8dp</dimen>
     <dimen name="xsmall_margin">4dp</dimen>
+    <dimen name="medium_margin">16dp</dimen>
     <dimen name="button_height">52dp</dimen>
     <dimen name="button_corner_radius">25dp</dimen>
     <dimen name="custom_toast_radius">50dp</dimen>

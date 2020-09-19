@@ -109,7 +109,7 @@
 
         <TextView
             android:id="@+id/translatedPhrase"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+            style="@style/PracticeText"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/default_margin"
@@ -130,7 +130,7 @@
 
         <TextView
             android:id="@+id/practicePhrase"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+            style="@style/PracticePhrase"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/default_margin"
@@ -148,7 +148,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/translatedPhrase"
             tools:text="@tools:sample/lorem/random" />
-        
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

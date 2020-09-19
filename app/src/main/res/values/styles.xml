@@ -52,6 +52,12 @@
 
     <style name="EmptyViewText" parent="@style/TextAppearance.MaterialComponents.Headline4" />
 
+    <style name="PracticeText" parent="@style/TextAppearance.MaterialComponents.Headline5" />
+
+    <style name="PracticePhrase" parent="@style/PracticeText">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     // Statistics Styles
 
     <style name="StatisticsGroupTitle" parent="@style/TextAppearance.MaterialComponents.Headline5">

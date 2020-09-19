@@ -67,10 +67,6 @@ class AppRepository(private val db: AppDatabase) {
         return db.tagExerciseJoinDao().getSelectedTagsForExercise(exerciseId)
     }
 
-    suspend fun insertExercise(exercise: Exercise) {
-        db.exerciseDao().insert(exercise)
-    }
-
     suspend fun deleteExerciseList(listIds: List<Int>) {
         db.exerciseDao().deleteList(listIds)
     }

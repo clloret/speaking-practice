@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,7 +51,7 @@ class SelectTagDlgFragment : BottomSheetDialogFragment() {
         }
         adapter = listAdapter
 
-        viewModel.tags.observe(viewLifecycleOwner, Observer {
+        viewModel.tags.observe(viewLifecycleOwner, {
             it?.let {
                 listAdapter.submitList(it)
             }

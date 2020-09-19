@@ -12,6 +12,7 @@ import com.clloret.speakingpractice.domain.exercise.filter.*
 import com.clloret.speakingpractice.utils.PreferenceValues
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import kotlinx.android.synthetic.main.practice_filter_fragment.*
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
@@ -26,12 +27,6 @@ class PracticeFilterFragment : BaseFragment() {
     private val preferenceValues: PreferenceValues by inject()
     private val filterAll: ExerciseFilterAll by inject()
     private val filterBySuccessRate: ExerciseFilterBySuccessRate by inject()
-    private val filterByRandom: ExerciseFilterByRandom by inject {
-        parametersOf(preferenceValues.exercisesPerRound())
-    }
-    private val filterByLessPracticed: ExerciseFilterByLessPracticed by inject {
-        parametersOf(preferenceValues.exercisesPerRound())
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,10 +64,22 @@ class PracticeFilterFragment : BaseFragment() {
         }
 
         btnRandomExercises.setOnClickListener {
+            val filterByRandom: ExerciseFilterByRandom =
+                get {
+                    parametersOf(
+                        preferenceValues.exercisesPerRound()
+                    )
+                }
             showPracticeWithFilter(filterByRandom, "Random")
         }
 
         btnLessPracticedExercises.setOnClickListener {
+            val filterByLessPracticed: ExerciseFilterByLessPracticed =
+                get {
+                    parametersOf(
+                        preferenceValues.exercisesPerRound()
+                    )
+                }
             showPracticeWithFilter(filterByLessPracticed, "Less Practiced")
         }
 

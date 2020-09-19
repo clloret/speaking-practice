@@ -17,6 +17,7 @@ import com.clloret.speakingpractice.exercise.import_.ImportExercisesSharedViewMo
 import com.clloret.speakingpractice.utils.PreferenceValues
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.home_fragment.*
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -34,9 +35,6 @@ class HomeFragment : BaseFragment() {
     private val sharedViewModel: ImportExercisesSharedViewModel by navGraphViewModels(R.id.nav_graph)
     private val importExercises: ImportExercises by inject { parametersOf(this.requireContext()) }
     private val preferenceValues: PreferenceValues by inject()
-    private val filterByRandom: ExerciseFilterByRandom by inject {
-        parametersOf(preferenceValues.exercisesPerRound())
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +98,12 @@ class HomeFragment : BaseFragment() {
 
     private fun setupButtonsEvents() {
         btnPractice.setOnClickListener {
+            val filterByRandom: ExerciseFilterByRandom =
+                get {
+                    parametersOf(
+                        preferenceValues.exercisesPerRound()
+                    )
+                }
             val action =
                 HomeFragmentDirections.actionHomeFragmentToPracticeActivity(
                     filterByRandom,

@@ -21,7 +21,8 @@ import com.clloret.speakingpractice.utils.selection.LongItemDetails
 
 class ExerciseListAdapter(
     comparator: Comparator<ExerciseSortable>,
-    private val findNavController: NavController
+    private val findNavController: NavController,
+    val listener: ExerciseListListener
 ) : RecyclerView.Adapter<ExerciseListAdapter.ViewHolder>(), OnClickExerciseHandler {
 
     private val adapterCallback = ExerciseListAdapterCallback(this, comparator)
@@ -90,6 +91,9 @@ class ExerciseListAdapter(
             setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.action_show_attempts -> showExerciseAttempts(exerciseDetail)
+                    R.id.action_edit -> {
+                        listener.onEditExercise(exerciseDetail.exercise.id); true
+                    }
                     else -> false
                 }
             }
@@ -139,6 +143,11 @@ class ExerciseListAdapter(
                 override fun getSelectionKey(): Long? = itemId
             }
     }
+
+    interface ExerciseListListener {
+        fun onEditExercise(exerciseId: Int)
+    }
+
 }
 
 interface OnClickExerciseHandler {

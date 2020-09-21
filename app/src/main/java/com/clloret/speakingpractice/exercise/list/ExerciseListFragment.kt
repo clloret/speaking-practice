@@ -29,8 +29,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 import timber.log.Timber
 
-
-class ExerciseListFragment : BaseFragment() {
+class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListListener {
 
     companion object {
         fun newInstance() = ExerciseListFragment()
@@ -251,7 +250,8 @@ class ExerciseListFragment : BaseFragment() {
         addItemDecoration(dividerItemDecoration)
 
         val comparator = viewModel.selectedComparator ?: sortByAlphaAsc
-        val listAdapter = ExerciseListAdapter(comparator, findNavController())
+        val listAdapter =
+            ExerciseListAdapter(comparator, findNavController(), this@ExerciseListFragment)
         adapter = listAdapter
 
         val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
@@ -319,17 +319,23 @@ class ExerciseListFragment : BaseFragment() {
 
         selectionTracker?.apply {
             selection.first()?.let { exerciseId ->
-                val action =
-                    ExerciseListFragmentDirections.actionExerciseListFragmentToAddExerciseFragment(
-                        exerciseId.toInt(),
-                        getString(R.string.title_edit_exercise)
-                    )
-
-                findNavController()
-                    .navigate(action)
+                onEditExercise(exerciseId.toInt())
             }
         }
         return true
     }
 
+    override fun onEditExercise(exerciseId: Int) {
+        val action =
+            ExerciseListFragmentDirections.actionExerciseListFragmentToAddExerciseFragment(
+                exerciseId,
+                getString(R.string.title_edit_exercise)
+            )
+
+        findNavController()
+            .navigate(action)
+    }
+
 }
+
+

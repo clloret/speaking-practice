@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListFragmentBinding
+import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByExercise
+import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterById
 import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.utils.Dialogs
@@ -239,7 +241,7 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
 
         val comparator = viewModel.selectedComparator ?: sortByAlphaAsc
         val listAdapter =
-            ExerciseListAdapter(comparator, findNavController(), this@ExerciseListFragment)
+            ExerciseListAdapter(comparator, this@ExerciseListFragment)
         adapter = listAdapter
 
         val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
@@ -342,6 +344,21 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
 
     override fun onDeleteExercise(exerciseId: Int) {
         deleteExercises(R.string.msg_delete_exercise_confirmation, listOf(exerciseId))
+    }
+
+    override fun onShowExerciseAttempts(exerciseId: Int) {
+        val action = ExerciseListFragmentDirections
+            .actionExerciseListFragmentToAttemptListFragment(
+                AttemptFilterByExercise(exerciseId)
+            )
+        findNavController().navigate(action)
+    }
+
+    override fun onPracticeExercise(exerciseId: Int) {
+        val action = ExerciseListFragmentDirections.actionExerciseListFragmentToPracticeActivity(
+            ExerciseFilterById(exerciseId), "Practice An Exercise"
+        )
+        findNavController().navigate(action)
     }
 
 }

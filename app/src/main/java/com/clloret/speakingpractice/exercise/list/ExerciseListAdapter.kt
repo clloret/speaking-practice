@@ -6,22 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavController
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListItemBinding
-import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByExercise
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
-import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterById
 import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
 import com.clloret.speakingpractice.utils.selection.LongItemDetails
 
 class ExerciseListAdapter(
     comparator: Comparator<ExerciseSortable>,
-    private val findNavController: NavController,
     val listener: ExerciseListListener
 ) : RecyclerView.Adapter<ExerciseListAdapter.ViewHolder>(), OnClickExerciseHandler {
 
@@ -80,17 +76,16 @@ class ExerciseListAdapter(
     }
 
     override fun onClick(exerciseDetail: ExerciseWithDetails) {
-        val action = ExerciseListFragmentDirections.actionExerciseListFragmentToPracticeActivity(
-            ExerciseFilterById(exerciseDetail.exercise.id), "Practice An Exercise"
-        )
-        findNavController.navigate(action)
+        listener.onPracticeExercise(exerciseDetail.exercise.id)
     }
 
     override fun onClickMenu(view: View, exerciseDetail: ExerciseWithDetails) {
         PopupMenu(view.context, view).apply {
             setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.action_show_attempts -> showExerciseAttempts(exerciseDetail)
+                    R.id.action_show_attempts -> {
+                        listener.onShowExerciseAttempts(exerciseDetail.exercise.id); true
+                    }
                     R.id.action_edit -> {
                         listener.onEditExercise(exerciseDetail.exercise.id); true
                     }
@@ -104,16 +99,6 @@ class ExerciseListAdapter(
             gravity = Gravity.START
             show()
         }
-    }
-
-    private fun showExerciseAttempts(exerciseDetail: ExerciseWithDetails): Boolean {
-        val action = ExerciseListFragmentDirections
-            .actionExerciseListFragmentToAttemptListFragment(
-                AttemptFilterByExercise(exerciseDetail.exercise.id)
-            )
-        findNavController.navigate(action)
-
-        return true
     }
 
     fun submitList(list: Collection<ExerciseWithDetails>) {
@@ -150,6 +135,8 @@ class ExerciseListAdapter(
     interface ExerciseListListener {
         fun onEditExercise(exerciseId: Int)
         fun onDeleteExercise(exerciseId: Int)
+        fun onShowExerciseAttempts(exerciseId: Int)
+        fun onPracticeExercise(exerciseId: Int)
     }
 
 }

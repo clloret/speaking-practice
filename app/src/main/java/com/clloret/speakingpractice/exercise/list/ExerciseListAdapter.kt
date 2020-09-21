@@ -94,6 +94,9 @@ class ExerciseListAdapter(
                     R.id.action_edit -> {
                         listener.onEditExercise(exerciseDetail.exercise.id); true
                     }
+                    R.id.action_delete -> {
+                        listener.onDeleteExercise(exerciseDetail.exercise.id); true
+                    }
                     else -> false
                 }
             }
@@ -146,6 +149,7 @@ class ExerciseListAdapter(
 
     interface ExerciseListListener {
         fun onEditExercise(exerciseId: Int)
+        fun onDeleteExercise(exerciseId: Int)
     }
 
 }

@@ -47,7 +47,8 @@
     <string name="app_name">Speaking Practice</string>
     <string name="exercise_list_menu_button_description">Menu button</string>
     <string name="exercise_result_description">Exercise result</string>
-    <string name="msg_delete_exercise_confirmation">Are you sure you want to delete the selected exercises?</string>
+    <string name="msg_delete_selected_exercises_confirmation">Are you sure you want to delete the selected exercises?</string>
+    <string name="msg_delete_exercise_confirmation">Are you sure you want to delete the exercise?</string>
     <string name="msg_delete_tag_confirmation">Are you sure you want to delete the selected tags?</string>
     <string name="msg_error_cannot_be_empty">Cannot be empty</string>
     <string name="msg_error_initialization_failed">TTS Initialization failed!</string>

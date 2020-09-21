@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.activity.addCallback
+import androidx.annotation.StringRes
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
@@ -226,19 +227,6 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
         selectionTracker?.onSaveInstanceState(outState)
     }
 
-    private fun deleteSelectedExercises() {
-        selectionTracker?.selection?.apply {
-            val list = this.map { it.toInt() }
-
-            Dialogs(requireContext())
-                .showConfirmation(messageId = R.string.msg_delete_exercise_confirmation) { result ->
-                    if (result == Dialogs.Button.POSITIVE) {
-                        viewModel.deleteExerciseList(list)
-                    }
-                }
-        }
-    }
-
     private fun RecyclerView.setupRecyclerView(emptyView: View, savedInstanceState: Bundle?) {
         val linearLayoutManager = LinearLayoutManager(requireContext())
         layoutManager = linearLayoutManager
@@ -325,6 +313,22 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
         return true
     }
 
+    private fun deleteSelectedExercises() {
+        selectionTracker?.selection?.apply {
+            val list = this.map { it.toInt() }
+            deleteExercises(R.string.msg_delete_selected_exercises_confirmation, list)
+        }
+    }
+
+    private fun deleteExercises(@StringRes messageId: Int, list: List<Int>) {
+        Dialogs(requireContext())
+            .showConfirmation(messageId = messageId) { result ->
+                if (result == Dialogs.Button.POSITIVE) {
+                    viewModel.deleteExerciseList(list)
+                }
+            }
+    }
+
     override fun onEditExercise(exerciseId: Int) {
         val action =
             ExerciseListFragmentDirections.actionExerciseListFragmentToAddExerciseFragment(
@@ -334,6 +338,10 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
 
         findNavController()
             .navigate(action)
+    }
+
+    override fun onDeleteExercise(exerciseId: Int) {
+        deleteExercises(R.string.msg_delete_exercise_confirmation, listOf(exerciseId))
     }
 
 }

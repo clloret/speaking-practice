@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Edit and delete menu items to the exercise list screen pop-up menu
+
 ## [1.4.0] - 2020-09-19
 
 ### Added

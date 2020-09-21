@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.WordListFragmentBinding
+import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByWord
+import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByWord
 import com.clloret.speakingpractice.domain.word.sort.WordSortable
 import com.clloret.speakingpractice.exercise.list.RxSearchObservable
 import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
@@ -21,8 +23,9 @@ import kotlinx.android.synthetic.main.word_list_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
+import java.util.*
 
-class WordListFragment : BaseFragment() {
+class WordListFragment : BaseFragment(), WordListAdapter.WordListListener {
 
     companion object {
         fun newInstance() = WordListFragment()
@@ -138,7 +141,7 @@ class WordListFragment : BaseFragment() {
         addItemDecoration(dividerItemDecoration)
 
         val comparator = viewModel.selectedComparator ?: sortByAlphaAsc
-        val listAdapter = WordListAdapter(comparator, findNavController())
+        val listAdapter = WordListAdapter(comparator, this@WordListFragment)
         adapter = listAdapter
 
         val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
@@ -154,6 +157,20 @@ class WordListFragment : BaseFragment() {
             listAdapter.submitList(it)
         })
 
+    }
+
+    override fun onShowExerciseAttempts(word: String) {
+        val action = WordListFragmentDirections.actionWordListFragmentToAttemptListFragment(
+            AttemptFilterByWord(word)
+        )
+        findNavController().navigate(action)
+    }
+
+    override fun onPracticeWordExercises(word: String) {
+        val action = WordListFragmentDirections.actionWordListFragmentToPracticeActivity(
+            ExerciseFilterByWord(word), "Practice “${word.capitalize(Locale.US)}”"
+        )
+        findNavController().navigate(action)
     }
 
 }

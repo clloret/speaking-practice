@@ -181,9 +181,9 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
 
     private val actionModeCallback = object : ActionMode.Callback {
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-            mode.title = "Selection"
             val inflater: MenuInflater = mode.menuInflater
             inflater.inflate(R.menu.menu_exercise_list_selected, menu)
+            mode.title = getString(R.string.title_selection)
             return true
         }
 
@@ -356,7 +356,7 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
 
     override fun onPracticeExercise(exerciseId: Int) {
         val action = ExerciseListFragmentDirections.actionExerciseListFragmentToPracticeActivity(
-            ExerciseFilterById(exerciseId), "Practice An Exercise"
+            ExerciseFilterById(exerciseId), getString(R.string.title_exercise_filter_an_exercise)
         )
         findNavController().navigate(action)
     }

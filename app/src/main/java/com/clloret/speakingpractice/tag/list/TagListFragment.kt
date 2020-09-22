@@ -73,9 +73,9 @@ class TagListFragment : BaseFragment() {
 
     private val actionModeCallback = object : ActionMode.Callback {
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-            mode.title = "Selection"
             val inflater: MenuInflater = mode.menuInflater
             inflater.inflate(R.menu.menu_exercise_list_selected, menu)
+            mode.title = getString(R.string.title_selection)
             return true
         }
 

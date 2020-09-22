@@ -192,7 +192,7 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
 
             selectionTracker?.selection?.size()?.let {
                 val menuItem = menu.findItem(R.id.action_edit)
-                menuItem.isVisible = it == 1
+                menuItem.isVisible = it >= 1
 
                 return true
             }
@@ -271,8 +271,12 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
                             }
 
                             selectionTracker?.selection?.size()?.let { count ->
-                                if (count in 1..2) {
-                                    actionMode?.invalidate()
+                                when (count) {
+                                    in 1..2 -> actionMode?.invalidate()
+                                    0 -> actionMode?.finish()
+                                    else -> {
+                                        // Do nothing
+                                    }
                                 }
                             }
                         }

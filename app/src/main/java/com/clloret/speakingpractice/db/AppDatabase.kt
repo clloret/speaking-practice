@@ -16,7 +16,6 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 
-
 @Database(
     entities = [Exercise::class, ExerciseAttempt::class, Tag::class, TagExerciseJoin::class,
         PracticeWord::class],

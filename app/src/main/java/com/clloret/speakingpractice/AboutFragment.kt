@@ -12,7 +12,6 @@ import com.danielstone.materialaboutlibrary.model.MaterialAboutList
 import com.danielstone.materialaboutlibrary.util.OpenSourceLicense
 import java.util.*
 
-
 class AboutFragment : MaterialAboutFragment() {
     companion object {
         private const val AUTHOR_EMAIL = "clloret.app+speaking-practice@gmail.com"
@@ -96,5 +95,4 @@ class AboutFragment : MaterialAboutFragment() {
                 AUTHOR_NAME, OpenSourceLicense.GNU_GPL_3
             )
     }
-
 }

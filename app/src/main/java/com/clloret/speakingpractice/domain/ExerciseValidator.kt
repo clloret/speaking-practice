@@ -36,7 +36,7 @@ class ExerciseValidator(private val recognizedPhrases: List<String>, val practic
     private fun getBestPhrase(): String {
         val maxCorrect = recognizedPhrases
             .map { Pair(getWordsWithResults(it, practicePhrase), it) }
-            .maxBy { wordsWithPhrase -> wordsWithPhrase.first.count { it.second } }
+            .maxByOrNull { wordsWithPhrase -> wordsWithPhrase.first.count { it.second } }
 
         return maxCorrect!!.second
     }
@@ -82,7 +82,5 @@ class ExerciseValidator(private val recognizedPhrases: List<String>, val practic
                 )
             }
         }
-
-
     }
 }

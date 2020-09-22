@@ -36,199 +36,196 @@ import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-class KoinModule {
+object KoinModule {
 
-    companion object {
-        fun setupKoin(context: Context) {
-            val appModule = module {
+    fun setupKoin(context: Context) {
+        val appModule = module {
 
-                single { AppDatabase.getDatabase(get(), get()) }
-                single { AppRepository(get()) }
-                single { (context: Context) -> ImportExercises(context) }
+            single { AppDatabase.getDatabase(get(), get()) }
+            single { AppRepository(get()) }
+            single { (context: Context) -> ImportExercises(context) }
 
-                utils(this)
+            utils(this)
 
-                exerciseFilters(this)
+            exerciseFilters(this)
 
-                practiceWordSorters(this)
+            practiceWordSorters(this)
 
-                exerciseListSorters(this)
+            exerciseListSorters(this)
 
-                viewModels(this)
-            }
-
-            startKoin {
-                // use AndroidLogger as Koin Logger - default Level.INFO
-                androidLogger(Level.ERROR)
-
-                // use the Android context given there
-                androidContext(context)
-
-                // module list
-                modules(appModule)
-            }
+            viewModels(this)
         }
 
-        private fun utils(module: Module) {
-            // Utils
+        startKoin {
+            // use AndroidLogger as Koin Logger - default Level.INFO
+            androidLogger(Level.ERROR)
 
-            module.apply {
+            // use the Android context given there
+            androidContext(context)
 
-                single<ColorResourceProvider> {
-                    ColorResourceProviderImpl(get())
-                }
-                single<StringResourceProvider> {
-                    StringResourceProviderImpl(get())
-                }
-                single { PreferenceValues(get(), get()) }
-                single { FormatCorrectWords(get()) }
-
-            }
+            // module list
+            modules(appModule)
         }
+    }
 
-        private fun exerciseFilters(module: Module) {
-            // Exercise Filters
+    private fun utils(module: Module) {
+        // Utils
 
-            module.apply {
+        module.apply {
 
-                single { ExerciseFilterAll() }
-                single { ExerciseFilterBySuccessRate() }
-                factory { (limit: Int) ->
-                    ExerciseFilterByRandom(limit)
-                }
-                factory { (limit: Int) ->
-                    ExerciseFilterByLessPracticed(limit)
-                }
-
+            single<ColorResourceProvider> {
+                ColorResourceProviderImpl(get())
             }
-        }
-
-        private fun practiceWordSorters(module: Module) {
-            // Practice Word Sorters
-
-            module.apply {
-
-                single<Comparator<WordSortable>>(named("WordSortByTextAsc")) {
-                    WordSortByText(
-                        WordSortStrategy.OrderType.ASC
-                    )
-                }
-                single<Comparator<WordSortable>>(named("WordSortByTextDesc")) {
-                    WordSortByText(
-                        WordSortStrategy.OrderType.DESC
-                    )
-                }
-                single<Comparator<WordSortable>>(named("WordSortByCorrectDesc")) {
-                    WordSortByCorrect(
-                        WordSortStrategy.OrderType.DESC
-                    )
-                }
-                single<Comparator<WordSortable>>(named("WordSortByIncorrectDesc")) {
-                    WordSortByIncorrect(
-                        WordSortStrategy.OrderType.DESC
-                    )
-                }
-                single<Comparator<WordSortable>>(named("WordSortBySuccessRateAsc")) {
-                    WordSortBySuccessRate(
-                        WordSortStrategy.OrderType.ASC
-                    )
-                }
-                single<Comparator<WordSortable>>(named("WordSortBySuccessRateDesc")) {
-                    WordSortBySuccessRate(
-                        WordSortStrategy.OrderType.DESC
-                    )
-                }
-                single<Comparator<WordSortable>>(named("WordSortByPracticedAsc")) {
-                    WordSortByPracticed(
-                        WordSortStrategy.OrderType.ASC
-                    )
-                }
-                single<Comparator<WordSortable>>(named("WordSortByPracticedDesc")) {
-                    WordSortByPracticed(
-                        WordSortStrategy.OrderType.DESC
-                    )
-                }
-
+            single<StringResourceProvider> {
+                StringResourceProviderImpl(get())
             }
+            single { PreferenceValues(get(), get()) }
+            single { FormatCorrectWords(get()) }
+
         }
+    }
 
-        private fun viewModels(module: Module) {
-            // View Models
+    private fun exerciseFilters(module: Module) {
+        // Exercise Filters
 
-            module.apply {
+        module.apply {
 
-                viewModel { (filter: ExerciseFilterStrategy) ->
-                    PracticeViewModel(filter, get(), get())
-                }
-                viewModel { ExerciseListViewModel(get()) }
-                viewModel { TagListViewModel(get()) }
-                viewModel { SelectTagDlgViewModel(get()) }
-                viewModel { StatsViewModel(get()) }
-                viewModel { HomeStatsViewModel(get()) }
-                viewModel { WordListViewModel(get()) }
-                viewModel { (filter: AttemptFilterStrategy) ->
-                    AttemptListViewModel(filter, get(), get())
-                }
-                viewModel { (exerciseId: Int) ->
-                    AddExerciseViewModel(get(), exerciseId)
-                }
-                viewModel { (tagId: Int) ->
-                    AddTagViewModel(get(), tagId)
-                }
-
-                factory { SupervisorJob() }
-                factory { CoroutineScope(get<CompletableJob>()) }
-
+            single { ExerciseFilterAll() }
+            single { ExerciseFilterBySuccessRate() }
+            factory { (limit: Int) ->
+                ExerciseFilterByRandom(limit)
+            }
+            factory { (limit: Int) ->
+                ExerciseFilterByLessPracticed(limit)
             }
 
         }
+    }
 
-        private fun exerciseListSorters(module: Module) {
-            // Exercise List Sorters
+    private fun practiceWordSorters(module: Module) {
+        // Practice Word Sorters
 
-            module.apply {
-                single<Comparator<ExerciseSortable>>(named("ExerciseSortByTextAsc")) {
-                    ExerciseSortByText(
-                        ExerciseSortStrategy.OrderType.ASC
-                    )
-                }
-                single<Comparator<ExerciseSortable>>(named("ExerciseSortByTextDesc")) {
-                    ExerciseSortByText(
-                        ExerciseSortStrategy.OrderType.DESC
-                    )
-                }
-                single<Comparator<ExerciseSortable>>(named("ExerciseSortByCorrectDesc")) {
-                    ExerciseSortByCorrect(
-                        ExerciseSortStrategy.OrderType.DESC
-                    )
-                }
-                single<Comparator<ExerciseSortable>>(named("ExerciseSortByIncorrectDesc")) {
-                    ExerciseSortByIncorrect(
-                        ExerciseSortStrategy.OrderType.DESC
-                    )
-                }
-                single<Comparator<ExerciseSortable>>(named("ExerciseSortBySuccessRateAsc")) {
-                    ExerciseSortBySuccessRate(
-                        ExerciseSortStrategy.OrderType.ASC
-                    )
-                }
-                single<Comparator<ExerciseSortable>>(named("ExerciseSortBySuccessRateDesc")) {
-                    ExerciseSortBySuccessRate(
-                        ExerciseSortStrategy.OrderType.DESC
-                    )
-                }
-                single<Comparator<ExerciseSortable>>(named("ExerciseSortByPracticedAsc")) {
-                    ExerciseSortByPracticed(
-                        ExerciseSortStrategy.OrderType.ASC
-                    )
-                }
-                single<Comparator<ExerciseSortable>>(named("ExerciseSortByPracticedDesc")) {
-                    ExerciseSortByPracticed(
-                        ExerciseSortStrategy.OrderType.DESC
-                    )
-                }
+        module.apply {
+
+            single<Comparator<WordSortable>>(named("WordSortByTextAsc")) {
+                WordSortByText(
+                    WordSortStrategy.OrderType.ASC
+                )
+            }
+            single<Comparator<WordSortable>>(named("WordSortByTextDesc")) {
+                WordSortByText(
+                    WordSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<WordSortable>>(named("WordSortByCorrectDesc")) {
+                WordSortByCorrect(
+                    WordSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<WordSortable>>(named("WordSortByIncorrectDesc")) {
+                WordSortByIncorrect(
+                    WordSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<WordSortable>>(named("WordSortBySuccessRateAsc")) {
+                WordSortBySuccessRate(
+                    WordSortStrategy.OrderType.ASC
+                )
+            }
+            single<Comparator<WordSortable>>(named("WordSortBySuccessRateDesc")) {
+                WordSortBySuccessRate(
+                    WordSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<WordSortable>>(named("WordSortByPracticedAsc")) {
+                WordSortByPracticed(
+                    WordSortStrategy.OrderType.ASC
+                )
+            }
+            single<Comparator<WordSortable>>(named("WordSortByPracticedDesc")) {
+                WordSortByPracticed(
+                    WordSortStrategy.OrderType.DESC
+                )
             }
 
+        }
+    }
+
+    private fun viewModels(module: Module) {
+        // View Models
+
+        module.apply {
+
+            viewModel { (filter: ExerciseFilterStrategy) ->
+                PracticeViewModel(filter, get(), get())
+            }
+            viewModel { ExerciseListViewModel(get()) }
+            viewModel { TagListViewModel(get()) }
+            viewModel { SelectTagDlgViewModel(get()) }
+            viewModel { StatsViewModel(get()) }
+            viewModel { HomeStatsViewModel(get()) }
+            viewModel { WordListViewModel(get()) }
+            viewModel { (filter: AttemptFilterStrategy) ->
+                AttemptListViewModel(filter, get(), get())
+            }
+            viewModel { (exerciseId: Int) ->
+                AddExerciseViewModel(get(), exerciseId)
+            }
+            viewModel { (tagId: Int) ->
+                AddTagViewModel(get(), tagId)
+            }
+
+            factory { SupervisorJob() }
+            factory { CoroutineScope(get<CompletableJob>()) }
+
+        }
+
+    }
+
+    private fun exerciseListSorters(module: Module) {
+        // Exercise List Sorters
+
+        module.apply {
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortByTextAsc")) {
+                ExerciseSortByText(
+                    ExerciseSortStrategy.OrderType.ASC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortByTextDesc")) {
+                ExerciseSortByText(
+                    ExerciseSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortByCorrectDesc")) {
+                ExerciseSortByCorrect(
+                    ExerciseSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortByIncorrectDesc")) {
+                ExerciseSortByIncorrect(
+                    ExerciseSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortBySuccessRateAsc")) {
+                ExerciseSortBySuccessRate(
+                    ExerciseSortStrategy.OrderType.ASC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortBySuccessRateDesc")) {
+                ExerciseSortBySuccessRate(
+                    ExerciseSortStrategy.OrderType.DESC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortByPracticedAsc")) {
+                ExerciseSortByPracticed(
+                    ExerciseSortStrategy.OrderType.ASC
+                )
+            }
+            single<Comparator<ExerciseSortable>>(named("ExerciseSortByPracticedDesc")) {
+                ExerciseSortByPracticed(
+                    ExerciseSortStrategy.OrderType.DESC
+                )
+            }
         }
 
     }

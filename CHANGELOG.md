@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Edit and delete menu items to the exercise list screen pop-up menu
+- Speak the practiced phrase automatically
+- Enable or disable speak the phase in preferences
 
 ## [1.4.0] - 2020-09-19
 

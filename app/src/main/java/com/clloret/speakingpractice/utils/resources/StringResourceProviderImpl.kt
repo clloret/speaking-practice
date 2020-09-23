@@ -16,4 +16,8 @@ class StringResourceProviderImpl(val context: Context) : StringResourceProvider 
     override fun getPrefEnableSound(): String {
         return context.getString(R.string.pref_enable_sound)
     }
+
+    override fun getPrefEnableSpeakPhrase(): String {
+        return context.getString(R.string.pref_enable_speak_phrase)
+    }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import com.clloret.speakingpractice.attempt.list.AttemptListViewModel
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppRepository
+import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterStrategy
 import com.clloret.speakingpractice.domain.exercise.filter.*
 import com.clloret.speakingpractice.domain.exercise.sort.*
@@ -20,7 +21,7 @@ import com.clloret.speakingpractice.home.stats.HomeStatsViewModel
 import com.clloret.speakingpractice.stats.StatsViewModel
 import com.clloret.speakingpractice.tag.add.AddTagViewModel
 import com.clloret.speakingpractice.tag.list.TagListViewModel
-import com.clloret.speakingpractice.utils.PreferenceValues
+import com.clloret.speakingpractice.utils.PreferenceValuesImpl
 import com.clloret.speakingpractice.utils.resources.ColorResourceProviderImpl
 import com.clloret.speakingpractice.utils.resources.StringResourceProviderImpl
 import com.clloret.speakingpractice.word.WordListViewModel
@@ -79,7 +80,7 @@ object KoinModule {
             single<StringResourceProvider> {
                 StringResourceProviderImpl(get())
             }
-            single { PreferenceValues(get(), get()) }
+            single<PreferenceValues> { PreferenceValuesImpl(get(), get()) }
             single { FormatCorrectWords(get()) }
 
         }
@@ -157,7 +158,7 @@ object KoinModule {
         module.apply {
 
             viewModel { (filter: ExerciseFilterStrategy) ->
-                PracticeViewModel(filter, get(), get())
+                PracticeViewModel(filter, get(), get(), get())
             }
             viewModel { ExerciseListViewModel(get()) }
             viewModel { TagListViewModel(get()) }

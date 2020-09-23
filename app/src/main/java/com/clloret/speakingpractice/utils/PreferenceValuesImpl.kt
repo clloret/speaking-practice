@@ -3,12 +3,13 @@ package com.clloret.speakingpractice.utils
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.resources.StringResourceProvider
 
-class PreferenceValues(
+class PreferenceValuesImpl(
     val context: Context,
     private val stringResourceProvider: StringResourceProvider
-) {
+) : PreferenceValues {
     companion object {
         const val DEFAULT_EXERCISE_PER_ROUND = 10
     }
@@ -16,20 +17,27 @@ class PreferenceValues(
     private var preferences: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
 
-    fun isAnalyticsEnabled(): Boolean {
+    override fun isAnalyticsEnabled(): Boolean {
         return preferences.getBoolean(stringResourceProvider.getPrefCollectStatistics(), true)
     }
 
-    fun exercisesPerRound(): Int {
+    override fun exercisesPerRound(): Int {
         return preferences.getInt(
             stringResourceProvider.getPrefExercisesPerRound(),
             DEFAULT_EXERCISE_PER_ROUND
         )
     }
 
-    fun isSoundEnabled(): Boolean {
+    override fun isSoundEnabled(): Boolean {
         return preferences.getBoolean(
             stringResourceProvider.getPrefEnableSound(),
+            true
+        )
+    }
+
+    override fun isSpeakPhraseEnabled(): Boolean {
+        return preferences.getBoolean(
+            stringResourceProvider.getPrefEnableSpeakPhrase(),
             true
         )
     }

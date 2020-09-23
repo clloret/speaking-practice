@@ -21,8 +21,8 @@ import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.MainViewModel
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeFragmentBinding
+import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
-import com.clloret.speakingpractice.utils.PreferenceValues
 import com.clloret.speakingpractice.utils.controls.CustomToast
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import com.github.zagum.speechrecognitionview.RecognitionProgressView

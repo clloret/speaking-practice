@@ -11,10 +11,10 @@ import androidx.navigation.navGraphViewModels
 import androidx.navigation.ui.NavigationUI
 import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
+import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByRandom
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.import_.ImportExercisesSharedViewModel
-import com.clloret.speakingpractice.utils.PreferenceValues
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.home_fragment.*
 import org.koin.android.ext.android.get

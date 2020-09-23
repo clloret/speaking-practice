@@ -35,6 +35,7 @@ class PracticeViewModelTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
     private val colorResourceProvider = TestColorResourceProvider()
+    private val preferenceValues = FakePreferenceValues()
     private val formatCorrectWords = FormatCorrectWords(colorResourceProvider)
     private lateinit var db: AppDatabase
     private lateinit var repository: AppRepository
@@ -66,7 +67,13 @@ class PracticeViewModelTest {
     @Before
     fun createSut() {
         val filter = ExerciseFilterAll()
-        sut = PracticeViewModel(filter, repository, formatCorrectWords, testDispatcher)
+        sut = PracticeViewModel(
+            filter,
+            repository,
+            preferenceValues,
+            formatCorrectWords,
+            testDispatcher
+        )
     }
 
     @Test

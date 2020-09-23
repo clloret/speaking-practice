@@ -2,7 +2,7 @@ package com.clloret.speakingpractice
 
 import android.app.Application
 import com.clloret.speakingpractice.db.AppDatabase
-import com.clloret.speakingpractice.utils.PreferenceValues
+import com.clloret.speakingpractice.domain.PreferenceValues
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.GlobalScope

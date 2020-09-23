@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.ExerciseValidator
+import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
@@ -22,6 +23,7 @@ import java.util.*
 class PracticeViewModel(
     filter: ExerciseFilterStrategy,
     private val repository: AppRepository,
+    private val preferenceValues: PreferenceValues,
     private val formatCorrectWords: FormatCorrectWords,
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Main
 ) :
@@ -52,6 +54,10 @@ class PracticeViewModel(
 
     fun setCurrentExercise(exercise: ExerciseWithDetails) {
         currentExerciseDetail = exercise
+
+        if (preferenceValues.isSpeakPhraseEnabled()) {
+            speakText()
+        }
     }
 
     fun resetExercise() {

@@ -2,8 +2,6 @@ package com.clloret.speakingpractice.exercise.practice
 
 import android.Manifest
 import android.content.Intent
-import android.media.AudioAttributes
-import android.media.SoundPool
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
@@ -20,6 +18,7 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeFragmentBinding
 import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
+import com.clloret.speakingpractice.exercise.practice.filter.PracticePlaySound
 import com.clloret.speakingpractice.utils.controls.CustomToast
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import com.github.zagum.speechrecognitionview.RecognitionProgressView
@@ -59,9 +58,6 @@ class PracticeFragment : BaseFragment() {
             requireContext()
         )
     }
-    private var soundPool: SoundPool? = null
-    private var soundCorrect: Int? = null
-    private var soundIncorrect: Int? = null
     private var viewModel: PracticeViewModel? = null
     private val preferenceValues: PreferenceValues by inject()
     private val tts by lazy {
@@ -69,6 +65,9 @@ class PracticeFragment : BaseFragment() {
             Timber.d("ShowMessage: $it")
             showSnackBar(it)
         }
+    }
+    private val playSound by lazy {
+        PracticePlaySound(requireContext().applicationContext, preferenceValues)
     }
     private val toastExerciseCorrect by lazy {
         CustomToast.makeText(
@@ -216,28 +215,18 @@ class PracticeFragment : BaseFragment() {
 
     private fun exerciseCorrect() {
         toastExerciseCorrect.show()
-        playSound(soundCorrect)
+        playSound.playCorrect()
     }
 
     private fun exerciseIncorrect() {
         toastExerciseIncorrect.show()
-        playSound(soundIncorrect)
-    }
-
-    private fun playSound(soundId: Int?) {
-        if (!preferenceValues.isSoundEnabled()) {
-            return
-        }
-
-        soundId?.let {
-            soundPool?.play(it, 1.0F, 1.0F, 1, 0, 1F)
-        }
+        playSound.playIncorrect()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        initSoundPool()
+        playSound.initSoundPool()
         tts.initTts()
     }
 
@@ -245,7 +234,7 @@ class PracticeFragment : BaseFragment() {
         super.onDestroyView()
 
         tts.stopTts()
-        stopSoundPool()
+        playSound.stopSoundPool()
     }
 
     private fun processRecognizedText(bundle: Bundle) {
@@ -291,26 +280,6 @@ class PracticeFragment : BaseFragment() {
                 PERMISSION_REQUEST_RECORD_AUDIO, perms
             )
         }
-    }
-
-    private fun initSoundPool() {
-        val audioAttributes = AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
-            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-            .build()
-
-        soundPool = SoundPool.Builder()
-            .setMaxStreams(2)
-            .setAudioAttributes(audioAttributes)
-            .build()
-
-        soundCorrect = soundPool?.load(requireContext(), R.raw.sound_exercise_correct, 1)
-        soundIncorrect = soundPool?.load(requireContext(), R.raw.sound_exercise_incorrect, 1)
-    }
-
-    private fun stopSoundPool() {
-        soundPool?.release()
-        soundPool = null
     }
 
 }

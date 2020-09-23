@@ -69,6 +69,7 @@
     <string name="pref_privacy_policy">Privacy policy</string>
     <string name="summary_collect_statistics">Submit anonymous usage statistics and error reports to help improve this app. No personal data will be collected.</string>
     <string name="summary_enable_sound">Play sounds when practice exercises.</string>
+    <string name="summary_enable_speak_phrase">Automatically speak the phrase when you practice the exercises.</string>
     <string name="summary_exercises_per_round">Set the number of exercises per round when practice random or less practiced exercises.</string>
     <string name="title_about_me">About Me</string>
     <string name="title_add_exercise">Add New Exercise</string>
@@ -83,6 +84,7 @@
     <string name="title_empty_tag_list">You haven\'t created any tags yet</string>
     <string name="title_empty_word_list">You haven\'t practiced any exercises yet</string>
     <string name="title_enable_sound">Enable sound</string>
+    <string name="title_enable_speak_phrase">Speak the phrase</string>
     <string name="title_exercise_correct">CORRECT</string>
     <string name="title_exercise_filter_all">All</string>
     <string name="title_exercise_filter_an_exercise">Practice An Exercise</string>

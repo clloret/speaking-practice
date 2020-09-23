@@ -3,6 +3,7 @@ package com.clloret.speakingpractice
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import timber.log.Timber
 
@@ -18,6 +19,12 @@ open class BaseFragment : Fragment() {
         }
     }
 
+    protected fun showSnackBar(message: String) {
+        val snackBar = Snackbar.make(
+            requireActivity().findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG
+        )
+        snackBar.show()
+    }
 }
 
 fun Fragment.trackScreen() {

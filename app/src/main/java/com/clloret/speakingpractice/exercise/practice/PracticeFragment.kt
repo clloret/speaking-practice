@@ -7,7 +7,6 @@ import android.media.SoundPool
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
-import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +14,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.clloret.speakingpractice.BaseFragment
-import com.clloret.speakingpractice.MainViewModel
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.PracticeFragmentBinding
 import com.clloret.speakingpractice.domain.PreferenceValues
@@ -62,13 +59,17 @@ class PracticeFragment : BaseFragment() {
             requireContext()
         )
     }
-    private var tts: TextToSpeech? = null
     private var soundPool: SoundPool? = null
     private var soundCorrect: Int? = null
     private var soundIncorrect: Int? = null
-    private val mainViewModel: MainViewModel by activityViewModels()
-    private val preferenceValues: PreferenceValues by inject()
     private var viewModel: PracticeViewModel? = null
+    private val preferenceValues: PreferenceValues by inject()
+    private val tts by lazy {
+        PracticeTextToSpeech(requireContext().applicationContext) {
+            Timber.d("ShowMessage: $it")
+            showSnackBar(it)
+        }
+    }
     private val toastExerciseCorrect by lazy {
         CustomToast.makeText(
             requireActivity().applicationContext,
@@ -196,7 +197,7 @@ class PracticeFragment : BaseFragment() {
             viewLifecycleOwner,
             EventObserver {
                 Timber.d("speakText: $it")
-                textToSpeech(it)
+                tts.textToSpeech(it)
             })
 
         viewModel.exerciseResult.observe(viewLifecycleOwner, {
@@ -237,18 +238,14 @@ class PracticeFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         initSoundPool()
-        initTts()
+        tts.initTts()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
 
-        stopTts()
+        tts.stopTts()
         stopSoundPool()
-    }
-
-    private fun showMessage(message: String) {
-        mainViewModel.showMessage(message)
     }
 
     private fun processRecognizedText(bundle: Bundle) {
@@ -296,35 +293,6 @@ class PracticeFragment : BaseFragment() {
         }
     }
 
-    private fun initTts() {
-        val appContext = this.requireActivity().applicationContext
-        val googleTtsPackage = "com.google.android.tts"
-
-        tts = TextToSpeech(appContext, { status ->
-            if (status == TextToSpeech.SUCCESS) {
-                val ttsLang = tts?.setLanguage(Locale.US)
-                if (ttsLang == TextToSpeech.LANG_MISSING_DATA
-                    || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED
-                ) {
-                    Timber.e("The language is not supported!")
-                } else {
-                    Timber.i("Language supported.")
-                }
-                tts?.setPitch(1.0f)
-                tts?.setSpeechRate(1.0f)
-                Timber.i("TTS initialization success.")
-            } else {
-
-                showMessage(getString(R.string.msg_error_initialization_failed))
-            }
-        }, googleTtsPackage)
-    }
-
-    private fun stopTts() {
-        tts?.stop()
-        tts?.shutdown()
-    }
-
     private fun initSoundPool() {
         val audioAttributes = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
@@ -345,11 +313,4 @@ class PracticeFragment : BaseFragment() {
         soundPool = null
     }
 
-    private fun textToSpeech(text: String) {
-        val speechStatus = tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
-
-        if (speechStatus == TextToSpeech.ERROR) {
-            showMessage(getString(R.string.msg_error_tts))
-        }
-    }
 }

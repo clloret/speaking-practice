@@ -15,7 +15,6 @@ import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByRandom
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.import_.ImportExercisesSharedViewModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.home_fragment.*
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
@@ -151,13 +150,6 @@ class HomeFragment : BaseFragment() {
             )
         )
         return true
-    }
-
-    private fun showSnackBar(message: String) {
-        val snackBar = Snackbar.make(
-            requireActivity().findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG
-        )
-        snackBar.show()
     }
 
 }

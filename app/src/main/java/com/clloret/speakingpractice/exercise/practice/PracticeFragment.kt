@@ -53,6 +53,8 @@ class PracticeFragment : BaseFragment() {
 
         private const val EXTRA_FILTER = "filter"
         private const val PERMISSION_REQUEST_RECORD_AUDIO = 0x01
+        private const val RECOGNIZER_PROGRESS_ROTATION_RADIUS = 20
+        private const val RECOGNIZER_PROGRESS_HIDE_DELAY = 2000L
     }
 
     private val speechRecognizer: SpeechRecognizer by lazy {
@@ -151,7 +153,7 @@ class PracticeFragment : BaseFragment() {
     private fun setupRecognizerProgressView(progressView: RecognitionProgressView) {
         with(progressView) {
             setSingleColor(ContextCompat.getColor(requireContext(), R.color.color_secondary))
-            setRotationRadiusInDp(20)
+            setRotationRadiusInDp(RECOGNIZER_PROGRESS_ROTATION_RADIUS)
             setSpeechRecognizer(speechRecognizer)
             setRecognitionListener(object : RecognitionListenerAdapter() {
                 override fun onResults(results: Bundle) {
@@ -169,7 +171,7 @@ class PracticeFragment : BaseFragment() {
                             play()
                             visibility = View.GONE
                             btnSpeakPhrase.visibility = View.VISIBLE
-                        }, 2000)
+                        }, RECOGNIZER_PROGRESS_HIDE_DELAY)
                     }
                 }
 

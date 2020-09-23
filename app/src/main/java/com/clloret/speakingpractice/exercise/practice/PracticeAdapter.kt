@@ -52,9 +52,14 @@ class PracticeAdapter(
         }
 
         private fun getSuccessRateColor(successRate: Int) = when (successRate) {
-            in 0..49 -> R.color.success_rate_failed
-            in 50..79 -> R.color.success_rate_passed
+            in SUCCESS_RATE_FAILED_RANGE -> R.color.success_rate_failed
+            in SUCCESS_RATE_SUCCESS_RANGE -> R.color.success_rate_passed
             else -> R.color.success_rate_completed
+        }
+
+        companion object {
+            private val SUCCESS_RATE_FAILED_RANGE = 0..49
+            private val SUCCESS_RATE_SUCCESS_RANGE = 50..79
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.exercise.practice.filter
+package com.clloret.speakingpractice.exercise.practice
 
 import android.content.Context
 import android.media.AudioAttributes

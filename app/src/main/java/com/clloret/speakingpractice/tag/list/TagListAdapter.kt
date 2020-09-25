@@ -14,7 +14,7 @@ import com.clloret.speakingpractice.domain.entities.Tag
 import com.clloret.speakingpractice.utils.selection.LongItemDetails
 
 class TagListAdapter :
-    ListAdapter<Tag, TagListAdapter.ViewHolder>(TagListDiffCallback()) {
+    ListAdapter<Tag, TagListAdapter.ViewHolder>(DiffCallback()) {
 
     var selectionTracker: SelectionTracker<Long>? = null
 
@@ -69,14 +69,13 @@ class TagListAdapter :
             }
     }
 
-}
+    private class DiffCallback : DiffUtil.ItemCallback<Tag>() {
+        override fun areItemsTheSame(oldItem: Tag, newItem: Tag): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-class TagListDiffCallback : DiffUtil.ItemCallback<Tag>() {
-    override fun areItemsTheSame(oldItem: Tag, newItem: Tag): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Tag, newItem: Tag): Boolean {
-        return oldItem == newItem
+        override fun areContentsTheSame(oldItem: Tag, newItem: Tag): Boolean {
+            return oldItem == newItem
+        }
     }
 }

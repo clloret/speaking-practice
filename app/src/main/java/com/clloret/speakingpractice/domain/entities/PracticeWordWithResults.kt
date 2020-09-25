@@ -11,8 +11,10 @@ data class PracticeWordWithResults(
 ) : WordSortable {
     override val successRate: Int
         get() {
-            val count = (correct + incorrect).takeIf { it > 0 } ?: return 0
-
             return (correct * 100 / count.toDouble()).roundToInt()
+        }
+    val count: Int
+        get() {
+            return (correct + incorrect).takeIf { it > 0 } ?: return 0
         }
 }

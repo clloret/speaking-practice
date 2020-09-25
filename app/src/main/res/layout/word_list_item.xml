@@ -13,7 +13,6 @@
             name="handler"
             type="com.clloret.speakingpractice.word.OnClickWordHandler" />
 
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,65 +21,81 @@
         android:onClick="@{()->handler.onClick(word)}">
 
         <TextView
-            android:id="@+id/practicePhrase"
+            android:id="@+id/practicedWordTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/title_practiced_word"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/practicedWord"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:text="@{word.word}"
-            android:textAppearance="@style/ExerciseListPhase"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/resultsCorrect"
+            android:textAppearance="@style/WordListWord"
+            app:layout_constraintEnd_toStartOf="@+id/menuButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/practicedWordTitle"
             tools:text="Hello" />
 
         <TextView
-            android:id="@+id/successRate"
+            android:id="@+id/exerciseResultsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="@{@string/percent_format(word.successRate)}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            app:layout_constraintEnd_toStartOf="@id/menuButton"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="50%" />
+            android:text="@string/title_correct"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/practicedWord" />
 
-        <TextView
-            android:id="@+id/resultsCorrect"
-            android:layout_width="wrap_content"
+        <ProgressBar
+            android:id="@+id/exerciseResultsView"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
-            android:text="@{@string/number_format(word.correct)}"
-            android:textAppearance="@style/ExerciseListResultCorrect"
-            app:layout_constraintBottom_toBottomOf="@+id/resultsIncorrect"
-            app:layout_constraintEnd_toStartOf="@+id/resultsSeparator"
-            tools:text="999" />
+            android:max="@{word.count}"
+            android:progress="@{word.correct}"
+            android:progressTint="@color/exercise_correct"
+            app:layout_constraintEnd_toStartOf="@+id/menuButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exerciseResultsTitle"
+            tools:max="50"
+            tools:progress="25" />
 
         <TextView
-            android:id="@+id/resultsSeparator"
+            android:id="@+id/successRateTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="@string/title_slash"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            app:layout_constraintBottom_toBottomOf="@+id/resultsIncorrect"
-            app:layout_constraintEnd_toStartOf="@+id/resultsIncorrect" />
-
-        <TextView
-            android:id="@+id/resultsIncorrect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:text="@string/title_incorrect"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exerciseResultsView" />
+
+        <ProgressBar
+            android:id="@+id/successRateView"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
-            android:text="@{@string/number_format(word.incorrect)}"
-            android:textAppearance="@style/ExerciseListResultIncorrect"
+            android:max="@{word.count}"
+            android:progress="@{word.incorrect}"
+            android:progressTint="@color/exercise_incorrect"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/menuButton"
-            app:layout_constraintTop_toBottomOf="@+id/successRate"
-            tools:text="999" />
+            app:layout_constraintEnd_toStartOf="@+id/menuButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/successRateTitle"
+            tools:max="50"
+            tools:progress="25" />
 
         <ImageView
             android:id="@+id/menuButton"

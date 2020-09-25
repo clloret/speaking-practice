@@ -42,6 +42,10 @@
 
     <style name="ExerciseListPhase" parent="@style/TextAppearance.MaterialComponents.Headline6" />
 
+    <style name="WordListWord" parent="@style/TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="ExerciseListResultCorrect" parent="@style/TextAppearance.MaterialComponents.Headline5">
         <item name="android:textColor">@color/exercise_correct</item>
     </style>

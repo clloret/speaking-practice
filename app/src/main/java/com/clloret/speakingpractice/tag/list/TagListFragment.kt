@@ -3,6 +3,7 @@ package com.clloret.speakingpractice.tag.list
 import android.os.Bundle
 import android.view.*
 import androidx.activity.addCallback
+import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.SelectionTracker
@@ -21,7 +22,7 @@ import com.clloret.speakingpractice.utils.selection.LongItemKeyProvider
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class TagListFragment : BaseFragment() {
+class TagListFragment : BaseFragment(), TagListAdapter.TagListListener {
 
     companion object {
         fun newInstance() = TagListFragment()
@@ -29,48 +30,7 @@ class TagListFragment : BaseFragment() {
 
     private val viewModel: TagListViewModel by viewModel()
     private var selectionTracker: SelectionTracker<Long>? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setHasOptionsMenu(true)
-
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-
-            Timber.d("onBackPressedDispatcher")
-
-            this.isEnabled = true
-
-            selectionTracker?.apply {
-                if (hasSelection()) {
-                    clearSelection()
-                } else {
-                    findNavController().navigateUp()
-                }
-            }
-        }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding: TagListFragmentBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.tag_list_fragment, container, false
-        )
-
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.recyclerView.setupRecyclerView(binding.emptyView, savedInstanceState)
-        binding.fabAddTag.setOnClickListener {
-            addTag()
-        }
-
-        return binding.root
-    }
-
     private var actionMode: ActionMode? = null
-
     private val actionModeCallback = object : ActionMode.Callback {
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
             val inflater: MenuInflater = mode.menuInflater
@@ -115,23 +75,49 @@ class TagListFragment : BaseFragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+
+            Timber.d("onBackPressedDispatcher")
+
+            this.isEnabled = true
+
+            selectionTracker?.apply {
+                if (hasSelection()) {
+                    clearSelection()
+                } else {
+                    findNavController().navigateUp()
+                }
+            }
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding: TagListFragmentBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.tag_list_fragment, container, false
+        )
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.recyclerView.setupRecyclerView(binding.emptyView, savedInstanceState)
+        binding.fabAddTag.setOnClickListener {
+            addTag()
+        }
+
+        return binding.root
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
         selectionTracker?.onSaveInstanceState(outState)
-    }
-
-    private fun deleteSelectedTags() {
-        selectionTracker?.selection?.apply {
-            val list = this.map { it.toInt() }
-
-            Dialogs(requireContext())
-                .showConfirmation(messageId = R.string.msg_delete_tag_confirmation) { result ->
-                    if (result == Dialogs.Button.POSITIVE) {
-                        viewModel.deleteTagList(list)
-                    }
-                }
-        }
     }
 
     private fun RecyclerView.setupRecyclerView(emptyView: View, savedInstanceState: Bundle?) {
@@ -144,7 +130,7 @@ class TagListFragment : BaseFragment() {
         )
         addItemDecoration(dividerItemDecoration)
 
-        val listAdapter = TagListAdapter()
+        val listAdapter = TagListAdapter(this@TagListFragment)
         adapter = listAdapter
 
         val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
@@ -216,16 +202,40 @@ class TagListFragment : BaseFragment() {
 
         selectionTracker?.apply {
             selection.first()?.let { tagId ->
-                val action =
-                    TagListFragmentDirections.actionTagListFragmentToAddTagFragment(
-                        tagId.toInt(),
-                        getString(R.string.title_edit_tag)
-                    )
-
-                findNavController()
-                    .navigate(action)
+                onEditTag(tagId.toInt())
             }
         }
         return true
+    }
+
+    private fun deleteSelectedTags() {
+        selectionTracker?.selection?.apply {
+            val list = this.map { it.toInt() }
+            deleteTags(R.string.msg_delete_selected_tags_confirmation, list)
+        }
+    }
+
+    private fun deleteTags(@StringRes messageId: Int, list: List<Int>) {
+        Dialogs(requireContext())
+            .showConfirmation(messageId = messageId) { result ->
+                if (result == Dialogs.Button.POSITIVE) {
+                    viewModel.deleteTagList(list)
+                }
+            }
+    }
+
+    override fun onEditTag(tagId: Int) {
+        val action =
+            TagListFragmentDirections.actionTagListFragmentToAddTagFragment(
+                tagId,
+                getString(R.string.title_edit_tag)
+            )
+
+        findNavController()
+            .navigate(action)
+    }
+
+    override fun onDeleteTag(tagId: Int) {
+        deleteTags(R.string.msg_delete_tag_confirmation, listOf(tagId))
     }
 }

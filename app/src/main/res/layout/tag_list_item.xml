@@ -9,6 +9,11 @@
             name="tag"
             type="com.clloret.speakingpractice.domain.entities.Tag" />
 
+        <variable
+            name="handlers"
+            type="com.clloret.speakingpractice.tag.list.OnClickTagHandler" />
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,6 +36,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Tag name" />
+
+        <ImageView
+            android:id="@+id/menuButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/exercise_list_menu_button_description"
+            android:focusable="true"
+            android:onClick="@{()->handlers.onClickMenu(menuButton, tag)}"
+            android:padding="6dp"
+            android:src="@drawable/ic_more_vert_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

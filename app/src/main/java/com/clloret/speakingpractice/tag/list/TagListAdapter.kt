@@ -1,7 +1,10 @@
 package com.clloret.speakingpractice.tag.list
 
+import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
@@ -13,8 +16,8 @@ import com.clloret.speakingpractice.databinding.TagListItemBinding
 import com.clloret.speakingpractice.domain.entities.Tag
 import com.clloret.speakingpractice.utils.selection.LongItemDetails
 
-class TagListAdapter :
-    ListAdapter<Tag, TagListAdapter.ViewHolder>(DiffCallback()) {
+class TagListAdapter(val listener: TagListListener) :
+    ListAdapter<Tag, TagListAdapter.ViewHolder>(DiffCallback()), OnClickTagHandler {
 
     var selectionTracker: SelectionTracker<Long>? = null
 
@@ -46,7 +49,7 @@ class TagListAdapter :
                 isSelected = true
             }
         }
-        holder.bind(item, isSelected)
+        holder.bind(item, isSelected, this)
     }
 
     class ViewHolder(private val binding: TagListItemBinding) :
@@ -54,10 +57,12 @@ class TagListAdapter :
 
         fun bind(
             item: Tag,
-            isSelected: Boolean
+            isSelected: Boolean,
+            onClickHandler: OnClickTagHandler
         ) {
             binding.apply {
                 tag = item
+                handlers = onClickHandler
                 itemView.isActivated = isSelected
             }
         }
@@ -69,6 +74,11 @@ class TagListAdapter :
             }
     }
 
+    interface TagListListener {
+        fun onEditTag(tagId: Int)
+        fun onDeleteTag(tagId: Int)
+    }
+
     private class DiffCallback : DiffUtil.ItemCallback<Tag>() {
         override fun areItemsTheSame(oldItem: Tag, newItem: Tag): Boolean {
             return oldItem.id == newItem.id
@@ -78,4 +88,27 @@ class TagListAdapter :
             return oldItem == newItem
         }
     }
+
+    override fun onClickMenu(view: View, tag: Tag) {
+        PopupMenu(view.context, view).apply {
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.action_edit -> {
+                        listener.onEditTag(tag.id); true
+                    }
+                    R.id.action_delete -> {
+                        listener.onDeleteTag(tag.id); true
+                    }
+                    else -> false
+                }
+            }
+            inflate(R.menu.menu_tag_list_popup)
+            gravity = Gravity.START
+            show()
+        }
+    }
+}
+
+interface OnClickTagHandler {
+    fun onClickMenu(view: View, tag: Tag)
 }

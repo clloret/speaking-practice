@@ -5,8 +5,10 @@
     <color name="color_secondary">#ffc107</color>
     <color name="exercise_correct">#4caf50</color>
     <color name="exercise_correct_dark">#087f23</color>
+    <color name="exercise_correct_background">#e8f5e9</color>
     <color name="exercise_incorrect">#f44336</color>
     <color name="exercise_incorrect_dark">#ba000d</color>
+    <color name="exercise_incorrect_background">#FFFFFF</color>
     <color name="exercise_position">#000000</color>
     <color name="total_exercises">#000000</color>
     <color name="phrase_background">#c8e6c9</color>

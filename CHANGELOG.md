@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Edit and delete menu items to the exercise list screen pop-up menu
 - Speak the practiced phrase automatically
-- Enable or disable speak the phase in preferences
+- Enable or disable speak the phrase in preferences
 - New sliding behavior in practice screen
 - Popup menu in tag list screen
 
@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 
 - Redesigned the exercise attempts screen
 - Redesigned the exercise list screen
+- Redesigned the word list screen
 
 ## [1.4.0] - 2020-09-19
 

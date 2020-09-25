@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Speak the practiced phrase automatically
 - Enable or disable speak the phase in preferences
 - New sliding behavior in practice screen
+- Popup menu in tag list screen
 
 ## [1.4.0] - 2020-09-19
 

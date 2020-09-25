@@ -22,45 +22,116 @@
         android:onClick="@{()->handlers.onClick(exercise)}">
 
         <TextView
+            android:id="@+id/practicePhraseTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/title_practice_phrase"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/practicePhrase"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:text="@{exercise.exercise.practicePhrase}"
             android:textAppearance="@style/ExerciseListPhase"
-            app:layout_constraintEnd_toStartOf="@+id/resultsCorrect"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/menuButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/add_exercise_practice_phrase" />
+            app:layout_constraintTop_toBottomOf="@+id/practicePhraseTitle"
+            tools:text="@string/title_practice_phrase" />
+
+        <TextView
+            android:id="@+id/translatedPhraseTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/title_translated_phrase"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/practicePhrase" />
 
         <TextView
             android:id="@+id/translatedPhrase"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:text="@{exercise.exercise.translatedPhrase}"
             android:textAppearance="@style/ExerciseListPhase"
-            app:layout_constraintEnd_toStartOf="@+id/resultsCorrect"
+            app:layout_constraintEnd_toStartOf="@+id/menuButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/practicePhrase"
-            tools:text="@string/add_exercise_translated_phrase" />
+            app:layout_constraintTop_toBottomOf="@+id/translatedPhraseTitle"
+            tools:text="@string/title_translated_phrase" />
 
-        <HorizontalScrollView
-            android:id="@+id/tags"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/exerciseResultsTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:text="@string/title_correct"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/translatedPhrase" />
+
+        <ProgressBar
+            android:id="@+id/exerciseResultsView"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:max="@{exercise.results.count}"
+            android:progress="@{exercise.results.correct}"
+            android:progressTint="@color/exercise_correct"
+            app:layout_constraintEnd_toStartOf="@+id/menuButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exerciseResultsTitle"
+            tools:max="50"
+            tools:progress="25" />
+
+        <TextView
+            android:id="@+id/successRateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/title_incorrect"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exerciseResultsView" />
+
+        <ProgressBar
+            android:id="@+id/successRateView"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:max="@{exercise.results.count}"
+            android:progress="@{exercise.results.incorrect}"
+            android:progressTint="@color/exercise_incorrect"
+            app:layout_constraintEnd_toStartOf="@+id/menuButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/successRateTitle"
+            tools:max="50"
+            tools:progress="25" />
+
+        <HorizontalScrollView
+            android:id="@+id/tags"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/menuButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/translatedPhrase"
+            app:layout_constraintTop_toBottomOf="@+id/successRateView"
             tools:layout_height="32dp">
 
             <com.google.android.material.chip.ChipGroup
@@ -71,51 +142,6 @@
                 app:singleSelection="false" />
 
         </HorizontalScrollView>
-
-        <TextView
-            android:id="@+id/successRate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="@{@string/percent_format(exercise.results.successRate)}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            app:layout_constraintEnd_toStartOf="@id/menuButton"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="50%" />
-
-        <TextView
-            android:id="@+id/resultsCorrect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="@{@string/number_format(exercise.results.correct)}"
-            android:textAppearance="@style/ExerciseListResultCorrect"
-            app:layout_constraintBottom_toBottomOf="@+id/resultsIncorrect"
-            app:layout_constraintEnd_toStartOf="@+id/resultsSeparator"
-            tools:text="999" />
-
-        <TextView
-            android:id="@+id/resultsSeparator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="@string/title_slash"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            app:layout_constraintBottom_toBottomOf="@+id/resultsIncorrect"
-            app:layout_constraintEnd_toStartOf="@+id/resultsIncorrect" />
-
-        <TextView
-            android:id="@+id/resultsIncorrect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="@{@string/number_format(exercise.results.incorrect)}"
-            android:textAppearance="@style/ExerciseListResultIncorrect"
-            app:layout_constraintEnd_toStartOf="@id/menuButton"
-            app:layout_constraintTop_toBottomOf="@+id/successRate"
-            tools:text="999" />
 
         <ImageView
             android:id="@+id/menuButton"

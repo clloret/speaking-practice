@@ -131,4 +131,6 @@
     <string name="title_wednesday">WE</string>
     <string name="title_week_results">RESULTS OF THE WEEK</string>
     <string name="title_words">Words</string>
+    <string name="title_correct">Correct</string>
+    <string name="title_incorrect">Incorrect</string>
 </resources>

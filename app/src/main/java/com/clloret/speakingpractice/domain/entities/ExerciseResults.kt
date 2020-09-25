@@ -21,10 +21,12 @@ data class ExerciseResults(
     val correct: Int,
     val incorrect: Int
 ) {
+    val count: Int
+        get() {
+            return (correct + incorrect).takeIf { it > 0 } ?: return 0
+        }
     val successRate: Int
         get() {
-            val count = (correct + incorrect).takeIf { it > 0 } ?: return 0
-
             return (correct * 100 / count.toDouble()).roundToInt()
         }
 }

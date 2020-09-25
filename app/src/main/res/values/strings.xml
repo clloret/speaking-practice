@@ -128,4 +128,7 @@
     <string name="title_wednesday">WE</string>
     <string name="title_week_results">RESULTS OF THE WEEK</string>
     <string name="title_words">Words</string>
+    <string name="title_date_and_time">Date and time</string>
+    <string name="title_recognized_text">Recognized text</string>
+    <string name="title_result_of_the_corrected_exercise">Result of the corrected exercise</string>
 </resources>

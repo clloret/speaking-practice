@@ -24,41 +24,67 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/attemptTimeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/title_date_and_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/attemptTimeView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
             android:text="@{attemptTime}"
             android:textAppearance="@style/AttemptListTime"
-            app:layout_constraintBottom_toTopOf="@+id/recognizedTextView"
             app:layout_constraintEnd_toStartOf="@+id/attemptResultView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/attemptTimeTitle"
             tools:text="Time" />
+
+        <TextView
+            android:id="@+id/recognizedTextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/title_recognized_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/attemptTimeView" />
 
         <TextView
             android:id="@+id/recognizedTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@{entity.attempt.recognizedText}"
             android:textAppearance="@style/AttemptListText"
             app:layout_constraintEnd_toStartOf="@+id/attemptResultView"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/attemptTimeView"
+            app:layout_constraintTop_toBottomOf="@+id/recognizedTextTitle"
             tools:text="Recognized Text" />
+
+        <TextView
+            android:id="@+id/practiceTextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/title_result_of_the_corrected_exercise"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recognizedTextView" />
 
         <TextView
             android:id="@+id/practiceTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:text="@{model.getFormattedPracticePhrase(entity.exercise, entity.attempt)}"
@@ -66,7 +92,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/attemptResultView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recognizedTextView"
+            app:layout_constraintTop_toBottomOf="@+id/practiceTextTitle"
             tools:text="Practice Phrase" />
 
         <ImageView
@@ -80,7 +106,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_check_circle_green_24dp" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

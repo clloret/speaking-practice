@@ -142,6 +142,8 @@ class PracticeFragment : BaseFragment() {
             Timber.d("TabLayoutMediator - tag: $tab, position: $position")
         }.attach()
 
+        viewPager.setPageTransformer(DepthTransformation())
+
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)

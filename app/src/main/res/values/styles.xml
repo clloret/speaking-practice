@@ -40,7 +40,7 @@
 
     <style name="AttemptListText" parent="@style/TextAppearance.MaterialComponents.Headline6" />
 
-    <style name="ExerciseListPhase" parent="@style/TextAppearance.MaterialComponents.Headline6" />
+    <style name="ExerciseListPhrase" parent="@style/TextAppearance.MaterialComponents.Headline6" />
 
     <style name="WordListWord" parent="@style/TextAppearance.MaterialComponents.Headline5">
         <item name="android:textStyle">bold</item>

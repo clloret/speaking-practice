@@ -44,7 +44,7 @@
             app:errorText="@{model.getErrorMessage(FormErrors.EMPTY_TRANSLATED_PHRASE, @string/msg_error_cannot_be_empty, model.formErrors)}">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextTranslatedPhase"
+                android:id="@+id/editTextTranslatedPhrase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/title_translated_phrase"

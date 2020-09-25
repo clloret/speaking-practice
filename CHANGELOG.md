@@ -12,6 +12,11 @@ All notable changes to this project will be documented in this file.
 - New sliding behavior in practice screen
 - Popup menu in tag list screen
 
+### Changed
+
+- Redesigned the exercise attempts screen
+- Redesigned the exercise list screen
+
 ## [1.4.0] - 2020-09-19
 
 ### Added

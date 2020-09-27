@@ -18,6 +18,10 @@ All notable changes to this project will be documented in this file.
 - Redesigned the exercise list screen
 - Redesigned the word list screen
 
+### Fixed
+
+- Error that occurred when there were no exercise attempts in the database
+
 ## [1.4.0] - 2020-09-19
 
 ### Added

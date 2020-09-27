@@ -75,6 +75,7 @@ class PracticeFragment : BaseFragment() {
             Toast.LENGTH_SHORT
         )
     }
+    private var currentPage: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,6 +148,15 @@ class PracticeFragment : BaseFragment() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
+
+                Timber.d("onPageSelected - $position")
+
+                if (position == currentPage) {
+                    // When swipe left onPageSelected sometimes return the same position
+                    return
+                }
+
+                currentPage = position
 
                 val item = listAdapter.getItem(position)
                 viewModel.setCurrentExercise(item)

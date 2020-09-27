@@ -53,6 +53,12 @@ class PracticeViewModel(
     }
 
     fun setCurrentExercise(exercise: ExerciseWithDetails) {
+        Timber.d("setCurrentExercise - current: $currentExerciseDetail, new: $exercise")
+
+        if (currentExerciseDetail?.exercise?.id == exercise.exercise.id) {
+            return
+        }
+
         currentExerciseDetail = exercise
 
         if (preferenceValues.isSpeakPhraseEnabled()) {

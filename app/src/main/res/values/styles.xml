@@ -54,7 +54,7 @@
         <item name="android:textColor">@color/exercise_incorrect</item>
     </style>
 
-    <style name="EmptyViewText" parent="@style/TextAppearance.MaterialComponents.Headline4" />
+    <style name="EmptyViewText" parent="@style/TextAppearance.MaterialComponents.Headline5" />
 
     <style name="PracticeText" parent="@style/TextAppearance.MaterialComponents.Headline5" />
 

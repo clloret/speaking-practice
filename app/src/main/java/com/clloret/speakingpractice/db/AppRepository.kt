@@ -15,6 +15,8 @@ class AppRepository(private val db: AppDatabase) {
 
     val stats = db.statsDao().getStats()
 
+    val exerciseAttemptsCount = db.exerciseAttemptDao().getExercisesAttemptsCount()
+
     fun getStatsPerDay(day: String): LiveData<StatsPerDay> {
         return db.statsDao().getStatsPerDay(day)
     }

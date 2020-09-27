@@ -19,6 +19,9 @@ interface ExerciseAttemptDao {
     @Query("SELECT exercise_attempt_id FROM practice_words WHERE word = :practiceWord")
     suspend fun getExercisesAttemptsIdsByWord(practiceWord: String): List<Int>
 
+    @Query("SELECT COUNT() FROM exercise_attempts")
+    fun getExercisesAttemptsCount(): LiveData<Int>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(exerciseAttempt: ExerciseAttempt): Long
 

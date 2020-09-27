@@ -14,6 +14,7 @@ import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import kotlinx.android.synthetic.main.practice_filter_fragment.*
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
@@ -23,6 +24,7 @@ class PracticeFilterFragment : BaseFragment() {
         fun newInstance() = PracticeFilterFragment()
     }
 
+    private val viewModel: PracticeFilterViewModel by viewModel()
     private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.nav_graph)
     private val preferenceValues: PreferenceValues by inject()
     private val filterAll: ExerciseFilterAll by inject()
@@ -43,6 +45,12 @@ class PracticeFilterFragment : BaseFragment() {
     }
 
     private fun observeData() {
+        viewModel.exerciseAttemptsCount.observe(viewLifecycleOwner) {
+            val enable = it > 0
+            btnLessPracticedExercises.isEnabled = enable
+            btnMostFailedExercises.isEnabled = enable
+        }
+
         sharedViewModel.selected.observe(
             viewLifecycleOwner,
             EventObserver {

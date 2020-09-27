@@ -19,7 +19,7 @@ import org.koin.core.parameter.parametersOf
 @Database(
     entities = [Exercise::class, ExerciseAttempt::class, Tag::class, TagExerciseJoin::class,
         PracticeWord::class],
-    views = [ExerciseResults::class], version = 4, exportSchema = true
+    views = [ExerciseResults::class], version = AppDatabase.CURRENT_VERSION, exportSchema = true
 )
 @TypeConverters(DbConverters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -31,6 +31,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun practiceWordDao(): PracticeWordDao
 
     companion object {
+        const val CURRENT_VERSION = 5
+
         // Singleton prevents multiple instances of database opening at the
         // same time.
         @Volatile
@@ -51,6 +53,7 @@ abstract class AppDatabase : RoomDatabase() {
                     .addMigrations(DatabaseMigrations.MIGRATION_1_2)
                     .addMigrations(DatabaseMigrations.MIGRATION_2_3)
                     .addMigrations(DatabaseMigrations.MIGRATION_3_4)
+                    .addMigrations(DatabaseMigrations.MIGRATION_4_5)
                     .build()
                 INSTANCE = instance
                 return instance

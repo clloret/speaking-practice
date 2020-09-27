@@ -4,21 +4,33 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 object DatabaseMigrations {
-    val MIGRATION_1_2 = object : Migration(1, 2) {
+    private const val VERSION_1 = 1
+    private const val VERSION_2 = 2
+    private const val VERSION_3 = 3
+    private const val VERSION_4 = 4
+    private const val VERSION_5 = 5
+
+    val MIGRATION_1_2 = object : Migration(VERSION_1, VERSION_2) {
         override fun migrate(database: SupportSQLiteDatabase) {
             baseMigration(database)
         }
     }
 
-    val MIGRATION_2_3 = object : Migration(2, 3) {
+    val MIGRATION_2_3 = object : Migration(VERSION_2, VERSION_3) {
         override fun migrate(database: SupportSQLiteDatabase) {
             migration2to3(database)
         }
     }
 
-    val MIGRATION_3_4 = object : Migration(3, 4) {
+    val MIGRATION_3_4 = object : Migration(VERSION_3, VERSION_4) {
         override fun migrate(database: SupportSQLiteDatabase) {
             migration3to4(database)
+        }
+    }
+
+    val MIGRATION_4_5 = object : Migration(VERSION_4, VERSION_5) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            migration4to5(database)
         }
     }
 
@@ -58,6 +70,21 @@ object DatabaseMigrations {
         )
         database.execSQL(
             "CREATE INDEX IF NOT EXISTS `index_practice_words_exercise_attempt_id` ON practice_words (`exercise_attempt_id`)"
+        )
+    }
+
+    private fun migration4to5(database: SupportSQLiteDatabase) {
+        database.execSQL("DROP VIEW IF EXISTS exercise_results")
+        database.execSQL(
+            """
+        CREATE VIEW `exercise_results` AS SELECT 
+            exercises.exercise_id,
+            CAST(TOTAL(result) AS INT) AS correct, 
+            COUNT(exercise_attempts.result) - CAST(TOTAL(result) AS INT) AS incorrect
+        FROM 
+            exercises
+            LEFT OUTER JOIN exercise_attempts ON exercises.exercise_id = exercise_attempts.exercise_id 
+            GROUP BY exercises.exercise_id"""
         )
     }
 

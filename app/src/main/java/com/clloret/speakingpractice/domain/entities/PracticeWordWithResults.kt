@@ -15,6 +15,6 @@ data class PracticeWordWithResults(
         }
     val count: Int
         get() {
-            return (correct + incorrect).takeIf { it > 0 } ?: return 0
+            return correct + incorrect
         }
 }

@@ -9,8 +9,8 @@ import kotlin.math.roundToInt
     value = """
         SELECT 
             exercises.exercise_id,
-            SUM(result) AS correct, 
-            COUNT(*) - SUM(result) AS incorrect
+            CAST(TOTAL(result) AS INT) AS correct, 
+            COUNT(exercise_attempts.result) - CAST(TOTAL(result) AS INT) AS incorrect
         FROM 
             exercises
             LEFT OUTER JOIN exercise_attempts ON exercises.exercise_id = exercise_attempts.exercise_id 
@@ -23,10 +23,10 @@ data class ExerciseResults(
 ) {
     val count: Int
         get() {
-            return (correct + incorrect).takeIf { it > 0 } ?: return 0
+            return correct + incorrect
         }
     val successRate: Int
         get() {
-            return (correct * 100 / count.toDouble()).roundToInt()
+            return if (count > 0) (correct * 100 / count.toDouble()).roundToInt() else 0
         }
 }

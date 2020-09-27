@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.5.0] - 2020-09-27
+
 ### Added
 
 - Edit and delete menu items to the exercise list screen pop-up menu
@@ -93,7 +95,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial release
 
-[unreleased]: https://github.com/clloret/speaking-practice/compare/v1.4.0...HEAD
+[unreleased]: https://github.com/clloret/speaking-practice/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/clloret/speaking-practice/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/clloret/speaking-practice/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/clloret/speaking-practice/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/clloret/speaking-practice/compare/v1.1.1...v1.2.0

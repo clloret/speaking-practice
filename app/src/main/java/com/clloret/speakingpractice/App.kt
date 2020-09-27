@@ -1,6 +1,7 @@
 package com.clloret.speakingpractice
 
 import android.app.Application
+import android.provider.Settings
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.domain.PreferenceValues
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -30,7 +31,9 @@ class App : Application() {
     }
 
     private fun setupCollectionServices() {
-        val enableCollection = !BuildConfig.DEBUG && preferenceValues.isAnalyticsEnabled()
+        val testLabSetting = Settings.System.getString(contentResolver, "firebase.test.lab")
+        val enableCollection =
+            !BuildConfig.DEBUG && testLabSetting != "true" && preferenceValues.isAnalyticsEnabled()
         Timber.d("setupCollectionServices - enable: $enableCollection")
         FirebaseAnalytics
             .getInstance(this)

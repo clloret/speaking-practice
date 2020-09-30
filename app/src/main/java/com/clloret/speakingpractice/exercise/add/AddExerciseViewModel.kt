@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.utils.databinding.ChipChoiceBinding
+import com.clloret.speakingpractice.utils.databinding.adapters.TagSelectedChipChoice
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -37,7 +38,7 @@ class AddExerciseViewModel(
             }
 
             repository.getSelectedTagsForExercise(exerciseId).let { tags ->
-                exerciseTags.set(tags.sortedBy { it.displayName })
+                exerciseTags.set(tags.map { TagSelectedChipChoice(it) }.sortedBy { it.displayName })
             }
         }
     }

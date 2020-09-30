@@ -4,6 +4,8 @@ import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
+import com.clloret.speakingpractice.utils.databinding.ChipEntryBinding
+import com.clloret.speakingpractice.utils.databinding.adapters.TagChipEntry
 
 data class ExerciseWithDetails(
     @Embedded val exercise: Exercise,
@@ -27,4 +29,7 @@ data class ExerciseWithDetails(
         get() = results.incorrect
     override val successRate: Int
         get() = results.successRate
+
+    val chipTags: List<ChipEntryBinding>
+        get() = tags.map { TagChipEntry(it) }
 }

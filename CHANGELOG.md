@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Filter exercises by tag in the exercise list screen
+
 ## [1.5.0] - 2020-09-27
 
 ### Added

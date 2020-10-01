@@ -5,6 +5,9 @@ import androidx.lifecycle.*
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.entities.Tag
+import com.clloret.speakingpractice.domain.exercise.list.filter.CriteriaByTag
+import com.clloret.speakingpractice.domain.exercise.list.filter.CriteriaByText
+import com.clloret.speakingpractice.domain.exercise.list.filter.FilterChain
 import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
 import com.clloret.speakingpractice.utils.databinding.ChipChoiceBinding
 import com.clloret.speakingpractice.utils.databinding.adapters.TagChipChoice
@@ -28,26 +31,28 @@ class ExerciseListViewModel(private val repository: AppRepository) : ViewModel()
     private val _filteredExercises: MutableLiveData<List<ExerciseWithDetails>> = MutableLiveData()
     val filteredExercises: LiveData<List<ExerciseWithDetails>> get() = _filteredExercises
     val exercises = MediatorLiveData<List<ExerciseWithDetails>>()
-    var fieldTags: ObservableField<List<ChipChoiceBinding>> = ObservableField()
+    val fieldTags: ObservableField<List<ChipChoiceBinding>> = ObservableField()
     private val allTagsObserver = Observer<List<Tag>> { value ->
-        Timber.d("$value")
-        fieldTags.set(value.map { TagChipChoice(it) })
+        fieldTags.set(value.map { TagChipChoice(it) }.sortedBy { it.displayName })
     }
     private val fieldTagsCallback =
         object : androidx.databinding.Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(observable: androidx.databinding.Observable, i: Int) {
-                testTags()
+                updateTagFilter()
             }
         }
 
     var selectedComparator: Comparator<ExerciseSortable>? = null
     var sortItemId: Int? = null
     var filterQuery: String? = null
+    private val filterChain = FilterChain()
 
     init {
         exercises.addSource(repository.allExercisesDetails) {
             unfilteredData = it
-            exercises.postValue(it)
+
+            val meetCriteria = filterChain.meetCriteria(unfilteredData)
+            exercises.postValue(meetCriteria)
         }
 
         fieldTags.addOnPropertyChangedCallback(fieldTagsCallback)
@@ -64,27 +69,38 @@ class ExerciseListViewModel(private val repository: AppRepository) : ViewModel()
     }
 
     private fun filterByText(text: String) {
-        val list = unfilteredData
-            .filter { it.practicePhrase.contains(text, ignoreCase = true) }
-        _filteredExercises.postValue(list)
+        filterChain.addFilter(CriteriaByText.KEY, CriteriaByText(text))
+        showFilteredData()
+
         filterQuery = text
     }
 
     private fun filterByTags(tagIds: List<Int>) {
-        val list = unfilteredData
-            .filter { exercise -> exercise.tags.map { it.id }.any { it in tagIds } }
-        _filteredExercises.postValue(list)
+        filterChain.addFilter(CriteriaByTag.KEY, CriteriaByTag(tagIds))
+        showFilteredData()
     }
 
-    private fun removeFilter() {
-        _filteredExercises.postValue(unfilteredData)
+    private fun removeTextFilter() {
+        filterChain.removeFilter(CriteriaByText.KEY)
+        showFilteredData()
+
         filterQuery = null
+    }
+
+    private fun removeTagsFilter() {
+        filterChain.removeFilter(CriteriaByTag.KEY)
+        showFilteredData()
     }
 
     fun deleteExerciseList(list: List<Int>) {
         viewModelScope.launch {
             repository.deleteExerciseList(list)
         }
+    }
+
+    private fun showFilteredData() {
+        val meetCriteria = filterChain.meetCriteria(unfilteredData)
+        _filteredExercises.postValue(meetCriteria)
     }
 
     fun observeSearchQuery(observable: Observable<String>) {
@@ -99,7 +115,7 @@ class ExerciseListViewModel(private val repository: AppRepository) : ViewModel()
             .subscribe { filter: String? ->
                 Timber.d("Filter exercises: %s", filter)
                 if (filter.isNullOrBlank()) {
-                    removeFilter()
+                    removeTextFilter()
                 } else {
                     filterByText(filter)
                 }
@@ -118,14 +134,14 @@ class ExerciseListViewModel(private val repository: AppRepository) : ViewModel()
         return selectedTagIds
     }
 
-    fun testTags() {
+    private fun updateTagFilter() {
         val selectedTagIds = getSelectedTagsIds(fieldTags.get() ?: return)
         Timber.d("Selected tags: $selectedTagIds")
 
         if (selectedTagIds.isNotEmpty()) {
             filterByTags(selectedTagIds)
         } else {
-            removeFilter()
+            removeTagsFilter()
         }
     }
 

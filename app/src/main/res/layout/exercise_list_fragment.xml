@@ -20,7 +20,7 @@
             android:id="@+id/horizontalScroll"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/medium_margin"
+            android:layout_margin="@dimen/medium_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -40,6 +40,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/medium_margin"
             android:clipToPadding="false"
             android:paddingBottom="@dimen/recycler_fab_padding_bottom"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -15,7 +15,7 @@ import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.WordListFragmentBinding
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByWord
-import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterByWord
+import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterByWord
 import com.clloret.speakingpractice.domain.word.sort.WordSortable
 import com.clloret.speakingpractice.exercise.list.RxSearchObservable
 import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver

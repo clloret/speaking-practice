@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.domain.exercise.filter
+package com.clloret.speakingpractice.domain.exercise.practice.filter
 
 import androidx.lifecycle.LiveData
 import com.clloret.speakingpractice.db.AppRepository

@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.domain.exercise.sort
+package com.clloret.speakingpractice.domain.exercise.list.sort
 
 class ExerciseSortByPracticed(orderType: OrderType) : ExerciseSortStrategy(orderType) {
     override fun compare(sortable1: ExerciseSortable, sortable2: ExerciseSortable): Int {

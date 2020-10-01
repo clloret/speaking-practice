@@ -19,8 +19,8 @@ import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListFragmentBinding
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByExercise
-import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterById
-import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
+import com.clloret.speakingpractice.domain.exercise.list.sort.ExerciseSortable
+import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterById
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.utils.Dialogs
 import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver

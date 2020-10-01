@@ -8,7 +8,7 @@ import com.clloret.speakingpractice.domain.entities.Tag
 import com.clloret.speakingpractice.domain.exercise.list.filter.CriteriaByTag
 import com.clloret.speakingpractice.domain.exercise.list.filter.CriteriaByText
 import com.clloret.speakingpractice.domain.exercise.list.filter.FilterChain
-import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
+import com.clloret.speakingpractice.domain.exercise.list.sort.ExerciseSortable
 import com.clloret.speakingpractice.utils.databinding.ChipChoiceBinding
 import com.clloret.speakingpractice.utils.databinding.adapters.TagChipChoice
 import io.reactivex.Observable

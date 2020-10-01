@@ -167,7 +167,7 @@
 
         <argument
             android:name="filter"
-            app:argType="com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy" />
+            app:argType="com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterStrategy" />
         <argument
             android:name="title"
             app:argType="string" />

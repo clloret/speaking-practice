@@ -12,7 +12,7 @@ import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.entities.PracticeWord
-import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterStrategy
+import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.lifecycle.Event
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

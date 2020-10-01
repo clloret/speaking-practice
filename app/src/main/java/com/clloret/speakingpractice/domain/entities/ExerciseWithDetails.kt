@@ -3,7 +3,7 @@ package com.clloret.speakingpractice.domain.entities
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
-import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
+import com.clloret.speakingpractice.domain.exercise.list.sort.ExerciseSortable
 import com.clloret.speakingpractice.utils.databinding.ChipEntryBinding
 import com.clloret.speakingpractice.utils.databinding.adapters.TagChipEntry
 

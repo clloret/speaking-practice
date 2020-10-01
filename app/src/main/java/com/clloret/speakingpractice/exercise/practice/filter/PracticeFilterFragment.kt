@@ -9,7 +9,7 @@ import androidx.navigation.navGraphViewModels
 import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.domain.PreferenceValues
-import com.clloret.speakingpractice.domain.exercise.filter.*
+import com.clloret.speakingpractice.domain.exercise.practice.filter.*
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import kotlinx.android.synthetic.main.practice_filter_fragment.*
 import org.koin.android.ext.android.get

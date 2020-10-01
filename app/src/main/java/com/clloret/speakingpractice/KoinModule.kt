@@ -6,8 +6,8 @@ import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterStrategy
-import com.clloret.speakingpractice.domain.exercise.filter.*
-import com.clloret.speakingpractice.domain.exercise.sort.*
+import com.clloret.speakingpractice.domain.exercise.list.sort.*
+import com.clloret.speakingpractice.domain.exercise.practice.filter.*
 import com.clloret.speakingpractice.domain.resources.ColorResourceProvider
 import com.clloret.speakingpractice.domain.resources.StringResourceProvider
 import com.clloret.speakingpractice.domain.word.sort.*

@@ -8,7 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
-import com.clloret.speakingpractice.domain.exercise.filter.ExerciseFilterAll
+import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterAll
 import com.clloret.speakingpractice.util.MainCoroutineScopeRule
 import com.clloret.speakingpractice.util.getOrAwaitValue
 import com.jraska.livedata.TestObserver

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.SortedList
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.ExerciseListItemBinding
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
-import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
+import com.clloret.speakingpractice.domain.exercise.list.sort.ExerciseSortable
 import com.clloret.speakingpractice.utils.selection.LongItemDetails
 
 class ExerciseListAdapter(

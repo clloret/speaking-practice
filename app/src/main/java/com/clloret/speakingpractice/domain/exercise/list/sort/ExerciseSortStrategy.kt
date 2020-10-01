@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.domain.exercise.sort
+package com.clloret.speakingpractice.domain.exercise.list.sort
 
 abstract class ExerciseSortStrategy(private val orderType: OrderType) :
     Comparator<ExerciseSortable> {

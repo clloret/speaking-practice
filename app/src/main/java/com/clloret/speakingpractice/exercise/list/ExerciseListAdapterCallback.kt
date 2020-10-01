@@ -3,7 +3,7 @@ package com.clloret.speakingpractice.exercise.list
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedListAdapterCallback
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
-import com.clloret.speakingpractice.domain.exercise.sort.ExerciseSortable
+import com.clloret.speakingpractice.domain.exercise.list.sort.ExerciseSortable
 
 class ExerciseListAdapterCallback(
     adapter: RecyclerView.Adapter<*>,

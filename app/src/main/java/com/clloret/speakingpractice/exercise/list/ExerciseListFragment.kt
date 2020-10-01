@@ -82,6 +82,7 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
         )
 
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.model = viewModel
         binding.recyclerView.setupRecyclerView(binding.emptyView, savedInstanceState)
         binding.fabAddExercise.setOnClickListener {
             addExercise()

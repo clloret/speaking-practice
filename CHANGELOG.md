@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Filter exercises by tag in the exercise list screen
+- Scroll to top button in the exercise list screen
+- Scroll to top button in the word list screen
 
 ## [1.5.0] - 2020-09-27
 

@@ -134,4 +134,5 @@
     <string name="title_correct">Correct</string>
     <string name="title_incorrect">Incorrect</string>
     <string name="title_practiced_word">Practiced word</string>
+    <string name="action_scroll_to_top_description">Scroll to top</string>
 </resources>

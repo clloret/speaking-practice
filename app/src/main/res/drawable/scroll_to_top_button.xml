@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/scroll_to_top_circle" />
+    <item
+        android:bottom="@dimen/shape_button_margin"
+        android:drawable="@drawable/ic_scroll_to_top_24dp"
+        android:left="@dimen/shape_button_margin"
+        android:right="@dimen/shape_button_margin"
+        android:top="@dimen/shape_button_margin" />
+</layer-list>

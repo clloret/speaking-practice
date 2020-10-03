@@ -19,4 +19,5 @@
     <dimen name="dots_indicator_padding">32dp</dimen>
     <dimen name="practice_frame_elevation">8dp</dimen>
     <dimen name="recycler_fab_padding_bottom">88dp</dimen>
+    <dimen name="shape_button_margin">8dp</dimen>
 </resources>

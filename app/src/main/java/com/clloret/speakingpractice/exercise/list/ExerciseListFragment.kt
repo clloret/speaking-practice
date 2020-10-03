@@ -24,6 +24,7 @@ import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilt
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.utils.Dialogs
 import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
+import com.clloret.speakingpractice.utils.ScrollToTopButton
 import com.clloret.speakingpractice.utils.selection.LongItemDetailsLookup
 import com.clloret.speakingpractice.utils.selection.LongItemKeyProvider
 import kotlinx.android.synthetic.main.word_list_fragment.*
@@ -31,6 +32,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 import timber.log.Timber
+
 
 class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListListener {
 
@@ -87,6 +89,8 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
         binding.fabAddExercise.setOnClickListener {
             addExercise()
         }
+
+        ScrollToTopButton.configure(binding.scrollToTopButton, binding.recyclerView)
 
         return binding.root
     }

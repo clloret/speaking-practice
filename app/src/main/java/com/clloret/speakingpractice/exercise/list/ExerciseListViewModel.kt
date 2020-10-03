@@ -1,7 +1,10 @@
 package com.clloret.speakingpractice.exercise.list
 
 import androidx.databinding.ObservableField
-import androidx.lifecycle.*
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.AppRepository
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.entities.Tag
@@ -27,11 +30,6 @@ class ExerciseListViewModel(private val repository: AppRepository) : ViewModel()
 
     private val compositeDisposable = CompositeDisposable()
     private var unfilteredData = emptyList<ExerciseWithDetails>()
-
-    private val _filteredExercises: MutableLiveData<List<ExerciseWithDetails>> = MutableLiveData()
-    val filteredExercises: LiveData<List<ExerciseWithDetails>> get() = _filteredExercises
-    val exercises = MediatorLiveData<List<ExerciseWithDetails>>()
-    val fieldTags: ObservableField<List<ChipChoiceBinding>> = ObservableField()
     private val allTagsObserver = Observer<List<Tag>> { value ->
         fieldTags.set(value.map { TagChipChoice(it) }.sortedBy { it.displayName })
     }
@@ -41,11 +39,12 @@ class ExerciseListViewModel(private val repository: AppRepository) : ViewModel()
                 updateTagFilter()
             }
         }
-
+    private val filterChain = FilterChain()
+    val exercises = MediatorLiveData<List<ExerciseWithDetails>>()
+    val fieldTags: ObservableField<List<ChipChoiceBinding>> = ObservableField()
     var selectedComparator: Comparator<ExerciseSortable>? = null
     var sortItemId: Int? = null
     var filterQuery: String? = null
-    private val filterChain = FilterChain()
 
     init {
         exercises.addSource(repository.allExercisesDetails) {
@@ -100,7 +99,7 @@ class ExerciseListViewModel(private val repository: AppRepository) : ViewModel()
 
     private fun showFilteredData() {
         val meetCriteria = filterChain.meetCriteria(unfilteredData)
-        _filteredExercises.postValue(meetCriteria)
+        exercises.postValue(meetCriteria)
     }
 
     fun observeSearchQuery(observable: Observable<String>) {

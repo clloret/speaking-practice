@@ -294,10 +294,6 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
                 }
             }
         })
-
-        viewModel.filteredExercises.observe(viewLifecycleOwner, {
-            listAdapter.submitList(it)
-        })
     }
 
     private fun addExercise(): Boolean {

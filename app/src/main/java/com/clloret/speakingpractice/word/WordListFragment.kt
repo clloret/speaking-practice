@@ -19,6 +19,7 @@ import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilt
 import com.clloret.speakingpractice.domain.word.sort.WordSortable
 import com.clloret.speakingpractice.exercise.list.RxSearchObservable
 import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
+import com.clloret.speakingpractice.utils.ScrollToTopButton
 import kotlinx.android.synthetic.main.word_list_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -54,6 +55,8 @@ class WordListFragment : BaseFragment(), WordListAdapter.WordListListener {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.recyclerView.setupRecyclerView(binding.emptyView)
+
+        ScrollToTopButton.configure(binding.scrollToTopButton, binding.recyclerView)
 
         return binding.root
     }

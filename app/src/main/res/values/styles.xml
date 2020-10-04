@@ -38,6 +38,12 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
+    // Chip Styles
+
+    <style name="Widget.AppTheme.Chip.Filter" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@android:color/white</item>
+    </style>
+
     // Button Styles
 
     <style name="RoundButton" parent="@style/Widget.MaterialComponents.Button">

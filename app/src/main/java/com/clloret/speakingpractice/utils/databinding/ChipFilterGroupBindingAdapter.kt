@@ -14,7 +14,7 @@ object ChipFilterGroupBindingAdapter {
         ChipGroupBindingAdapter.setChips(
             chipGroup,
             chips,
-            R.style.Widget_MaterialComponents_Chip_Filter
+            R.style.Widget_AppTheme_Chip_Filter
         )
     }
 

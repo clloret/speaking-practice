@@ -23,11 +23,12 @@
             android:layout_margin="@dimen/medium_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@android:color/black">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroup"
-                choiceChips="@={model.fieldTags}"
+                filterChips="@={model.fieldTags}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:singleLine="true"

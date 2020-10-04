@@ -6,19 +6,19 @@ import androidx.databinding.InverseBindingListener
 import com.clloret.speakingpractice.R
 import com.google.android.material.chip.ChipGroup
 
-object ChipChoiceGroupBindingAdapter {
+object ChipFilterGroupBindingAdapter {
 
-    @BindingAdapter("choiceChips")
+    @BindingAdapter("filterChips")
     @JvmStatic
     fun setChips(chipGroup: ChipGroup, chips: List<ChipChoiceBinding>?) {
         ChipGroupBindingAdapter.setChips(
             chipGroup,
             chips,
-            R.style.Widget_MaterialComponents_Chip_Choice
+            R.style.Widget_MaterialComponents_Chip_Filter
         )
     }
 
-    @InverseBindingAdapter(attribute = "choiceChips")
+    @InverseBindingAdapter(attribute = "filterChips")
     @JvmStatic
     fun getChips(
         chipGroup: ChipGroup
@@ -26,8 +26,7 @@ object ChipChoiceGroupBindingAdapter {
         return ChipGroupBindingAdapter.getChips(chipGroup)
     }
 
-    @Suppress("UNUSED_PARAMETER")
-    @BindingAdapter("choiceChipsAttrChanged")
+    @BindingAdapter("filterChipsAttrChanged")
     @JvmStatic
     fun setChipsChanged(chipGroup: ChipGroup, chipsAttrChanged: InverseBindingListener) {
         ChipGroupBindingAdapter.setChipsChanged(chipGroup, chipsAttrChanged)

@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - The practice filter selection screen is now a bottom sheet dialog
+- Redesigned the home screen
 
 ## [1.5.0] - 2020-09-27
 

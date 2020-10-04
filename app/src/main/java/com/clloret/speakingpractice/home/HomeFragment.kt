@@ -115,7 +115,7 @@ class HomeFragment : BaseFragment() {
 
         btnPracticeFilter.setOnClickListener {
             val action =
-                HomeFragmentDirections.actionHomeFragmentToPracticeFilterFragment()
+                HomeFragmentDirections.actionHomeFragmentToPracticeFilterDlg()
 
             findNavController()
                 .navigate(action)

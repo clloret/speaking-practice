@@ -6,23 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
-import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.exercise.practice.filter.*
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
-import kotlinx.android.synthetic.main.practice_filter_fragment.*
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.android.synthetic.main.practice_filter_dlg.*
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
-class PracticeFilterFragment : BaseFragment() {
-
-    companion object {
-        fun newInstance() = PracticeFilterFragment()
-    }
+class PracticeFilterDlg : BottomSheetDialogFragment() {
 
     private val viewModel: PracticeFilterViewModel by viewModel()
     private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.nav_graph)
@@ -34,7 +30,7 @@ class PracticeFilterFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.practice_filter_fragment, container, false)
+        return inflater.inflate(R.layout.practice_filter_dlg, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -61,7 +57,6 @@ class PracticeFilterFragment : BaseFragment() {
 
                     val filter = ExerciseFilterByTag(it.id)
                     showPracticeWithFilter(filter, it.name)
-
                 }
             })
     }
@@ -103,7 +98,7 @@ class PracticeFilterFragment : BaseFragment() {
 
         btnOneTag.setOnClickListener {
             val action =
-                PracticeFilterFragmentDirections.actionPracticeFilterFragmentToSelectTagDlgFragment()
+                PracticeFilterDlgDirections.actionPracticeFilterDlgToSelectTagDlgFragment()
 
             findNavController()
                 .navigate(action)
@@ -112,7 +107,7 @@ class PracticeFilterFragment : BaseFragment() {
 
     private fun showPracticeWithFilter(filter: ExerciseFilterStrategy, filterName: String) {
         val action =
-            PracticeFilterFragmentDirections.actionPracticeFilterFragmentToPracticeActivity(
+            PracticeFilterDlgDirections.actionPracticeFilterDlgToPracticeActivity(
                 filter,
                 "Practice $filterName"
             )

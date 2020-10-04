@@ -18,9 +18,6 @@
             android:id="@+id/action_homeFragment_to_tagListFragment"
             app:destination="@id/tagListFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_practiceFilterFragment"
-            app:destination="@id/practiceFilterFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_statisticsFragment"
             app:destination="@id/statsFragment" />
         <action
@@ -38,6 +35,9 @@
         <action
             android:id="@+id/action_homeFragment_to_practiceActivity"
             app:destination="@id/practiceActivity" />
+        <action
+            android:id="@+id/action_homeFragment_to_practiceFilterDlg"
+            app:destination="@id/practiceFilterDlg" />
     </fragment>
 
     <fragment
@@ -105,18 +105,19 @@
             app:argType="string" />
     </fragment>
 
-    <fragment
-        android:id="@+id/practiceFilterFragment"
-        android:name="com.clloret.speakingpractice.exercise.practice.filter.PracticeFilterFragment"
+    <dialog
+        android:id="@+id/practiceFilterDlg"
+        android:name="com.clloret.speakingpractice.exercise.practice.filter.PracticeFilterDlg"
         android:label="Select Filter"
-        tools:layout="@layout/practice_filter_fragment">
+        tools:layout="@layout/practice_filter_dlg">
         <action
-            android:id="@+id/action_practiceFilterFragment_to_selectTagDlgFragment"
+            android:id="@+id/action_practiceFilterDlg_to_selectTagDlgFragment"
             app:destination="@id/selectTagDlgFragment" />
         <action
-            android:id="@+id/action_practiceFilterFragment_to_practiceActivity"
-            app:destination="@id/practiceActivity" />
-    </fragment>
+            android:id="@+id/action_practiceFilterDlg_to_practiceActivity"
+            app:destination="@id/practiceActivity"
+            app:popUpTo="@id/homeFragment" />
+    </dialog>
 
     <dialog
         android:id="@+id/selectTagDlgFragment"

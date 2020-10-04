@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryVariant">@color/color_primary_variant</item>
         <item name="colorPrimaryDark">@color/color_primary_variant</item>
@@ -10,6 +8,7 @@
         <item name="colorSecondary">@color/color_secondary</item>
         <item name="colorOnSecondary">#FFFFFF</item>
         <item name="materialButtonStyle">@style/RoundButton</item>
+        <item name="bottomSheetDialogTheme">@style/AppTheme.BottomSheetDialog</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -20,11 +19,22 @@
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
-    //ThemeOverlay.AppCompat.Dark.ActionBar
+    // BottomSheetDialogTheme
+
+    <style name="AppTheme.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">
+            @style/Animation.MaterialComponents.BottomSheetDialog
+        </item>
+        <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
+        <item name="materialButtonStyle">@style/RoundButton</item>
+    </style>
+
+    // ThemeOverlay.AppCompat.Dark.ActionBar
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    //ThemeOverlay.AppCompat.Light
+    // ThemeOverlay.AppCompat.Light
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 

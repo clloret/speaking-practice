@@ -4,47 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="@dimen/medium_padding"
     tools:context=".exercise.practice.filter.PracticeFilterDlg">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:text="@string/title_select_a_filter"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/btnRandomExercises"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/default_margin"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_margin"
         android:text="@string/action_random_exercises" />
 
     <Button
         android:id="@+id/btnMostFailedExercises"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/default_margin"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_margin"
         android:text="@string/action_most_failed_exercises" />
 
     <Button
         android:id="@+id/btnLessPracticedExercises"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/default_margin"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_margin"
         android:text="@string/action_less_practiced_exercises" />
 
     <Button
         android:id="@+id/btnOneTag"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/default_margin"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_margin"
         android:text="@string/action_select_tag" />
 
     <Button
         android:id="@+id/btnAllExercises"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/default_margin"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:text="@string/action_all_exercises" />
 
 </LinearLayout>

@@ -20,8 +20,9 @@ open class BaseFragment : Fragment() {
     }
 
     protected fun showSnackBar(message: String) {
+        val activity = activity ?: return
         val snackBar = Snackbar.make(
-            requireActivity().findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG
+            activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG
         )
         snackBar.show()
     }

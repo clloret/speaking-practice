@@ -20,15 +20,17 @@
 
     <Button
         android:id="@+id/btnPractice"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        style="@style/Widget.MaterialComponents.Button.IconOnly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_margin="@dimen/default_margin"
-        android:layout_weight="0.25"
-        android:text="@string/action_practice"
-        app:backgroundTint="@color/color_primary_variant" />
+        android:padding="@dimen/large_padding"
+        app:icon="@drawable/ic_practice_wht_96dp" />
 
     <Button
         android:id="@+id/btnPracticeFilter"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"

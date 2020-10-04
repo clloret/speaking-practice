@@ -51,6 +51,18 @@
         <item name="android:minHeight">@dimen/button_height</item>
     </style>
 
+    <style name="Widget.MaterialComponents.Button.IconOnly">
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minWidth">12dp</item>
+        <item name="android:minHeight">12dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+    </style>
+
     // Text Styles
 
     <style name="AttemptListTime" parent="@style/TextAppearance.MaterialComponents.Headline6" />

@@ -54,7 +54,7 @@
         <Button
             android:id="@+id/btnListenPhrase"
             android:layout_width="0dp"
-            android:layout_height="@dimen/button_height"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginBottom="@dimen/default_margin"
@@ -70,7 +70,7 @@
         <Button
             android:id="@+id/btnSpeakPhrase"
             android:layout_width="0dp"
-            android:layout_height="@dimen/button_height"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginBottom="@dimen/default_margin"

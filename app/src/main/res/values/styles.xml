@@ -42,6 +42,7 @@
 
     <style name="RoundButton" parent="@style/Widget.MaterialComponents.Button">
         <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="android:minHeight">@dimen/button_height</item>
     </style>
 
     // Text Styles

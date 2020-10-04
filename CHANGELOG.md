@@ -10,6 +10,10 @@ All notable changes to this project will be documented in this file.
 - Scroll to top button in the exercise list screen
 - Scroll to top button in the word list screen
 
+### Changed
+
+- The practice filter selection screen is now a bottom sheet dialog
+
 ## [1.5.0] - 2020-09-27
 
 ### Added

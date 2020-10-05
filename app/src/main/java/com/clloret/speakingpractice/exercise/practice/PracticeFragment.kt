@@ -49,9 +49,11 @@ class PracticeFragment : BaseFragment() {
         }
     }
     private val speechRecognizer by lazy {
-        PracticeSpeechRecognizer(requireContext().applicationContext) {
+        PracticeSpeechRecognizer(requireContext().applicationContext, onResults = {
             viewModel?.validatePhrase(it)
-        }
+        }, showMessage = {
+            showSnackBar(it)
+        })
     }
     private val playSound by lazy {
         PracticePlaySound(requireContext().applicationContext, preferenceValues)

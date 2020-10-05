@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.speech.SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.clloret.speakingpractice.R
@@ -15,7 +16,8 @@ import java.util.*
 
 class PracticeSpeechRecognizer(
     private val context: Context,
-    private val onResults: (ArrayList<String>) -> Unit
+    private val onResults: (ArrayList<String>) -> Unit,
+    private val showMessage: (String) -> Unit
 ) {
     private val speechRecognizer: SpeechRecognizer =
         SpeechRecognizer.createSpeechRecognizer(context)
@@ -65,7 +67,11 @@ class PracticeSpeechRecognizer(
                 override fun onError(error: Int) {
                     super.onError(error)
 
-                    Timber.d("onError - error:$error")
+                    Timber.d("onError - error: $error")
+
+                    if (error == ERROR_INSUFFICIENT_PERMISSIONS) {
+                        showMessage(context.getString(R.string.msg_error_speech_recognizer_insufficient_permissions))
+                    }
 
                     visibility = View.GONE
                     buttonSpeak?.visibility = View.VISIBLE

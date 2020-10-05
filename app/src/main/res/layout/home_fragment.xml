@@ -1,39 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp"
     tools:context=".home.HomeFragment">
 
-    <!-- FragmentContainerView currently has no layout preview -->
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.clloret.speakingpractice.home.stats.HomeStatsFragment"
-        android:layout_width="match_parent"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
-        tools:ignore="FragmentTagUsage"
-        tools:layout="@layout/home_stats_fragment" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnPractice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- FragmentContainerView currently has no layout preview -->
+            <fragment
+                android:id="@+id/fragment"
+                android:name="com.clloret.speakingpractice.home.stats.HomeStatsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_stats_height"
+                tools:ignore="FragmentTagUsage"
+                tools:layout="@layout/home_stats_fragment" />
+
+        </FrameLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
 
     <Button
         android:id="@+id/btnPractice"
         style="@style/Widget.MaterialComponents.Button.IconOnly"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/default_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:padding="@dimen/large_padding"
-        app:icon="@drawable/ic_practice_wht_96dp" />
+        app:icon="@drawable/ic_practice_wht_96dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnPracticeFilter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
     <Button
         android:id="@+id/btnPracticeFilter"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/default_margin"
-        android:text="@string/action_select_a_filter" />
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/action_select_a_filter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPractice" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

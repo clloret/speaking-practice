@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- The empty view is not displayed correctly on the exercise list screen
+
 ## [1.6.0] - 2020-10-06
 
 ### Added

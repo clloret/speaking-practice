@@ -14,15 +14,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/exercise_list_background"
         tools:context=".exercise.list.ExerciseListFragment">
 
         <HorizontalScrollView
             android:id="@+id/horizontalScroll"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+            android:background="@color/exercise_list_background"
+            android:padding="@dimen/default_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -57,8 +56,9 @@
 
         <TextView
             android:id="@+id/emptyView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/white"
             android:gravity="center"
             android:padding="@dimen/large_padding"
             android:text="@string/title_empty_exercise_list"
@@ -67,8 +67,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone" />
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScroll"
+            tools:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAddExercise"

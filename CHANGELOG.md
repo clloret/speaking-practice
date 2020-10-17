@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Scroll when the keyboard is displayed on the Add New Exercise and Add Tag screens, for small screens
+- Hide soft keyboard when close Add New Exercise or Add Tag screens
+
 ### Fixed
 
 - The empty view is not displayed correctly on the exercise list screen

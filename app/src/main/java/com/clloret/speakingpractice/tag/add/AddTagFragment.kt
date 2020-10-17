@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.AddTagFragmentBinding
+import com.clloret.speakingpractice.utils.KeyboardUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -40,6 +41,12 @@ class AddTagFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         observeData()
+    }
+
+    override fun onDestroy() {
+        KeyboardUtils.hideSoftKeyboard(requireActivity())
+
+        super.onDestroy()
     }
 
     private fun observeData() {

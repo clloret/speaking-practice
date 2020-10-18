@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 
 - Scroll when the keyboard is displayed on the Add New Exercise and Add Tag screens, for small screens
 - Hide soft keyboard when close Add New Exercise or Add Tag screens
+- Home screen statistics are displayed on CardViews
+- Background image to all screens in the app
 
 ### Fixed
 

@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/app_background"
     tools:context=".home.HomeFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@+id/btnPractice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,12 +25,11 @@
                 android:id="@+id/fragment"
                 android:name="com.clloret.speakingpractice.home.stats.HomeStatsFragment"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/home_stats_height"
+                android:layout_height="wrap_content"
                 tools:ignore="FragmentTagUsage"
                 tools:layout="@layout/home_stats_fragment" />
 
         </FrameLayout>
-
 
     </androidx.core.widget.NestedScrollView>
 
@@ -56,6 +55,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="@android:color/white"
         android:text="@string/action_select_a_filter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

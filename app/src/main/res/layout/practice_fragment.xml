@@ -20,7 +20,7 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/practice_background">
+        android:background="@drawable/app_background">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
@@ -40,7 +40,7 @@
             android:layout_marginStart="@dimen/dots_indicator_padding"
             android:layout_marginEnd="@dimen/dots_indicator_padding"
             android:layout_marginBottom="8dp"
-            android:background="@color/practice_background"
+            android:background="@android:color/transparent"
             app:layout_constraintBottom_toTopOf="@+id/btnListenPhrase"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

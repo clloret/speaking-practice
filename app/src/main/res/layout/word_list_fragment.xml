@@ -10,12 +10,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/app_background"
         tools:context=".word.WordListFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/recycler_scroll_to_top_padding_bottom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,14 +26,16 @@
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/word_list_item"
             tools:orientation="vertical"
-            tools:scrollbars="vertical" />
+            tools:scrollbars="vertical"
+            tools:visibility="invisible" />
 
         <TextView
             android:id="@+id/emptyView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_padding"
+            android:background="@android:color/white"
             android:gravity="center"
-            android:padding="@dimen/large_padding"
             android:text="@string/title_empty_word_list"
             android:textAppearance="@style/EmptyViewText"
             android:visibility="gone"
@@ -38,7 +43,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone" />
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/scrollToTopButton"

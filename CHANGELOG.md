@@ -11,6 +11,10 @@ All notable changes to this project will be documented in this file.
 - Home screen statistics are displayed on CardViews
 - Background image to all screens in the app
 
+### Changed
+
+- Stats screen now use CardViews
+
 ### Fixed
 
 - The empty view is not displayed correctly on the exercise list screen

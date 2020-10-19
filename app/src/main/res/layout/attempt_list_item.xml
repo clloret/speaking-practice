@@ -22,7 +22,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{entity.attempt.result ? @color/exercise_correct_background : @color/exercise_incorrect_background}">
+        android:background="@{entity.attempt.result ? @color/exercise_correct_background : @color/exercise_incorrect_background}"
+        tools:background="@android:color/white">
 
         <TextView
             android:id="@+id/attemptTimeTitle"

@@ -13,6 +13,7 @@ import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.AttemptListFragmentBinding
 import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
+import com.clloret.speakingpractice.utils.ScrollToTopButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -36,6 +37,8 @@ class AttemptListFragment : BaseFragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.recyclerView.setupRecyclerView(binding.emptyView)
+
+        ScrollToTopButton.configure(binding.scrollToTopButton, binding.recyclerView)
 
         return binding.root
     }

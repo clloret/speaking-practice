@@ -22,4 +22,8 @@
     <dimen name="recycler_fab_padding_bottom">88dp</dimen>
     <dimen name="shape_button_margin">8dp</dimen>
     <dimen name="recycler_scroll_to_top_padding_bottom">72dp</dimen>
+    <dimen name="home_stats_progress_top_margin">8dp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="card_margin">16dp</dimen>
+    <dimen name="card_results_of_the_week_height">110dp</dimen>
 </resources>

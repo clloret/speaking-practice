@@ -4,6 +4,7 @@ import android.content.Context
 import com.clloret.speakingpractice.attempt.list.AttemptListViewModel
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppRepository
+import com.clloret.speakingpractice.db.StatsRepository
 import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterStrategy
 import com.clloret.speakingpractice.domain.exercise.list.sort.*
@@ -45,6 +46,7 @@ object KoinModule {
 
             single { AppDatabase.getDatabase(get(), get()) }
             single { AppRepository(get()) }
+            single { StatsRepository(get()) }
             single { (context: Context) -> ImportExercises(context) }
 
             utils(this)

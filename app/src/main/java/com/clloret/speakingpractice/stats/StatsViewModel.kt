@@ -1,12 +1,11 @@
 package com.clloret.speakingpractice.stats
 
 import androidx.lifecycle.ViewModel
-import com.clloret.speakingpractice.db.AppRepository
+import com.clloret.speakingpractice.db.StatsRepository
 
 class StatsViewModel(
-    repository: AppRepository
+    repository: StatsRepository
 ) : ViewModel() {
 
     val stats = repository.stats
-
 }

@@ -43,22 +43,11 @@ object KoinModule {
     fun setupKoin(context: Context) {
         val appModule = module {
 
-            single { AppDatabase.getDatabase(get(), get()) }
-            single { ExerciseRepository(get()) }
-            single { StatsRepository(get()) }
-            single { TagRepository(get()) }
-            single { AttemptRepository(get()) }
-            single { WordRepository(get()) }
-            single { (context: Context) -> ImportExercises(context) }
-
+            data(this)
             utils(this)
-
             exerciseFilters(this)
-
             practiceWordSorters(this)
-
             exerciseListSorters(this)
-
             viewModels(this)
         }
 
@@ -71,6 +60,19 @@ object KoinModule {
 
             // module list
             modules(appModule)
+        }
+    }
+
+    private fun data(module: Module) {
+        // Data
+
+        module.apply {
+            single { AppDatabase.getDatabase(get(), get()) }
+            single { ExerciseRepository(get()) }
+            single { StatsRepository(get()) }
+            single { TagRepository(get()) }
+            single { AttemptRepository(get()) }
+            single { WordRepository(get()) }
         }
     }
 
@@ -87,6 +89,7 @@ object KoinModule {
             }
             single<PreferenceValues> { PreferenceValuesImpl(get(), get()) }
             single { FormatCorrectWords(get()) }
+            single { (context: Context) -> ImportExercises(context) }
 
         }
     }

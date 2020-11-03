@@ -6,7 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.Fragment
 import com.clloret.speakingpractice.R
-import com.clloret.speakingpractice.db.AppRepository
+import com.clloret.speakingpractice.db.repository.AppRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.utils.Dialogs
 import kotlinx.coroutines.CoroutineScope

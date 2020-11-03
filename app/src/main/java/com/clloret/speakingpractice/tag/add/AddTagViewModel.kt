@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.clloret.speakingpractice.db.TagRepository
+import com.clloret.speakingpractice.db.repository.TagRepository
 import com.clloret.speakingpractice.domain.entities.Tag
 import kotlinx.coroutines.launch
 

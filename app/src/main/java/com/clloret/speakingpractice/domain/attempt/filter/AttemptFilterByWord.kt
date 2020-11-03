@@ -1,7 +1,7 @@
 package com.clloret.speakingpractice.domain.attempt.filter
 
 import androidx.lifecycle.LiveData
-import com.clloret.speakingpractice.db.AttemptRepository
+import com.clloret.speakingpractice.db.repository.AttemptRepository
 import com.clloret.speakingpractice.domain.entities.AttemptWithExercise
 import kotlinx.coroutines.runBlocking
 

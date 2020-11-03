@@ -1,5 +1,6 @@
-package com.clloret.speakingpractice.db
+package com.clloret.speakingpractice.db.repository
 
+import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.domain.entities.Tag
 
 class TagRepository(private val db: AppDatabase) {

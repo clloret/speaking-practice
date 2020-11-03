@@ -2,7 +2,7 @@ package com.clloret.speakingpractice.attempt.list
 
 import android.text.Spanned
 import androidx.lifecycle.ViewModel
-import com.clloret.speakingpractice.db.AttemptRepository
+import com.clloret.speakingpractice.db.repository.AttemptRepository
 import com.clloret.speakingpractice.domain.ExerciseValidator
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterStrategy
 import com.clloret.speakingpractice.domain.entities.Exercise

@@ -1,7 +1,7 @@
 package com.clloret.speakingpractice.home.stats
 
 import androidx.lifecycle.ViewModel
-import com.clloret.speakingpractice.db.StatsRepository
+import com.clloret.speakingpractice.db.repository.StatsRepository
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE

@@ -5,8 +5,8 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.clloret.speakingpractice.db.AppRepository
-import com.clloret.speakingpractice.db.TagRepository
+import com.clloret.speakingpractice.db.repository.AppRepository
+import com.clloret.speakingpractice.db.repository.TagRepository
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.entities.Tag
 import com.clloret.speakingpractice.domain.exercise.list.filter.CriteriaByTag

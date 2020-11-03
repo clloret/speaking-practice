@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.clloret.speakingpractice.db.AppDatabase
-import com.clloret.speakingpractice.db.AppRepository
-import com.clloret.speakingpractice.db.AttemptRepository
+import com.clloret.speakingpractice.db.repository.AppRepository
+import com.clloret.speakingpractice.db.repository.AttemptRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterAll
 import com.clloret.speakingpractice.util.MainCoroutineScopeRule

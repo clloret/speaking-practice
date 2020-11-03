@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.clloret.speakingpractice.db.AppRepository
+import com.clloret.speakingpractice.db.repository.AppRepository
 import com.clloret.speakingpractice.domain.entities.PracticeWordWithResults
 import com.clloret.speakingpractice.domain.word.sort.WordSortable
 import io.reactivex.Observable

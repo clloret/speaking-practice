@@ -1,6 +1,7 @@
-package com.clloret.speakingpractice.db
+package com.clloret.speakingpractice.db.repository
 
 import androidx.lifecycle.LiveData
+import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.entities.PracticeWordWithResults

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.clloret.speakingpractice.db.repository.AppRepository
+import com.clloret.speakingpractice.db.repository.WordRepository
 import com.clloret.speakingpractice.domain.entities.PracticeWordWithResults
 import com.clloret.speakingpractice.domain.word.sort.WordSortable
 import io.reactivex.Observable
@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class WordListViewModel(repository: AppRepository) : ViewModel() {
+class WordListViewModel(repository: WordRepository) : ViewModel() {
     companion object {
         private const val SEARCH_DEBOUNCE_TIMEOUT = 300L
     }

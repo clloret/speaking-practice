@@ -3,10 +3,7 @@ package com.clloret.speakingpractice
 import android.content.Context
 import com.clloret.speakingpractice.attempt.list.AttemptListViewModel
 import com.clloret.speakingpractice.db.AppDatabase
-import com.clloret.speakingpractice.db.repository.AppRepository
-import com.clloret.speakingpractice.db.repository.AttemptRepository
-import com.clloret.speakingpractice.db.repository.StatsRepository
-import com.clloret.speakingpractice.db.repository.TagRepository
+import com.clloret.speakingpractice.db.repository.*
 import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterStrategy
 import com.clloret.speakingpractice.domain.exercise.list.sort.*
@@ -51,6 +48,7 @@ object KoinModule {
             single { StatsRepository(get()) }
             single { TagRepository(get()) }
             single { AttemptRepository(get()) }
+            single { WordRepository(get()) }
             single { (context: Context) -> ImportExercises(context) }
 
             utils(this)

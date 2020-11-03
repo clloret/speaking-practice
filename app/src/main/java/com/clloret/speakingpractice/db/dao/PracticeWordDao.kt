@@ -24,8 +24,5 @@ interface PracticeWordDao {
     fun getPracticeWordsWithResults(): LiveData<List<PracticeWordWithResults>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(practiceWord: PracticeWord)
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(practiceWords: List<PracticeWord>)
 }

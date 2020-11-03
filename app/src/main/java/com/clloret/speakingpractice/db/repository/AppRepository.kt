@@ -4,16 +4,12 @@ import androidx.lifecycle.LiveData
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
-import com.clloret.speakingpractice.domain.entities.PracticeWordWithResults
 import com.clloret.speakingpractice.domain.entities.TagSelectedTuple
 
 class AppRepository(private val db: AppDatabase) {
 
     val allExercisesDetails: LiveData<List<ExerciseWithDetails>> =
         db.exerciseDao().getExercisesWithDetails()
-
-    val allPracticeWords: LiveData<List<PracticeWordWithResults>> =
-        db.practiceWordDao().getPracticeWordsWithResults()
 
     suspend fun getExerciseById(id: Int): Exercise? {
         return db.exerciseDao().getExerciseById(id)

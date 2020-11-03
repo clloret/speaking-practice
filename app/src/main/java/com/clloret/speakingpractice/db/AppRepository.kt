@@ -5,8 +5,6 @@ import com.clloret.speakingpractice.domain.entities.*
 
 class AppRepository(private val db: AppDatabase) {
 
-    val allTags = db.tagDao().getAllTags()
-
     val allExercisesDetails: LiveData<List<ExerciseWithDetails>> =
         db.exerciseDao().getExercisesWithDetails()
 
@@ -43,10 +41,6 @@ class AppRepository(private val db: AppDatabase) {
         return db.exerciseDao().getWordExercisesIds("% $word %")
     }
 
-    suspend fun getTagById(id: Int): Tag? {
-        return db.tagDao().getTagById(id)
-    }
-
     fun getExerciseAttemptsByIds(ids: List<Int>): LiveData<List<AttemptWithExercise>> {
         return db.exerciseAttemptDao().getExerciseAttemptsByIds(ids)
     }
@@ -67,20 +61,12 @@ class AppRepository(private val db: AppDatabase) {
         db.exerciseDao().deleteList(listIds)
     }
 
-    suspend fun deleteTagList(listIds: List<Int>) {
-        db.tagDao().deleteList(listIds)
-    }
-
     suspend fun deleteAllExercises() {
         db.exerciseDao().deleteAll()
     }
 
     suspend fun insertOrUpdateExerciseAndTags(exercise: Exercise, tagsIds: List<Int>) {
         db.exerciseDao().insertOrUpdateExerciseAndTags(exercise, tagsIds, db.tagExerciseJoinDao())
-    }
-
-    suspend fun insertOrUpdateTag(tag: Tag) {
-        db.tagDao().insertOrUpdate(tag)
     }
 
     suspend fun insertExerciseAndTags(exercise: Exercise, tagNames: List<String>) {

@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.clloret.speakingpractice.db.AppDatabase
-import com.clloret.speakingpractice.db.AppRepository
+import com.clloret.speakingpractice.db.TagRepository
 import com.clloret.speakingpractice.domain.entities.Tag
 import com.clloret.speakingpractice.tag.add.AddTagViewModel.FormErrors
 import com.clloret.speakingpractice.util.MainCoroutineScopeRule
@@ -33,7 +33,7 @@ class AddTagViewModelTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var db: AppDatabase
-    private lateinit var repository: AppRepository
+    private lateinit var repository: TagRepository
 
     @Before
     fun createDb() {
@@ -52,7 +52,7 @@ class AddTagViewModelTest {
             db.tagDao().insert(tag)
         }
 
-        repository = AppRepository(db)
+        repository = TagRepository(db)
     }
 
     @After
@@ -103,5 +103,4 @@ class AddTagViewModelTest {
         Truth.assertThat(tag)
             .isEqualTo(testTag)
     }
-
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.AppRepository
+import com.clloret.speakingpractice.db.TagRepository
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.entities.Tag
 import com.clloret.speakingpractice.domain.exercise.list.filter.CriteriaByTag
@@ -22,7 +23,10 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class ExerciseListViewModel(private val repository: AppRepository) : ViewModel() {
+class ExerciseListViewModel(
+    private val repository: AppRepository,
+    private val tagRepository: TagRepository
+) : ViewModel() {
 
     companion object {
         private const val SEARCH_DEBOUNCE_TIMEOUT = 300L
@@ -56,7 +60,7 @@ class ExerciseListViewModel(private val repository: AppRepository) : ViewModel()
 
         fieldTags.addOnPropertyChangedCallback(fieldTagsCallback)
 
-        repository.allTags.observeForever(allTagsObserver)
+        tagRepository.allTags.observeForever(allTagsObserver)
     }
 
     override fun onCleared() {
@@ -64,7 +68,7 @@ class ExerciseListViewModel(private val repository: AppRepository) : ViewModel()
 
         compositeDisposable.dispose()
         fieldTags.removeOnPropertyChangedCallback(fieldTagsCallback)
-        repository.allTags.removeObserver(allTagsObserver)
+        tagRepository.allTags.removeObserver(allTagsObserver)
     }
 
     private fun filterByText(text: String) {

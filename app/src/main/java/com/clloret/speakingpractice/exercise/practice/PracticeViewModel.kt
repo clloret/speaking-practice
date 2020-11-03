@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.clloret.speakingpractice.db.repository.AppRepository
 import com.clloret.speakingpractice.db.repository.AttemptRepository
+import com.clloret.speakingpractice.db.repository.ExerciseRepository
 import com.clloret.speakingpractice.domain.ExerciseValidator
 import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.entities.Exercise
@@ -23,7 +23,7 @@ import java.util.*
 
 class PracticeViewModel(
     filter: ExerciseFilterStrategy,
-    repository: AppRepository,
+    repository: ExerciseRepository,
     private val attemptRepository: AttemptRepository,
     private val preferenceValues: PreferenceValues,
     private val formatCorrectWords: FormatCorrectWords,

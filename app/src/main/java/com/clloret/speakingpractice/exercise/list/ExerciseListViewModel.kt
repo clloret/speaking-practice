@@ -5,7 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.clloret.speakingpractice.db.repository.AppRepository
+import com.clloret.speakingpractice.db.repository.ExerciseRepository
 import com.clloret.speakingpractice.db.repository.TagRepository
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.entities.Tag
@@ -24,7 +24,7 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class ExerciseListViewModel(
-    private val repository: AppRepository,
+    private val repository: ExerciseRepository,
     private val tagRepository: TagRepository
 ) : ViewModel() {
 

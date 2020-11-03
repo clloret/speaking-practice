@@ -6,7 +6,7 @@ import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.entities.TagSelectedTuple
 
-class AppRepository(private val db: AppDatabase) {
+class ExerciseRepository(private val db: AppDatabase) {
 
     val allExercisesDetails: LiveData<List<ExerciseWithDetails>> =
         db.exerciseDao().getExercisesWithDetails()

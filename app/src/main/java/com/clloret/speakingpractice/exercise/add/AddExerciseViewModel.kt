@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.clloret.speakingpractice.db.repository.AppRepository
+import com.clloret.speakingpractice.db.repository.ExerciseRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.utils.databinding.ChipChoiceBinding
 import com.clloret.speakingpractice.utils.databinding.adapters.TagSelectedChipChoice
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class AddExerciseViewModel(
-    private val repository: AppRepository,
+    private val repository: ExerciseRepository,
     private val exerciseId: Int
 ) : ViewModel() {
 

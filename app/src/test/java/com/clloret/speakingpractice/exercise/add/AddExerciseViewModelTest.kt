@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.clloret.speakingpractice.db.AppDatabase
-import com.clloret.speakingpractice.db.repository.AppRepository
+import com.clloret.speakingpractice.db.repository.ExerciseRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel.FormErrors
 import com.clloret.speakingpractice.util.MainCoroutineScopeRule
@@ -34,7 +34,7 @@ class AddExerciseViewModelTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var db: AppDatabase
-    private lateinit var repository: AppRepository
+    private lateinit var repository: ExerciseRepository
 
     @Before
     fun createDb() {
@@ -54,7 +54,7 @@ class AddExerciseViewModelTest {
             db.exerciseDao().insert(exercise)
         }
 
-        repository = AppRepository(db)
+        repository = ExerciseRepository(db)
     }
 
     @After

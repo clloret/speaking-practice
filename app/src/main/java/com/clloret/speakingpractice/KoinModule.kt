@@ -2,10 +2,7 @@ package com.clloret.speakingpractice
 
 import android.content.Context
 import com.clloret.speakingpractice.attempt.list.AttemptListViewModel
-import com.clloret.speakingpractice.db.AppDatabase
-import com.clloret.speakingpractice.db.AppRepository
-import com.clloret.speakingpractice.db.StatsRepository
-import com.clloret.speakingpractice.db.TagRepository
+import com.clloret.speakingpractice.db.*
 import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterStrategy
 import com.clloret.speakingpractice.domain.exercise.list.sort.*
@@ -49,6 +46,7 @@ object KoinModule {
             single { AppRepository(get()) }
             single { StatsRepository(get()) }
             single { TagRepository(get()) }
+            single { AttemptRepository(get()) }
             single { (context: Context) -> ImportExercises(context) }
 
             utils(this)
@@ -163,7 +161,7 @@ object KoinModule {
         module.apply {
 
             viewModel { (filter: ExerciseFilterStrategy) ->
-                PracticeViewModel(filter, get(), get(), get())
+                PracticeViewModel(filter, get(), get(), get(), get())
             }
             viewModel { ExerciseListViewModel(get(), get()) }
             viewModel { TagListViewModel(get()) }

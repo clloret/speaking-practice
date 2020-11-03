@@ -1,7 +1,10 @@
 package com.clloret.speakingpractice.db
 
 import androidx.lifecycle.LiveData
-import com.clloret.speakingpractice.domain.entities.*
+import com.clloret.speakingpractice.domain.entities.Exercise
+import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
+import com.clloret.speakingpractice.domain.entities.PracticeWordWithResults
+import com.clloret.speakingpractice.domain.entities.TagSelectedTuple
 
 class AppRepository(private val db: AppDatabase) {
 
@@ -10,8 +13,6 @@ class AppRepository(private val db: AppDatabase) {
 
     val allPracticeWords: LiveData<List<PracticeWordWithResults>> =
         db.practiceWordDao().getPracticeWordsWithResults()
-
-    val exerciseAttemptsCount = db.exerciseAttemptDao().getExercisesAttemptsCount()
 
     suspend fun getExerciseById(id: Int): Exercise? {
         return db.exerciseDao().getExerciseById(id)
@@ -41,18 +42,6 @@ class AppRepository(private val db: AppDatabase) {
         return db.exerciseDao().getWordExercisesIds("% $word %")
     }
 
-    fun getExerciseAttemptsByIds(ids: List<Int>): LiveData<List<AttemptWithExercise>> {
-        return db.exerciseAttemptDao().getExerciseAttemptsByIds(ids)
-    }
-
-    suspend fun getExercisesAttemptsIdsByWord(practiceWord: String): List<Int> {
-        return db.exerciseAttemptDao().getExercisesAttemptsIdsByWord(practiceWord)
-    }
-
-    fun getExerciseAttemptsByExerciseId(id: Int): LiveData<List<AttemptWithExercise>> {
-        return db.exerciseAttemptDao().getExerciseAttemptsByExerciseId(id)
-    }
-
     suspend fun getSelectedTagsForExercise(exerciseId: Int): List<TagSelectedTuple> {
         return db.tagExerciseJoinDao().getSelectedTagsForExercise(exerciseId)
     }
@@ -74,11 +63,4 @@ class AppRepository(private val db: AppDatabase) {
             .insertExerciseAndTags(exercise, tagNames, db.tagDao(), db.tagExerciseJoinDao())
     }
 
-    suspend fun insertExerciseAttemptAndWords(
-        exerciseAttempt: ExerciseAttempt,
-        practiceWords: List<PracticeWord>
-    ) {
-        db.exerciseAttemptDao()
-            .insertExerciseAttemptAndWords(exerciseAttempt, practiceWords, db.practiceWordDao())
-    }
 }

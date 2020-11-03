@@ -1,8 +1,8 @@
 package com.clloret.speakingpractice.exercise.practice.filter
 
 import androidx.lifecycle.ViewModel
-import com.clloret.speakingpractice.db.AppRepository
+import com.clloret.speakingpractice.db.AttemptRepository
 
-class PracticeFilterViewModel(repository: AppRepository) : ViewModel() {
+class PracticeFilterViewModel(repository: AttemptRepository) : ViewModel() {
     val exerciseAttemptsCount = repository.exerciseAttemptsCount
 }

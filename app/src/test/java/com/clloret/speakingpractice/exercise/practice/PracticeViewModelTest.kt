@@ -7,6 +7,7 @@ import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppRepository
+import com.clloret.speakingpractice.db.AttemptRepository
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterAll
 import com.clloret.speakingpractice.util.MainCoroutineScopeRule
@@ -39,6 +40,7 @@ class PracticeViewModelTest {
     private val formatCorrectWords = FormatCorrectWords(colorResourceProvider)
     private lateinit var db: AppDatabase
     private lateinit var repository: AppRepository
+    private lateinit var attemptRepository: AttemptRepository
     private lateinit var sut: PracticeViewModel
 
     @Before
@@ -56,6 +58,7 @@ class PracticeViewModelTest {
         }
 
         repository = AppRepository(db)
+        attemptRepository = AttemptRepository(db)
     }
 
     @After
@@ -70,6 +73,7 @@ class PracticeViewModelTest {
         sut = PracticeViewModel(
             filter,
             repository,
+            attemptRepository,
             preferenceValues,
             formatCorrectWords,
             testDispatcher

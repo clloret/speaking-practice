@@ -23,7 +23,7 @@ import java.util.*
 
 class PracticeViewModel(
     filter: ExerciseFilterStrategy,
-    repository: ExerciseRepository,
+    exerciseRepository: ExerciseRepository,
     private val attemptRepository: AttemptRepository,
     private val preferenceValues: PreferenceValues,
     private val formatCorrectWords: FormatCorrectWords,
@@ -45,7 +45,7 @@ class PracticeViewModel(
     private var correctWords = listOf<Pair<String, Boolean>>()
     private var correctedExercise = false
 
-    val exercises = filter.getExercises(repository)
+    val exercises = filter.getExercises(exerciseRepository)
     var onClickRecognizeSpeechBtn: (() -> Unit)? = null
 
     private fun isCurrentExercise(exercise: Exercise): Boolean {

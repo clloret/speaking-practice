@@ -10,11 +10,12 @@ class TagRepository(private val db: AppDatabase) {
         return db.tagDao().getTagById(id)
     }
 
+    suspend fun insertOrUpdateTag(tag: Tag) {
+        db.tagDao().insertOrUpdate(tag)
+    }
+
     suspend fun deleteTagList(listIds: List<Int>) {
         db.tagDao().deleteList(listIds)
     }
 
-    suspend fun insertOrUpdateTag(tag: Tag) {
-        db.tagDao().insertOrUpdate(tag)
-    }
 }

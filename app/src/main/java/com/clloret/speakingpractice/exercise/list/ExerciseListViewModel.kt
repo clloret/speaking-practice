@@ -24,7 +24,7 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class ExerciseListViewModel(
-    private val repository: ExerciseRepository,
+    private val exerciseRepository: ExerciseRepository,
     private val tagRepository: TagRepository
 ) : ViewModel() {
 
@@ -51,7 +51,7 @@ class ExerciseListViewModel(
     var filterQuery: String? = null
 
     init {
-        exercises.addSource(repository.allExercisesDetails) {
+        exercises.addSource(exerciseRepository.allExercisesDetails) {
             unfilteredData = it
 
             val meetCriteria = filterChain.meetCriteria(unfilteredData)
@@ -97,7 +97,7 @@ class ExerciseListViewModel(
 
     fun deleteExerciseList(list: List<Int>) {
         viewModelScope.launch {
-            repository.deleteExerciseList(list)
+            exerciseRepository.deleteExerciseList(list)
         }
     }
 

@@ -39,7 +39,7 @@ class PracticeViewModelTest {
     private val preferenceValues = FakePreferenceValues()
     private val formatCorrectWords = FormatCorrectWords(colorResourceProvider)
     private lateinit var db: AppDatabase
-    private lateinit var repository: ExerciseRepository
+    private lateinit var exerciseRepository: ExerciseRepository
     private lateinit var attemptRepository: AttemptRepository
     private lateinit var sut: PracticeViewModel
 
@@ -57,7 +57,7 @@ class PracticeViewModelTest {
             db.exerciseDao().insert(exercise)
         }
 
-        repository = ExerciseRepository(db)
+        exerciseRepository = ExerciseRepository(db)
         attemptRepository = AttemptRepository(db)
     }
 
@@ -72,7 +72,7 @@ class PracticeViewModelTest {
         val filter = ExerciseFilterAll()
         sut = PracticeViewModel(
             filter,
-            repository,
+            exerciseRepository,
             attemptRepository,
             preferenceValues,
             formatCorrectWords,

@@ -17,16 +17,16 @@ class AttemptRepository(private val db: AppDatabase) {
         return db.exerciseAttemptDao().getExerciseAttemptsByExerciseId(id)
     }
 
+    suspend fun getExercisesAttemptsIdsByWord(practiceWord: String): List<Int> {
+        return db.exerciseAttemptDao().getExercisesAttemptsIdsByWord(practiceWord)
+    }
+
     suspend fun insertExerciseAttemptAndWords(
         exerciseAttempt: ExerciseAttempt,
         practiceWords: List<PracticeWord>
     ) {
         db.exerciseAttemptDao()
             .insertExerciseAttemptAndWords(exerciseAttempt, practiceWords, db.practiceWordDao())
-    }
-
-    suspend fun getExercisesAttemptsIdsByWord(practiceWord: String): List<Int> {
-        return db.exerciseAttemptDao().getExercisesAttemptsIdsByWord(practiceWord)
     }
 
 }

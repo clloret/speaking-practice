@@ -47,10 +47,6 @@ class ExerciseRepository(private val db: AppDatabase) {
         db.exerciseDao().deleteList(listIds)
     }
 
-    suspend fun deleteAllExercises() {
-        db.exerciseDao().deleteAll()
-    }
-
     suspend fun insertOrUpdateExerciseAndTags(exercise: Exercise, tagsIds: List<Int>) {
         db.exerciseDao().insertOrUpdateExerciseAndTags(exercise, tagsIds, db.tagExerciseJoinDao())
     }
@@ -58,6 +54,10 @@ class ExerciseRepository(private val db: AppDatabase) {
     suspend fun insertExerciseAndTags(exercise: Exercise, tagNames: List<String>) {
         db.exerciseDao()
             .insertExerciseAndTags(exercise, tagNames, db.tagDao(), db.tagExerciseJoinDao())
+    }
+
+    suspend fun deleteAllExercises() {
+        db.exerciseDao().deleteAll()
     }
 
 }

@@ -12,13 +12,11 @@ import com.clloret.speakingpractice.domain.entities.PracticeWordWithResults
 interface PracticeWordDao {
     @Query(
         """
-                SELECT
-                    word,
-                    SUM(result) AS correct,
-                    COUNT() - SUM(result) AS incorrect
-                FROM 
-                    practice_words
-                GROUP BY word;
+                SELECT word,
+                       SUM(result) AS correct,
+                       COUNT() - SUM(result) AS incorrect
+                  FROM practice_words
+                 GROUP BY word;
     """
     )
     fun getPracticeWordsWithResults(): LiveData<List<PracticeWordWithResults>>

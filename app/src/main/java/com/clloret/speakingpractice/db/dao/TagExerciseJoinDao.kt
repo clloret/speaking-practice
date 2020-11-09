@@ -19,32 +19,39 @@ interface TagExerciseJoinDao {
 
     @Query(
         """
-               SELECT tags.tag_id, name FROM tags
-               INNER JOIN tag_exercise_join
-               ON tags.tag_id=tag_exercise_join.tag_id
-               WHERE tag_exercise_join.exercise_id=:exerciseId
-               """
+            SELECT tags.tag_id,
+                   name
+              FROM tags
+                   INNER JOIN
+                   tag_exercise_join ON tags.tag_id = tag_exercise_join.tag_id
+             WHERE tag_exercise_join.exercise_id = :exerciseId;
+    """
     )
     fun getTagsForExercise(exerciseId: Int): LiveData<List<Tag>>
 
     @Query(
         """
-              SELECT tags.tag_id, name, CASE WHEN exercise_id IS NULL THEN 0 ELSE 1 END AS selected 
-              FROM tags 
-              LEFT OUTER JOIN tag_exercise_join
-              ON tags.tag_id=tag_exercise_join.tag_id
-              AND tag_exercise_join.exercise_id=:exerciseId
-               """
+            SELECT tags.tag_id,
+                   name,
+                   CASE WHEN exercise_id IS NULL THEN 0 ELSE 1 END AS selected
+              FROM tags
+                   LEFT OUTER JOIN
+                   tag_exercise_join ON tags.tag_id = tag_exercise_join.tag_id AND 
+                                        tag_exercise_join.exercise_id = :exerciseId;
+    """
     )
     suspend fun getSelectedTagsForExercise(exerciseId: Int): List<TagSelectedTuple>
 
     @Query(
         """
-               SELECT exercises.exercise_id, practice_phrase, translated_phrase FROM exercises
-               INNER JOIN tag_exercise_join
-               ON exercises.exercise_id=tag_exercise_join.tag_id
-               WHERE tag_exercise_join.tag_id=:tagId
-               """
+            SELECT exercises.exercise_id,
+                   practice_phrase,
+                   translated_phrase
+              FROM exercises
+                   INNER JOIN
+                   tag_exercise_join ON exercises.exercise_id = tag_exercise_join.tag_id
+             WHERE tag_exercise_join.tag_id = :tagId;
+    """
     )
     fun getExercisesForTag(tagId: Int): LiveData<List<Exercise>>
 

@@ -34,10 +34,10 @@ interface ExerciseDao {
     @Query(
         """
                 SELECT exercise_id
-                FROM exercise_attempts
-                GROUP BY exercise_id
-                HAVING CAST(SUM(result) AS FLOAT) / COUNT(exercise_id) < :successFactor
-                OR COUNT(exercise_id) < :minAttempts
+                  FROM exercise_attempts
+                 GROUP BY exercise_id
+                HAVING CAST (SUM(result) AS FLOAT) / COUNT(exercise_id) < :successFactor OR 
+                       COUNT(exercise_id) < :minAttempts;
     """
     )
     suspend fun getMostFailedExercisesIds(successFactor: Double, minAttempts: Int): List<Int>
@@ -51,7 +51,7 @@ interface ExerciseDao {
                  GROUP BY exercises.exercise_id
                  ORDER BY COUNT(exercise_attempts.exercise_attempt_id)
                  LIMIT :limit
-"""
+    """
     )
     suspend fun getLessPracticedExercisesIds(limit: Int): List<Int>
 
@@ -60,14 +60,24 @@ interface ExerciseDao {
                 SELECT exercise_id
                   FROM exercises
                  WHERE [REPLACE]([REPLACE]( (' ' || practice_phrase || ' '), '?', ''), '!', '') LIKE :word
-"""
+    """
     )
     suspend fun getWordExercisesIds(word: String): List<Int>
 
     @Query("SELECT * FROM exercises WHERE exercise_id = :id")
     suspend fun getExerciseById(id: Int): Exercise
 
-    @Query("SELECT SUM(result) AS correct, COUNT(*) - SUM(result) AS incorrect FROM exercises INNER JOIN exercise_attempts ON exercises.exercise_id = exercise_attempts.exercise_id GROUP BY exercises.exercise_id HAVING exercises.exercise_id=:exerciseId")
+    @Query(
+        """
+                SELECT SUM(result) AS correct,
+                       COUNT() - SUM(result) AS incorrect
+                  FROM exercises
+                       INNER JOIN
+                       exercise_attempts ON exercises.exercise_id = exercise_attempts.exercise_id
+                 GROUP BY exercises.exercise_id
+                HAVING exercises.exercise_id = :exerciseId;
+    """
+    )
     fun getResultValues(exerciseId: Int): LiveData<ExerciseResultTuple>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -75,18 +85,6 @@ interface ExerciseDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(exercise: Exercise)
-
-    @Delete
-    suspend fun delete(exercise: Exercise)
-
-    @Query("DELETE FROM exercises WHERE exercise_id = :id")
-    suspend fun deleteById(id: Int)
-
-    @Query("DELETE FROM exercises WHERE exercise_id IN (:listIds)")
-    suspend fun deleteList(listIds: List<Int>)
-
-    @Query("DELETE FROM exercises")
-    suspend fun deleteAll()
 
     @Transaction
     suspend fun insertOrUpdateExerciseAndTags(
@@ -127,5 +125,17 @@ interface ExerciseDao {
         }
         tagExerciseJoinDao.insertAllTagExerciseJoins(tagExerciseJoins)
     }
+
+    @Delete
+    suspend fun delete(exercise: Exercise)
+
+    @Query("DELETE FROM exercises WHERE exercise_id = :id")
+    suspend fun deleteById(id: Int)
+
+    @Query("DELETE FROM exercises WHERE exercise_id IN (:listIds)")
+    suspend fun deleteList(listIds: List<Int>)
+
+    @Query("DELETE FROM exercises")
+    suspend fun deleteAll()
 
 }

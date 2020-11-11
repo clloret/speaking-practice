@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Show the day's attempts by clicking on the day's progress
+
 ## [1.7.0] - 2020-10-19
 
 ### Added

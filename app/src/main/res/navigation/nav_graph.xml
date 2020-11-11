@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_homeFragment_to_practiceFilterDlg"
             app:destination="@id/practiceFilterDlg" />
+        <action
+            android:id="@+id/action_homeFragment_to_attemptListFragment"
+            app:destination="@id/attemptListFragment" />
     </fragment>
 
     <fragment
@@ -78,6 +81,10 @@
         <argument
             android:name="filter"
             app:argType="com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterStrategy" />
+        <argument
+            android:name="emptyTextResId"
+            android:defaultValue="@string/title_empty_attempt_list_exercise"
+            app:argType="reference" />
     </fragment>
 
     <fragment

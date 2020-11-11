@@ -37,6 +37,7 @@ class AttemptListFragment : BaseFragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.recyclerView.setupRecyclerView(binding.emptyView)
+        binding.emptyView.setText(args.emptyTextResId)
 
         ScrollToTopButton.configure(binding.scrollToTopButton, binding.recyclerView)
 

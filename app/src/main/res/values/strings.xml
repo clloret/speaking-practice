@@ -78,7 +78,8 @@
     <string name="title_date_and_time">Date and time</string>
     <string name="title_edit_exercise">Edit Exercise</string>
     <string name="title_edit_tag">Edit Tag</string>
-    <string name="title_empty_attempt_list">You haven\'t practiced this exercise yet</string>
+    <string name="title_empty_attempt_list_exercise">You haven\'t practiced this exercise yet</string>
+    <string name="title_empty_attempt_list_day">You haven\'t practiced any exercises this day</string>
     <string name="title_empty_exercise_list">You haven\'t created any exercises yet</string>
     <string name="title_empty_tag_list">You haven\'t created any tags yet</string>
     <string name="title_empty_word_list">You haven\'t practiced any exercises yet</string>

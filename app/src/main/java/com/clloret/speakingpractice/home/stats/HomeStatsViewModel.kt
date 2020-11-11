@@ -15,9 +15,16 @@ class HomeStatsViewModel(repository: StatsRepository) : ViewModel() {
     val friday = repository.getStatsPerDay(getWeekDayFormatted(DayOfWeek.FRIDAY))
     val saturday = repository.getStatsPerDay(getWeekDayFormatted(DayOfWeek.SATURDAY))
     val sunday = repository.getStatsPerDay(getWeekDayFormatted(DayOfWeek.SUNDAY))
+    var onClickDayStats: ((String) -> Unit)? = null
 
     private fun getWeekDayFormatted(dayOfWeek: DayOfWeek): String {
         val date = LocalDate.now().with(dayOfWeek)
         return ISO_LOCAL_DATE.format(date)
     }
+
+    fun showAttempts(dayOfWeek: DayOfWeek) {
+        val weekDayFormatted = getWeekDayFormatted(dayOfWeek)
+        onClickDayStats?.invoke(weekDayFormatted)
+    }
+
 }

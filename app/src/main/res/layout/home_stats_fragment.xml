@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="java.time.DayOfWeek" />
+
         <variable
             name="model"
             type="com.clloret.speakingpractice.home.stats.HomeStatsViewModel" />
@@ -46,6 +48,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="@dimen/home_stats_progress_top_margin"
+                    android:onClick="@{() -> model.showAttempts(DayOfWeek.MONDAY)}"
                     android:padding="@dimen/xsmall_padding"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toStartOf="@+id/tuesdayStats"
@@ -65,6 +68,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/home_stats_progress_top_margin"
+                    android:onClick="@{() -> model.showAttempts(DayOfWeek.TUESDAY)}"
                     android:padding="@dimen/xsmall_padding"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toStartOf="@+id/wednesdayStats"
@@ -80,6 +84,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/home_stats_progress_top_margin"
+                    android:onClick="@{() -> model.showAttempts(DayOfWeek.WEDNESDAY)}"
                     android:padding="@dimen/xsmall_padding"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toStartOf="@+id/thursdayStats"
@@ -95,6 +100,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/home_stats_progress_top_margin"
+                    android:onClick="@{() -> model.showAttempts(DayOfWeek.THURSDAY)}"
                     android:padding="@dimen/xsmall_padding"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toStartOf="@+id/fridayStats"
@@ -110,6 +116,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/home_stats_progress_top_margin"
+                    android:onClick="@{() -> model.showAttempts(DayOfWeek.FRIDAY)}"
                     android:padding="@dimen/xsmall_padding"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toStartOf="@+id/saturdayStats"
@@ -125,6 +132,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/home_stats_progress_top_margin"
+                    android:onClick="@{() -> model.showAttempts(DayOfWeek.SATURDAY)}"
                     android:padding="@dimen/xsmall_padding"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toStartOf="@+id/sundayStats"
@@ -141,6 +149,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/home_stats_progress_top_margin"
                     android:layout_marginEnd="8dp"
+                    android:onClick="@{() -> model.showAttempts(DayOfWeek.SUNDAY)}"
                     android:padding="@dimen/xsmall_padding"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"

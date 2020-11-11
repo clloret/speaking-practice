@@ -17,6 +17,10 @@ class AttemptRepository(private val db: AppDatabase) {
         return db.exerciseAttemptDao().getExerciseAttemptsByExerciseId(id)
     }
 
+    fun getExerciseAttemptsByDay(day: String): LiveData<List<AttemptWithExercise>> {
+        return db.exerciseAttemptDao().getExerciseAttemptsByDay(day)
+    }
+
     suspend fun getExercisesAttemptsIdsByWord(practiceWord: String): List<Int> {
         return db.exerciseAttemptDao().getExercisesAttemptsIdsByWord(practiceWord)
     }

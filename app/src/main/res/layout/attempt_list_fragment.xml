@@ -36,7 +36,7 @@
             android:layout_margin="@dimen/large_padding"
             android:background="@android:color/white"
             android:gravity="center"
-            android:text="@string/title_empty_attempt_list"
+            android:text="@string/title_empty_attempt_list_exercise"
             android:textAppearance="@style/EmptyViewText"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -263,3 +263,4 @@ fabric.properties
 # Secrets
 google-services.json
 secrets.properties
+/.idea/render.experimental.xml

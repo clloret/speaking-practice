@@ -26,4 +26,5 @@
     <dimen name="card_corner_radius">4dp</dimen>
     <dimen name="card_margin">16dp</dimen>
     <dimen name="card_results_of_the_week_height">110dp</dimen>
+    <dimen name="exercise_phrase_margin">16dp</dimen>
 </resources>

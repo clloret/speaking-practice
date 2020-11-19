@@ -32,8 +32,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <View
             android:id="@+id/view"
@@ -112,9 +111,9 @@
             style="@style/PracticeText"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
-            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginStart="@dimen/exercise_phrase_margin"
+            android:layout_marginTop="@dimen/exercise_phrase_margin"
+            android:layout_marginEnd="@dimen/exercise_phrase_margin"
             android:layout_marginBottom="@dimen/xsmall_margin"
             android:background="@drawable/practice_frame_round_corner"
             android:elevation="@dimen/practice_frame_elevation"
@@ -133,10 +132,11 @@
             style="@style/PracticePhrase"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/default_margin"
+            android:layout_margin="@dimen/card_margin"
+            android:layout_marginStart="@dimen/exercise_phrase_margin"
             android:layout_marginTop="@dimen/xsmall_margin"
-            android:layout_marginEnd="@dimen/default_margin"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="@dimen/exercise_phrase_margin"
+            android:layout_marginBottom="@dimen/exercise_phrase_margin"
             android:background="@drawable/practice_frame_round_corner"
             android:elevation="@dimen/practice_frame_elevation"
             android:gravity="center"

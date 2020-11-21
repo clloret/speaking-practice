@@ -10,6 +10,7 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.db.dao.*
 import com.clloret.speakingpractice.domain.entities.*
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
+import dev.matrix.roomigrant.GenerateRoomMigrations
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
@@ -22,6 +23,7 @@ import org.koin.core.parameter.parametersOf
     views = [ExerciseResults::class], version = AppDatabase.CURRENT_VERSION, exportSchema = true
 )
 @TypeConverters(DbConverters::class)
+@GenerateRoomMigrations
 abstract class AppDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao
     abstract fun exerciseAttemptDao(): ExerciseAttemptDao
@@ -31,7 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun practiceWordDao(): PracticeWordDao
 
     companion object {
-        const val CURRENT_VERSION = 5
+        const val CURRENT_VERSION = 6
 
         // Singleton prevents multiple instances of database opening at the
         // same time.
@@ -54,6 +56,7 @@ abstract class AppDatabase : RoomDatabase() {
                     .addMigrations(DatabaseMigrations.MIGRATION_2_3)
                     .addMigrations(DatabaseMigrations.MIGRATION_3_4)
                     .addMigrations(DatabaseMigrations.MIGRATION_4_5)
+                    .addMigrations(*AppDatabase_Migrations.build())
                     .build()
                 INSTANCE = instance
                 return instance

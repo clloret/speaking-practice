@@ -97,6 +97,9 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
+    implementation "com.github.MatrixDev.Roomigrant:RoomigrantLib:$roomigrantVersion"
+    kapt "com.github.MatrixDev.Roomigrant:RoomigrantCompiler:$roomigrantVersion"
+
     // Koin
     implementation "org.koin:koin-androidx-scope:$koinVersion"
     implementation "org.koin:koin-androidx-viewmodel:$koinVersion"

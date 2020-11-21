@@ -166,7 +166,7 @@ object KoinModule {
         module.apply {
 
             viewModel { (filter: ExerciseFilterStrategy) ->
-                PracticeViewModel(filter, get(), get(), get(), get())
+                PracticeViewModel(filter, get(), get(), get(), get(), get())
             }
             viewModel { ExerciseListViewModel(get(), get()) }
             viewModel { TagListViewModel(get()) }

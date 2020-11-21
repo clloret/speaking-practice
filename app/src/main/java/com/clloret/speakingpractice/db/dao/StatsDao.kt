@@ -1,10 +1,12 @@
 package com.clloret.speakingpractice.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Query
+import androidx.room.*
+import com.clloret.speakingpractice.domain.entities.DailyStats
 import com.clloret.speakingpractice.domain.entities.Stats
 import com.clloret.speakingpractice.domain.entities.StatsPerDay
+import com.clloret.speakingpractice.domain.entities.TimePracticingUpdate
+import java.time.LocalDate
 
 @Dao
 interface StatsDao {
@@ -43,4 +45,12 @@ interface StatsDao {
     )
     fun getStatsPerDay(day: String): LiveData<StatsPerDay>
 
+    @Query("SELECT * FROM daily_stats WHERE date = :date")
+    suspend fun getDailyStatsByDate(date: LocalDate): DailyStats
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(dailyStats: DailyStats): Long
+
+    @Update(entity = DailyStats::class)
+    suspend fun update(timePracticingUpdate: TimePracticingUpdate)
 }

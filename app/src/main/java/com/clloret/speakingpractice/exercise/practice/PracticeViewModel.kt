@@ -1,5 +1,6 @@
 package com.clloret.speakingpractice.exercise.practice
 
+import android.os.SystemClock
 import android.text.Spanned
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,23 +8,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.repository.AttemptRepository
 import com.clloret.speakingpractice.db.repository.ExerciseRepository
+import com.clloret.speakingpractice.db.repository.StatsRepository
 import com.clloret.speakingpractice.domain.ExerciseValidator
 import com.clloret.speakingpractice.domain.PreferenceValues
-import com.clloret.speakingpractice.domain.entities.Exercise
-import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
-import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
-import com.clloret.speakingpractice.domain.entities.PracticeWord
+import com.clloret.speakingpractice.domain.entities.*
 import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.lifecycle.Event
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.time.LocalDate
 import java.util.*
 
 class PracticeViewModel(
     filter: ExerciseFilterStrategy,
     exerciseRepository: ExerciseRepository,
+    private val statsRepository: StatsRepository,
     private val attemptRepository: AttemptRepository,
     private val preferenceValues: PreferenceValues,
     private val formatCorrectWords: FormatCorrectWords,
@@ -47,6 +49,30 @@ class PracticeViewModel(
 
     val exercises = filter.getExercises(exerciseRepository)
     var onClickRecognizeSpeechBtn: (() -> Unit)? = null
+
+    private val startTime = SystemClock.elapsedRealtime()
+
+    init {
+        viewModelScope.launch(defaultDispatcher) {
+            val dailyStats = DailyStats()
+            statsRepository.insertDailyStats(dailyStats)
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        val lapse = SystemClock.elapsedRealtime() - startTime
+        Timber.d("Time: $lapse")
+
+        GlobalScope.launch(defaultDispatcher) {
+            val dailyStats = statsRepository.getDailyStatsByDate(LocalDate.now())
+            val millisToSeconds = (lapse / MILLIS_PER_SECOND).toInt()
+            val timePracticingUpdate =
+                TimePracticingUpdate(timePracticing = dailyStats.timePracticing + millisToSeconds)
+            statsRepository.updateDailyStats(timePracticingUpdate)
+        }
+    }
 
     private fun isCurrentExercise(exercise: Exercise): Boolean {
         return currentExerciseDetail?.exercise?.let {
@@ -134,6 +160,8 @@ class PracticeViewModel(
     }
 
     companion object {
+        const val MILLIS_PER_SECOND = 1000
+
         private fun filterValidChars(text: String): String {
             return text
                 .filter { it.isLetter() || it == '’' }

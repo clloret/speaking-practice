@@ -1,9 +1,9 @@
-package com.clloret.speakingpractice.db
+package com.clloret.speakingpractice.db.converters
 
 import androidx.room.TypeConverter
 import java.util.*
 
-class DbConverters {
+class DateConverter {
     @TypeConverter
     fun fromTimestamp(value: Long): Date {
         return Date(value)

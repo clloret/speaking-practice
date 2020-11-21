@@ -7,6 +7,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.clloret.speakingpractice.R
+import com.clloret.speakingpractice.db.converters.DateConverter
+import com.clloret.speakingpractice.db.converters.LocalDateConverter
 import com.clloret.speakingpractice.db.dao.*
 import com.clloret.speakingpractice.domain.entities.*
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
@@ -18,11 +20,19 @@ import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 
 @Database(
-    entities = [Exercise::class, ExerciseAttempt::class, Tag::class, TagExerciseJoin::class,
-        PracticeWord::class],
-    views = [ExerciseResults::class], version = AppDatabase.CURRENT_VERSION, exportSchema = true
+    entities = [
+        Exercise::class,
+        ExerciseAttempt::class,
+        Tag::class,
+        TagExerciseJoin::class,
+        PracticeWord::class,
+        DailyStats::class
+    ],
+    views = [ExerciseResults::class],
+    version = AppDatabase.CURRENT_VERSION,
+    exportSchema = true
 )
-@TypeConverters(DbConverters::class)
+@TypeConverters(DateConverter::class, LocalDateConverter::class)
 @GenerateRoomMigrations
 abstract class AppDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao

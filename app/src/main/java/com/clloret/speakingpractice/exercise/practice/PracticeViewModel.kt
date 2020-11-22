@@ -68,9 +68,7 @@ class PracticeViewModel(
         GlobalScope.launch(defaultDispatcher) {
             val dailyStats = statsRepository.getDailyStatsByDate(LocalDate.now())
             val millisToSeconds = (lapse / MILLIS_PER_SECOND).toInt()
-            val timePracticingUpdate =
-                TimePracticingUpdate(timePracticing = dailyStats.timePracticing + millisToSeconds)
-            statsRepository.updateDailyStats(timePracticingUpdate)
+            statsRepository.updateDailyStats(dailyStats.timePracticing + millisToSeconds)
         }
     }
 

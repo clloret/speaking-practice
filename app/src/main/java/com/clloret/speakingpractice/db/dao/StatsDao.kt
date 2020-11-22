@@ -1,11 +1,13 @@
 package com.clloret.speakingpractice.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.clloret.speakingpractice.domain.entities.DailyStats
 import com.clloret.speakingpractice.domain.entities.Stats
 import com.clloret.speakingpractice.domain.entities.StatsPerDay
-import com.clloret.speakingpractice.domain.entities.TimePracticingUpdate
 import java.time.LocalDate
 
 @Dao
@@ -48,9 +50,35 @@ interface StatsDao {
     @Query("SELECT * FROM daily_stats WHERE date = :date")
     suspend fun getDailyStatsByDate(date: LocalDate): DailyStats
 
+    @Query(
+        """
+                UPDATE daily_stats
+                   SET total_incorrect = (
+                    SELECT COUNT() - SUM(result)
+                      FROM exercise_attempts
+                ),
+                total_correct = (
+                    SELECT SUM(result)
+                      FROM exercise_attempts
+                ),
+                correct = (
+                    SELECT SUM(result)
+                      FROM exercise_attempts
+                      GROUP BY DATE(time / 1000, 'unixepoch') 
+                      HAVING DATE(time / 1000, 'unixepoch') = date('now')
+                ),
+                incorrect = (
+                    SELECT COUNT() - SUM(result)
+                      FROM exercise_attempts
+                      GROUP BY DATE(time / 1000, 'unixepoch') 
+                      HAVING DATE(time / 1000, 'unixepoch') = date('now')                
+                ),
+                time_practicing = :timePracticing
+                 WHERE date = strftime('%s', 'now') / 86400
+"""
+    )
+    suspend fun updateDailyStats(timePracticing: Int)
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(dailyStats: DailyStats): Long
-
-    @Update(entity = DailyStats::class)
-    suspend fun update(timePracticingUpdate: TimePracticingUpdate)
 }

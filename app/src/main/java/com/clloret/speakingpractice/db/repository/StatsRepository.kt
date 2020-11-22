@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.domain.entities.DailyStats
 import com.clloret.speakingpractice.domain.entities.StatsPerDay
-import com.clloret.speakingpractice.domain.entities.TimePracticingUpdate
 import java.time.LocalDate
 
 class StatsRepository(private val db: AppDatabase) {
@@ -22,7 +21,7 @@ class StatsRepository(private val db: AppDatabase) {
         db.statsDao().insert(dailyStats)
     }
 
-    suspend fun updateDailyStats(timePracticingUpdate: TimePracticingUpdate) {
-        db.statsDao().update(timePracticingUpdate)
+    suspend fun updateDailyStats(timePracticing: Int) {
+        db.statsDao().updateDailyStats(timePracticing)
     }
 }

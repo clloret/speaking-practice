@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "a23f7cc27a52bdb73442f03eeebe6880",
+    "identityHash": "e2509a50737d1ac347688cb296fcbf7b",
     "entities": [
       {
         "tableName": "exercises",
@@ -264,7 +264,7 @@
       },
       {
         "tableName": "daily_stats",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` INTEGER NOT NULL, `time_practicing` INTEGER NOT NULL DEFAULT 0, `correct` INTEGER NOT NULL DEFAULT 0, `incorrect` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`date`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` INTEGER NOT NULL, `time_practicing` INTEGER NOT NULL DEFAULT 0, `correct` INTEGER NOT NULL DEFAULT 0, `incorrect` INTEGER NOT NULL DEFAULT 0, `total_correct` INTEGER NOT NULL DEFAULT 0, `total_incorrect` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`date`))",
         "fields": [
           {
             "fieldPath": "date",
@@ -292,6 +292,20 @@
             "affinity": "INTEGER",
             "notNull": true,
             "defaultValue": "0"
+          },
+          {
+            "fieldPath": "totalCorrect",
+            "columnName": "total_correct",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "totalIncorrect",
+            "columnName": "total_incorrect",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
           }
         ],
         "primaryKey": {
@@ -312,7 +326,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a23f7cc27a52bdb73442f03eeebe6880')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e2509a50737d1ac347688cb296fcbf7b')"
     ]
   }
 }

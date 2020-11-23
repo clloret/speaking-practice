@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.clloret.speakingpractice.domain.entities.DailyStats
-import com.clloret.speakingpractice.domain.entities.Stats
+import com.clloret.speakingpractice.domain.entities.CalculatedStats
 import com.clloret.speakingpractice.domain.entities.StatsPerDay
 import java.time.LocalDate
 
@@ -32,7 +32,7 @@ interface StatsDao {
                   FROM exercise_attempts;
         """
     )
-    fun getStats(): LiveData<Stats>
+    fun getStats(): LiveData<CalculatedStats>
 
     @Query(
         """

@@ -3,7 +3,7 @@ package com.clloret.speakingpractice.domain.entities
 import androidx.room.ColumnInfo
 import kotlin.math.roundToInt
 
-data class Stats(
+data class CalculatedStats(
     @ColumnInfo(name = "total_attempts") val totalAttempts: Int,
     @ColumnInfo(name = "correct_attempts") val correctAttempts: Int,
     @ColumnInfo(name = "incorrect_attempts") val incorrectAttempts: Int,

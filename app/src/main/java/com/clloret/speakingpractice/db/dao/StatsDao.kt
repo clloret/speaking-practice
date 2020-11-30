@@ -5,8 +5,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.clloret.speakingpractice.domain.entities.DailyStats
 import com.clloret.speakingpractice.domain.entities.CalculatedStats
+import com.clloret.speakingpractice.domain.entities.DailyStats
+import com.clloret.speakingpractice.domain.entities.Stats
 import com.clloret.speakingpractice.domain.entities.StatsPerDay
 import java.time.LocalDate
 
@@ -32,7 +33,7 @@ interface StatsDao {
                   FROM exercise_attempts;
         """
     )
-    fun getStats(): LiveData<CalculatedStats>
+    fun getCalculatedStats(): LiveData<CalculatedStats>
 
     @Query(
         """
@@ -48,37 +49,42 @@ interface StatsDao {
     fun getStatsPerDay(day: String): LiveData<StatsPerDay>
 
     @Query("SELECT * FROM daily_stats WHERE date = :date")
-    suspend fun getDailyStatsByDate(date: LocalDate): DailyStats
+    suspend fun getDailyStatsByDate(date: LocalDate): DailyStats?
 
     @Query(
         """
                 UPDATE daily_stats
-                   SET total_incorrect = (
-                    SELECT COUNT() - SUM(result)
-                      FROM exercise_attempts
-                ),
-                total_correct = (
-                    SELECT SUM(result)
-                      FROM exercise_attempts
-                ),
-                correct = (
-                    SELECT SUM(result)
-                      FROM exercise_attempts
-                      GROUP BY DATE(time / 1000, 'unixepoch') 
-                      HAVING DATE(time / 1000, 'unixepoch') = date('now')
-                ),
-                incorrect = (
-                    SELECT COUNT() - SUM(result)
-                      FROM exercise_attempts
-                      GROUP BY DATE(time / 1000, 'unixepoch') 
-                      HAVING DATE(time / 1000, 'unixepoch') = date('now')                
-                ),
-                time_practicing = :timePracticing
-                 WHERE date = strftime('%s', 'now') / 86400
+                   SET
+                    total_correct = (
+                      SELECT CAST (TOTAL(result) AS INT) 
+                        FROM exercise_attempts                    
+                    ),
+                    total_incorrect = (
+                      SELECT COUNT(*) - CAST (TOTAL(result) AS INT) 
+                        FROM exercise_attempts                    
+                    ),
+                    correct = (
+                      SELECT CAST(TOTAL(result) AS INT)
+                        FROM exercise_attempts
+                        WHERE time / 86400000 = :epochDate
+                    ),
+                    incorrect = (
+                      SELECT COUNT(*) - CAST(TOTAL(result) AS INT)
+                        FROM exercise_attempts
+                        WHERE time / 86400000 = :epochDate
+                    ),
+                    time_practicing = :timePracticing
+                 WHERE date = :epochDate
 """
     )
-    suspend fun updateDailyStats(timePracticing: Int)
+    suspend fun updateDailyStats(timePracticing: Int, epochDate: Long)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(dailyStats: DailyStats): Long
+
+    @Query("""SELECT * FROM stats LIMIT 1""")
+    suspend fun getStats(): Stats?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(stats: Stats)
 }

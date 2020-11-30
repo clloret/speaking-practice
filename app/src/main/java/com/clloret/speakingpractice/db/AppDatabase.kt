@@ -26,7 +26,8 @@ import org.koin.core.parameter.parametersOf
         Tag::class,
         TagExerciseJoin::class,
         PracticeWord::class,
-        DailyStats::class
+        DailyStats::class,
+        Stats::class
     ],
     views = [ExerciseResults::class],
     version = AppDatabase.CURRENT_VERSION,

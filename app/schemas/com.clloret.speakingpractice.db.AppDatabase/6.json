@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "e2509a50737d1ac347688cb296fcbf7b",
+    "identityHash": "91f5ca4328ac870e817f41219d7b04fe",
     "entities": [
       {
         "tableName": "exercises",
@@ -316,6 +316,44 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "stats",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `last_practice_day` INTEGER NOT NULL, `current_streak` INTEGER NOT NULL, `long_streak` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastPracticeDay",
+            "columnName": "last_practice_day",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "currentStreak",
+            "columnName": "current_streak",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longStreak",
+            "columnName": "long_streak",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [
@@ -326,7 +364,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e2509a50737d1ac347688cb296fcbf7b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '91f5ca4328ac870e817f41219d7b04fe')"
     ]
   }
 }

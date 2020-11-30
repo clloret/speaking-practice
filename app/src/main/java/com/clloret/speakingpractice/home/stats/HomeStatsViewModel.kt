@@ -7,7 +7,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE
 
 class HomeStatsViewModel(repository: StatsRepository) : ViewModel() {
-    val stats = repository.stats
+    val stats = repository.calculatedStats
     val monday = repository.getStatsPerDay(getWeekDayFormatted(DayOfWeek.MONDAY))
     val tuesday = repository.getStatsPerDay(getWeekDayFormatted(DayOfWeek.TUESDAY))
     val wednesday = repository.getStatsPerDay(getWeekDayFormatted(DayOfWeek.WEDNESDAY))

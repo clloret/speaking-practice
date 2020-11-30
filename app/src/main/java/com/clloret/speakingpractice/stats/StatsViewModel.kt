@@ -7,5 +7,5 @@ class StatsViewModel(
     repository: StatsRepository
 ) : ViewModel() {
 
-    val stats = repository.stats
+    val stats = repository.calculatedStats
 }

@@ -29,7 +29,8 @@ interface StatsDao {
                            SELECT COUNT() 
                              FROM exercises
                        )
-                -      COUNT(DISTINCT exercise_id) AS non_practiced_exercises
+                -      COUNT(DISTINCT exercise_id) AS non_practiced_exercises,
+                       (SELECT current_streak FROM stats) AS current_streak
                   FROM exercise_attempts;
         """
     )

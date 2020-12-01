@@ -10,7 +10,8 @@ data class CalculatedStats(
     @ColumnInfo(name = "success_rate") val successRate: Int,
     @ColumnInfo(name = "total_exercises") val totalExercises: Int,
     @ColumnInfo(name = "practiced_exercises") val practicedExercises: Int,
-    @ColumnInfo(name = "non_practiced_exercises") val nonPracticedExercises: Int
+    @ColumnInfo(name = "non_practiced_exercises") val nonPracticedExercises: Int,
+    @ColumnInfo(name = "current_streak") val currentStreak: Int
 ) {
     val percentagePracticedExercises: Int
         get() = (practicedExercises * 100 / totalExercises.toDouble()).roundToInt()

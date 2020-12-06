@@ -18,7 +18,6 @@ interface StatsDao {
                 SELECT COUNT() AS total_attempts,
                        SUM(result) AS correct_attempts,
                        COUNT() - SUM(result) AS incorrect_attempts,
-                       CAST (SUM(result) AS FLOAT) / COUNT() * 100 AS success_rate,
                        (
                            SELECT COUNT() 
                              FROM exercises
@@ -51,6 +50,9 @@ interface StatsDao {
 
     @Query("SELECT * FROM daily_stats WHERE date = :date")
     suspend fun getDailyStatsByDate(date: LocalDate): DailyStats?
+
+    @Query("SELECT * FROM daily_stats WHERE date >= :date")
+    fun getDailyStatsFromDate(date: LocalDate): LiveData<List<DailyStats>>
 
     @Query(
         """

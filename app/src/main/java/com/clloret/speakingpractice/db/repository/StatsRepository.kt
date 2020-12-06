@@ -18,6 +18,10 @@ class StatsRepository(private val db: AppDatabase) {
         return db.statsDao().getDailyStatsByDate(date)
     }
 
+    fun getDailyStatsFromDate(date: LocalDate): LiveData<List<DailyStats>> {
+        return db.statsDao().getDailyStatsFromDate(date)
+    }
+
     suspend fun insertDailyStats(dailyStats: DailyStats) {
         db.statsDao().insert(dailyStats)
     }

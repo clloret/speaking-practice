@@ -32,8 +32,8 @@ class PracticeViewModel(
     private val attemptRepository: AttemptRepository,
     private val preferenceValues: PreferenceValues,
     private val formatCorrectWords: FormatCorrectWords,
-    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Main,
-    private val clock: Clock = Clock.systemDefaultZone()
+    private val clock: Clock,
+    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Main
 ) :
     ViewModel() {
     enum class ExerciseResult {

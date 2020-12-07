@@ -2,11 +2,12 @@ package com.clloret.speakingpractice.home.stats
 
 import androidx.lifecycle.ViewModel
 import com.clloret.speakingpractice.db.repository.StatsRepository
+import java.time.Clock
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE
 
-class HomeStatsViewModel(repository: StatsRepository) : ViewModel() {
+class HomeStatsViewModel(repository: StatsRepository, private val clock: Clock) : ViewModel() {
     val stats = repository.calculatedStats
     val monday = repository.getStatsPerDay(getWeekDayFormatted(DayOfWeek.MONDAY))
     val tuesday = repository.getStatsPerDay(getWeekDayFormatted(DayOfWeek.TUESDAY))
@@ -18,7 +19,7 @@ class HomeStatsViewModel(repository: StatsRepository) : ViewModel() {
     var onClickDayStats: ((String) -> Unit)? = null
 
     private fun getWeekDayFormatted(dayOfWeek: DayOfWeek): String {
-        val date = LocalDate.now().with(dayOfWeek)
+        val date = LocalDate.now(clock).with(dayOfWeek)
         return ISO_LOCAL_DATE.format(date)
     }
 

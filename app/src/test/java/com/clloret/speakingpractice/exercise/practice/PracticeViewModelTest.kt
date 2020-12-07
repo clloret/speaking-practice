@@ -28,8 +28,11 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import java.io.IOException
-import java.time.*
+import java.time.Clock
+import java.time.Instant
 import java.time.Instant.ofEpochMilli
+import java.time.LocalDate
+import java.time.ZoneId
 import java.time.temporal.ChronoUnit
 import java.util.concurrent.Executors
 
@@ -93,8 +96,8 @@ class PracticeViewModelTest {
             attemptRepository,
             preferenceValues,
             formatCorrectWords,
-            testDispatcher,
-            clock
+            clock,
+            testDispatcher
         )
     }
 

@@ -36,6 +36,11 @@ interface StatsDao {
     fun getCalculatedStats(): LiveData<CalculatedStats>
 
     @Query(
+        """SELECT CAST(TOTAL(time_practicing) AS INT) AS total_time FROM daily_stats"""
+    )
+    fun getTimePracticing(): LiveData<Int>
+
+    @Query(
         """
                 SELECT DATE(time / 1000, 'unixepoch') AS day,
                        COUNT() AS total_attempts,

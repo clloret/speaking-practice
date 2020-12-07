@@ -139,4 +139,5 @@
     <string name="action_scroll_to_top_description">Scroll to top</string>
     <string name="msg_error_speech_recognizer_insufficient_permissions">Make sure the Google app has permission to record audio</string>
     <string name="title_stats_current_streak">Streak</string>
+    <string name="title_statistics_time_practicing">Time practicing\n (minutes)</string>
 </resources>

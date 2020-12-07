@@ -9,6 +9,7 @@ import java.time.LocalDate
 
 class StatsRepository(private val db: AppDatabase) {
     val calculatedStats = db.statsDao().getCalculatedStats()
+    val timePracticing = db.statsDao().getTimePracticing()
 
     fun getStatsPerDay(day: String): LiveData<StatsPerDay> {
         return db.statsDao().getStatsPerDay(day)

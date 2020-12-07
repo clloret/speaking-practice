@@ -19,6 +19,7 @@ class StatsViewModel(
 
     val dailyStats = repository.getDailyStatsFromDate(firstDay)
     val stats = repository.calculatedStats
+    val timePracticing = repository.timePracticing
     val weekDays: List<Int> by lazy {
         val weekRange = firstDay..lastDay
         val weekDays = mutableListOf<Int>()

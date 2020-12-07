@@ -37,6 +37,7 @@ import org.koin.core.logger.Level
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import java.time.Clock
 
 object KoinModule {
 
@@ -90,7 +91,7 @@ object KoinModule {
             single<PreferenceValues> { PreferenceValuesImpl(get(), get()) }
             single { FormatCorrectWords(get()) }
             single { (context: Context) -> ImportExercises(context) }
-
+            single { Clock.systemDefaultZone() }
         }
     }
 
@@ -166,13 +167,13 @@ object KoinModule {
         module.apply {
 
             viewModel { (filter: ExerciseFilterStrategy) ->
-                PracticeViewModel(filter, get(), get(), get(), get(), get())
+                PracticeViewModel(filter, get(), get(), get(), get(), get(), get())
             }
             viewModel { ExerciseListViewModel(get(), get()) }
             viewModel { TagListViewModel(get()) }
             viewModel { SelectTagDlgViewModel(get()) }
-            viewModel { StatsViewModel(get()) }
-            viewModel { HomeStatsViewModel(get()) }
+            viewModel { StatsViewModel(get(), get()) }
+            viewModel { HomeStatsViewModel(get(), get()) }
             viewModel { WordListViewModel(get()) }
             viewModel { PracticeFilterViewModel(get()) }
             viewModel { (filter: AttemptFilterStrategy) ->

@@ -7,9 +7,24 @@ import java.time.LocalDate
 
 class StatsViewModel(
     repository: StatsRepository,
-    clock: Clock = Clock.systemDefaultZone()
+    clock: Clock
 ) : ViewModel() {
 
+    companion object {
+        const val CHART_NUMBER_OF_DAYS = 6L
+    }
+
+    private val lastDay: LocalDate = LocalDate.now(clock)
+    private val firstDay: LocalDate = lastDay.minusDays(CHART_NUMBER_OF_DAYS)
+
+    val dailyStats = repository.getDailyStatsFromDate(firstDay)
     val stats = repository.calculatedStats
-    val dailyStats = repository.getDailyStatsFromDate(LocalDate.now(clock).minusDays(6))
+    val weekDays: List<Int> by lazy {
+        val weekRange = firstDay..lastDay
+        val weekDays = mutableListOf<Int>()
+        for (day in weekRange) {
+            weekDays.add(day.dayOfWeek.value)
+        }
+        weekDays
+    }
 }

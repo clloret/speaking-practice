@@ -5,9 +5,9 @@ import java.time.DayOfWeek
 import java.time.format.TextStyle
 import java.util.*
 
-class DayOfWeekFormatter : ValueFormatter() {
+class DayOfWeekFormatter(private val weekDays: List<Int>) : ValueFormatter() {
     override fun getFormattedValue(value: Float): String? {
-        val intValue = value.toInt()
-        return DayOfWeek.of(intValue).getDisplayName(TextStyle.SHORT, Locale.US)
+        val dayOfWeek = weekDays[value.toInt()]
+        return DayOfWeek.of(dayOfWeek).getDisplayName(TextStyle.SHORT, Locale.US)
     }
 }

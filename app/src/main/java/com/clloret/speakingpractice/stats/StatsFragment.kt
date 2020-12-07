@@ -17,13 +17,16 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.time.DayOfWeek
+import timber.log.Timber
+import java.time.LocalDate
 
 class StatsFragment : BaseFragment() {
 
     companion object {
         private const val CIRCLE_RADIUS = 5F
         private const val LINE_WIDTH = 3F
+        private const val FIRST_DAY = 0F
+        private const val LAST_DAY = 6F
         fun newInstance() = StatsFragment()
     }
 
@@ -49,11 +52,12 @@ class StatsFragment : BaseFragment() {
     private fun showChartData(chart: LineChart) {
         viewModel.dailyStats.observe(viewLifecycleOwner, { dailyStats ->
             val entries = mutableListOf<Entry>()
-
             dailyStats.forEach { value ->
                 val dayOfWeek = value.date.dayOfWeek.value
-                entries.add(Entry(dayOfWeek.toFloat(), value.successRate.toFloat()))
+                val dayIdx = viewModel.weekDays.indexOf(dayOfWeek)
+                entries.add(Entry(dayIdx.toFloat(), value.successRate.toFloat()))
             }
+            Timber.d("Entries: $entries")
             val dataSet = LineDataSet(entries, "Success Rate").apply {
                 circleRadius = CIRCLE_RADIUS
                 lineWidth = LINE_WIDTH
@@ -62,6 +66,8 @@ class StatsFragment : BaseFragment() {
                 setCircleColors(arrayOf(R.color.color_secondary).toIntArray(), context)
                 setColors(arrayOf(R.color.color_primary).toIntArray(), context)
             }
+
+            chart.xAxis.valueFormatter = DayOfWeekFormatter(viewModel.weekDays)
 
             chart.apply {
                 data = LineData(dataSet)
@@ -73,9 +79,8 @@ class StatsFragment : BaseFragment() {
     private fun setupChart(chart: LineChart) {
         chart.xAxis.apply {
             granularity = 1F
-            axisMinimum = DayOfWeek.MONDAY.value.toFloat()
-            axisMaximum = DayOfWeek.SUNDAY.value.toFloat()
-            valueFormatter = DayOfWeekFormatter()
+            axisMinimum = FIRST_DAY
+            axisMaximum = LAST_DAY
             position = XAxis.XAxisPosition.BOTTOM
             setDrawGridLines(false)
         }
@@ -92,6 +97,31 @@ class StatsFragment : BaseFragment() {
             axisRight.isEnabled = false
 
             invalidate()
+        }
+    }
+}
+
+operator fun ClosedRange<LocalDate>.iterator(): Iterator<LocalDate> {
+    return object : Iterator<LocalDate> {
+        private var next = this@iterator.start
+        private val finalElement = this@iterator.endInclusive
+        private var hasNext = !next.isAfter(this@iterator.endInclusive)
+        override fun hasNext(): Boolean = hasNext
+
+        override fun next(): LocalDate {
+            if (!hasNext) {
+                throw NoSuchElementException()
+            }
+
+            val value = next
+
+            if (value == finalElement) {
+                hasNext = false
+            } else {
+                next = next.plusDays(1)
+            }
+
+            return value
         }
     }
 }

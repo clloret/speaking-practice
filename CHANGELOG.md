@@ -15,6 +15,10 @@ All notable changes to this project will be documented in this file.
 
 - Margins on the practice screen
 
+### Fixed
+
+- Selection errors on exercise and tags screens
+
 ## [1.7.0] - 2020-10-19
 
 ### Added

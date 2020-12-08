@@ -42,9 +42,9 @@ class TagListFragment : BaseFragment(), TagListAdapter.TagListListener {
         override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
             Timber.d("onPrepareActionMode")
 
-            selectionTracker?.selection?.size()?.let {
+            selectionTracker?.selection?.size()?.let { count ->
                 val menuItem = menu.findItem(R.id.action_edit)
-                menuItem.isVisible = it >= 1
+                menuItem.isVisible = count == 1
 
                 return true
             }
@@ -99,7 +99,7 @@ class TagListFragment : BaseFragment(), TagListAdapter.TagListListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding: TagListFragmentBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.tag_list_fragment, container, false

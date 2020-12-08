@@ -7,6 +7,13 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Show the day's attempts by clicking on the day's progress
+- The current streak to the home screen
+- Success rate progression chart to stats screen
+- Time practicing to stats screen
+
+### Changed
+
+- Margins on the practice screen
 
 ## [1.7.0] - 2020-10-19
 

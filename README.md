@@ -34,6 +34,7 @@ An Android application to practice English pronunciation.
 -   [Livedata-Testing](https://github.com/jraska/livedata-testing)
 -   [Material-About-Library](https://github.com/daniel-stoneuk/material-about-library)
 -   [Mockito](https://github.com/mockito/mockito)
+-   [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 -   [Robolectric](https://github.com/robolectric/robolectric)
 -   [Roomigrant](https://github.com/MatrixDev/Roomigrant)
 -   [RxJava](https://github.com/ReactiveX/RxJava)

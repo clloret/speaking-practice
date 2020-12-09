@@ -39,7 +39,6 @@ ext {
     compileSdkVersion = 29
 
     roomVersion = '2.2.5'
-    fragmentVersion = '1.2.5'
     lifecycleVersion = '2.2.0'
     koinVersion = '2.1.6'
     androidxJunitVersion = '1.1.2'

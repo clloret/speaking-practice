@@ -11,7 +11,8 @@ import androidx.core.content.ContextCompat
 import com.clloret.speakingpractice.R
 import com.github.zagum.speechrecognitionview.RecognitionProgressView
 import com.github.zagum.speechrecognitionview.adapters.RecognitionListenerAdapter
-import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import timber.log.Timber
 import java.util.*
 
@@ -86,7 +87,7 @@ class PracticeSpeechRecognizer(
 
     private fun sendErrorToCrashlytics(error: Int) {
         if (error in CRASHLYTICS_SEND_ERRORS) {
-            FirebaseCrashlytics.getInstance()
+            Firebase.crashlytics
                 .recordException(SpeechRecognizerException(error))
         }
     }

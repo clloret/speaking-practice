@@ -1,10 +1,12 @@
 package com.clloret.speakingpractice
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import timber.log.Timber
 
 open class BaseFragment : Fragment() {
@@ -39,11 +41,16 @@ fun Fragment.trackScreen() {
 
 fun Fragment.setCurrentScreen(screenName: String) {
     val screenClass = this.javaClass.simpleName
-    Bundle().apply {
-        putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
-        putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenClass)
-        val analytics = FirebaseAnalytics
-            .getInstance(requireActivity().applicationContext)
-        analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, this)
+//    Bundle().apply {
+//        putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
+//        putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenClass)
+//        val analytics = FirebaseAnalytics
+//            .getInstance(requireActivity().applicationContext)
+//        analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, this)
+//    }
+
+    Firebase.analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+        param(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
+        param(FirebaseAnalytics.Param.SCREEN_CLASS, screenClass)
     }
 }

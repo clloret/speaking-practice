@@ -27,7 +27,6 @@ import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
 import com.clloret.speakingpractice.utils.ScrollToTopButton
 import com.clloret.speakingpractice.utils.selection.LongItemDetailsLookup
 import com.clloret.speakingpractice.utils.selection.LongItemKeyProvider
-import kotlinx.android.synthetic.main.word_list_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
@@ -51,6 +50,8 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
     private val sortByPracticedDesc: Comparator<ExerciseSortable> by inject(named("ExerciseSortByPracticedDesc"))
     private var selectionTracker: SelectionTracker<Long>? = null
 
+    private var _ui: ExerciseListFragmentBinding? = null
+    private val ui get() = _ui!!
     private var searchView: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,21 +79,26 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding: ExerciseListFragmentBinding = DataBindingUtil.inflate(
+        _ui = DataBindingUtil.inflate(
             inflater,
             R.layout.exercise_list_fragment, container, false
         )
 
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.model = viewModel
-        binding.recyclerView.setupRecyclerView(binding.emptyView, savedInstanceState)
-        binding.fabAddExercise.setOnClickListener {
+        ui.lifecycleOwner = viewLifecycleOwner
+        ui.model = viewModel
+        ui.recyclerView.setupRecyclerView(ui.emptyView, savedInstanceState)
+        ui.fabAddExercise.setOnClickListener {
             addExercise()
         }
 
-        ScrollToTopButton.configure(binding.scrollToTopButton, binding.recyclerView)
+        ScrollToTopButton.configure(ui.scrollToTopButton, ui.recyclerView)
 
-        return binding.root
+        return ui.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _ui = null
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -178,7 +184,7 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
     }
 
     private fun sortBy(comparator: Comparator<ExerciseSortable>) {
-        val adapter = recyclerView.adapter as ExerciseListAdapter
+        val adapter = ui.recyclerView.adapter as ExerciseListAdapter
         adapter.setOrder(comparator)
     }
 

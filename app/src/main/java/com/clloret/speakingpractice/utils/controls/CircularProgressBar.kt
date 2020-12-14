@@ -5,35 +5,35 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.clloret.speakingpractice.R
-import kotlinx.android.synthetic.main.circular_progress_bar_view.view.*
+import com.clloret.speakingpractice.databinding.CircularProgressBarViewBinding
 
 class CircularProgressBar : ConstraintLayout {
 
+    private var ui: CircularProgressBarViewBinding =
+        CircularProgressBarViewBinding.inflate(
+            LayoutInflater.from(context), this, true
+        )
+
     var progress: Int = 0
         set(value) {
-            progressBar?.progress = value
+            ui.progressBar.progress = value
             field = value
         }
 
     var max: Int = 0
         set(value) {
-            progressBar?.max = value
+            ui.progressBar.max = value
             field = value
         }
 
     var value: String? = null
         set(value) {
-            textView?.text = value
+            ui.textView.text = value
             field = value
         }
 
-    constructor(context: Context) : super(context) {
-        initializeViews(context)
-    }
-
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         setStyledAttributes(context, attrs)
-        initializeViews(context)
     }
 
     constructor(
@@ -42,7 +42,6 @@ class CircularProgressBar : ConstraintLayout {
         defStyle: Int
     ) : super(context, attrs, defStyle) {
         setStyledAttributes(context, attrs)
-        initializeViews(context)
     }
 
     private fun setStyledAttributes(context: Context, attrs: AttributeSet?) {
@@ -54,17 +53,11 @@ class CircularProgressBar : ConstraintLayout {
         }
     }
 
-    private fun initializeViews(context: Context) {
-        val inflater = context
-            .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        inflater.inflate(R.layout.circular_progress_bar_view, this)
-    }
-
     override fun onFinishInflate() {
         super.onFinishInflate()
 
-        progressBar.max = max
-        progressBar.progress = progress
-        textView.text = value
+        ui.progressBar.max = max
+        ui.progressBar.progress = progress
+        ui.textView.text = value
     }
 }

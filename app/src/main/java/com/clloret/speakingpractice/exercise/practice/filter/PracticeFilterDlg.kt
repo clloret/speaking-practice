@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.clloret.speakingpractice.R
+import com.clloret.speakingpractice.databinding.PracticeFilterDlgBinding
 import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.exercise.practice.filter.*
 import com.clloret.speakingpractice.utils.lifecycle.EventObserver
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.practice_filter_dlg.*
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,12 +25,21 @@ class PracticeFilterDlg : BottomSheetDialogFragment() {
     private val preferenceValues: PreferenceValues by inject()
     private val filterAll: ExerciseFilterAll by inject()
     private val filterBySuccessRate: ExerciseFilterBySuccessRate by inject()
+    private var _ui: PracticeFilterDlgBinding? = null
+    private val ui get() = _ui!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.practice_filter_dlg, container, false)
+    ): View {
+        _ui = PracticeFilterDlgBinding.inflate(inflater, container, false)
+        return ui.root
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _ui = null
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -43,8 +52,8 @@ class PracticeFilterDlg : BottomSheetDialogFragment() {
     private fun observeData() {
         viewModel.exerciseAttemptsCount.observe(viewLifecycleOwner) {
             val enable = it > 0
-            btnLessPracticedExercises.isEnabled = enable
-            btnMostFailedExercises.isEnabled = enable
+            ui.btnLessPracticedExercises.isEnabled = enable
+            ui.btnMostFailedExercises.isEnabled = enable
         }
 
         sharedViewModel.selected.observe(
@@ -62,11 +71,11 @@ class PracticeFilterDlg : BottomSheetDialogFragment() {
     }
 
     private fun setupButtonsEvents() {
-        btnAllExercises.setOnClickListener {
+        ui.btnAllExercises.setOnClickListener {
             showPracticeWithFilter(filterAll, getString(R.string.title_exercise_filter_all))
         }
 
-        btnRandomExercises.setOnClickListener {
+        ui.btnRandomExercises.setOnClickListener {
             val filterByRandom: ExerciseFilterByRandom =
                 get {
                     parametersOf(
@@ -76,7 +85,7 @@ class PracticeFilterDlg : BottomSheetDialogFragment() {
             showPracticeWithFilter(filterByRandom, getString(R.string.title_exercise_filter_random))
         }
 
-        btnLessPracticedExercises.setOnClickListener {
+        ui.btnLessPracticedExercises.setOnClickListener {
             val filterByLessPracticed: ExerciseFilterByLessPracticed =
                 get {
                     parametersOf(
@@ -89,14 +98,14 @@ class PracticeFilterDlg : BottomSheetDialogFragment() {
             )
         }
 
-        btnMostFailedExercises.setOnClickListener {
+        ui.btnMostFailedExercises.setOnClickListener {
             showPracticeWithFilter(
                 filterBySuccessRate,
                 getString(R.string.title_exercise_filter_most_failed)
             )
         }
 
-        btnOneTag.setOnClickListener {
+        ui.btnOneTag.setOnClickListener {
             val action =
                 PracticeFilterDlgDirections.actionPracticeFilterDlgToSelectTagDlgFragment()
 

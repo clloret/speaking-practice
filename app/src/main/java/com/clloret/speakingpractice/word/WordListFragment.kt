@@ -20,7 +20,6 @@ import com.clloret.speakingpractice.domain.word.sort.WordSortable
 import com.clloret.speakingpractice.exercise.list.RxSearchObservable
 import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
 import com.clloret.speakingpractice.utils.ScrollToTopButton
-import kotlinx.android.synthetic.main.word_list_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
@@ -42,23 +41,30 @@ class WordListFragment : BaseFragment(), WordListAdapter.WordListListener {
     private val sortByPracticedAsc: Comparator<WordSortable> by inject(named("WordSortByPracticedAsc"))
     private val sortByPracticedDesc: Comparator<WordSortable> by inject(named("WordSortByPracticedDesc"))
 
+    private var _ui: WordListFragmentBinding? = null
+    private val ui get() = _ui!!
     private var searchView: SearchView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val binding: WordListFragmentBinding = DataBindingUtil.inflate(
+    ): View {
+        _ui = DataBindingUtil.inflate(
             inflater,
             R.layout.word_list_fragment, container, false
         )
 
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.recyclerView.setupRecyclerView(binding.emptyView)
+        ui.lifecycleOwner = viewLifecycleOwner
+        ui.recyclerView.setupRecyclerView(ui.emptyView)
 
-        ScrollToTopButton.configure(binding.scrollToTopButton, binding.recyclerView)
+        ScrollToTopButton.configure(ui.scrollToTopButton, ui.recyclerView)
 
-        return binding.root
+        return ui.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _ui = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,7 +122,7 @@ class WordListFragment : BaseFragment(), WordListAdapter.WordListListener {
     }
 
     private fun sortBy(comparator: Comparator<WordSortable>) {
-        val wordListAdapter = recyclerView.adapter as WordListAdapter
+        val wordListAdapter = ui.recyclerView.adapter as WordListAdapter
         wordListAdapter.setOrder(comparator)
     }
 

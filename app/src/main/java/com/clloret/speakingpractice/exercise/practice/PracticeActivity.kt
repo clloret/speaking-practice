@@ -5,17 +5,20 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
 import com.clloret.speakingpractice.R
-import kotlinx.android.synthetic.main.activity_practice.*
+import com.clloret.speakingpractice.databinding.ActivityPracticeBinding
 
 class PracticeActivity : AppCompatActivity() {
 
     private val args: PracticeActivityArgs by navArgs()
+    private lateinit var ui: ActivityPracticeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_practice)
 
-        setSupportActionBar(toolbar)
+        ui = ActivityPracticeBinding.inflate(layoutInflater)
+        setContentView(ui.root)
+
+        setSupportActionBar(ui.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         title = args.title

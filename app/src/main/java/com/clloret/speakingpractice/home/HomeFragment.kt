@@ -11,11 +11,11 @@ import androidx.navigation.navGraphViewModels
 import androidx.navigation.ui.NavigationUI
 import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
+import com.clloret.speakingpractice.databinding.HomeFragmentBinding
 import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterByRandom
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.import_.ImportExercisesSharedViewModel
-import kotlinx.android.synthetic.main.home_fragment.*
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -34,6 +34,8 @@ class HomeFragment : BaseFragment() {
     private val sharedViewModel: ImportExercisesSharedViewModel by navGraphViewModels(R.id.nav_graph)
     private val importExercises: ImportExercises by inject { parametersOf(this.requireContext()) }
     private val preferenceValues: PreferenceValues by inject()
+    private var _ui: HomeFragmentBinding? = null
+    private val ui get() = _ui!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +46,14 @@ class HomeFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.home_fragment, container, false)
+    ): View {
+        _ui = HomeFragmentBinding.inflate(inflater, container, false)
+        return ui.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _ui = null
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -96,7 +103,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setupButtonsEvents() {
-        btnPractice.setOnClickListener {
+        ui.btnPractice.setOnClickListener {
             val filterByRandom: ExerciseFilterByRandom =
                 get {
                     parametersOf(
@@ -113,7 +120,7 @@ class HomeFragment : BaseFragment() {
                 .navigate(action)
         }
 
-        btnPracticeFilter.setOnClickListener {
+        ui.btnPracticeFilter.setOnClickListener {
             val action =
                 HomeFragmentDirections.actionHomeFragmentToPracticeFilterDlg()
 

@@ -5,4 +5,5 @@ interface StringResourceProvider {
     fun getPrefExercisesPerRound(): String
     fun getPrefEnableSound(): String
     fun getPrefEnableSpeakPhrase(): String
+    fun getPrefDailyGoal(): String
 }

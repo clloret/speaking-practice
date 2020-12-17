@@ -11,6 +11,10 @@ class FakePreferenceValues : PreferenceValues {
         return 10
     }
 
+    override fun dailyGoal(): Int {
+        return 10
+    }
+
     override fun isSoundEnabled(): Boolean {
         return false
     }

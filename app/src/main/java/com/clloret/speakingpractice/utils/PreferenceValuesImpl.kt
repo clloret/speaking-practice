@@ -12,6 +12,7 @@ class PreferenceValuesImpl(
 ) : PreferenceValues {
     companion object {
         const val DEFAULT_EXERCISE_PER_ROUND = 10
+        const val DEFAULT_DAILY_GOAL = 10
     }
 
     private var preferences: SharedPreferences =
@@ -25,6 +26,13 @@ class PreferenceValuesImpl(
         return preferences.getInt(
             stringResourceProvider.getPrefExercisesPerRound(),
             DEFAULT_EXERCISE_PER_ROUND
+        )
+    }
+
+    override fun dailyGoal(): Int {
+        return preferences.getInt(
+            stringResourceProvider.getPrefDailyGoal(),
+            DEFAULT_DAILY_GOAL
         )
     }
 

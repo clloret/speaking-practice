@@ -32,6 +32,9 @@ interface ExerciseAttemptDao {
     @Query("SELECT COUNT() FROM exercise_attempts")
     fun getExercisesAttemptsCount(): LiveData<Int>
 
+    @Query("SELECT COUNT() FROM exercise_attempts WHERE DATE(time / 1000, 'unixepoch') = :day")
+    suspend fun getTotalAttemptsByDay(day: String): Int
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(exerciseAttempt: ExerciseAttempt): Long
 

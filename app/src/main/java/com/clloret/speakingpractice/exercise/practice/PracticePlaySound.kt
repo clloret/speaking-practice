@@ -13,6 +13,7 @@ class PracticePlaySound(
     private var soundPool: SoundPool? = null
     private var soundCorrect: Int? = null
     private var soundIncorrect: Int? = null
+    private var soundDailyGoalAchieved: Int? = null
 
     private fun playSound(soundId: Int?) {
         if (!preferenceValues.isSoundEnabled()) {
@@ -37,6 +38,7 @@ class PracticePlaySound(
 
         soundCorrect = soundPool?.load(context, R.raw.sound_exercise_correct, 1)
         soundIncorrect = soundPool?.load(context, R.raw.sound_exercise_incorrect, 1)
+        soundDailyGoalAchieved = soundPool?.load(context, R.raw.sound_daily_goal_achieved, 1)
     }
 
     fun stopSoundPool() {
@@ -50,5 +52,9 @@ class PracticePlaySound(
 
     fun playIncorrect() {
         playSound(soundIncorrect)
+    }
+
+    fun playDailyGoalAchieved() {
+        playSound(soundDailyGoalAchieved)
     }
 }

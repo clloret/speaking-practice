@@ -76,6 +76,15 @@ class PracticeFragment : BaseFragment() {
             Toast.LENGTH_SHORT
         )
     }
+    private val toastDailyGoalAchieved by lazy {
+        CustomToast.makeText(
+            requireActivity().applicationContext,
+            R.string.title_daily_goal_achieved,
+            R.drawable.correct_shape,
+            R.drawable.ic_daily_goal_achieved_wht_24dp,
+            Toast.LENGTH_SHORT
+        )
+    }
     private var currentPage: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -181,6 +190,12 @@ class PracticeFragment : BaseFragment() {
                 tts.textToSpeech(it)
             })
 
+        viewModel.dailyGoalAchieved.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                dailyGoalAchieved()
+            })
+
         viewModel.exerciseResult.observe(viewLifecycleOwner, {
 
             @Suppress("NON_EXHAUSTIVE_WHEN")
@@ -204,6 +219,12 @@ class PracticeFragment : BaseFragment() {
         toastExerciseIncorrect.show()
         playSound.playIncorrect()
     }
+
+    private fun dailyGoalAchieved() {
+        toastDailyGoalAchieved.show()
+        playSound.playDailyGoalAchieved()
+    }
+
 
     @AfterPermissionGranted(PERMISSION_REQUEST_RECORD_AUDIO)
     private fun startRecognizeSpeech() {

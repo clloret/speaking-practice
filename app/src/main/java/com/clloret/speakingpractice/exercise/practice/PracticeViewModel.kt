@@ -1,10 +1,7 @@
 package com.clloret.speakingpractice.exercise.practice
 
 import android.text.Spanned
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.clloret.speakingpractice.db.repository.AttemptRepository
 import com.clloret.speakingpractice.db.repository.ExerciseRepository
 import com.clloret.speakingpractice.db.repository.StatsRepository
@@ -14,15 +11,13 @@ import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.entities.*
 import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.lifecycle.Event
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
 import java.time.Clock
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE
 import java.util.*
 
 class PracticeViewModel(
@@ -47,11 +42,15 @@ class PracticeViewModel(
     private val _speakText: MutableLiveData<Event<String>> = MutableLiveData()
     val speakText: LiveData<Event<String>> get() = _speakText
 
+    private val _dailyGoalAchieved: MutableLiveData<Event<Unit>> = MutableLiveData()
+    val dailyGoalAchieved: LiveData<Event<Unit>> get() = _dailyGoalAchieved
+
     private var currentExerciseDetail: ExerciseWithDetails? = null
     private var correctWords = listOf<Pair<String, Boolean>>()
     private var correctedExercise = false
 
     val exercises = filter.getExercises(exerciseRepository)
+
     var onClickRecognizeSpeechBtn: (() -> Unit)? = null
 
     private val startTime = Instant.now(clock)
@@ -70,6 +69,41 @@ class PracticeViewModel(
             savePracticeTime()
             saveCurrentStrike()
         }
+    }
+
+    private suspend fun checkDailyGoal() {
+        val dailyGoal = preferenceValues.dailyGoal()
+        val today = ISO_LOCAL_DATE.format(LocalDate.now(clock))
+
+        val todayAttempts = attemptRepository.getTotalAttemptsByDay(today)
+
+        Timber.d("Attempts: ${todayAttempts}, Goal: $dailyGoal")
+
+        if (todayAttempts == dailyGoal) {
+            delay(DAILY_GOAL_MSG_DELAY)
+            _dailyGoalAchieved.postValue(Event(Unit))
+        }
+    }
+
+    private suspend fun insertExerciseAttempt(
+        exercise: ExerciseWithDetails,
+        result: Pair<Boolean, String>,
+        words: List<Pair<String, Boolean>>
+    ) {
+        val exerciseAttempt = ExerciseAttempt(
+            exerciseId = exercise.exercise.id,
+            result = result.first,
+            recognizedText = result.second
+        )
+        val practiceWords =
+            words.map { word ->
+                PracticeWord(
+                    exerciseAttemptId = exercise.exercise.id,
+                    word = filterValidChars(unifyApostrophes(word.first)),
+                    result = word.second
+                )
+            }
+        attemptRepository.insertExerciseAttemptAndWords(exerciseAttempt, practiceWords)
     }
 
     suspend fun savePracticeTime() {
@@ -149,20 +183,8 @@ class PracticeViewModel(
             correctWords = words
 
             viewModelScope.launch(defaultDispatcher) {
-                val exerciseAttempt = ExerciseAttempt(
-                    exerciseId = it.exercise.id,
-                    result = result.first,
-                    recognizedText = result.second
-                )
-                val practiceWords =
-                    words.map { word ->
-                        PracticeWord(
-                            exerciseAttemptId = it.exercise.id,
-                            word = filterValidChars(unifyApostrophes(word.first)),
-                            result = word.second
-                        )
-                    }
-                attemptRepository.insertExerciseAttemptAndWords(exerciseAttempt, practiceWords)
+                insertExerciseAttempt(it, result, words)
+                checkDailyGoal()
             }
 
             _exerciseResult
@@ -184,7 +206,7 @@ class PracticeViewModel(
     }
 
     companion object {
-        const val MILLIS_PER_SECOND = 1000
+        const val DAILY_GOAL_MSG_DELAY = 2000L
 
         private fun filterValidChars(text: String): String {
             return text

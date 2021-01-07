@@ -1,6 +1,7 @@
 package com.clloret.speakingpractice.exercise.practice
 
 import androidx.core.text.toHtml
+import com.clloret.speakingpractice.fakes.FakeColorResourceProvider
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -49,7 +50,7 @@ class FormatCorrectWordsTest(
         }
     }
 
-    private val colorResourceProvider = TestColorResourceProvider()
+    private val colorResourceProvider = FakeColorResourceProvider()
 
     @Test
     fun getFormattedPracticePhrase() {

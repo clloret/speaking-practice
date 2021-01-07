@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.exercise.practice
+package com.clloret.speakingpractice.fakes
 
 import com.clloret.speakingpractice.domain.PreferenceValues
 
@@ -12,7 +12,7 @@ class FakePreferenceValues : PreferenceValues {
     }
 
     override fun dailyGoal(): Int {
-        return 10
+        return 2
     }
 
     override fun isSoundEnabled(): Boolean {

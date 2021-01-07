@@ -14,6 +14,8 @@ import com.clloret.speakingpractice.domain.word.sort.*
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
+import com.clloret.speakingpractice.exercise.practice.DelayProvider
+import com.clloret.speakingpractice.exercise.practice.DelayProviderImpl
 import com.clloret.speakingpractice.exercise.practice.FormatCorrectWords
 import com.clloret.speakingpractice.exercise.practice.PracticeViewModel
 import com.clloret.speakingpractice.exercise.practice.filter.PracticeFilterViewModel
@@ -92,6 +94,7 @@ object KoinModule {
             single { FormatCorrectWords(get()) }
             single { (context: Context) -> ImportExercises(context) }
             single { Clock.systemDefaultZone() }
+            single<DelayProvider> { DelayProviderImpl() }
         }
     }
 
@@ -167,7 +170,7 @@ object KoinModule {
         module.apply {
 
             viewModel { (filter: ExerciseFilterStrategy) ->
-                PracticeViewModel(filter, get(), get(), get(), get(), get(), get())
+                PracticeViewModel(filter, get(), get(), get(), get(), get(), get(), get())
             }
             viewModel { ExerciseListViewModel(get(), get()) }
             viewModel { TagListViewModel(get()) }

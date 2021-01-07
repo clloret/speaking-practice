@@ -1,7 +1,10 @@
 package com.clloret.speakingpractice.exercise.practice
 
 import android.text.Spanned
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.repository.AttemptRepository
 import com.clloret.speakingpractice.db.repository.ExerciseRepository
 import com.clloret.speakingpractice.db.repository.StatsRepository
@@ -11,7 +14,9 @@ import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.entities.*
 import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.lifecycle.Event
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.time.Clock
 import java.time.Duration
@@ -19,6 +24,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter.ISO_LOCAL_DATE
 import java.util.*
+import kotlin.coroutines.CoroutineContext
 
 class PracticeViewModel(
     filter: ExerciseFilterStrategy,
@@ -28,7 +34,8 @@ class PracticeViewModel(
     private val preferenceValues: PreferenceValues,
     private val formatCorrectWords: FormatCorrectWords,
     private val clock: Clock,
-    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val delayProvider: DelayProvider,
+    private val coroutineContext: CoroutineContext = Dispatchers.Main,
 ) :
     ViewModel() {
     enum class ExerciseResult {
@@ -56,7 +63,7 @@ class PracticeViewModel(
     private val startTime = Instant.now(clock)
 
     init {
-        viewModelScope.launch(defaultDispatcher) {
+        viewModelScope.launch(coroutineContext) {
             val dailyStats = DailyStats()
             statsRepository.insertDailyStats(dailyStats)
         }
@@ -65,7 +72,7 @@ class PracticeViewModel(
     override fun onCleared() {
         super.onCleared()
 
-        GlobalScope.launch(defaultDispatcher) {
+        GlobalScope.launch(coroutineContext) {
             savePracticeTime()
             saveCurrentStrike()
         }
@@ -78,11 +85,14 @@ class PracticeViewModel(
         val todayAttempts = attemptRepository.getTotalAttemptsByDay(today)
 
         Timber.d("Attempts: ${todayAttempts}, Goal: $dailyGoal")
+        println("Attempts: ${todayAttempts}, Goal: $dailyGoal")
 
         if (todayAttempts == dailyGoal) {
-            delay(DAILY_GOAL_MSG_DELAY)
+            //delay(DAILY_GOAL_MSG_DELAY)
+            delayProvider.delay(DAILY_GOAL_MSG_DELAY)
             _dailyGoalAchieved.postValue(Event(Unit))
         }
+//        _dailyGoalAchieved.postValue(Event(Unit))
     }
 
     private suspend fun insertExerciseAttempt(
@@ -182,7 +192,7 @@ class PracticeViewModel(
             )
             correctWords = words
 
-            viewModelScope.launch(defaultDispatcher) {
+            viewModelScope.launch(coroutineContext) {
                 insertExerciseAttempt(it, result, words)
                 checkDailyGoal()
             }

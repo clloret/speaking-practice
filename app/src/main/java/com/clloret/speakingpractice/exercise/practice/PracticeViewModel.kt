@@ -88,11 +88,16 @@ class PracticeViewModel(
         println("Attempts: ${todayAttempts}, Goal: $dailyGoal")
 
         if (todayAttempts == dailyGoal) {
-            //delay(DAILY_GOAL_MSG_DELAY)
+            saveDailyGoalAchieved()
+
             delayProvider.delay(DAILY_GOAL_MSG_DELAY)
             _dailyGoalAchieved.postValue(Event(Unit))
         }
-//        _dailyGoalAchieved.postValue(Event(Unit))
+    }
+
+    private suspend fun saveDailyGoalAchieved() {
+        val today = LocalDate.now(clock)
+        statsRepository.updateDailyGoal(DailyGoalUpd(today))
     }
 
     private suspend fun insertExerciseAttempt(

@@ -237,8 +237,6 @@ class PracticeViewModelTest {
         sut.validatePhrase(arrayListOf(CORRECT_PHRASE))
         sut.validatePhrase(arrayListOf(INCORRECT_PHRASE))
 
-        //testDispatcher.advanceUntilIdle()
-
         Truth.assertThat(sut.dailyGoalAchieved.getOrAwaitValue())
             .isNotNull()
     }
@@ -254,6 +252,30 @@ class PracticeViewModelTest {
 
         Truth.assertThat(sut.dailyGoalAchieved.getOrAwaitValue())
             .isNull()
+    }
+
+    @Test
+    fun `when the daily goal is achieved save in daily stats`() = testScope.runBlockingTest {
+        val exercises = sut.exercises.getOrAwaitValue()
+        val first = exercises.first()
+
+        sut.setCurrentExercise(first)
+        sut.recognizeSpeech()
+        sut.validatePhrase(arrayListOf(CORRECT_PHRASE))
+        sut.validatePhrase(arrayListOf(INCORRECT_PHRASE))
+
+        Truth.assertThat(sut.dailyGoalAchieved.getOrAwaitValue())
+            .isNotNull()
+
+        // Without the runBlocking the test fail with exception "This job has not completed yet"
+        // More info in https://github.com/Kotlin/kotlinx.coroutines/issues/1204
+        @Suppress("BlockingMethodInNonBlockingContext")
+        val dailyStats = runBlocking(testDispatcher) {
+            val today = LocalDate.now(clock)
+            db.statsDao().getDailyStatsByDate(today)
+        }
+        println(dailyStats)
+        Truth.assertThat(dailyStats?.dailyGoalAchieved).isTrue()
     }
 
     companion object {

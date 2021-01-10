@@ -44,7 +44,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun practiceWordDao(): PracticeWordDao
 
     companion object {
-        const val CURRENT_VERSION = 6
+        const val CURRENT_VERSION = 7
 
         // Singleton prevents multiple instances of database opening at the
         // same time.

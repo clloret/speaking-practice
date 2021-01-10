@@ -2,6 +2,7 @@ package com.clloret.speakingpractice.db.repository
 
 import androidx.lifecycle.LiveData
 import com.clloret.speakingpractice.db.AppDatabase
+import com.clloret.speakingpractice.domain.entities.DailyGoalUpd
 import com.clloret.speakingpractice.domain.entities.DailyStats
 import com.clloret.speakingpractice.domain.entities.Stats
 import com.clloret.speakingpractice.domain.entities.StatsPerDay
@@ -29,6 +30,10 @@ class StatsRepository(private val db: AppDatabase) {
 
     suspend fun updateDailyStats(timePracticing: Int, epochDate: Long) {
         db.statsDao().updateDailyStats(timePracticing, epochDate)
+    }
+
+    suspend fun updateDailyGoal(dailyGoalUpd: DailyGoalUpd) {
+        db.statsDao().updateDailyGoal(dailyGoalUpd)
     }
 
     suspend fun getStats(): Stats? {

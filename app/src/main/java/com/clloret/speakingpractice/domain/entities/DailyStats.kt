@@ -15,6 +15,7 @@ data class DailyStats(
     @ColumnInfo(name = "incorrect", defaultValue = "0") val incorrect: Int = 0,
     @ColumnInfo(name = "total_correct", defaultValue = "0") val totalCorrect: Int = 0,
     @ColumnInfo(name = "total_incorrect", defaultValue = "0") val totalIncorrect: Int = 0,
+    @ColumnInfo(name = "daily_goal_achieved", defaultValue = "0") val dailyGoalAchieved: Boolean = false,
 ) {
     val count: Int
         get() {

@@ -50,8 +50,8 @@ class AttemptListFragment : BaseFragment() {
     private fun ChipGroup.setup() {
         setOnCheckedChangeListener { _, checkedId ->
             val filterResult: AttemptCriteriaByResult.Result = when (checkedId) {
-                R.id.two -> AttemptCriteriaByResult.Result.CORRECT
-                R.id.three -> AttemptCriteriaByResult.Result.INCORRECT
+                R.id.chipCorrect -> AttemptCriteriaByResult.Result.CORRECT
+                R.id.chipIncorrect -> AttemptCriteriaByResult.Result.INCORRECT
                 else -> AttemptCriteriaByResult.Result.INDISTINCT
             }
             viewModel.filterByResult(filterResult)

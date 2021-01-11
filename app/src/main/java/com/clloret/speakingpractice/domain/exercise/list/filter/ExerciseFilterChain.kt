@@ -2,8 +2,8 @@ package com.clloret.speakingpractice.domain.exercise.list.filter
 
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 
-class FilterChain : Criteria {
-    private val filters = mutableMapOf<String, Criteria>()
+class ExerciseFilterChain : ExerciseCriteria {
+    private val filters = mutableMapOf<String, ExerciseCriteria>()
 
     override fun meetCriteria(list: List<ExerciseWithDetails>): List<ExerciseWithDetails> {
         var filtered = list
@@ -13,7 +13,7 @@ class FilterChain : Criteria {
         return filtered
     }
 
-    fun addFilter(key: String, filter: Criteria) {
+    fun addFilter(key: String, filter: ExerciseCriteria) {
         filters[key] = filter
     }
 

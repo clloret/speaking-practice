@@ -9,9 +9,9 @@ import com.clloret.speakingpractice.db.repository.ExerciseRepository
 import com.clloret.speakingpractice.db.repository.TagRepository
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.entities.Tag
-import com.clloret.speakingpractice.domain.exercise.list.filter.CriteriaByTag
-import com.clloret.speakingpractice.domain.exercise.list.filter.CriteriaByText
-import com.clloret.speakingpractice.domain.exercise.list.filter.FilterChain
+import com.clloret.speakingpractice.domain.exercise.list.filter.ExerciseCriteriaByTag
+import com.clloret.speakingpractice.domain.exercise.list.filter.ExerciseCriteriaByText
+import com.clloret.speakingpractice.domain.exercise.list.filter.ExerciseFilterChain
 import com.clloret.speakingpractice.domain.exercise.list.sort.ExerciseSortable
 import com.clloret.speakingpractice.utils.databinding.ChipChoiceBinding
 import com.clloret.speakingpractice.utils.databinding.adapters.TagChipChoice
@@ -43,7 +43,7 @@ class ExerciseListViewModel(
                 updateTagFilter()
             }
         }
-    private val filterChain = FilterChain()
+    private val filterChain = ExerciseFilterChain()
     val exercises = MediatorLiveData<List<ExerciseWithDetails>>()
     val fieldTags: ObservableField<List<ChipChoiceBinding>> = ObservableField()
     var selectedComparator: Comparator<ExerciseSortable>? = null
@@ -72,26 +72,26 @@ class ExerciseListViewModel(
     }
 
     private fun filterByText(text: String) {
-        filterChain.addFilter(CriteriaByText.KEY, CriteriaByText(text))
+        filterChain.addFilter(ExerciseCriteriaByText.KEY, ExerciseCriteriaByText(text))
         showFilteredData()
 
         filterQuery = text
     }
 
     private fun filterByTags(tagIds: List<Int>) {
-        filterChain.addFilter(CriteriaByTag.KEY, CriteriaByTag(tagIds))
+        filterChain.addFilter(ExerciseCriteriaByTag.KEY, ExerciseCriteriaByTag(tagIds))
         showFilteredData()
     }
 
     private fun removeTextFilter() {
-        filterChain.removeFilter(CriteriaByText.KEY)
+        filterChain.removeFilter(ExerciseCriteriaByText.KEY)
         showFilteredData()
 
         filterQuery = null
     }
 
     private fun removeTagsFilter() {
-        filterChain.removeFilter(CriteriaByTag.KEY)
+        filterChain.removeFilter(ExerciseCriteriaByTag.KEY)
         showFilteredData()
     }
 

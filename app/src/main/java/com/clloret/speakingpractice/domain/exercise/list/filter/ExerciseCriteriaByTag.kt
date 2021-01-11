@@ -2,7 +2,7 @@ package com.clloret.speakingpractice.domain.exercise.list.filter
 
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 
-class CriteriaByTag(private val tagIds: List<Int>) : Criteria {
+class ExerciseCriteriaByTag(private val tagIds: List<Int>) : ExerciseCriteria {
     companion object {
         const val KEY = "tag"
     }

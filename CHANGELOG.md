@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- An alert that is displayed when achieve the daily goal
+- Daily goal to settings
+
 ## [1.8.0] - 2020-12-08
 
 ### Added

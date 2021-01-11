@@ -144,4 +144,7 @@
     <string name="title_stats_current_streak">Streak</string>
     <string name="title_statistics_time_practicing">Time practicing\n (minutes)</string>
     <string name="title_daily_goal_achieved">DAILY GOAL ACHIEVED</string>
+    <string name="action_filter_all">All</string>
+    <string name="action_filter_correct">Correct</string>
+    <string name="action_filter_incorrect">Incorrect</string>
 </resources>

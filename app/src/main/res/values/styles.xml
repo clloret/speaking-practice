@@ -44,6 +44,10 @@
         <item name="chipBackgroundColor">@android:color/white</item>
     </style>
 
+    <style name="Widget.AppTheme.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
+        <!--        <item name="chipBackgroundColor">@android:color/white</item>-->
+    </style>
+
     // Button Styles
 
     <style name="RoundButton" parent="@style/Widget.MaterialComponents.Button">

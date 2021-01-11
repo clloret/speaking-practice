@@ -13,6 +13,52 @@
         android:background="@drawable/app_background"
         tools:context=".exercise.list.AttemptListFragment">
 
+        <HorizontalScrollView
+            android:id="@+id/horizontalScroll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/exercise_list_background"
+            android:padding="@dimen/default_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@android:color/black">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:selectionRequired="true"
+                app:singleLine="true"
+                app:singleSelection="true"
+                tools:layout_height="50dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/one"
+                    style="@style/Widget.AppTheme.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/action_filter_all" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/two"
+                    style="@style/Widget.AppTheme.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_filter_correct" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/three"
+                    style="@style/Widget.AppTheme.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_filter_incorrect" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
@@ -21,7 +67,7 @@
             android:paddingBottom="@dimen/recycler_scroll_to_top_padding_bottom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScroll"
             tools:itemCount="10"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/attempt_list_item"

@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.AttemptListFragmentBinding
+import com.clloret.speakingpractice.domain.attempt.criteria.AttemptCriteriaByResult
 import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
 import com.clloret.speakingpractice.utils.ScrollToTopButton
+import com.google.android.material.chip.ChipGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -29,14 +31,15 @@ class AttemptListFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding: AttemptListFragmentBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.attempt_list_fragment, container, false
         )
 
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.recyclerView.setupRecyclerView(binding.emptyView)
+        binding.recyclerView.setup(binding.emptyView)
+        binding.chipGroup.setup()
         binding.emptyView.setText(args.emptyTextResId)
 
         ScrollToTopButton.configure(binding.scrollToTopButton, binding.recyclerView)
@@ -44,7 +47,18 @@ class AttemptListFragment : BaseFragment() {
         return binding.root
     }
 
-    private fun RecyclerView.setupRecyclerView(emptyView: View) {
+    private fun ChipGroup.setup() {
+        setOnCheckedChangeListener { _, checkedId ->
+            val filterResult: AttemptCriteriaByResult.Result = when (checkedId) {
+                R.id.two -> AttemptCriteriaByResult.Result.CORRECT
+                R.id.three -> AttemptCriteriaByResult.Result.INCORRECT
+                else -> AttemptCriteriaByResult.Result.INDISTINCT
+            }
+            viewModel.filterByResult(filterResult)
+        }
+    }
+
+    private fun RecyclerView.setup(emptyView: View) {
         val linearLayoutManager = LinearLayoutManager(requireContext())
         layoutManager = linearLayoutManager
 

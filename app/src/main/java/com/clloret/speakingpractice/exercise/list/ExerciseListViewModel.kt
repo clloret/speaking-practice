@@ -7,11 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.repository.ExerciseRepository
 import com.clloret.speakingpractice.db.repository.TagRepository
+import com.clloret.speakingpractice.domain.common.criteria.FilterChain
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.entities.Tag
 import com.clloret.speakingpractice.domain.exercise.list.filter.ExerciseCriteriaByTag
 import com.clloret.speakingpractice.domain.exercise.list.filter.ExerciseCriteriaByText
-import com.clloret.speakingpractice.domain.exercise.list.filter.ExerciseFilterChain
 import com.clloret.speakingpractice.domain.exercise.list.sort.ExerciseSortable
 import com.clloret.speakingpractice.utils.databinding.ChipChoiceBinding
 import com.clloret.speakingpractice.utils.databinding.adapters.TagChipChoice
@@ -43,7 +43,7 @@ class ExerciseListViewModel(
                 updateTagFilter()
             }
         }
-    private val filterChain = ExerciseFilterChain()
+    private val filterChain = FilterChain<ExerciseWithDetails>()
     val exercises = MediatorLiveData<List<ExerciseWithDetails>>()
     val fieldTags: ObservableField<List<ChipChoiceBinding>> = ObservableField()
     var selectedComparator: Comparator<ExerciseSortable>? = null

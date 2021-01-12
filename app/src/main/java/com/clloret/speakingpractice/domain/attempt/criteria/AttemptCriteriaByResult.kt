@@ -1,8 +1,9 @@
 package com.clloret.speakingpractice.domain.attempt.criteria
 
+import com.clloret.speakingpractice.domain.common.criteria.Criteria
 import com.clloret.speakingpractice.domain.entities.AttemptWithExercise
 
-class AttemptCriteriaByResult(private val result: Result) : AttemptCriteria {
+class AttemptCriteriaByResult(private val result: Result) : Criteria<AttemptWithExercise> {
     enum class Result {
         CORRECT, INCORRECT, INDISTINCT
     }

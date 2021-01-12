@@ -6,6 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.AppDatabase_Migration_5_6
+import com.clloret.speakingpractice.db.AppDatabase_Migration_6_7
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,11 +30,24 @@ class DbMigrationTest {
     fun migrate5To6() {
         helper.createDatabase(TEST_DB, 5).close()
 
-        val db6 = helper.runMigrationsAndValidate(
+        val db = helper.runMigrationsAndValidate(
             TEST_DB, 6, true,
             AppDatabase_Migration_5_6
         )
 
-        helper.closeWhenFinished(db6)
+        helper.closeWhenFinished(db)
+    }
+
+    @Test
+    @Throws(IOException::class)
+    fun migrate6To7() {
+        helper.createDatabase(TEST_DB, 6).close()
+
+        val db = helper.runMigrationsAndValidate(
+            TEST_DB, 7, true,
+            AppDatabase_Migration_6_7
+        )
+
+        helper.closeWhenFinished(db)
     }
 }

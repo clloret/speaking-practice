@@ -4,6 +4,7 @@ import android.content.Context
 import com.clloret.speakingpractice.attempt.list.AttemptListViewModel
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.db.repository.*
+import com.clloret.speakingpractice.domain.DelayProvider
 import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterStrategy
 import com.clloret.speakingpractice.domain.exercise.list.sort.*
@@ -14,7 +15,6 @@ import com.clloret.speakingpractice.domain.word.sort.*
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
-import com.clloret.speakingpractice.exercise.practice.DelayProvider
 import com.clloret.speakingpractice.exercise.practice.DelayProviderImpl
 import com.clloret.speakingpractice.exercise.practice.FormatCorrectWords
 import com.clloret.speakingpractice.exercise.practice.PracticeViewModel

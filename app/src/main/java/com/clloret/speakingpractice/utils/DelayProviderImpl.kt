@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.exercise.practice
+package com.clloret.speakingpractice.utils
 
 import com.clloret.speakingpractice.domain.DelayProvider
 

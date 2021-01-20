@@ -15,7 +15,6 @@ import com.clloret.speakingpractice.domain.word.sort.*
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
 import com.clloret.speakingpractice.exercise.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
-import com.clloret.speakingpractice.exercise.practice.DelayProviderImpl
 import com.clloret.speakingpractice.exercise.practice.FormatCorrectWords
 import com.clloret.speakingpractice.exercise.practice.PracticeViewModel
 import com.clloret.speakingpractice.exercise.practice.filter.PracticeFilterViewModel
@@ -24,6 +23,7 @@ import com.clloret.speakingpractice.home.stats.HomeStatsViewModel
 import com.clloret.speakingpractice.stats.StatsViewModel
 import com.clloret.speakingpractice.tag.add.AddTagViewModel
 import com.clloret.speakingpractice.tag.list.TagListViewModel
+import com.clloret.speakingpractice.utils.DelayProviderImpl
 import com.clloret.speakingpractice.utils.PreferenceValuesImpl
 import com.clloret.speakingpractice.utils.resources.ColorResourceProviderImpl
 import com.clloret.speakingpractice.utils.resources.StringResourceProviderImpl

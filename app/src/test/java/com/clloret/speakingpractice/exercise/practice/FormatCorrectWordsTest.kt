@@ -1,6 +1,7 @@
 package com.clloret.speakingpractice.exercise.practice
 
 import androidx.core.text.toHtml
+import com.clloret.speakingpractice.domain.CorrectedWords
 import com.clloret.speakingpractice.fakes.FakeColorResourceProvider
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -10,7 +11,7 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class FormatCorrectWordsTest(
     private val practicePhrase: String,
-    private val correctWords: List<Pair<String, Boolean>>,
+    private val correctWords: CorrectedWords,
     private val expected: String
 ) {
     companion object {

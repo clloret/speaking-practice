@@ -26,6 +26,7 @@
             name="totalExercises"
             type="int" />
 
+        <import type="android.view.View" />
 
     </data>
 
@@ -141,13 +142,28 @@
             android:elevation="@dimen/practice_frame_elevation"
             android:gravity="center"
             android:padding="@dimen/large_padding"
-            android:text="@{model.getFormattedPracticePhrase(exercise.exercise)}"
+            android:text="@{model.exerciseStatus.practicePhrase}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/translatedPhrase"
             tools:text="@tools:sample/lorem/random" />
+
+        <CheckBox
+            android:id="@+id/icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:button="@drawable/show_recognized_text"
+            android:checked="@={model.exerciseStatus.showRecognizedText}"
+            android:elevation="3dp"
+            android:visibility="@{model.exerciseStatus.corrected ?  View.VISIBLE : View.INVISIBLE}"
+            app:buttonTint="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/practicePhrase"
+            app:layout_constraintEnd_toEndOf="@+id/practicePhrase"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

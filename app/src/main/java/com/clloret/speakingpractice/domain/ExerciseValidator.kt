@@ -52,7 +52,7 @@ class ExerciseValidator(private val recognizedPhrases: List<String>, val practic
 
         fun getWordsWithResults(
             recognizedPhrase: String, practicePhrase: String
-        ): List<Pair<String, Boolean>> {
+        ): CorrectedWords {
             val practiceWords = cleanText(practicePhrase).split(" ")
             val practiceWordsMap = practiceWords
                 .withIndex()
@@ -84,3 +84,5 @@ class ExerciseValidator(private val recognizedPhrases: List<String>, val practic
         }
     }
 }
+
+typealias CorrectedWords = List<Pair<String, Boolean>>

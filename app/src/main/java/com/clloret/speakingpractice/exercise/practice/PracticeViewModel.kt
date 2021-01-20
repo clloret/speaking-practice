@@ -1,6 +1,5 @@
 package com.clloret.speakingpractice.exercise.practice
 
-import android.text.Spanned
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,10 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.repository.AttemptRepository
 import com.clloret.speakingpractice.db.repository.ExerciseRepository
 import com.clloret.speakingpractice.db.repository.StatsRepository
-import com.clloret.speakingpractice.domain.CalcDailyStreak
-import com.clloret.speakingpractice.domain.DelayProvider
-import com.clloret.speakingpractice.domain.ExerciseValidator
-import com.clloret.speakingpractice.domain.PreferenceValues
+import com.clloret.speakingpractice.domain.*
 import com.clloret.speakingpractice.domain.entities.*
 import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterStrategy
 import com.clloret.speakingpractice.utils.lifecycle.Event
@@ -33,7 +29,7 @@ class PracticeViewModel(
     private val statsRepository: StatsRepository,
     private val attemptRepository: AttemptRepository,
     private val preferenceValues: PreferenceValues,
-    private val formatCorrectWords: FormatCorrectWords,
+    formatCorrectWords: FormatCorrectWords,
     private val clock: Clock,
     private val delayProvider: DelayProvider,
     private val coroutineContext: CoroutineContext = Dispatchers.Main,
@@ -53,15 +49,13 @@ class PracticeViewModel(
     private val _dailyGoalAchieved: MutableLiveData<Event<Unit>> = MutableLiveData()
     val dailyGoalAchieved: LiveData<Event<Unit>> get() = _dailyGoalAchieved
 
-    private var currentExerciseDetail: ExerciseWithDetails? = null
-    private var correctWords = listOf<Pair<String, Boolean>>()
-    private var correctedExercise = false
-
     val exercises = filter.getExercises(exerciseRepository)
 
-    var onClickRecognizeSpeechBtn: (() -> Unit)? = null
-
+    private var currentExerciseDetail: ExerciseWithDetails? = null
+    val exerciseStatus = ExerciseStatus(formatCorrectWords)
     private val startTime = Instant.now(clock)
+
+    var onClickRecognizeSpeechBtn: (() -> Unit)? = null
 
     init {
         viewModelScope.launch(coroutineContext) {
@@ -104,7 +98,7 @@ class PracticeViewModel(
     private suspend fun insertExerciseAttempt(
         exercise: ExerciseWithDetails,
         result: Pair<Boolean, String>,
-        words: List<Pair<String, Boolean>>
+        texts: CorrectedWords
     ) {
         val exerciseAttempt = ExerciseAttempt(
             exerciseId = exercise.exercise.id,
@@ -112,7 +106,7 @@ class PracticeViewModel(
             recognizedText = result.second
         )
         val practiceWords =
-            words.map { word ->
+            texts.map { word ->
                 PracticeWord(
                     exerciseAttemptId = exercise.exercise.id,
                     word = filterValidChars(unifyApostrophes(word.first)),
@@ -148,12 +142,6 @@ class PracticeViewModel(
         statsRepository.insertStats(newStats)
     }
 
-    private fun isCurrentExercise(exercise: Exercise): Boolean {
-        return currentExerciseDetail?.exercise?.let {
-            exercise.id == it.id
-        } ?: false
-    }
-
     fun setCurrentExercise(exercise: ExerciseWithDetails) {
         Timber.d("setCurrentExercise - current: $currentExerciseDetail, new: $exercise")
 
@@ -163,6 +151,8 @@ class PracticeViewModel(
 
         currentExerciseDetail = exercise
 
+        exerciseStatus.resetExercise(exercise.practicePhrase)
+
         if (preferenceValues.isSpeakPhraseEnabled()) {
             speakText()
         }
@@ -170,12 +160,9 @@ class PracticeViewModel(
 
     fun resetExercise() {
         _exerciseResult.postValue(ExerciseResult.HIDDEN)
-        correctWords = listOf()
-        correctedExercise = false
     }
 
     fun recognizeSpeech() {
-        correctedExercise = true
         onClickRecognizeSpeechBtn?.invoke()
     }
 
@@ -192,33 +179,26 @@ class PracticeViewModel(
 
             Timber.d("Valid recognized phrase: $result")
 
-            val words = ExerciseValidator.getWordsWithResults(
+            val exerciseWords = ExerciseValidator.getWordsWithResults(
                 result.second,
                 it.exercise.practicePhrase
             )
-            correctWords = words
+
+            val recognizedWords = ExerciseValidator.getWordsWithResults(
+                it.exercise.practicePhrase,
+                result.second
+            )
+
+            exerciseStatus.saveCorrectedExercise(exerciseWords, recognizedWords, result.second)
 
             viewModelScope.launch(coroutineContext) {
-                insertExerciseAttempt(it, result, words)
+                insertExerciseAttempt(it, result, exerciseWords)
                 checkDailyGoal()
             }
 
             _exerciseResult
                 .postValue(if (result.first) ExerciseResult.CORRECT else ExerciseResult.INCORRECT)
         }
-    }
-
-    fun getFormattedPracticePhrase(exercise: Exercise): Spanned {
-        Timber.d("Correct Words: $correctWords")
-        Timber.d("Exercise: $exercise")
-        Timber.d("Current Exercise: ${currentExerciseDetail?.exercise}")
-        Timber.d("Corrected: $correctedExercise")
-
-        return formatCorrectWords.getFormattedPracticePhrase(
-            exercise.practicePhrase,
-            correctWords,
-            isCurrentExercise(exercise) && correctedExercise
-        )
     }
 
     companion object {

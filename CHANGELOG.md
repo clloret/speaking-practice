@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - An alert that is displayed when achieve the daily goal
 - Daily goal to settings
 - Filter attempts by result in the exercise attempts screen
+- Button to show the recognized text after the exercise is corrected
 
 ## [1.8.0] - 2020-12-08
 

@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - Button to show the recognized text after the exercise is corrected
 - Show corrected the recognized text in the exercise attempts screen
 - Delete attempt item to popup menu of the exercise attempts screen
+- Show incorrect attempts item to popup menu of the word list screen
 
 ### Changed
 

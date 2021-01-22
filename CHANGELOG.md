@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - Filter attempts by result in the exercise attempts screen
 - Button to show the recognized text after the exercise is corrected
 - Show corrected the recognized text in the exercise attempts screen
+- Delete attempt item to popup menu of the exercise attempts screen
 
 ### Changed
 

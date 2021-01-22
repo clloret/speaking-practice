@@ -25,11 +25,11 @@ import kotlin.coroutines.CoroutineContext
 
 class PracticeViewModel(
     filter: ExerciseFilterStrategy,
+    formatCorrectWords: FormatCorrectWords,
     exerciseRepository: ExerciseRepository,
     private val statsRepository: StatsRepository,
     private val attemptRepository: AttemptRepository,
     private val preferenceValues: PreferenceValues,
-    formatCorrectWords: FormatCorrectWords,
     private val clock: Clock,
     private val delayProvider: DelayProvider,
     private val coroutineContext: CoroutineContext = Dispatchers.Main,

@@ -90,11 +90,11 @@ class PracticeViewModelTest {
         val filter = ExerciseFilterAll()
         sut = PracticeViewModel(
             filter,
+            formatCorrectWords,
             exerciseRepository,
             statsRepository,
             attemptRepository,
             preferenceValues,
-            formatCorrectWords,
             clock,
             delayProvider,
             testDispatcher

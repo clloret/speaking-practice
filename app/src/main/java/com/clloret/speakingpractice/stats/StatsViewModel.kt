@@ -1,7 +1,9 @@
 package com.clloret.speakingpractice.stats
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import com.clloret.speakingpractice.db.repository.StatsRepository
+import com.clloret.speakingpractice.utils.TimeUtils
 import java.time.Clock
 import java.time.LocalDate
 
@@ -19,7 +21,7 @@ class StatsViewModel(
 
     val dailyStats = repository.getDailyStatsFromDate(firstDay)
     val stats = repository.calculatedStats
-    val timePracticing = repository.timePracticing
+    val timePracticing = repository.timePracticing.map { TimeUtils.secondsToTime(it) }
     val weekDays: List<Int> by lazy {
         val weekRange = firstDay..lastDay
         val weekDays = mutableListOf<Int>()
@@ -28,6 +30,7 @@ class StatsViewModel(
         }
         weekDays
     }
+
 }
 
 operator fun ClosedRange<LocalDate>.iterator(): Iterator<LocalDate> {

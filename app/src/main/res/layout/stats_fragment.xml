@@ -9,6 +9,7 @@
         <variable
             name="model"
             type="com.clloret.speakingpractice.stats.StatsViewModel" />
+
     </data>
 
     <ScrollView
@@ -234,7 +235,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:gravity="center_horizontal"
-                        android:text="@{@string/number_format(model.timePracticing / 60)}"
+                        android:text="@{model.timePracticing}"
                         android:textAppearance="@style/StatisticsValue"
                         app:layout_constraintStart_toStartOf="@+id/verticalCenterGuide1"
                         app:layout_constraintTop_toBottomOf="@+id/successRateValue"

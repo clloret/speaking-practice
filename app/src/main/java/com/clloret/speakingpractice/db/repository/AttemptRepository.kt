@@ -29,6 +29,10 @@ class AttemptRepository(private val db: AppDatabase) {
         return db.exerciseAttemptDao().getExercisesAttemptsIdsByWord(practiceWord)
     }
 
+    suspend fun getExercisesAttemptsIdsByWordIncorrect(practiceWord: String): List<Int> {
+        return db.exerciseAttemptDao().getExercisesAttemptsIdsByWordIncorrect(practiceWord)
+    }
+
     suspend fun insertExerciseAttemptAndWords(
         exerciseAttempt: ExerciseAttempt,
         practiceWords: List<PracticeWord>

@@ -15,6 +15,7 @@ import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.WordListFragmentBinding
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByWord
+import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterByWordIncorrect
 import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterByWord
 import com.clloret.speakingpractice.domain.word.sort.WordSortable
 import com.clloret.speakingpractice.exercise.list.RxSearchObservable
@@ -171,6 +172,13 @@ class WordListFragment : BaseFragment(), WordListAdapter.WordListListener {
     override fun onShowExerciseAttempts(word: String) {
         val action = WordListFragmentDirections.actionWordListFragmentToAttemptListFragment(
             AttemptFilterByWord(word)
+        )
+        findNavController().navigate(action)
+    }
+
+    override fun onShowIncorrectExerciseAttempts(word: String) {
+        val action = WordListFragmentDirections.actionWordListFragmentToAttemptListFragment(
+            AttemptFilterByWordIncorrect(word)
         )
         findNavController().navigate(action)
     }

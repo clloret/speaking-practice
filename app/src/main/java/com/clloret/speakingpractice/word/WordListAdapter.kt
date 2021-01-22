@@ -75,6 +75,9 @@ class WordListAdapter(
                     R.id.action_show_attempts -> {
                         listener.onShowExerciseAttempts(word.word); true
                     }
+                    R.id.action_show_incorrect_attempts -> {
+                        listener.onShowIncorrectExerciseAttempts(word.word); true
+                    }
                     else -> false
                 }
             }
@@ -100,6 +103,7 @@ class WordListAdapter(
 
     interface WordListListener {
         fun onShowExerciseAttempts(word: String)
+        fun onShowIncorrectExerciseAttempts(word: String)
         fun onPracticeWordExercises(word: String)
     }
 

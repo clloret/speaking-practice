@@ -3,16 +3,18 @@ package com.clloret.speakingpractice.attempt.list
 import android.text.Spanned
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.clloret.speakingpractice.db.repository.AttemptRepository
 import com.clloret.speakingpractice.domain.ExerciseValidator
 import com.clloret.speakingpractice.domain.attempt.criteria.AttemptCriteriaByResult
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterStrategy
 import com.clloret.speakingpractice.domain.entities.AttemptWithExercise
 import com.clloret.speakingpractice.exercise.practice.FormatCorrectWords
+import kotlinx.coroutines.launch
 
 class AttemptListViewModel(
     filter: AttemptFilterStrategy,
-    repository: AttemptRepository,
+    private val repository: AttemptRepository,
     private val formatCorrectWords: FormatCorrectWords
 ) : ViewModel() {
 
@@ -42,6 +44,12 @@ class AttemptListViewModel(
         )
 
         return formatCorrectWords.getFormattedPracticePhrase(correctWords)
+    }
+
+    fun deleteAttempt(id: Int) {
+        viewModelScope.launch {
+            repository.deleteById(id)
+        }
     }
 
 }

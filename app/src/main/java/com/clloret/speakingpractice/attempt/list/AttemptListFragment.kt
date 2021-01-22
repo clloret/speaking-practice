@@ -13,13 +13,14 @@ import com.clloret.speakingpractice.BaseFragment
 import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.AttemptListFragmentBinding
 import com.clloret.speakingpractice.domain.attempt.criteria.AttemptCriteriaByResult
+import com.clloret.speakingpractice.utils.Dialogs
 import com.clloret.speakingpractice.utils.RecyclerViewEmptyObserver
 import com.clloret.speakingpractice.utils.ScrollToTopButton
 import com.google.android.material.chip.ChipGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class AttemptListFragment : BaseFragment() {
+class AttemptListFragment : BaseFragment(), AttemptListAdapter.AttemptListListener {
 
     companion object {
         fun newInstance() = AttemptListFragment()
@@ -68,7 +69,7 @@ class AttemptListFragment : BaseFragment() {
         )
         addItemDecoration(dividerItemDecoration)
 
-        val listAdapter = AttemptListAdapter(viewModel)
+        val listAdapter = AttemptListAdapter(viewModel, this@AttemptListFragment)
         adapter = listAdapter
 
         val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
@@ -79,5 +80,14 @@ class AttemptListFragment : BaseFragment() {
                 listAdapter.submitList(it)
             }
         })
+    }
+
+    override fun onDeleteAttempt(attemptId: Int) {
+        Dialogs(requireContext())
+            .showConfirmation(messageId = R.string.msg_delete_exercise_attempt_confirmation) { result ->
+                if (result == Dialogs.Button.POSITIVE) {
+                    viewModel.deleteAttempt(attemptId)
+                }
+            }
     }
 }

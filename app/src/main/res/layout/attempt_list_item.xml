@@ -17,6 +17,10 @@
             name="model"
             type="com.clloret.speakingpractice.attempt.list.AttemptListViewModel" />
 
+        <variable
+            name="handlers"
+            type="com.clloret.speakingpractice.attempt.list.OnClickAttemptHandler" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,6 +28,21 @@
         android:layout_height="wrap_content"
         android:background="@{entity.attempt.result ? @color/exercise_correct_background : @color/exercise_incorrect_background}"
         tools:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/menuButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/exercise_list_menu_button_description"
+            android:focusable="true"
+            android:onClick="@{()->handlers.onClickMenu(menuButton, entity)}"
+            android:padding="6dp"
+            android:src="@drawable/ic_more_vert_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/attemptTimeTitle"
@@ -101,11 +120,11 @@
             android:id="@+id/attemptResultView"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:contentDescription="@string/exercise_result_description"
             android:src="@{entity.attempt.result ? @drawable/ic_check_circle_green_24dp :@drawable/ic_error_red_24dp}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/menuButton"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_check_circle_green_24dp" />
 

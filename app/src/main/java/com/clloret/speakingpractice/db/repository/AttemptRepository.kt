@@ -37,4 +37,8 @@ class AttemptRepository(private val db: AppDatabase) {
             .insertExerciseAttemptAndWords(exerciseAttempt, practiceWords, db.practiceWordDao())
     }
 
+    suspend fun deleteById(id: Int) {
+        db.exerciseAttemptDao().deleteById(id)
+    }
+
 }

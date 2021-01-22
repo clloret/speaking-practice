@@ -55,4 +55,7 @@ interface ExerciseAttemptDao {
         practiceWordDao.insertAll(wordsWithId)
     }
 
+    @Query("DELETE FROM exercise_attempts WHERE exercise_attempt_id = :id")
+    suspend fun deleteById(id: Int)
+
 }

@@ -373,5 +373,3 @@ class ExerciseListFragment : BaseFragment(), ExerciseListAdapter.ExerciseListLis
     }
 
 }
-
-

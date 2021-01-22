@@ -8,8 +8,6 @@ import com.clloret.speakingpractice.domain.ExerciseValidator
 import com.clloret.speakingpractice.domain.attempt.criteria.AttemptCriteriaByResult
 import com.clloret.speakingpractice.domain.attempt.filter.AttemptFilterStrategy
 import com.clloret.speakingpractice.domain.entities.AttemptWithExercise
-import com.clloret.speakingpractice.domain.entities.Exercise
-import com.clloret.speakingpractice.domain.entities.ExerciseAttempt
 import com.clloret.speakingpractice.exercise.practice.FormatCorrectWords
 
 class AttemptListViewModel(
@@ -37,10 +35,10 @@ class AttemptListViewModel(
         attempts.postValue(meetCriteria)
     }
 
-    fun getFormattedPracticePhrase(exercise: Exercise, attempt: ExerciseAttempt): Spanned {
+    fun getCorrectedText(textToCorrect: String, correctText: String): Spanned {
         val correctWords = ExerciseValidator.getWordsWithResults(
-            attempt.recognizedText,
-            exercise.practicePhrase
+            textToCorrect,
+            correctText
         )
 
         return formatCorrectWords.getFormattedPracticePhrase(correctWords)

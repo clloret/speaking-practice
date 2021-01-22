@@ -50,10 +50,8 @@ class ExerciseValidator(private val recognizedPhrases: List<String>, val practic
                 .toLowerCase(Locale.US)
         }
 
-        fun getWordsWithResults(
-            recognizedPhrase: String, practicePhrase: String
-        ): CorrectedWords {
-            val practiceWords = cleanText(practicePhrase).split(" ")
+        fun getWordsWithResults(textToCorrect: String, correctText: String): CorrectedWords {
+            val practiceWords = cleanText(correctText).split(" ")
             val practiceWordsMap = practiceWords
                 .withIndex()
                 .groupBy(keySelector = { it.value }, valueTransform = { it.index })
@@ -61,7 +59,7 @@ class ExerciseValidator(private val recognizedPhrases: List<String>, val practic
 
             val correctWordsPositions = mutableListOf<Int>()
             var lastIndex: Int
-            val recognizedWords = cleanText(recognizedPhrase).split(" ")
+            val recognizedWords = cleanText(textToCorrect).split(" ")
 
             for (word in recognizedWords) {
                 if (practiceWordsMap.containsKey(word)) {
@@ -75,7 +73,7 @@ class ExerciseValidator(private val recognizedPhrases: List<String>, val practic
                 }
             }
 
-            return practicePhrase.split(" ").mapIndexed { idx, value ->
+            return correctText.split(" ").mapIndexed { idx, value ->
                 Pair(
                     value,
                     correctWordsPositions.contains(idx)

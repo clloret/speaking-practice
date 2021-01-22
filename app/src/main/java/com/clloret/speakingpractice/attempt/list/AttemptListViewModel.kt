@@ -43,11 +43,7 @@ class AttemptListViewModel(
             exercise.practicePhrase
         )
 
-        return formatCorrectWords.getFormattedPracticePhrase(
-            exercise.practicePhrase,
-            correctWords,
-            true
-        )
+        return formatCorrectWords.getFormattedPracticePhrase(correctWords)
     }
 
 }

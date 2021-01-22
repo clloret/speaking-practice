@@ -58,7 +58,7 @@ class FormatCorrectWordsTest(
 
         val sut = FormatCorrectWords(colorResourceProvider)
 
-        val result = sut.getFormattedPracticePhrase(practicePhrase, correctWords, true)
+        val result = sut.getFormattedPracticePhrase(correctWords)
 
         assertThat(result.toHtml().trim())
             .isEqualTo(expected)

@@ -47,10 +47,7 @@ class ExerciseStatus(private val formatCorrectWords: FormatCorrectWords) : BaseO
         get() =
             if (isCorrected)
                 formatCorrectWords.getFormattedPracticePhrase(
-                    textToRender
-                        ?: throw IllegalStateException("The text to render can't be null"),
-                    correctedWords,
-                    true
+                    correctedWords
                 )
             else SpannedString(textToRender)
 

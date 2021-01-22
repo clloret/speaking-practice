@@ -12,6 +12,10 @@ All notable changes to this project will be documented in this file.
 - Button to show the recognized text after the exercise is corrected
 - Show corrected the recognized text in the exercise attempts screen
 
+### Changed
+
+- Practice time now is displayed in hours and minutes
+
 ## [1.8.0] - 2020-12-08
 
 ### Added

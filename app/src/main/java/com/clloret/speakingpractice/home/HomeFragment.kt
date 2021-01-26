@@ -14,8 +14,9 @@ import com.clloret.speakingpractice.R
 import com.clloret.speakingpractice.databinding.HomeFragmentBinding
 import com.clloret.speakingpractice.domain.PreferenceValues
 import com.clloret.speakingpractice.domain.exercise.practice.filter.ExerciseFilterByRandom
-import com.clloret.speakingpractice.exercise.import_.ImportExercises
-import com.clloret.speakingpractice.exercise.import_.ImportExercisesSharedViewModel
+import com.clloret.speakingpractice.exercise.file.common.ImportExportSharedViewModel
+import com.clloret.speakingpractice.exercise.file.export.ExportExercises
+import com.clloret.speakingpractice.exercise.file.import_.ImportExercises
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -29,10 +30,13 @@ class HomeFragment : BaseFragment() {
             "https://github.com/clloret/speaking-practice/blob/master/CHANGELOG.md"
         private const val IMPORT_HELP_URL =
             "https://github.com/clloret/speaking-practice/wiki/Import-exercises"
+        private const val EXPORT_HELP_URL =
+            "https://github.com/clloret/speaking-practice/wiki/Export-exercises"
     }
 
-    private val sharedViewModel: ImportExercisesSharedViewModel by navGraphViewModels(R.id.nav_graph)
+    private val sharedViewModel: ImportExportSharedViewModel by navGraphViewModels(R.id.nav_graph)
     private val importExercises: ImportExercises by inject { parametersOf(this.requireContext()) }
+    private val exportExercises: ExportExercises by inject { parametersOf(this.requireContext()) }
     private val preferenceValues: PreferenceValues by inject()
     private var _ui: HomeFragmentBinding? = null
     private val ui get() = _ui!!
@@ -59,29 +63,8 @@ class HomeFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        sharedViewModel.onShowHelp = {
-            findNavController().popBackStack()
-
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(IMPORT_HELP_URL)
-                )
-            )
-        }
-
-        sharedViewModel.onSelectFile = {
-            findNavController().popBackStack()
-
-            this.importExercises()
-        }
-
-        importExercises.apply {
-            onCompletion = { count ->
-                showSnackBar("$count exercises imported successfully")
-            }
-        }
-
+        setupImportActions()
+        setupExportActions()
         setupButtonsEvents()
     }
 
@@ -99,6 +82,65 @@ class HomeFragment : BaseFragment() {
                 item,
                 requireView().findNavController()
             ) || super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        importExercises.onActivityResult(requestCode, resultCode, data, lifecycleScope)
+        exportExercises.onActivityResult(requestCode, resultCode, data, lifecycleScope)
+    }
+
+    private fun setupExportActions() {
+        sharedViewModel.onShowExportHelp = {
+            findNavController().popBackStack()
+
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(EXPORT_HELP_URL)
+                )
+            )
+        }
+
+        sharedViewModel.onSelectFileToSave = {
+            findNavController().popBackStack()
+
+            this.exportExercises()
+        }
+
+        exportExercises.apply {
+            onCompletion = { count ->
+                val message = getString(R.string.msg_exercises_exported_successfully, count)
+                showSnackBar(message)
+            }
+        }
+    }
+
+    private fun setupImportActions() {
+        sharedViewModel.onShowImportHelp = {
+            findNavController().popBackStack()
+
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(IMPORT_HELP_URL)
+                )
+            )
+        }
+
+        sharedViewModel.onSelectFileToOpen = {
+            findNavController().popBackStack()
+
+            this.importExercises()
+        }
+
+        importExercises.apply {
+            onCompletion = { count ->
+                val message = getString(R.string.msg_exercises_imported_successfully, count)
+                showSnackBar(message)
+            }
         }
     }
 
@@ -129,14 +171,12 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        importExercises.onActivityResult(requestCode, resultCode, data, lifecycleScope)
-    }
-
     private fun importExercises() {
         importExercises.performFileSearchFromFragment(this)
+    }
+
+    private fun exportExercises() {
+        exportExercises.performFileSaveFromFragment(this)
     }
 
     private fun showHelp(): Boolean {

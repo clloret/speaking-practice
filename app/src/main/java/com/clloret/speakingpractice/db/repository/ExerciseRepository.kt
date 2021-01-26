@@ -11,7 +11,11 @@ class ExerciseRepository(private val db: AppDatabase) {
     val allExercisesDetails: LiveData<List<ExerciseWithDetails>> =
         db.exerciseDao().getExercisesWithDetails()
 
-    suspend fun getExerciseById(id: Int): Exercise? {
+    suspend fun getAllExercises(): List<ExerciseWithDetails> {
+        return db.exerciseDao().getAllExercises()
+    }
+
+    suspend fun getExerciseById(id: Int): Exercise {
         return db.exerciseDao().getExerciseById(id)
     }
 

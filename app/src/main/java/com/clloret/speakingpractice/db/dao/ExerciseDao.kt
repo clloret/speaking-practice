@@ -9,6 +9,10 @@ interface ExerciseDao {
 
     @Transaction
     @Query("SELECT * FROM exercises")
+    suspend fun getAllExercises(): List<ExerciseWithDetails>
+
+    @Transaction
+    @Query("SELECT * FROM exercises")
     fun getExercisesWithDetails(): LiveData<List<ExerciseWithDetails>>
 
     @Transaction

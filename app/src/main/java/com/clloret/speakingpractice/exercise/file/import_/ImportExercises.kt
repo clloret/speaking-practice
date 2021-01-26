@@ -1,4 +1,4 @@
-package com.clloret.speakingpractice.exercise.import_
+package com.clloret.speakingpractice.exercise.file.import_
 
 import android.app.Activity
 import android.content.Context
@@ -142,4 +142,3 @@ class ImportExercises(
 
     data class ExerciseWithTagNames(val exercise: Exercise, val tagNames: List<String>)
 }
-

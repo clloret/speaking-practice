@@ -13,7 +13,8 @@ import com.clloret.speakingpractice.domain.resources.ColorResourceProvider
 import com.clloret.speakingpractice.domain.resources.StringResourceProvider
 import com.clloret.speakingpractice.domain.word.sort.*
 import com.clloret.speakingpractice.exercise.add.AddExerciseViewModel
-import com.clloret.speakingpractice.exercise.import_.ImportExercises
+import com.clloret.speakingpractice.exercise.file.export.ExportExercises
+import com.clloret.speakingpractice.exercise.file.import_.ImportExercises
 import com.clloret.speakingpractice.exercise.list.ExerciseListViewModel
 import com.clloret.speakingpractice.exercise.practice.FormatCorrectWords
 import com.clloret.speakingpractice.exercise.practice.PracticeViewModel
@@ -93,6 +94,7 @@ object KoinModule {
             single<PreferenceValues> { PreferenceValuesImpl(get(), get()) }
             single { FormatCorrectWords(get()) }
             single { (context: Context) -> ImportExercises(context) }
+            single { (context: Context) -> ExportExercises(context) }
             single { Clock.systemDefaultZone() }
             single<DelayProvider> { DelayProviderImpl() }
         }

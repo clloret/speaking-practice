@@ -18,8 +18,8 @@
     <string name="action_filter_correct">Correct</string>
     <string name="action_filter_incorrect">Incorrect</string>
     <string name="action_import_exercises">Import exercises</string>
-    <string name="action_import_select_a_file">Select a file</string>
-    <string name="action_import_show_me_the_help">Show me the help</string>
+    <string name="action_select_a_file">Select a file</string>
+    <string name="action_show_me_the_help">Show me the help</string>
     <string name="action_less_practiced_exercises">Less practiced exercises</string>
     <string name="action_listen">Listen</string>
     <string name="action_most_failed_exercises">Most Failed Exercises</string>
@@ -65,6 +65,8 @@
     <string name="msg_read_exercise_sentence">Read the exercise sentence</string>
     <string name="msg_replace_previous_exercises">Do you want to replace all the previous exercises?</string>
     <string name="number_format">%1$,d</string>
+    <string name="msg_exercises_imported_successfully">%1$,d exercises imported successfully</string>
+    <string name="msg_exercises_exported_successfully">%1$,d exercises exported successfully</string>
     <string name="percent_format">%1$d%%</string>
     <string name="practice_fragment_label">Speaking Practice</string>
     <string name="pref_collect_statistics" translatable="false">collect_statistics</string>
@@ -149,4 +151,5 @@
     <string name="title_wednesday">WE</string>
     <string name="title_week_results">RESULTS OF THE WEEK</string>
     <string name="title_words">Words</string>
+    <string name="title_export_exercises">Export Exercises</string>
 </resources>

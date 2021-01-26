@@ -13,6 +13,10 @@
         android:title="@string/title_import_exercises" />
 
     <item
+        android:id="@+id/exportExercisesDlgFragment"
+        android:title="@string/title_export_exercises" />
+
+    <item
         android:id="@+id/settingsFragment"
         android:title="@string/title_settings" />
 

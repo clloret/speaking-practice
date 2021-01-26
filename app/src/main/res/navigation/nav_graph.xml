@@ -33,6 +33,9 @@
             android:id="@+id/action_homeFragment_to_importExercisesDlgFragment"
             app:destination="@id/importExercisesDlgFragment" />
         <action
+            android:id="@+id/action_homeFragment_to_exportExercisesDlgFragment"
+            app:destination="@id/exportExercisesDlgFragment" />
+        <action
             android:id="@+id/action_homeFragment_to_practiceActivity"
             app:destination="@id/practiceActivity" />
         <action
@@ -163,8 +166,14 @@
 
     <dialog
         android:id="@+id/importExercisesDlgFragment"
-        android:name="com.clloret.speakingpractice.exercise.import_.ImportExercisesDlgFragment"
+        android:name="com.clloret.speakingpractice.exercise.file.import_.ImportExercisesDlgFragment"
         android:label="ImportExercisesDlgFragment"
+        tools:layout="@layout/import_exercises_dlg_fragment" />
+
+    <dialog
+        android:id="@+id/exportExercisesDlgFragment"
+        android:name="com.clloret.speakingpractice.exercise.file.export.ExportExercisesDlgFragment"
+        android:label="ExportExercisesDlgFragment"
         tools:layout="@layout/import_exercises_dlg_fragment" />
 
     <activity

@@ -11,7 +11,7 @@ import com.clloret.speakingpractice.db.converters.DateConverter
 import com.clloret.speakingpractice.db.converters.LocalDateConverter
 import com.clloret.speakingpractice.db.dao.*
 import com.clloret.speakingpractice.domain.entities.*
-import com.clloret.speakingpractice.exercise.import_.ImportExercises
+import com.clloret.speakingpractice.exercise.file.import_.ImportExercises
 import dev.matrix.roomigrant.GenerateRoomMigrations
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

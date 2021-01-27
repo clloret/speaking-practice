@@ -13,6 +13,8 @@ All notable changes to this project will be documented in this file.
 - Show corrected the recognized text in the exercise attempts screen
 - Delete attempt item to popup menu of the exercise attempts screen
 - Show incorrect attempts item to popup menu of the word list screen
+- Show incorrect attempts item to popup menu of the word list screen
+- Export exercises to a TSV file
 
 ### Changed
 

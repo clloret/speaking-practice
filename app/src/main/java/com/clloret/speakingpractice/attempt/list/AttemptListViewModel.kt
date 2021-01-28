@@ -19,6 +19,7 @@ class AttemptListViewModel(
 ) : ViewModel() {
 
     private var unfilteredData = emptyList<AttemptWithExercise>()
+    private var filterStatus = AttemptCriteriaByResult.Result.INDISTINCT
 
     val attempts = MediatorLiveData<List<AttemptWithExercise>>()
 
@@ -26,13 +27,14 @@ class AttemptListViewModel(
         attempts.addSource(filter.get(repository)) {
             unfilteredData = it
 
-            val meetCriteria = AttemptCriteriaByResult(AttemptCriteriaByResult.Result.INDISTINCT)
+            val meetCriteria = AttemptCriteriaByResult(filterStatus)
                 .meetCriteria(unfilteredData)
             attempts.postValue(meetCriteria)
         }
     }
 
     fun filterByResult(result: AttemptCriteriaByResult.Result) {
+        filterStatus = result
         val meetCriteria = AttemptCriteriaByResult(result).meetCriteria(unfilteredData)
         attempts.postValue(meetCriteria)
     }

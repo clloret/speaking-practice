@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.9.0] - 2021-01-28
+
 ### Added
 
 - An alert that is displayed when achieve the daily goal
@@ -12,7 +14,6 @@ All notable changes to this project will be documented in this file.
 - Button to show the recognized text after the exercise is corrected
 - Show corrected the recognized text in the exercise attempts screen
 - Delete attempt item to popup menu of the exercise attempts screen
-- Show incorrect attempts item to popup menu of the word list screen
 - Show incorrect attempts item to popup menu of the word list screen
 - Export exercises to a TSV file
 
@@ -158,7 +159,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial release
 
-[unreleased]: https://github.com/clloret/speaking-practice/compare/v1.8.0...HEAD
+[unreleased]: https://github.com/clloret/speaking-practice/compare/v1.9.0...HEAD
+[1.9.0]: https://github.com/clloret/speaking-practice/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/clloret/speaking-practice/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/clloret/speaking-practice/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/clloret/speaking-practice/compare/v1.5.0...v1.6.0

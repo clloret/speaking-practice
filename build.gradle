@@ -43,4 +43,5 @@ ext {
     koinVersion = '2.1.6'
     androidxJunitVersion = '1.1.2'
     roomigrantVersion = '0.2.0'
+    recyclerViewVersion = '1.1.0'
 }

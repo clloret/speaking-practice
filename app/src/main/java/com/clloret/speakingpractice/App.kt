@@ -37,13 +37,7 @@ class App : Application() {
             !BuildConfig.DEBUG && testLabSetting != "true" && preferenceValues.isAnalyticsEnabled()
         Timber.d("setupCollectionServices - enable: $enableCollection")
         Firebase.analytics.setAnalyticsCollectionEnabled(enableCollection)
-//        FirebaseAnalytics
-//            .getInstance(this)
-//            .setAnalyticsCollectionEnabled(enableCollection)
         Firebase.crashlytics.setCrashlyticsCollectionEnabled(enableCollection)
-//        FirebaseCrashlytics
-//            .getInstance()
-//            .setCrashlyticsCollectionEnabled(enableCollection)
     }
 
     private fun setupLog() {

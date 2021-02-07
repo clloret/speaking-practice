@@ -264,3 +264,4 @@ fabric.properties
 google-services.json
 secrets.properties
 /.idea/render.experimental.xml
+/.idea/saveactions_settings.xml

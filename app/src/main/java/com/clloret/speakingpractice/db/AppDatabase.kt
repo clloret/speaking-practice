@@ -15,8 +15,8 @@ import com.clloret.speakingpractice.exercise.file.import_.ImportExercises
 import dev.matrix.roomigrant.GenerateRoomMigrations
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
 @Database(

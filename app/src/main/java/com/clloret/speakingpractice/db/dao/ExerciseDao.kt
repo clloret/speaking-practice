@@ -2,7 +2,9 @@ package com.clloret.speakingpractice.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.clloret.speakingpractice.domain.entities.*
+
 
 @Dao
 interface ExerciseDao {
@@ -16,8 +18,8 @@ interface ExerciseDao {
     fun getExercisesWithDetails(): LiveData<List<ExerciseWithDetails>>
 
     @Transaction
-    @Query("SELECT * FROM exercises WHERE exercise_id IN (:ids)")
-    fun getExercisesWithDetailsByIds(ids: List<Int>): LiveData<List<ExerciseWithDetails>>
+    @RawQuery
+    fun getExercisesWithDetailsByIds(query: SupportSQLiteQuery): LiveData<List<ExerciseWithDetails>>
 
     @Query(
         """
@@ -40,8 +42,9 @@ interface ExerciseDao {
                 SELECT exercise_id
                   FROM exercise_attempts
                  GROUP BY exercise_id
-                HAVING CAST (SUM(result) AS FLOAT) / COUNT(exercise_id) < :successFactor OR 
-                       COUNT(exercise_id) < :minAttempts;
+                HAVING CAST (SUM(result) AS FLOAT) / COUNT(exercise_id) < :successFactor AND 
+                       COUNT(exercise_id) >= :minAttempts
+                ORDER BY CAST (SUM(result) AS FLOAT) / COUNT(exercise_id) ASC
     """
     )
     suspend fun getMostFailedExercisesIds(successFactor: Double, minAttempts: Int): List<Int>

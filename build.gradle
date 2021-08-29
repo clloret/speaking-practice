@@ -38,10 +38,10 @@ ext {
     targetSdkVersion = 29
     compileSdkVersion = 29
 
-    roomVersion = '2.2.6'
+    roomVersion = '2.3.0'
     lifecycleVersion = '2.2.0'
     koinVersion = '2.1.6'
     androidxJunitVersion = '1.1.2'
-    roomigrantVersion = '0.2.0'
+    roomigrantVersion = '0.3.4'
     recyclerViewVersion = '1.1.0'
 }

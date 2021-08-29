@@ -1,10 +1,12 @@
 package com.clloret.speakingpractice.db.repository
 
 import androidx.lifecycle.LiveData
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.clloret.speakingpractice.db.AppDatabase
 import com.clloret.speakingpractice.domain.entities.Exercise
 import com.clloret.speakingpractice.domain.entities.ExerciseWithDetails
 import com.clloret.speakingpractice.domain.entities.TagSelectedTuple
+
 
 class ExerciseRepository(private val db: AppDatabase) {
 
@@ -20,7 +22,14 @@ class ExerciseRepository(private val db: AppDatabase) {
     }
 
     fun getExercisesDetailsByIds(ids: List<Int>): LiveData<List<ExerciseWithDetails>> {
-        return db.exerciseDao().getExercisesWithDetailsByIds(ids)
+        val idsOrZero = if (ids.isEmpty()) listOf(0) else ids
+        val params = Array(idsOrZero.size) { "?" }.joinToString(",")
+        val orderIds = idsOrZero.joinToString(",") { id -> "exercise_id = $id DESC" }
+        val query = SimpleSQLiteQuery(
+            "SELECT * FROM exercises WHERE exercise_id IN ($params) ORDER BY $orderIds",
+            idsOrZero.toTypedArray()
+        )
+        return db.exerciseDao().getExercisesWithDetailsByIds(query)
     }
 
     suspend fun getExercisesIdsByTag(tagId: Int): List<Int> {

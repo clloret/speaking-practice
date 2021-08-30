@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- The order of the filters "Most failed exercises" and "Less practiced exercises"
+
 ## [1.9.0] - 2021-01-28
 
 ### Added

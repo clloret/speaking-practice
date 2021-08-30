@@ -1,10 +1,7 @@
 package com.clloret.speakingpractice.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.clloret.speakingpractice.domain.entities.PracticeWord
 import com.clloret.speakingpractice.domain.entities.PracticeWordWithResults
 
@@ -23,4 +20,14 @@ interface PracticeWordDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(practiceWords: List<PracticeWord>)
+
+    @Query("DELETE FROM practice_words WHERE exercise_attempt_id = :id")
+    suspend fun deleteWordsByExerciseAttemptId(id: Int)
+
+    @Transaction
+    suspend fun replaceAllWordsByExerciseAttemptId(id: Int, practiceWords: List<PracticeWord>) {
+        deleteWordsByExerciseAttemptId(id)
+        insertAll(practiceWords)
+    }
+
 }

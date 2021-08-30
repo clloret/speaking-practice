@@ -35,10 +35,16 @@ class AttemptRepository(private val db: AppDatabase) {
 
     suspend fun insertExerciseAttemptAndWords(
         exerciseAttempt: ExerciseAttempt,
-        practiceWords: List<PracticeWord>
+        practiceWords: List<PracticeWord>,
+        replaceAttempt: Boolean
     ) {
         db.exerciseAttemptDao()
-            .insertExerciseAttemptAndWords(exerciseAttempt, practiceWords, db.practiceWordDao())
+            .insertExerciseAttemptAndWords(
+                exerciseAttempt,
+                practiceWords,
+                db.practiceWordDao(),
+                replaceAttempt
+            )
     }
 
     suspend fun deleteById(id: Int) {

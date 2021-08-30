@@ -98,7 +98,8 @@ class PracticeViewModel(
     private suspend fun insertExerciseAttempt(
         exercise: ExerciseWithDetails,
         result: Pair<Boolean, String>,
-        texts: CorrectedWords
+        texts: CorrectedWords,
+        replaceAttempt: Boolean
     ) {
         val exerciseAttempt = ExerciseAttempt(
             exerciseId = exercise.exercise.id,
@@ -113,7 +114,11 @@ class PracticeViewModel(
                     result = word.second
                 )
             }
-        attemptRepository.insertExerciseAttemptAndWords(exerciseAttempt, practiceWords)
+        attemptRepository.insertExerciseAttemptAndWords(
+            exerciseAttempt,
+            practiceWords,
+            replaceAttempt
+        )
     }
 
     suspend fun savePracticeTime() {
@@ -174,6 +179,7 @@ class PracticeViewModel(
 
     fun validatePhrase(textList: List<String>) {
         currentExerciseDetail?.let { it ->
+            val retryingExercise = exerciseStatus.isCorrected
             val result = ExerciseValidator(textList, it.exercise.practicePhrase)
                 .getValidPhrase()
 
@@ -192,7 +198,7 @@ class PracticeViewModel(
             exerciseStatus.saveCorrectedExercise(exerciseWords, recognizedWords, result.second)
 
             viewModelScope.launch(coroutineContext) {
-                insertExerciseAttempt(it, result, exerciseWords)
+                insertExerciseAttempt(it, result, exerciseWords, retryingExercise)
                 checkDailyGoal()
             }
 

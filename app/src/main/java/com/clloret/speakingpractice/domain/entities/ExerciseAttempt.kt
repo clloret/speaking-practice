@@ -19,7 +19,7 @@ import java.util.*
 data class ExerciseAttempt(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "exercise_attempt_id")
-    val id: Int = 0,
+    var id: Int = 0,
     @ColumnInfo(name = "exercise_id", index = true) val exerciseId: Int,
     @ColumnInfo(name = "time") val time: Date = Date(),
     @ColumnInfo(name = "result") val result: Boolean,

@@ -76,8 +76,8 @@ android {
     }
 
     buildFeatures {
-        dataBinding = true
-        viewBinding = true
+        dataBinding true
+        viewBinding true
     }
 
     sourceSets {
@@ -106,7 +106,6 @@ dependencies {
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
 

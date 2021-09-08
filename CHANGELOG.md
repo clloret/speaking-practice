@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Make incorrect words clickable for pronunciation by TTS
+
 ### Changed
 
 - When retrying the same exercise, only the last exercise attempt is saved

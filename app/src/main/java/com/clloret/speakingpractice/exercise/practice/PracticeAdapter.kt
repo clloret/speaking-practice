@@ -1,5 +1,6 @@
 package com.clloret.speakingpractice.exercise.practice
 
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -48,6 +49,8 @@ class PracticeAdapter(
                 model = viewModel
                 exercisePosition = position
                 totalExercises = itemCount
+
+                practicePhrase.movementMethod = LinkMovementMethod.getInstance()
             }
         }
 

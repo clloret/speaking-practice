@@ -58,6 +58,9 @@ class PracticeViewModel(
     var onClickRecognizeSpeechBtn: (() -> Unit)? = null
 
     init {
+        formatCorrectWords.onClickWord = {
+            _speakText.postValue(Event(it))
+        }
         viewModelScope.launch(coroutineContext) {
             val dailyStats = DailyStats()
             statsRepository.insertDailyStats(dailyStats)

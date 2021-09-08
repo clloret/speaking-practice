@@ -24,8 +24,8 @@ class ExerciseStatus(private val formatCorrectWords: FormatCorrectWords) : BaseO
     private val textToRender
         get() = if (showRecognizedText) recognizedText else exerciseText
 
+    private var correctedTexts = CorrectedTexts()
     var recognizedText: String? = null
-    var correctedTexts = CorrectedTexts()
 
     @get:Bindable
     var showRecognizedText = false
@@ -40,6 +40,7 @@ class ExerciseStatus(private val formatCorrectWords: FormatCorrectWords) : BaseO
         set(value) {
             field = value
             notifyPropertyChanged(BR.corrected)
+            notifyPropertyChanged(BR.practicePhrase)
         }
 
     @get:Bindable
@@ -47,7 +48,8 @@ class ExerciseStatus(private val formatCorrectWords: FormatCorrectWords) : BaseO
         get() =
             if (isCorrected)
                 formatCorrectWords.getFormattedPracticePhrase(
-                    correctedWords
+                    correctedWords,
+                    true
                 )
             else SpannedString(textToRender)
 

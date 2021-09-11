@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - When retrying the same exercise, only the last exercise attempt is saved
+- Filter the exercises already practiced during the day in the "Random Exercises" filter
 
 ### Fixed
 

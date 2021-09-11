@@ -11,6 +11,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class App : Application() {
     private val preferenceValues: PreferenceValues by inject()
@@ -28,7 +30,8 @@ class App : Application() {
     private fun setupKoin() = KoinModule.setupKoin(this)
 
     private fun populateDatabase() = GlobalScope.launch {
-        database.exerciseDao().getRandomExercisesIds(1)
+        val date = DateTimeFormatter.ISO_LOCAL_DATE.format(LocalDate.MIN)
+        database.exerciseDao().getRandomExercisesIds(date, 1)
     }
 
     private fun setupCollectionServices() {

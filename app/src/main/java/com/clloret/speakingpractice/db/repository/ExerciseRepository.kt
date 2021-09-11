@@ -36,8 +36,8 @@ class ExerciseRepository(private val db: AppDatabase) {
         return db.exerciseDao().getExercisesIdsByTag(tagId)
     }
 
-    suspend fun getRandomExercisesIds(limit: Int): List<Int> {
-        return db.exerciseDao().getRandomExercisesIds(limit)
+    suspend fun getRandomExercisesIds(day: String, limit: Int): List<Int> {
+        return db.exerciseDao().getRandomExercisesIds(day, limit)
     }
 
     suspend fun getMostFailedExercisesIds(successFactor: Double, minAttempts: Int): List<Int> {

@@ -108,7 +108,7 @@ object KoinModule {
             single { ExerciseFilterAll() }
             single { ExerciseFilterBySuccessRate() }
             factory { (limit: Int) ->
-                ExerciseFilterByRandom(limit)
+                ExerciseFilterByRandom(limit, get())
             }
             factory { (limit: Int) ->
                 ExerciseFilterByLessPracticed(limit)

@@ -34,8 +34,19 @@ interface ExerciseDao {
     )
     suspend fun getExercisesIdsByTag(tagId: Int): List<Int>
 
-    @Query("SELECT exercise_id FROM exercises ORDER BY RANDOM() LIMIT :limit")
-    suspend fun getRandomExercisesIds(limit: Int): List<Int>
+    @Query(
+        """
+                SELECT exercise_id
+                  FROM exercises
+                 WHERE exercise_id NOT IN (
+                           SELECT exercise_id
+                             FROM exercise_attempts
+                            WHERE DATE(time / 1000, 'unixepoch') = :day
+                       )
+                ORDER BY RANDOM() LIMIT :limit
+    """
+    )
+    suspend fun getRandomExercisesIds(day: String, limit: Int): List<Int>
 
     @Query(
         """

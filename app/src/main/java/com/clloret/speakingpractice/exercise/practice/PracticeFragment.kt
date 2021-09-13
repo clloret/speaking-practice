@@ -2,6 +2,7 @@ package com.clloret.speakingpractice.exercise.practice
 
 import android.Manifest
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,7 @@ class PracticeFragment : BaseFragment() {
 
         private const val EXTRA_FILTER = "filter"
         private const val PERMISSION_REQUEST_RECORD_AUDIO = 0x01
+        private const val MOVE_NEXT_EXERCISE_DELAY_IN_MILLIS = 2000L
     }
 
     private var viewModel: PracticeViewModel? = null
@@ -86,6 +88,7 @@ class PracticeFragment : BaseFragment() {
         )
     }
     private var currentPage: Int? = null
+    private var viewPager: ViewPager2? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,6 +146,8 @@ class PracticeFragment : BaseFragment() {
         val viewModel = viewModel ?: return
         val listAdapter = PracticeAdapter(viewModel)
         viewPager.adapter = listAdapter
+
+        this.viewPager = viewPager
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             Timber.d("TabLayoutMediator - tag: $tab, position: $position")
@@ -213,6 +218,7 @@ class PracticeFragment : BaseFragment() {
     private fun exerciseCorrect() {
         toastExerciseCorrect.show()
         playSound.playCorrect()
+        moveToNextExercise()
     }
 
     private fun exerciseIncorrect() {
@@ -223,6 +229,18 @@ class PracticeFragment : BaseFragment() {
     private fun dailyGoalAchieved() {
         toastDailyGoalAchieved.show()
         playSound.playDailyGoalAchieved()
+    }
+
+    private fun moveToNextExercise() {
+        Handler().postDelayed({
+            viewPager?.let {
+                val itemCount = it.adapter?.itemCount ?: 0
+                val nextItem = it.currentItem + 1
+                if (nextItem < itemCount) {
+                    it.setCurrentItem(nextItem, true)
+                }
+            }
+        }, MOVE_NEXT_EXERCISE_DELAY_IN_MILLIS)
     }
 
 

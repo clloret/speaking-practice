@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Make incorrect words clickable for pronunciation by TTS
+- Automatically move to the next exercise when the result of the exercise is correct
+- Enable or disable move to the next exercise in preferences
 
 ### Changed
 

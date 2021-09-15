@@ -49,4 +49,12 @@ class PreferenceValuesImpl(
             true
         )
     }
+
+    override fun isMoveToNextExerciseEnabled(): Boolean {
+        return preferences.getBoolean(
+            stringResourceProvider.getPrefEnableMoveToNextExercise(),
+            true
+        )
+    }
+
 }

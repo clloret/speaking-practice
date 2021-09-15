@@ -73,12 +73,14 @@
     <string name="pref_daily_goal">daily_goal</string>
     <string name="pref_enable_sound">enable_sound</string>
     <string name="pref_enable_speak_phrase">enable_speak_phrase</string>
+    <string name="pref_enable_move_to_next_exercise">enable_move_next_exercise</string>
     <string name="pref_exercises_per_round" translatable="false">exercises_per_round</string>
     <string name="pref_privacy_policy">Privacy policy</string>
     <string name="summary_collect_statistics">Submit anonymous usage statistics and error reports to help improve this app. No personal data will be collected.</string>
     <string name="summary_daily_goal">Set the number of exercises for your daily goal.</string>
     <string name="summary_enable_sound">Play sounds when practice exercises.</string>
     <string name="summary_enable_speak_phrase">Automatically speak the phrase when you practice the exercises.</string>
+    <string name="summary_enable_move_to_next_exercise">Automatically move to the next exercise when the result of the exercise is correct.</string>
     <string name="summary_exercises_per_round">Set the number of exercises per round when practice random or less practiced exercises.</string>
     <string name="title_about_me">About Me</string>
     <string name="title_add_exercise">Add New Exercise</string>
@@ -99,6 +101,7 @@
     <string name="title_empty_word_list">You haven\'t practiced any exercises yet</string>
     <string name="title_enable_sound">Enable sound</string>
     <string name="title_enable_speak_phrase">Speak the phrase</string>
+    <string name="title_enable_move_to_next_exercise">Move to the next exercise</string>
     <string name="title_exercise_correct">CORRECT</string>
     <string name="title_exercise_filter_all">All</string>
     <string name="title_exercise_filter_an_exercise">Practice An Exercise</string>

@@ -21,6 +21,10 @@ class StringResourceProviderImpl(val context: Context) : StringResourceProvider 
         return context.getString(R.string.pref_enable_speak_phrase)
     }
 
+    override fun getPrefEnableMoveToNextExercise(): String {
+        return context.getString(R.string.pref_enable_move_to_next_exercise)
+    }
+
     override fun getPrefDailyGoal(): String {
         return context.getString(R.string.pref_daily_goal)
     }

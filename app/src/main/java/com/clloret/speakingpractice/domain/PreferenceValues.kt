@@ -4,6 +4,7 @@ interface PreferenceValues {
     fun isAnalyticsEnabled(): Boolean
     fun isSoundEnabled(): Boolean
     fun isSpeakPhraseEnabled(): Boolean
+    fun isMoveToNextExerciseEnabled(): Boolean
     fun exercisesPerRound(): Int
     fun dailyGoal(): Int
 }

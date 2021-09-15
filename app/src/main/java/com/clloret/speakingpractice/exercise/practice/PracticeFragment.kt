@@ -232,6 +232,12 @@ class PracticeFragment : BaseFragment() {
     }
 
     private fun moveToNextExercise() {
+        if (!preferenceValues.isMoveToNextExerciseEnabled()) {
+            return
+        }
+
+        viewPager?.isUserInputEnabled = false
+
         Handler().postDelayed({
             viewPager?.let {
                 val itemCount = it.adapter?.itemCount ?: 0
@@ -239,6 +245,7 @@ class PracticeFragment : BaseFragment() {
                 if (nextItem < itemCount) {
                     it.setCurrentItem(nextItem, true)
                 }
+                it.isUserInputEnabled = true
             }
         }, MOVE_NEXT_EXERCISE_DELAY_IN_MILLIS)
     }

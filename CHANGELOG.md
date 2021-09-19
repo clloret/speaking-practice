@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Make incorrect words clickable for pronunciation by TTS
 - Automatically move to the next exercise when the result of the exercise is correct
 - Enable or disable move to the next exercise in preferences
+- Swipe left to delete an attempt in the attempts screen
 
 ### Changed
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.clloret.speakingpractice.BaseFragment
@@ -28,6 +29,7 @@ class AttemptListFragment : BaseFragment(), AttemptListAdapter.AttemptListListen
 
     private val viewModel: AttemptListViewModel by viewModel { parametersOf(args.filter) }
     private val args: AttemptListFragmentArgs by navArgs()
+    private var listAdapter: AttemptListAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,25 +71,60 @@ class AttemptListFragment : BaseFragment(), AttemptListAdapter.AttemptListListen
         )
         addItemDecoration(dividerItemDecoration)
 
-        val listAdapter = AttemptListAdapter(viewModel, this@AttemptListFragment)
+        listAdapter = AttemptListAdapter(viewModel, this@AttemptListFragment)
         adapter = listAdapter
 
         val rvEmptyObserver = RecyclerViewEmptyObserver(this, emptyView)
-        listAdapter.registerAdapterDataObserver(rvEmptyObserver)
+        listAdapter?.registerAdapterDataObserver(rvEmptyObserver)
 
         viewModel.attempts.observe(viewLifecycleOwner, {
             it?.let {
-                listAdapter.submitList(it)
+                listAdapter?.submitList(it)
             }
         })
+
+        itemTouchHelper.attachToRecyclerView(this)
     }
 
-    override fun onDeleteAttempt(attemptId: Int) {
+    private fun askForConformationAndDeleteAttempt(
+        attemptId: Int,
+        notifyItemChanged: Boolean = false,
+        position: Int = -1
+    ) {
         Dialogs(requireContext())
             .showConfirmation(messageId = R.string.msg_delete_exercise_attempt_confirmation) { result ->
                 if (result == Dialogs.Button.POSITIVE) {
                     viewModel.deleteAttempt(attemptId)
+                } else {
+                    if (notifyItemChanged) {
+                        listAdapter?.notifyItemChanged(position)
+                    }
                 }
             }
     }
+
+    override fun onDeleteAttempt(attemptId: Int) {
+        askForConformationAndDeleteAttempt(attemptId)
+    }
+
+    private var itemTouchHelper = ItemTouchHelper(
+        object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val attemptId = listAdapter?.getItem(position)?.attempt?.id ?: return
+
+                askForConformationAndDeleteAttempt(attemptId, true, position)
+            }
+        })
 }

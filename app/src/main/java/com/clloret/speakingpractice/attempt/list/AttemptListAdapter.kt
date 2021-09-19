@@ -55,6 +55,10 @@ class AttemptListAdapter(
 
     }
 
+    public override fun getItem(position: Int): AttemptWithExercise {
+        return super.getItem(position)
+    }
+
     class AttemptListViewHolder(private val binding: AttemptListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(

@@ -22,4 +22,8 @@ class FakePreferenceValues : PreferenceValues {
     override fun isSpeakPhraseEnabled(): Boolean {
         return false
     }
+
+    override fun isMoveToNextExerciseEnabled(): Boolean {
+        return false
+    }
 }

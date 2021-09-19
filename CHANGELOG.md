@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.10.0] - 2021-09-19
+
 ### Added
 
 - Make incorrect words clickable for pronunciation by TTS
@@ -175,7 +177,8 @@ All notable changes to this project will be documented in this file.
 
 - Initial release
 
-[unreleased]: https://github.com/clloret/speaking-practice/compare/v1.9.0...HEAD
+[unreleased]: https://github.com/clloret/speaking-practice/compare/v1.10.0...HEAD
+[1.10.0]: https://github.com/clloret/speaking-practice/compare/v1.9.0...v1.10.0
 [1.9.0]: https://github.com/clloret/speaking-practice/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/clloret/speaking-practice/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/clloret/speaking-practice/compare/v1.6.0...v1.7.0
